@@ -1,5 +1,4 @@
 import React from 'react'
-import { socials } from '../../data/portfolio'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
