@@ -34,11 +34,11 @@ const fetchWithTimeout = async (url, options = {}, timeout = API_TIMEOUT) => {
     return await response.json()
   } catch (error) {
     clearTimeout(id)
-    
+
     if (error.name === 'AbortError') {
       throw new Error('Request timeout')
     }
-    
+
     throw error
   }
 }
@@ -52,8 +52,7 @@ const fetchWithTimeout = async (url, options = {}, timeout = API_TIMEOUT) => {
  */
 export const fetchProfile = async () => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/profile`)
-    return { success: true, data }
+    return await fetchWithTimeout(`${API_BASE_URL}/profile`)
   } catch (error) {
     console.error('Error fetching profile:', error)
     return { success: false, error: error.message }
@@ -65,8 +64,7 @@ export const fetchProfile = async () => {
  */
 export const fetchSkills = async () => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/skills`)
-    return { success: true, data }
+    return await fetchWithTimeout(`${API_BASE_URL}/skills`)
   } catch (error) {
     console.error('Error fetching skills:', error)
     return { success: false, error: error.message }
@@ -78,8 +76,7 @@ export const fetchSkills = async () => {
  */
 export const fetchExperiences = async () => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/experiences`)
-    return { success: true, data }
+    return await fetchWithTimeout(`${API_BASE_URL}/experiences`)
   } catch (error) {
     console.error('Error fetching experiences:', error)
     return { success: false, error: error.message }
@@ -91,8 +88,7 @@ export const fetchExperiences = async () => {
  */
 export const fetchProjects = async () => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/projects`)
-    return { success: true, data }
+    return await fetchWithTimeout(`${API_BASE_URL}/projects`)
   } catch (error) {
     console.error('Error fetching projects:', error)
     return { success: false, error: error.message }
@@ -104,8 +100,7 @@ export const fetchProjects = async () => {
  */
 export const fetchSocials = async () => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/socials`)
-    return { success: true, data }
+    return await fetchWithTimeout(`${API_BASE_URL}/socials`)
   } catch (error) {
     console.error('Error fetching socials:', error)
     return { success: false, error: error.message }
@@ -117,11 +112,10 @@ export const fetchSocials = async () => {
  */
 export const submitContactForm = async (formData) => {
   try {
-    const data = await fetchWithTimeout(`${API_BASE_URL}/contact`, {
+    return await fetchWithTimeout(`${API_BASE_URL}/contact`, {
       method: 'POST',
       body: JSON.stringify(formData)
     })
-    return { success: true, data }
   } catch (error) {
     console.error('Error submitting contact form:', error)
     return { success: false, error: error.message }
