@@ -45,7 +45,7 @@ These instructions help AI coding agents work productively in this Vite + React 
 - New API-backed Section:
   1) Add a service function or reuse `portfolioService` getter.
   2) Use the corresponding hook in a Section: `const { data, loading, error } = useX()`.
-  3) Render `Loading`/error then content; keep fallback friendly.
+  3) Render `Loading`/error then content.
 - Switch to real API:
   1) Add `.env` with `VITE_API_URL`.
   2) Ensure backend provides `/profile`, `/skills`, `/experiences`, `/projects`, `/socials`, `/contact` as in [API_INTEGRATION.md](API_INTEGRATION.md).

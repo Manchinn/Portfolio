@@ -62,7 +62,7 @@ npm run dev
 หรือใช้ src/utils/SEOHelper.jsx
 
 ## 📡 API Integration (สรุป)
-โหมดเดียว: ใช้ API (มี fallback static กรณี API ล้มเหลว)
+โหมดเดียว: ใช้ API
 ```env
 VITE_API_URL=http://localhost:3000/api
 ```

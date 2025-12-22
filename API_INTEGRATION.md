@@ -2,7 +2,7 @@
 
 ## โครงสร้าง API-Ready Architecture
 
-Portfolio นี้ทำงานโหมด API เป็นหลัก (มี fallback เป็น static data อัตโนมัติหาก API ล้มเหลว)
+Portfolio นี้ทำงานโหมด API เป็นหลัก
 
 ### 📁 โครงสร้างไฟล์
 
@@ -10,13 +10,13 @@ Portfolio นี้ทำงานโหมด API เป็นหลัก (ม
 src/
 ├── services/
 │   ├── api.js              # API call functions
-│   └── portfolioService.js # Service layer (switch static/API)
+│   └── portfolioService.js # Service layer (API only)
 ├── hooks/
 │   └── usePortfolioData.js # Custom hooks สำหรับดึงข้อมูล
 ├── components/
 │   └── Loading.jsx         # Loading & Error components
 └── data/
-    └── portfolio.js        # Static data (fallback)
+  └── portfolio.js        # Static data (ไม่ใช้แล้วใน runtime)
 ```
 
 ---
@@ -66,7 +66,6 @@ const Projects = () => {
 ```jsx
 import { useEffect, useState } from 'react'
 import * as PortfolioService from '../services/portfolioService'
-
 const Skills = () => {
   const [skills, setSkills] = useState([])
   const [loading, setLoading] = useState(true)
@@ -113,7 +112,6 @@ const { data: experiences, loading, error } = useExperiences()
 
 ### useProjects()
 ดึงข้อมูล projects
-
 ```jsx
 const { data: projects, loading, error } = useProjects()
 ```
@@ -171,7 +169,6 @@ POST /api/contact      - Submit contact form
     ...
   }
 ]
-```
 
 #### POST /api/contact
 Request:
@@ -193,25 +190,6 @@ Response:
 
 ---
 
-## 🔄 Fallback Behavior
-
-ระบบมี **automatic fallback** ไป static data เมื่อ API ล้มเหลว (แม้เปิดโหมด API เสมอ)
-
-```javascript
-// ใน portfolioService.js
-if (USE_API) {
-  const response = await API.fetchProjects()
-  if (response.success) {
-    return response.data
-  }
-  // Auto fallback
-  console.warn('API failed, using static data')
-}
-return StaticData.projects
-```
-
----
-
 ## 🚀 สร้าง Backend API (Optional)
 
 ### Express.js Example
@@ -223,7 +201,6 @@ const cors = require('cors')
 const app = express()
 
 app.use(cors())
-app.use(express.json())
 
 // Profile endpoint
 app.get('/api/profile', (req, res) => {
@@ -246,19 +223,10 @@ app.get('/api/projects', (req, res) => {
 app.post('/api/contact', (req, res) => {
   const { name, email, message } = req.body
   // ส่ง email หรือบันทึกใน database
-  res.json({ success: true, message: 'Sent!' })
 })
 
 app.listen(3000, () => {
-  console.log('API running on http://localhost:3000')
-})
-```
 
-### สำหรับ CMS (Strapi, Contentful, etc.)
-
-เปลี่ยน endpoint URLs ใน `src/services/api.js`:
-
-```javascript
 const API_BASE_URL = 'https://your-strapi.com/api'
 ```
 
@@ -282,7 +250,6 @@ const API_BASE_URL = 'https://your-strapi.com/api'
 <ErrorDisplay 
   error="Failed to load data" 
   onRetry={() => refetch()} 
-/>
 ```
 
 ---
@@ -292,9 +259,7 @@ const API_BASE_URL = 'https://your-strapi.com/api'
 - [ ] ตั้งค่า `.env` file (VITE_API_URL)
 - [ ] สร้าง Backend API
 - [ ] ทดสอบ API endpoints
-- [ ] อัปเดต components ให้ใช้ hooks
 - [ ] เพิ่ม loading & error states
-- [ ] ทดสอบ fallback behavior
 - [ ] Deploy backend & frontend
 
 ---
@@ -328,8 +293,7 @@ const API_TIMEOUT = 30000 // 30 seconds
 1. **พึ่ง API เป็นค่าเริ่มต้น** - ตรวจ VITE_API_URL ให้ถูกต้อง
 2. **เพิ่ม loading states เสมอ** - UX ที่ดี
 3. **Handle errors gracefully** - แสดงข้อความที่เข้าใจง่าย
-4. **ใช้ fallback data** - แอปไม่พัง ถ้า API ล่ม
-5. **Cache data ถ้าจำเป็น** - ลด API calls
+4. **Cache data ถ้าจำเป็น** - ลด API calls
 
 ---
 

@@ -3,7 +3,6 @@
 // ============================================
 
 import * as API from "./api";
-import * as StaticData from "../data/portfolio";
 
 /**
  * Get Profile Data
@@ -11,13 +10,8 @@ import * as StaticData from "../data/portfolio";
  */
 export const getProfileData = async () => {
   const response = await API.fetchProfile();
-  if (response.success) {
-    return response.data;
-  }
-  // Fallback to static data if API fails
-  console.warn("API failed, using static data for profile");
-
-  return StaticData.profileData;
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch profile");
 };
 
 /**
@@ -25,13 +19,9 @@ export const getProfileData = async () => {
  * @returns {Promise<Array>} Skills array
  */
 export const getSkills = async () => {
-    const response = await API.fetchSkills();
-    if (response.success) {
-      return response.data;
-    }
-    console.warn("API failed, using static data for skills");
-
-  return StaticData.skills;
+  const response = await API.fetchSkills();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch skills");
 };
 
 /**
@@ -39,13 +29,9 @@ export const getSkills = async () => {
  * @returns {Promise<Array>} Experiences array
  */
 export const getExperiences = async () => {
-    const response = await API.fetchExperiences();
-    if (response.success) {
-      return response.data;
-    }
-    console.warn("API failed, using static data for experiences");
-
-  return StaticData.experiences;
+  const response = await API.fetchExperiences();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch experiences");
 };
 
 /**
@@ -53,13 +39,9 @@ export const getExperiences = async () => {
  * @returns {Promise<Array>} Projects array
  */
 export const getProjects = async () => {
-    const response = await API.fetchProjects();
-    if (response.success) {
-      return response.data;
-    }
-    console.warn("API failed, using static data for projects");
-
-  return StaticData.projects;
+  const response = await API.fetchProjects();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch projects");
 };
 
 /**
@@ -67,21 +49,9 @@ export const getProjects = async () => {
  * @returns {Promise<Array>} Socials array
  */
 export const getSocials = async () => {
-    const response = await API.fetchSocials();
-    if (response.success) {
-      return response.data;
-    }
-    console.warn("API failed, using static data for socials");
-
-  return StaticData.socials;
-};
-
-/**
- * Get Navigation Items
- * @returns {Array} Navigation items
- */
-export const getNavItems = () => {
-  return StaticData.navItems;
+  const response = await API.fetchSocials();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch socials");
 };
 
 /**
@@ -90,14 +60,9 @@ export const getNavItems = () => {
  * @returns {Promise<Object>} Response from API or mock success
  */
 export const submitContact = async (formData) => {
-  
-  // Mock response for static mode
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("Contact form submitted (mock):", formData);
-      resolve({ success: true, message: "Message sent successfully!" });
-    }, 1000);
-  });
+  const response = await API.submitContactForm(formData);
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to submit contact form");
 };
 
 /**
@@ -105,18 +70,7 @@ export const submitContact = async (formData) => {
  * @returns {Promise<Object>} All portfolio data
  */
 export const getAllPortfolioData = async () => {
-    const response = await API.fetchAllPortfolioData();
-    if (response.success) {
-      return response.data;
-    }
-    console.warn("API failed, using static data");
-
-  // Return all static data
-  return {
-    profile: StaticData.profileData,
-    skills: StaticData.skills,
-    experiences: StaticData.experiences,
-    projects: StaticData.projects,
-    socials: StaticData.socials,
-  };
+  const response = await API.fetchAllPortfolioData();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch portfolio data");
 };
