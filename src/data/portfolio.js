@@ -7,11 +7,11 @@ export const profileData = {
   title: "Frontend Developer / Full-stack Developer",
   bio: "นักพัฒนา React & Web Developer ที่มีความหลงใหลในการสร้างเว็บไซต์ที่สวยงามและใช้งานได้ดี",
   shortBio: "Creating beautiful and functional web experiences",
-  image: "/profile.jpg", // ใส่รูปของคุณใน public folder
+  image: "https://placehold.co/400x400/000000/FFF?text=Profile", // ใส่รูปของคุณใน public folder
   email: "your.email@example.com",
   phone: "+66 XXX-XXX-XXXX",
   location: "Thailand",
-  resume: "/resume.pdf", // ใส่ resume ใน public folder
+  resume: "/Chinnakrit-Sripan_CV.pdf", // ใส่ resume ใน public folder
   ctaText: "ดูผลงาน"
 }
 
