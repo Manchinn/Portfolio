@@ -2,7 +2,7 @@
 
 ## โครงสร้าง API-Ready Architecture
 
-Portfolio นี้ได้รับการออกแบบให้รองรับทั้ง **Static Data** และ **API** โดยสามารถสลับได้ง่ายผ่าน environment variables
+Portfolio นี้ทำงานโหมด API เป็นหลัก (มี fallback เป็น static data อัตโนมัติหาก API ล้มเหลว)
 
 ### 📁 โครงสร้างไฟล์
 
@@ -31,14 +31,9 @@ src/
 cp .env.example .env
 ```
 
-แก้ไขค่าใน `.env`:
+แก้ไขค่าใน `.env` ให้ใช้ API:
 
 ```env
-# ใช้ static data
-VITE_USE_API=false
-
-# หรือใช้ API
-VITE_USE_API=true
 VITE_API_URL=https://your-backend.com/api
 ```
 
@@ -142,7 +137,7 @@ const { data, loading, error } = useAllPortfolioData()
 
 ## 🎯 Backend API Endpoints
 
-หาก `VITE_USE_API=true` จะเรียก API endpoints ดังนี้:
+ระบบจะเรียก API endpoints ดังนี้ (โหมด API เป็นค่าเริ่มต้น):
 
 ```
 GET  /api/profile      - Profile data
@@ -200,10 +195,7 @@ Response:
 
 ## 🔄 Fallback Behavior
 
-System มี **automatic fallback** ถึง static data:
-
-1. ถ้า `VITE_USE_API=false` → ใช้ static data
-2. ถ้า `VITE_USE_API=true` แต่ API fail → ใช้ static data + แสดง warning
+ระบบมี **automatic fallback** ไป static data เมื่อ API ล้มเหลว (แม้เปิดโหมด API เสมอ)
 
 ```javascript
 // ใน portfolioService.js
@@ -297,10 +289,9 @@ const API_BASE_URL = 'https://your-strapi.com/api'
 
 ## 📋 Checklist สำหรับใช้ API
 
-- [ ] ตั้งค่า `.env` file
+- [ ] ตั้งค่า `.env` file (VITE_API_URL)
 - [ ] สร้าง Backend API
 - [ ] ทดสอบ API endpoints
-- [ ] เปลี่ยน `VITE_USE_API=true`
 - [ ] อัปเดต components ให้ใช้ hooks
 - [ ] เพิ่ม loading & error states
 - [ ] ทดสอบ fallback behavior
@@ -334,7 +325,7 @@ const API_TIMEOUT = 30000 // 30 seconds
 
 ## 📖 Best Practices
 
-1. **ใช้ static data ในขณะพัฒนา** - เร็วกว่า, ไม่ต้องรอ API
+1. **พึ่ง API เป็นค่าเริ่มต้น** - ตรวจ VITE_API_URL ให้ถูกต้อง
 2. **เพิ่ม loading states เสมอ** - UX ที่ดี
 3. **Handle errors gracefully** - แสดงข้อความที่เข้าใจง่าย
 4. **ใช้ fallback data** - แอปไม่พัง ถ้า API ล่ม

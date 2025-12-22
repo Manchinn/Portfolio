@@ -62,10 +62,8 @@ npm run dev
 หรือใช้ src/utils/SEOHelper.jsx
 
 ## 📡 API Integration (สรุป)
-สลับ static/API ได้ผ่าน env:
+โหมดเดียว: ใช้ API (มี fallback static กรณี API ล้มเหลว)
 ```env
-VITE_USE_API=false
-VITE_USE_API=true
 VITE_API_URL=http://localhost:3000/api
 ```
 Hooks ตัวอย่าง:
