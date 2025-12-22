@@ -1,8 +1,15 @@
 import React from 'react'
-import { skills } from '../../data/portfolio'
+import { useSkills } from '../../hooks/usePortfolioData'
+import Loading, { ErrorDisplay } from '../Loading'
 import SkillTag from '../SkillTag'
 
 const Skills = () => {
+  const { data: skills, loading, error, refetch } = useSkills()
+
+  if (loading) return <Loading text="Loading skills..." />
+  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
+  if (!skills || !Array.isArray(skills)) return <div className="text-center p-10">No skills data available</div>
+
   return (
     <section id="skills" className="min-h-screen bg-neo-blue border-b-4 border-black p-10 flex flex-col items-center justify-center">
       <div className="w-full max-w-5xl">

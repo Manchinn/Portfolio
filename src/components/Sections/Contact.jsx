@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { profileData } from '../../data/portfolio'
+import { useProfile } from '../../hooks/usePortfolioData'
+import { submitContact } from '../../services/portfolioService'
+import Loading, { ErrorDisplay } from '../Loading'
 
 const Contact = () => {
+  const { data: profileData, loading: profileLoading, error: profileError, refetch } = useProfile()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
-
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -18,16 +21,21 @@ const Contact = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // สามารถใช้ EmailJS หรือ backend API ได้
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
+    setSubmitError(null)
+    try {
+      await submitContact(formData)
+      setSubmitted(true)
       setFormData({ name: '', email: '', message: '' })
-      setSubmitted(false)
-    }, 3000)
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch (err) {
+      setSubmitError(err.message)
+    }
   }
+
+  if (profileLoading) return <Loading text="Loading contact info..." />
+  if (profileError) return <ErrorDisplay error={profileError} onRetry={refetch} />
 
   return (
     <section id="contact" className="min-h-screen bg-neo-pink border-b-4 border-black p-10 flex flex-col items-center justify-center">

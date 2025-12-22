@@ -1,7 +1,9 @@
 import React from 'react'
+import { useSocials } from '../../hooks/usePortfolioData'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { data: socials, loading } = useSocials()
 
   return (
     <footer className="bg-black border-t-4 border-black text-white">
@@ -31,22 +33,24 @@ const Footer = () => {
           <div>
             <h4 className="font-black text-neo-yellow uppercase mb-4">Connect</h4>
             <div className="flex gap-3">
-              {[
-                { name: 'GitHub', url: 'https://github.com', icon: '🐙' },
-                { name: 'LinkedIn', url: 'https://linkedin.com', icon: '💼' },
-                { name: 'Twitter', url: 'https://twitter.com', icon: '𝕏' }
-              ].map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={social.name}
-                  className="w-10 h-10 border-2 border-white flex items-center justify-center hover:bg-neo-pink hover:border-neo-pink transition-all duration-200 text-lg"
-                >
-                  {social.icon}
-                </a>
-              ))}
+              {loading ? (
+                <p className="text-sm text-gray-400">Loading...</p>
+              ) : socials && socials.length > 0 ? (
+                socials.map((social, idx) => (
+                  <a
+                    key={idx}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={social.name}
+                    className="w-10 h-10 border-2 border-white flex items-center justify-center hover:bg-neo-pink hover:border-neo-pink transition-all duration-200 text-lg"
+                  >
+                    {social.name.slice(0, 1)}
+                  </a>
+                ))
+              ) : (
+                <p className="text-sm text-gray-400">No social links</p>
+              )}
             </div>
           </div>
         </div>

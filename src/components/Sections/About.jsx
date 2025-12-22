@@ -1,7 +1,14 @@
 import React from 'react'
-import { profileData } from '../../data/portfolio'
+import { useProfile } from '../../hooks/usePortfolioData'
+import Loading, { ErrorDisplay } from '../Loading'
 
 const About = () => {
+  const { data: profileData, loading, error, refetch } = useProfile()
+
+  if (loading) return <Loading text="Loading profile..." />
+  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
+  if (!profileData) return <div className="text-center p-10">No profile data available</div>
+
   return (
     <section id="about" className="min-h-screen bg-neo-yellow border-b-4 border-black p-10 flex flex-col items-center justify-center">
       <div className="w-full max-w-4xl">

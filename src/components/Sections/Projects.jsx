@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
-import { projects } from '../../data/portfolio'
+import { useProjects } from '../../hooks/usePortfolioData'
+import Loading, { ErrorDisplay } from '../Loading'
 import Card from '../Card/Card'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
+  const { data: projects, loading, error, refetch } = useProjects()
+
+  if (loading) return <Loading text="Loading projects..." />
+  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
+  if (!projects || !Array.isArray(projects)) return <div className="text-center p-10">No projects data available</div>
 
   return (
     <section id="projects" className="min-h-screen bg-white p-10 border-b-4 border-black flex flex-col items-center justify-center">

@@ -1,8 +1,15 @@
 import React from 'react'
-import { experiences } from '../../data/portfolio'
+import { useExperiences } from '../../hooks/usePortfolioData'
+import Loading, { ErrorDisplay } from '../Loading'
 import ExperienceCard from '../ExperienceCard'
 
 const Experience = () => {
+  const { data: experiences, loading, error, refetch } = useExperiences()
+
+  if (loading) return <Loading text="Loading experiences..." />
+  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
+  if (!experiences || !Array.isArray(experiences)) return <div className="text-center p-10">No experience data available</div>
+
   return (
     <section id="experience" className="min-h-screen bg-neo-green border-b-4 border-black p-10 flex flex-col items-center justify-center">
       <div className="w-full max-w-4xl">

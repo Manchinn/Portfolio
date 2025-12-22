@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { navItems } from '../../data/portfolio'
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const linkStyles = "hover:text-neo-pink transition-colors duration-300 font-bold relative group"
+  const linkStyles = "hover:text-neo-pink transition-colors duration-300 font-bold relative group";
   
   return (
     <nav className="flex justify-between items-center border-b-4 border-black bg-white p-4 sticky top-0 z-50 shadow-neo">
@@ -54,4 +54,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
