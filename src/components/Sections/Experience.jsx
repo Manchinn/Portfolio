@@ -11,10 +11,10 @@ const Experience = () => {
   if (!experiences || !Array.isArray(experiences)) return <div className="text-center p-10">No experience data available</div>
 
   return (
-    <section id="experience" className="min-h-screen bg-neo-green border-b-4 border-black p-10 flex flex-col items-center justify-center">
+    <section id="experience" className="min-h-screen bg-neo-green border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center">
       <div className="w-full max-w-4xl">
         {/* Header */}
-        <h2 className="text-5xl font-black mb-12 border-b-4 border-black inline-block pb-2 text-white">EXPERIENCE</h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2 text-white">EXPERIENCE</h2>
 
         {/* Timeline */}
         <div className="relative">
@@ -22,7 +22,7 @@ const Experience = () => {
           <div className="hidden md:block absolute left-0 top-0 bottom-0 w-1 bg-black ml-8"></div>
 
           {/* Experience Cards */}
-          <div className="space-y-6 md:ml-20">
+          <div className="space-y-6 sm:ml-6 md:ml-20">
             {experiences.map((exp) => (
               <ExperienceCard
                 key={exp.id}
@@ -37,11 +37,11 @@ const Experience = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
-          <p className="font-mono text-lg mb-6">ต้องการดูรายละเอียดเพิ่มเติม?</p>
-          <a 
-            href="#contact" 
-            className="inline-block bg-neo-pink border-4 border-black px-8 py-4 font-black text-lg hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
+        <div className="mt-8 sm:mt-10 md:mt-12 text-center">
+          <p className="font-mono text-base sm:text-lg mb-4 sm:mb-6">ต้องการดูรายละเอียดเพิ่มเติม?</p>
+          <a
+            href="#contact"
+            className="inline-block bg-neo-pink border-4 border-black px-6 sm:px-8 py-3 sm:py-4 font-black text-base sm:text-lg hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
           >
             ติดต่อผม →
           </a>

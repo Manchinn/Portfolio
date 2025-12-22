@@ -38,15 +38,15 @@ const Contact = () => {
   if (profileError) return <ErrorDisplay error={profileError} onRetry={refetch} />
 
   return (
-    <section id="contact" className="min-h-screen bg-neo-pink border-b-4 border-black p-10 flex flex-col items-center justify-center">
+    <section id="contact" className="min-h-screen bg-neo-pink border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center">
       <div className="w-full max-w-3xl">
         {/* Header */}
-        <h2 className="text-5xl font-black mb-12 border-b-4 border-black inline-block pb-2">GET IN TOUCH</h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2">GET IN TOUCH</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Contact Form */}
-          <div className="bg-white border-4 border-black p-8 shadow-neo">
-            <h3 className="text-2xl font-black mb-6 uppercase">Send Message</h3>
+          <div className="bg-white border-4 border-black p-4 sm:p-6 md:p-8 shadow-neo">
+            <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">Send Message</h3>
 
             {submitted ? (
               <div className="bg-neo-green border-4 border-black p-6 text-center">
@@ -100,7 +100,7 @@ const Contact = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-neo-blue border-2 border-black p-3 font-black text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-neo uppercase"
+                  className="w-full bg-neo-blue border-2 border-black p-3 font-black text-sm sm:text-base text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-neo uppercase"
                 >
                   ส่งข้อความ →
                 </button>
@@ -109,42 +109,42 @@ const Contact = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Email */}
-            <div className="bg-white border-4 border-black p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-lg mb-2 uppercase">📧 Email</h4>
+            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📧 Email</h4>
               <a
                 href={`mailto:${profileData.email}`}
-                className="font-mono text-neo-blue hover:underline decoration-4"
+                className="font-mono text-sm sm:text-base text-neo-blue hover:underline decoration-4 break-all"
               >
                 {profileData.email}
               </a>
             </div>
 
             {/* Phone */}
-            <div className="bg-white border-4 border-black p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-lg mb-2 uppercase">📱 Phone</h4>
+            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📱 Phone</h4>
               <a
                 href={`tel:${profileData.phone}`}
-                className="font-mono text-neo-green hover:underline decoration-4"
+                className="font-mono text-sm sm:text-base text-neo-green hover:underline decoration-4"
               >
                 {profileData.phone}
               </a>
             </div>
 
             {/* Location */}
-            <div className="bg-white border-4 border-black p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-lg mb-2 uppercase">📍 Location</h4>
-              <p className="font-mono text-gray-700">{profileData.location}</p>
+            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📍 Location</h4>
+              <p className="font-mono text-sm sm:text-base text-gray-700">{profileData.location}</p>
             </div>
 
             {/* Resume Download */}
-            <div className="bg-neo-yellow border-4 border-black p-6 shadow-neo">
-              <h4 className="font-black text-lg mb-3 uppercase">📄 Resume</h4>
+            <div className="bg-neo-yellow border-4 border-black p-4 sm:p-6 shadow-neo">
+              <h4 className="font-black text-base sm:text-lg mb-3 uppercase">📄 Resume</h4>
               <a
                 href={profileData.resume}
                 download
-                className="inline-block w-full text-center bg-black border-2 border-black text-white px-4 py-3 font-black hover:bg-white hover:text-black transition-all duration-200 uppercase"
+                className="inline-block w-full text-center bg-black border-2 border-black text-white px-4 py-3 font-black text-sm sm:text-base hover:bg-white hover:text-black transition-all duration-200 uppercase"
               >
                 Download CV →
               </a>
@@ -153,9 +153,9 @@ const Contact = () => {
         </div>
 
         {/* Social Links */}
-        <div className="mt-12 pt-8 border-t-4 border-black">
-          <h3 className="text-2xl font-black mb-6 uppercase">Follow Me</h3>
-          <div className="flex gap-4 flex-wrap">
+        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t-4 border-black">
+          <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">Follow Me</h3>
+          <div className="flex gap-3 sm:gap-4 flex-wrap">
             {[
               { name: 'GitHub', emoji: '🐙', url: 'https://github.com' },
               { name: 'LinkedIn', emoji: '💼', url: 'https://linkedin.com' },
@@ -167,7 +167,7 @@ const Contact = () => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white border-4 border-black px-6 py-3 font-black hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
+                className="bg-white border-4 border-black px-4 sm:px-6 py-2 sm:py-3 font-black text-sm sm:text-base hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
               >
                 <span className="mr-2">{social.emoji}</span>{social.name}
               </a>
