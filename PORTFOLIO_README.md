@@ -62,7 +62,7 @@ npm install
 
 ```javascript
 export const profileData = {
-  name: "ชินณภา",
+  name: "ชินกฤต",
   title: "Frontend Developer",
   bio: "คำอธิบายเกี่ยวกับตัวเอง...",
   email: "your.email@example.com",
@@ -255,6 +255,6 @@ This project is open source and available for personal use.
 
 ---
 
-**Made with ❤️ by ชินณภา**
+**Made with ❤️ by ชินกฤต**
 
 สำหรับคำถามหรือข้อเสนอแนะ ติดต่อผมได้ที่ email หรือ social media ของผม

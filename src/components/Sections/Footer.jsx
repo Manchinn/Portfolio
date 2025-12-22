@@ -54,7 +54,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-sm text-gray-400">
           <p>© {currentYear} All rights reserved.</p>
-          <p>Designed & Built by <span className="text-white font-bold">ชินณภา</span></p>
+          <p>Designed & Built by <span className="text-white font-bold">ชินกฤต</span></p>
           <p>Made with <span className="text-neo-pink">❤</span> using React + Tailwind</p>
         </div>
       </div>

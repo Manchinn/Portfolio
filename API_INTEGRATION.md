@@ -158,7 +158,7 @@ POST /api/contact      - Submit contact form
 #### GET /api/profile
 ```json
 {
-  "name": "ชินณภา",
+  "name": "ชินกฤต",
   "title": "Frontend Developer",
   "email": "email@example.com",
   ...

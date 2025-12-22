@@ -3,7 +3,7 @@
 // ============================================
 
 export const profileData = {
-  name: "ชินณภา (Chinnaphon)",
+  name: "ชินกฤต (Chinnakrit)",
   title: "Frontend Developer / Full-stack Developer",
   bio: "นักพัฒนา React & Web Developer ที่มีความหลงใหลในการสร้างเว็บไซต์ที่สวยงามและใช้งานได้ดี",
   shortBio: "Creating beautiful and functional web experiences",

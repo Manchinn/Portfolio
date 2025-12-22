@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
  * ใช้สำหรับอัปเดต meta tags ต่างๆ
  */
 const SEOHelper = ({ 
-  title = "ชินณภา - Frontend Developer Portfolio",
+  title = "ชินกฤต - Frontend Developer Portfolio",
   description = "Frontend Developer & Full-stack Developer Portfolio สร้างสรรค์เว็บไซต์ที่สวยงาม",
   image = "/og-image.jpg",
   url = "https://your-portfolio-url.com",
