@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSkills } from '../../hooks/usePortfolioData'
-import Loading, { ErrorDisplay } from '../Loading'
-import SkillTag from '../SkillTag'
+import Loading, { ErrorDisplay } from '../../components/ui/Loading'
+import SkillTag from '../ui/SkillTag'
 
 const Skills = () => {
   const { data: skills, loading, error, refetch } = useSkills()

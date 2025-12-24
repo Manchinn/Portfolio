@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../components/Button/Button'
+import Button from '../components/ui/Button/Button'
 
 // นำเข้า Sections ทั้งหมด
 import About from '../components/Sections/About'
@@ -7,7 +7,7 @@ import Skills from '../components/Sections/Skills'
 import Experience from '../components/Sections/Experience'
 import Projects from '../components/Sections/Projects'
 import Contact from '../components/Sections/Contact'
-import Footer from '../components/Sections/Footer'
+import Footer from '../components/layout/Footer'
 
 // นำเข้าข้อมูล
 import { profileData } from '../data/portfolio'

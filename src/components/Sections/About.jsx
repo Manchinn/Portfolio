@@ -1,6 +1,6 @@
 import React from 'react'
 import { useProfile } from '../../hooks/usePortfolioData'
-import Loading, { ErrorDisplay } from '../Loading'
+import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
 const About = () => {
   const { data: profileData, loading, error, refetch } = useProfile()

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useProjects } from '../../hooks/usePortfolioData'
-import Loading, { ErrorDisplay } from '../Loading'
-import Card from '../Card/Card'
+import Loading, { ErrorDisplay } from '../../components/ui/Loading'
+import Card from '../ui/Card/Card'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)

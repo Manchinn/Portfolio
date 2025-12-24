@@ -1,63 +1,80 @@
-import React, { useState } from 'react'
-import { useProfile } from '../../hooks/usePortfolioData'
-import { submitContact } from '../../services/portfolioService'
-import Loading, { ErrorDisplay } from '../Loading'
+import React, { useState } from "react";
+import { useProfile } from "../../hooks/usePortfolioData";
+import { submitContact } from "../../services/portfolioService";
+import Loading, { ErrorDisplay } from "../../components/ui/Loading";
 
 const Contact = () => {
-  const { data: profileData, loading: profileLoading, error: profileError, refetch } = useProfile()
+  const {
+    data: profileData,
+    loading: profileLoading,
+    error: profileError,
+    refetch,
+  } = useProfile();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  })
-  const [submitted, setSubmitted] = useState(false)
-  const [submitError, setSubmitError] = useState(null)
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setSubmitError(null)
+    e.preventDefault();
+    setSubmitError(null);
     try {
-      await submitContact(formData)
-      setSubmitted(true)
-      setFormData({ name: '', email: '', message: '' })
-      setTimeout(() => setSubmitted(false), 3000)
+      await submitContact(formData);
+      setSubmitted(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
     } catch (err) {
-      setSubmitError(err.message)
+      setSubmitError(err.message);
     }
-  }
+  };
 
-  if (profileLoading) return <Loading text="Loading contact info..." />
-  if (profileError) return <ErrorDisplay error={profileError} onRetry={refetch} />
+  if (profileLoading) return <Loading text="Loading contact info..." />;
+  if (profileError)
+    return <ErrorDisplay error={profileError} onRetry={refetch} />;
 
   return (
-    <section id="contact" className="min-h-screen bg-neo-pink border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center">
+    <section
+      id="contact"
+      className="min-h-screen bg-neo-pink border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center"
+    >
       <div className="w-full max-w-3xl">
         {/* Header */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2">GET IN TOUCH</h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2">
+          GET IN TOUCH
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Contact Form */}
           <div className="bg-white border-4 border-black p-4 sm:p-6 md:p-8 shadow-neo">
-            <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">Send Message</h3>
+            <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">
+              Send Message
+            </h3>
 
             {submitted ? (
               <div className="bg-neo-green border-4 border-black p-6 text-center">
-                <p className="font-black text-lg text-white">✓ ขอบคุณที่ติดต่อ!</p>
+                <p className="font-black text-lg text-white">
+                  ✓ ขอบคุณที่ติดต่อ!
+                </p>
                 <p className="font-mono text-sm mt-2">จะตอบกลับเร็วๆนี้</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Name */}
                 <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">ชื่อ *</label>
+                  <label className="block font-bold mb-2 uppercase text-sm">
+                    ชื่อ *
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -71,7 +88,9 @@ const Contact = () => {
 
                 {/* Email */}
                 <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">Email *</label>
+                  <label className="block font-bold mb-2 uppercase text-sm">
+                    Email *
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -85,7 +104,9 @@ const Contact = () => {
 
                 {/* Message */}
                 <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">Message *</label>
+                  <label className="block font-bold mb-2 uppercase text-sm">
+                    Message *
+                  </label>
                   <textarea
                     name="message"
                     value={formData.message}
@@ -96,6 +117,12 @@ const Contact = () => {
                     className="w-full border-2 border-black p-3 font-mono focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neo-blue resize-none"
                   />
                 </div>
+
+                {submitError && (
+                  <div className="border-2 border-black bg-red-100 text-red-700 font-mono p-3">
+                    {submitError}
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <button
@@ -112,7 +139,9 @@ const Contact = () => {
           <div className="space-y-4 sm:space-y-6">
             {/* Email */}
             <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📧 Email</h4>
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
+                📧 Email
+              </h4>
               <a
                 href={`mailto:${profileData.email}`}
                 className="font-mono text-sm sm:text-base text-neo-blue hover:underline decoration-4 break-all"
@@ -123,7 +152,9 @@ const Contact = () => {
 
             {/* Phone */}
             <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📱 Phone</h4>
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
+                📱 Phone
+              </h4>
               <a
                 href={`tel:${profileData.phone}`}
                 className="font-mono text-sm sm:text-base text-neo-green hover:underline decoration-4"
@@ -134,13 +165,19 @@ const Contact = () => {
 
             {/* Location */}
             <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">📍 Location</h4>
-              <p className="font-mono text-sm sm:text-base text-gray-700">{profileData.location}</p>
+              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
+                📍 Location
+              </h4>
+              <p className="font-mono text-sm sm:text-base text-gray-700">
+                {profileData.location}
+              </p>
             </div>
 
             {/* Resume Download */}
             <div className="bg-neo-yellow border-4 border-black p-4 sm:p-6 shadow-neo">
-              <h4 className="font-black text-base sm:text-lg mb-3 uppercase">📄 Resume</h4>
+              <h4 className="font-black text-base sm:text-lg mb-3 uppercase">
+                📄 Resume
+              </h4>
               <a
                 href={profileData.resume}
                 download
@@ -154,13 +191,15 @@ const Contact = () => {
 
         {/* Social Links */}
         <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t-4 border-black">
-          <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">Follow Me</h3>
+          <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">
+            Follow Me
+          </h3>
           <div className="flex gap-3 sm:gap-4 flex-wrap">
             {[
-              { name: 'GitHub', emoji: '🐙', url: 'https://github.com' },
-              { name: 'LinkedIn', emoji: '💼', url: 'https://linkedin.com' },
-              { name: 'Twitter', emoji: '𝕏', url: 'https://twitter.com' },
-              { name: 'Email', emoji: '✉️', url: '#' }
+              { name: "GitHub", emoji: "🐙", url: "https://github.com" },
+              { name: "LinkedIn", emoji: "💼", url: "https://linkedin.com" },
+              { name: "Twitter", emoji: "𝕏", url: "https://twitter.com" },
+              { name: "Email", emoji: "✉️", url: "#" },
             ].map((social, idx) => (
               <a
                 key={idx}
@@ -169,14 +208,15 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 className="bg-white border-4 border-black px-4 sm:px-6 py-2 sm:py-3 font-black text-sm sm:text-base hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
               >
-                <span className="mr-2">{social.emoji}</span>{social.name}
+                <span className="mr-2">{social.emoji}</span>
+                {social.name}
               </a>
             ))}
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

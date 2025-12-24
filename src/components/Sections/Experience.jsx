@@ -1,7 +1,7 @@
 import React from 'react'
 import { useExperiences } from '../../hooks/usePortfolioData'
-import Loading, { ErrorDisplay } from '../Loading'
-import ExperienceCard from '../ExperienceCard'
+import Loading, { ErrorDisplay } from '../../components/ui/Loading'
+import ExperienceCard from '../ui/ExperienceCard'
 
 const Experience = () => {
   const { data: experiences, loading, error, refetch } = useExperiences()
