@@ -31,21 +31,22 @@
 
 ### Color Tokens
 
-**Brand Colors** (defined in [tailwind.config.js](../tailwind.config.js)):
-```javascript
-// Primary Colors
-'neo-yellow': '#FFDE00'  // Primary accent, CTAs, highlights
-'neo-pink': '#FF90E8'    // Secondary accent, success states
-'neo-blue': '#5471FF'    // Interactive elements, links
-'neo-green': '#90EE90'   // Positive feedback, badges
+**Brand Colors** (defined in [src/index.css](../src/index.css) via `@theme`):
+```css
+/* @theme directive (Tailwind v4) */
+@theme {
+  --color-neo-yellow: #FFDE00;  /* → bg-neo-yellow, text-neo-yellow */
+  --color-neo-pink: #FF90E8;    /* → bg-neo-pink, text-neo-pink */
+  --color-neo-blue: #5471FF;    /* → bg-neo-blue, text-neo-blue */
+  --color-neo-green: #90EE90;   /* → bg-neo-green, text-neo-green */
+}
 
-// Semantic Usage
-- Primary CTA: bg-neo-yellow
-- Secondary actions: bg-neo-pink
-- Info/Links: bg-neo-blue
-- Success states: bg-neo-green
-- Text: text-black (always high contrast)
-- Background: bg-white (default) or bg-gray-50
+/* ใช้งาน: utility classes สร้างอัตโนมัติ */
+bg-neo-yellow    /* Primary CTA */
+bg-neo-pink      /* Secondary actions */
+bg-neo-blue      /* Info/Links */
+bg-neo-green     /* Success states */
+text-black       /* Always high contrast */
 ```
 
 **Neutral Colors**:
@@ -55,37 +56,43 @@
 
 ### Typography Tokens
 
-**Font Families**:
-- Primary: System font stack (default Tailwind)
-- Code/Technical: `font-mono` for code snippets, timestamps
+**CSS Variables** (defined in [src/index.css](../src/index.css)):
+```css
+--font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+--font-weight-normal: 400;
+--font-weight-bold: 700;
+--font-weight-black: 900;
 
-**Font Sizes** (Tailwind scale):
-- `text-xs` (0.75rem) - Captions, labels, metadata
-- `text-sm` (0.875rem) - Body small, secondary text
-- `text-base` (1rem) - Default body text
-- `text-lg` (1.125rem) - Subheadings, lead text
-- `text-xl` (1.25rem) - Card titles
-- `text-2xl` to `text-6xl` - Headings hierarchy
+/* Font Sizes */
+--text-xs: 0.75rem;    /* Captions, metadata */
+--text-sm: 0.875rem;   /* Body small */
+--text-base: 1rem;     /* Default body */
+--text-lg: 1.125rem;   /* Subheadings */
+--text-xl: 1.25rem;    /* Card titles */
+--text-2xl to --text-6xl /* Headings */
+```
 
-**Font Weights**:
-- `font-normal` (400) - Body text
+**Tailwind Usage**:
+- `font-mono` - Code snippets, timestamps
 - `font-bold` (700) - Emphasis, buttons
 - `font-black` (900) - Headings, hero text
-
-**Text Transforms**:
 - `uppercase` - Buttons, labels, emphasis
-- `capitalize` - Titles
 
 ### Spacing Tokens
 
-**Padding/Margin Scale** (use Tailwind defaults):
-- `p-2` (0.5rem) - Tight spacing
-- `p-3` (0.75rem) - Default card padding (mobile)
-- `p-4` (1rem) - Default card padding (desktop)
-- `p-6` (1.5rem) - Section padding
-- `p-8` to `p-12` - Large section spacing
+**CSS Variables** (defined in [src/index.css](../src/index.css)):
+```css
+--space-1: 0.25rem;   /* 4px - tight */
+--space-2: 0.5rem;    /* 8px - button padding-y */
+--space-3: 0.75rem;   /* 12px - card padding (mobile) */
+--space-4: 1rem;      /* 16px - card padding (desktop) */
+--space-6: 1.5rem;    /* 24px - section padding */
+--space-8: 2rem;      /* 32px - large section */
+--space-10: 2.5rem;   /* 40px */
+--space-12: 3rem;     /* 48px - section vertical */
+```
 
-**Responsive Spacing Pattern**:
+**Responsive Spacing Pattern** (Tailwind):
 ```jsx
 px-4 py-2        // Mobile button
 sm:px-6 sm:py-3  // Desktop button
@@ -96,51 +103,74 @@ py-8 md:py-12    // Section padding
 
 ### Border Tokens
 
-**Border Widths**:
-- `border-2` - Default component borders (neo-brutalism standard)
-- `border-4` - Emphasis, hero elements
+**CSS Variables** (defined in [src/index.css](../src/index.css)):
+```css
+--border-width-default: 2px;    /* Standard components */
+--border-width-thick: 4px;      /* Emphasis, hero */
+--border-color: var(--color-black);
+--border-radius-none: 0;        /* Neo-brutalism default */
+--border-radius-sm: 0.125rem;   /* Images only (rare) */
+```
+
+**Tailwind Usage**:
+- `border-2 border-black` - Default component borders
+- `border-4 border-black` - Emphasis, hero elements
 - `border-b-2` - Dividers
-
-**Border Colors**:
-- `border-black` - Primary (99% of cases)
-- `border-gray-200` - Subtle dividers (rare)
-
-**Border Radius**:
-- `rounded-none` - Default (neo-brutalism: no rounded corners)
-- `rounded-sm` - Use sparingly for images only
+- `rounded-none` - Default (no rounded corners)
 
 ### Shadow Tokens
 
-**Defined in [tailwind.config.js](../tailwind.config.js) & [src/index.css](../src/index.css)**:
+**Defined in [src/index.css](../src/index.css) via `@theme`**:
 
 ```css
-/* Default Neo Shadow */
-shadow-neo: 4px 4px 0px 0px rgba(0,0,0,1)
+/* @theme directive สร้าง utility classes อัตโนมัติ */
+@theme {
+  --shadow-neo: 4px 4px 0 #000;        /* → shadow-neo */
+  --shadow-neo-sm: 2px 2px 0 #000;     /* → shadow-neo-sm */
+  --shadow-neo-lg: 8px 8px 0 #000;     /* → shadow-neo-lg */
+  --shadow-neo-soft: 4px 4px 0 rgba(0,0,0,0.3); /* → shadow-neo-soft */
+}
 
-/* Usage */
-.shadow-neo              // Default state
-.hover:shadow-none       // Pressed/active state (shadow disappears)
-.hover-shadow-lift       // Lifted state: 8px 8px 0px
+/* ใช้งาน */
+<div class="shadow-neo">              <!-- ใช้ utility class ตรง -->
+<div class="shadow-neo-lg">           <!-- large shadow -->
+<div class="hover:shadow-none">       <!-- ลบ shadow เมื่อ hover -->
 
 /* Interactive Pattern */
 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
-// Creates "button press" effect
+/* สร้าง "button press" effect */
 ```
+
+**Component Classes** (ใน CSS ปกติ):
+- `.neo-press` - Interactive press effect
+- `.neo-card` - Card พร้อม border + shadow
+- `.neo-btn` - Button base style
+- `.hover-shadow-lift` - เพิ่ม shadow เมื่อ hover
 
 ### Animation Tokens
 
-**Defined in [src/index.css](../src/index.css)**:
+**Defined in [src/index.css](../src/index.css) via `@theme`**:
 
-**Entrance Animations**:
 ```css
-.animate-fade-in           // Fade + slide up (0.6s)
-.animate-slide-in-left     // Slide from left (0.6s)
-.animate-slide-in-right    // Slide from right (0.6s)
-.animate-scale-up          // Scale + fade (0.6s)
-.animate-bounce-slow       // Bounce infinite (2s)
+/* @theme สร้าง animate-* utilities */
+@theme {
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-in-left: slide-in-left 0.6s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.6s ease-out forwards;
+  --animate-scale-up: scale-up 0.6s ease-out forwards;
+  --animate-bounce-slow: bounce-slow 2s infinite;
+  --animate-shimmer: shimmer 2s infinite;
+
+  @keyframes fade-in { /* ... */ }
+}
+
+/* ใช้งาน */
+<div class="animate-fade-in">         <!-- Fade + slide up -->
+<div class="animate-slide-in-left">   <!-- Slide from left -->
+<div class="animate-bounce-slow">     <!-- Bounce infinite -->
 ```
 
-**Stagger Pattern**:
+**Stagger Pattern** (CSS ปกติ):
 ```jsx
 <div className="animate-stagger">
   <div>Item 1</div> {/* delays: 0s, 0.1s, 0.2s... */}
@@ -148,35 +178,30 @@ hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
 </div>
 ```
 
-**Transition Utilities**:
-```css
-.transition-all-smooth      // All properties (cubic-bezier)
-.transition-transform-smooth // Transform only
-```
-
-**Hover Effects**:
-```css
-.hover-lift        // Lift up on hover
-.hover-glow        // Glow effect
-.hover-shadow-lift // Increase shadow
-```
-
-**Special Effects**:
-```css
-.animate-shimmer     // Loading skeleton
-.highlight-text      // Gradient text animation
-.border-pulse        // Border color pulse
-.underline-animate   // Animated underline
-```
+**Utility Classes ใน CSS**:
+- `.transition-all-smooth` - All properties (cubic-bezier)
+- `.transition-transform-smooth` - Transform only
+- `.hover-lift` - Lift up on hover
+- `.hover-glow` - Glow effect
 
 ### Interaction Tokens
 
-**Button States**:
+**CSS Variables** (defined in [src/index.css](../src/index.css)):
+```css
+--transition-fast: 200ms;      /* Hover, active */
+--transition-normal: 300ms;    /* Standard */
+--transition-slow: 500ms;      /* Dramatic */
+--ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+--press-offset: 2px;           /* Button press shift */
+--hover-lift: -5px;            /* Lift on hover */
+```
+
+**Button States** (Tailwind):
 ```jsx
 // Default
 bg-neo-yellow border-2 border-black shadow-neo
 
-// Hover
+// Hover (or use .neo-press class)
 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
 
 // Active/Press
@@ -186,10 +211,14 @@ active:bg-white
 opacity-50 cursor-not-allowed
 ```
 
-**Transition Timing**:
-- `duration-200` - Quick interactions (hover, active)
-- `duration-300` - Standard transitions
-- `duration-500` - Slow, dramatic effects
+**Ready-to-use Class**:
+```jsx
+// Using neo-press utility
+<button className="neo-btn bg-neo-yellow">Click me</button>
+
+// Using neo-card
+<div className="neo-card p-4">Card content</div>
+```
 
 ---
 

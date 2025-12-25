@@ -1,6 +1,127 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ============================================
+   Design Tokens (Tailwind v4 @theme)
+   สร้าง utility classes อัตโนมัติ เช่น bg-neo-yellow, shadow-neo
+   ============================================ */
+@theme {
+  /* Brand Colors → bg-neo-*, text-neo-*, border-neo-* */
+  --color-neo-yellow: #FFDE00;
+  --color-neo-pink: #FF90E8;
+  --color-neo-blue: #5471FF;
+  --color-neo-green: #90EE90;
+
+  /* Neo-Brutalism Shadows → shadow-neo, shadow-neo-sm, shadow-neo-lg */
+  --shadow-neo: 4px 4px 0 #000;
+  --shadow-neo-sm: 2px 2px 0 #000;
+  --shadow-neo-lg: 8px 8px 0 #000;
+  --shadow-neo-soft: 4px 4px 0 rgba(0, 0, 0, 0.3);
+
+  /* Border Radius → rounded-neo-none */
+  --radius-neo-none: 0;
+
+  /* Custom Easing → ease-neo */
+  --ease-neo: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Custom Animations */
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-in-left: slide-in-left 0.6s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.6s ease-out forwards;
+  --animate-scale-up: scale-up 0.6s ease-out forwards;
+  --animate-bounce-slow: bounce-slow 2s infinite;
+  --animate-shimmer: shimmer 2s infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-up {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+}
+
+/* ============================================
+   Additional CSS Variables (non-utility)
+   ใช้สำหรับ custom CSS ที่ไม่ต้องการ utility class
+   ============================================ */
+:root {
+  /* Spacing Scale (for custom CSS) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Border Widths (for custom CSS) */
+  --border-width-default: 2px;
+  --border-width-thick: 4px;
+
+  /* Transitions */
+  --transition-fast: 200ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+
+  /* Interactive States */
+  --press-offset: 2px;
+  --hover-lift: -5px;
+}
 
 html {
   scroll-behavior: smooth;
@@ -167,16 +288,95 @@ html {
 }
 
 /* ============================================
-   Neo-Brutalism Extra Styles
+   Neo-Brutalism Component Utilities
+   ใช้ @theme variables: shadow-neo, bg-neo-yellow, etc.
    ============================================ */
 
-/* Better Box Shadow (Neo style) */
-.shadow-neo {
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+/* Interactive Press Effect */
+.neo-press {
+  transition: transform var(--transition-fast) ease-out,
+              box-shadow var(--transition-fast) ease-out;
 }
 
+.neo-press:hover {
+  transform: translate(var(--press-offset), var(--press-offset));
+  box-shadow: none;
+}
+
+.neo-press:active {
+  transform: translate(var(--press-offset), var(--press-offset));
+  box-shadow: none;
+}
+
+/* Neo Card Base */
+.neo-card {
+  border: var(--border-width-default) solid black;
+  box-shadow: var(--shadow-neo-soft);
+  background: white;
+  border-radius: 0;
+}
+
+.neo-card-thick {
+  border-width: var(--border-width-thick);
+}
+
+/* Neo Button Base */
+.neo-btn {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  font-weight: 700;
+  text-transform: uppercase;
+  border: var(--border-width-default) solid black;
+  box-shadow: var(--shadow-neo-soft);
+  transition: transform var(--transition-fast) ease-out,
+              box-shadow var(--transition-fast) ease-out;
+}
+
+.neo-btn:hover {
+  transform: translate(var(--press-offset), var(--press-offset));
+  box-shadow: none;
+}
+
+/* Neo Input Base */
+.neo-input {
+  width: 100%;
+  padding: var(--space-3);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: var(--border-width-default) solid black;
+  border-radius: 0;
+}
+
+.neo-input:focus {
+  outline: none;
+  box-shadow: var(--shadow-neo-sm);
+}
+
+/* Neo Section Base */
+.neo-section {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-bottom: var(--border-width-thick) solid black;
+}
+
+@media (min-width: 768px) {
+  .neo-section {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+}
+
+/* Neo Heading */
+.neo-heading {
+  font-weight: 900;
+  text-transform: uppercase;
+  border-bottom: var(--border-width-thick) solid black;
+  display: inline-block;
+  padding-bottom: var(--space-2);
+}
+
+/* Hover Shadow Lift */
 .hover-shadow-lift:hover {
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-neo-lg);
 }
 
 /* Border Animation */
