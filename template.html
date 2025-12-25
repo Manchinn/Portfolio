@@ -1,0 +1,438 @@
+import React, { useState } from 'react';
+import { Menu, X, Check, Code, Layout, Smartphone, Database, Zap, Search, Globe, Mail, ArrowRight, Github, Linkedin, ExternalLink, Layers, ShoppingCart, Sparkles, Loader, MessageSquare, User, Briefcase, Calendar } from 'lucide-react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // State for AI Feature
+  const [businessIdea, setBusinessIdea] = useState('');
+  const [aiPlan, setAiPlan] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Gemini API Configuration
+  const apiKey = ""; 
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-preview-09-2025" });
+
+  const generateProjectPlan = async () => {
+    if (!businessIdea.trim()) return;
+
+    setIsLoading(true);
+    setError('');
+    setAiPlan(null);
+
+    try {
+      const prompt = `
+        Act as an expert web consultant. The user wants to build a website/app for: "${businessIdea}".
+        Please generate a brief project plan in JSON format with the following fields:
+        - slogan: A catchy marketing slogan for this business website (Thai language).
+        - pages: An array of 4-5 essential pages (e.g., Home, Services).
+        - features: An array of 3 key technical features (e.g., Booking System, Payment Gateway).
+        - techStack: Recommended tech stack (e.g., Next.js, Firebase).
+        - estimatedTime: Estimated development time (e.g., 2-3 weeks).
+        
+        Keep the tone professional yet creative. Respond in Thai for the content values.
+        Ensure the response is strictly valid JSON without markdown block formatting.
+      `;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      let text = response.text();
+      text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+      const data = JSON.parse(text);
+      setAiPlan(data);
+    } catch (err) {
+      console.error("AI Error:", err);
+      setError("ขออภัย เกิดข้อผิดพลาดในการเชื่อมต่อกับ AI กรุณาลองใหม่อีกครั้ง");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const projects = [
+    {
+      id: 1,
+      title: "E-Commerce Dashboard",
+      category: "Web Application",
+      description: "ระบบจัดการหลังบ้านสำหรับร้านค้าออนไลน์ ฟีเจอร์ครบครันทั้งจัดการสต๊อก, ออเดอร์ และดูสถิติยอดขายแบบ Real-time",
+      tech: ["React", "Tailwind", "Node.js", "Recharts"],
+      imageColor: "bg-blue-100",
+      icon: <ShoppingCart className="w-12 h-12 text-blue-500" />
+    },
+    {
+      id: 2,
+      title: "Corporate Booking System",
+      category: "Business Platform",
+      description: "แพลตฟอร์มจองห้องประชุมสำหรับองค์กร รองรับพนักงานกว่า 500 คน พร้อมระบบแจ้งเตือนผ่าน Line OA",
+      tech: ["Next.js", "Firebase", "Line API"],
+      imageColor: "bg-purple-100",
+      icon: <Layers className="w-12 h-12 text-purple-500" />
+    },
+    {
+      id: 3,
+      title: "Health Care Landing Page",
+      category: "Website",
+      description: "หน้าเว็บไซต์สำหรับคลินิกทันตกรรม ออกแบบให้ดูสะอาด น่าเชื่อถือ และทำ SEO จนติดหน้าแรก Google",
+      tech: ["HTML/CSS", "JavaScript", "SEO"],
+      imageColor: "bg-teal-100",
+      icon: <Layout className="w-12 h-12 text-teal-500" />
+    }
+  ];
+
+  const experiences = [
+    {
+      role: "Senior Web Developer",
+      company: "Tech Solutions Co., Ltd.",
+      period: "2023 - Present",
+      description: "นำทีมพัฒนา Web Application ขนาดใหญ่ ดูแล Architecture ของระบบ และปรับปรุง Performance ให้ดียิ่งขึ้น"
+    },
+    {
+      role: "Freelance Full Stack Dev",
+      company: "Self-Employed",
+      period: "2021 - 2023",
+      description: "รับผิดชอบโปรเจกต์ลูกค้าตั้งแต่ต้นจนจบ (End-to-End) ทั้งส่วน Frontend, Backend และ Deployment"
+    },
+    {
+      role: "Junior Frontend Developer",
+      company: "Digital Agency Inc.",
+      period: "2019 - 2021",
+      description: "พัฒนาหน้าเว็บไซต์ตาม Design System และทำ Responsive UI ให้รองรับทุกอุปกรณ์"
+    }
+  ];
+
+  return (
+    <div className="font-sans text-gray-800 bg-gray-50">
+      {/* Navigation */}
+      <nav className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20 items-center">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xl">D</span>
+              </div>
+              <span className="text-2xl font-bold text-gray-900">Dev<span className="text-indigo-600">Folio</span></span>
+            </div>
+            
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-8 items-center">
+              <a href="#home" className="text-gray-600 hover:text-indigo-600 font-medium">Home</a>
+              <a href="#about" className="text-gray-600 hover:text-indigo-600 font-medium">About</a>
+              <a href="#skills" className="text-gray-600 hover:text-indigo-600 font-medium">Skills</a>
+              <a href="#experience" className="text-gray-600 hover:text-indigo-600 font-medium">Experience</a>
+              <a href="#projects" className="text-gray-600 hover:text-indigo-600 font-medium">Projects</a>
+              <a href="#contact" className="bg-indigo-600 text-white px-6 py-2.5 rounded-full font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                Contact
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-600">
+                {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t p-4 space-y-4 shadow-lg">
+            <a href="#home" className="block text-gray-600 font-medium py-2">Home</a>
+            <a href="#about" className="block text-gray-600 font-medium py-2">About</a>
+            <a href="#skills" className="block text-gray-600 font-medium py-2">Skills</a>
+            <a href="#experience" className="block text-gray-600 font-medium py-2">Experience</a>
+            <a href="#projects" className="block text-gray-600 font-medium py-2">Projects</a>
+            <a href="#contact" className="block text-indigo-600 font-medium py-2">Contact</a>
+          </div>
+        )}
+      </nav>
+
+      {/* 1. Home (Hero Section) */}
+      <header id="home" className="relative bg-white overflow-hidden scroll-mt-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
+            <main className="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
+              <div className="sm:text-center lg:text-left">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-sm font-medium mb-4 border border-indigo-100">
+                  <span className="flex h-2 w-2 bg-indigo-600 rounded-full mr-2"></span>
+                  Open to work: รับงาน Freelance & Contract
+                </div>
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                  <span className="block xl:inline">ยกระดับธุรกิจด้วย</span>{' '}
+                  <span className="block text-indigo-600 xl:inline">Modern Website</span>
+                </h1>
+                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                  ผมช่วยเปลี่ยนไอเดียของคุณให้เป็น Web Application ที่ใช้งานได้จริง สวยงาม รวดเร็ว และรองรับ SEO เพื่อการเติบโตของธุรกิจที่ยั่งยืน
+                </p>
+                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                  <div className="rounded-md shadow">
+                    <a href="#projects" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                      ดูผลงานที่ผ่านมา
+                    </a>
+                  </div>
+                  <div className="mt-3 sm:mt-0 sm:ml-3">
+                    <a href="#about" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-50 hover:bg-indigo-100 md:py-4 md:text-lg md:px-10">
+                      เกี่ยวกับผม
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="mt-8 flex items-center gap-4 text-gray-400 sm:justify-center lg:justify-start">
+                  <Github className="w-6 h-6 hover:text-gray-600 cursor-pointer" />
+                  <Linkedin className="w-6 h-6 hover:text-blue-600 cursor-pointer" />
+                  <Mail className="w-6 h-6 hover:text-red-500 cursor-pointer" />
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+        
+        {/* Hero Illustration */}
+        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex items-center justify-center overflow-hidden">
+            <div className="relative w-full h-64 sm:h-72 md:h-96 lg:h-full flex items-center justify-center">
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-200 rounded-full opacity-20 blur-3xl"></div>
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-200 rounded-full opacity-30 blur-2xl"></div>
+
+               <div className="relative bg-gray-900 p-6 rounded-xl shadow-2xl max-w-md w-full mx-4 border border-gray-700 transform rotate-[-2deg] hover:rotate-0 transition duration-500">
+                  <div className="flex items-center space-x-2 mb-4 border-b border-gray-700 pb-4">
+                     <div className="flex space-x-1.5">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                     </div>
+                     <span className="text-gray-400 text-xs font-mono ml-4">App.tsx</span>
+                  </div>
+                  <div className="space-y-2 font-mono text-sm">
+                      <div className="text-pink-400">const <span className="text-blue-400">createSuccess</span> = <span className="text-yellow-300">async</span> () ={'>'} {'{'}</div>
+                      <div className="pl-4 text-gray-300">
+                          <span className="text-purple-400">await</span> project.<span className="text-blue-300">deploy</span>(<span className="text-green-300">'Production'</span>);
+                      </div>
+                      <div className="pl-4 text-gray-300">
+                          <span className="text-purple-400">return</span> <span className="text-green-300">"Business Growth 🚀"</span>;
+                      </div>
+                      <div className="text-pink-400">{'}'}</div>
+                  </div>
+                  
+                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-xl border border-gray-100 flex items-center space-x-3 transform rotate-[2deg]">
+                      <div className="bg-green-100 p-2 rounded-full">
+                          <Check className="w-6 h-6 text-green-600" />
+                      </div>
+                      <div>
+                          <p className="text-xs text-gray-500">Project Status</p>
+                          <p className="font-bold text-gray-800">Completed 100%</p>
+                      </div>
+                  </div>
+               </div>
+            </div>
+        </div>
+      </header>
+
+      {/* 2. About Section (Replaced Pain Points) */}
+      <section id="about" className="py-20 bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-12">
+                <div className="w-full md:w-1/2 relative">
+                     {/* Placeholder for Profile Image */}
+                    <div className="aspect-square bg-gray-200 rounded-2xl overflow-hidden relative shadow-xl">
+                        <div className="absolute inset-0 flex items-center justify-center bg-indigo-100 text-indigo-300">
+                            <User size={120} />
+                        </div>
+                    </div>
+                    <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg border border-gray-100 max-w-xs hidden md:block">
+                        <p className="text-gray-500 text-sm mb-1">Experience</p>
+                        <p className="text-2xl font-bold text-indigo-600">5+ Years</p>
+                        <p className="text-gray-500 text-sm">Working in Tech</p>
+                    </div>
+                </div>
+                <div className="w-full md:w-1/2">
+                    <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase mb-2">About Me</h2>
+                    <h3 className="text-3xl font-extrabold text-gray-900 mb-6">มากกว่าแค่นักเขียนโค้ด คือพาร์ทเนอร์ที่เข้าใจธุรกิจ</h3>
+                    <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                        สวัสดีครับ! ผมเป็น Full Stack Developer ที่มีความหลงใหลในการสร้าง Web Application ที่ไม่เพียงแค่ "ทำงานได้" แต่ต้อง "ทำงานได้ดี" 
+                    </p>
+                    <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                        ผมเชี่ยวชาญในการแก้ปัญหาทางเทคนิคที่ซับซ้อนให้กลายเป็นเรื่องง่าย โฟกัสที่ User Experience (UX) และ Performance เป็นหลัก เพื่อให้มั่นใจว่าสิ่งที่ผมสร้างจะช่วยเพิ่มมูลค่าให้กับธุรกิจของคุณได้อย่างแท้จริง
+                    </p>
+                    
+                    {/* Problem Solving Cards (Mini) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                         <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                             <Zap className="text-yellow-500 mb-2" />
+                             <h4 className="font-bold text-gray-900">High Performance</h4>
+                             <p className="text-sm text-gray-500">เว็บโหลดไว คะแนนเขียว</p>
+                         </div>
+                         <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                             <Search className="text-blue-500 mb-2" />
+                             <h4 className="font-bold text-gray-900">SEO Optimized</h4>
+                             <p className="text-sm text-gray-500">โครงสร้างดี ติด Google ง่าย</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* 3. Skills Section */}
+      <section id="skills" className="py-20 bg-indigo-900 text-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-base text-indigo-300 font-semibold tracking-wide uppercase">My Skills</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+              Tech Stack & Tools
+            </p>
+          </div>
+
+          <div className="mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { title: 'Frontend Development', desc: 'React, Next.js, Vue.js, Tailwind CSS', icon: <Layout className="w-6 h-6" /> },
+                { title: 'Backend Development', desc: 'Node.js, Express, Python, Go', icon: <Database className="w-6 h-6" /> },
+                { title: 'Mobile Development', desc: 'React Native, Flutter for cross-platform apps', icon: <Smartphone className="w-6 h-6" /> },
+                { title: 'DevOps & Cloud', desc: 'Docker, AWS, Firebase, CI/CD Pipelines', icon: <Code className="w-6 h-6" /> },
+                { title: 'Database', desc: 'PostgreSQL, MongoDB, MySQL, Redis', icon: <Layers className="w-6 h-6" /> },
+                { title: 'SEO & Performance', desc: 'Core Web Vitals, Semantic HTML, Analytics', icon: <Globe className="w-6 h-6" /> },
+              ].map((feature, index) => (
+                <div key={index} className="flex flex-col bg-indigo-800 p-6 rounded-xl border border-indigo-700 hover:bg-indigo-700 transition">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mb-4">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg font-medium text-white">{feature.title}</h3>
+                  <p className="mt-2 text-base text-indigo-200">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Experience Section (New) */}
+      <section id="experience" className="py-20 bg-gray-50 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div className="text-center mb-16">
+                <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Experience</h2>
+                <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                  เส้นทางการทำงาน
+                </p>
+            </div>
+            
+            <div className="relative max-w-4xl mx-auto">
+                {/* Vertical Line */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200 hidden md:block"></div>
+                
+                <div className="space-y-12">
+                    {experiences.map((exp, index) => (
+                        <div key={index} className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} items-center justify-between relative`}>
+                            {/* Dot */}
+                            <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-indigo-600 rounded-full border-4 border-white shadow-md hidden md:block"></div>
+                            
+                            {/* Content */}
+                            <div className="w-full md:w-5/12">
+                                <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+                                    <div className="flex items-center text-sm text-indigo-600 font-semibold mb-2">
+                                        <Calendar size={16} className="mr-2" />
+                                        {exp.period}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-900">{exp.role}</h3>
+                                    <h4 className="text-lg text-gray-600 mb-4">{exp.company}</h4>
+                                    <p className="text-gray-500 text-sm leading-relaxed">
+                                        {exp.description}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="w-full md:w-5/12"></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* 5. Projects Section (Portfolio + AI Planner) */}
+      <section id="projects" className="py-20 bg-white scroll-mt-20 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Selected Projects</h2>
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              ผลงานที่ผ่านมา
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            {projects.map((project) => (
+              <div key={project.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col h-full group">
+                <div className={`h-48 ${project.imageColor} flex items-center justify-center relative overflow-hidden group-hover:scale-[1.02] transition duration-500`}>
+                  {project.icon}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300 flex items-center justify-center">
+                  </div>
+                </div>
+                
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full uppercase tracking-wide">
+                      {project.category}
+                    </span>
+                    <a href="#" className="text-gray-400 hover:text-indigo-600 transition">
+                      <ExternalLink size={20} />
+                    </a>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 text-sm leading-relaxed flex-grow">
+                    {project.description}
+                  </p>
+                  
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((t, i) => (
+                        <span key={i} className="text-xs font-mono text-gray-500 border border-gray-200 px-2 py-1 rounded">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+        </div>
+      </section>
+
+      {/* 6. Contact Section */}
+      <section id="contact" className="bg-indigo-50 py-20 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-extrabold text-gray-900 mb-4">พร้อมเริ่มโปรเจกต์ของคุณหรือยัง?</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                อย่าปล่อยให้ไอเดียของคุณเป็นแค่ความฝัน ทักมาคุยรายละเอียดกันก่อนได้ครับ ปรึกษาฟรี ไม่มีค่าใช้จ่าย
+            </p>
+            <a href="mailto:contact@devfolio.com" className="inline-flex items-center bg-indigo-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-indigo-700 transition shadow-xl">
+                <Mail className="w-5 h-5 mr-2" /> ส่งอีเมลหาผม
+            </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <h3 className="text-white text-2xl font-bold">Dev<span className="text-indigo-500">Folio</span></h3>
+            <p className="text-sm text-gray-400 mt-1">Building the web, one pixel at a time.</p>
+          </div>
+          <div className="flex space-x-6">
+            <a href="#" className="text-gray-400 hover:text-white transition">GitHub</a>
+            <a href="#" className="text-gray-400 hover:text-white transition">LinkedIn</a>
+            <a href="#" className="text-gray-400 hover:text-white transition">Medium</a>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 border-t border-gray-800 pt-8 text-sm text-center text-gray-500">
+          © 2025 DevFolio. All rights reserved.
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;

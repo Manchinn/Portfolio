@@ -292,6 +292,19 @@ html {
    ใช้ @theme variables: shadow-neo, bg-neo-yellow, etc.
    ============================================ */
 
+/* Shadow utilities (map to @theme shadows) */
+.shadow-neo {
+  box-shadow: var(--shadow-neo-soft);
+}
+
+.shadow-neo-sm {
+  box-shadow: var(--shadow-neo-sm);
+}
+
+.shadow-neo-lg {
+  box-shadow: var(--shadow-neo-lg);
+}
+
 /* Interactive Press Effect */
 .neo-press {
   transition: transform var(--transition-fast) ease-out,
