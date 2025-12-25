@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Mail } from "lucide-react";
 import { useProfile } from "../../hooks/usePortfolioData";
 import { submitContact } from "../../services/portfolioService";
 import Loading, { ErrorDisplay } from "../../components/ui/Loading";
@@ -44,175 +45,81 @@ const Contact = () => {
     return <ErrorDisplay error={profileError} onRetry={refetch} />;
 
   return (
-    <section
-      id="contact"
-      className="min-h-screen bg-neo-pink border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center"
-    >
-      <div className="w-full max-w-3xl">
-        {/* Header */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2">
-          GET IN TOUCH
+    <section id="contact" className="bg-[#BDB2FF] py-20 border-t-4 border-black scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-5xl md:text-6xl font-black text-black mb-8 uppercase leading-tight">
+          READY TO<br/>START?
         </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {/* Contact Form */}
-          <div className="bg-white border-4 border-black p-4 sm:p-6 md:p-8 shadow-neo">
-            <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">
-              Send Message
-            </h3>
-
-            {submitted ? (
-              <div className="bg-neo-green border-4 border-black p-6 text-center">
-                <p className="font-black text-lg text-white">
-                  ✓ ขอบคุณที่ติดต่อ!
-                </p>
-                <p className="font-mono text-sm mt-2">จะตอบกลับเร็วๆนี้</p>
+        <div className="bg-white border-4 border-black p-8 inline-block shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-2xl transform -rotate-1">
+          <p className="text-xl font-bold text-black mb-8">
+            อย่าปล่อยให้ไอเดียของคุณเป็นแค่ความฝัน ทักมาคุยรายละเอียดกันก่อนได้ครับ
+          </p>
+          
+          {submitted ? (
+            <div className="bg-[#CAFFBF] border-4 border-black p-6 text-center mb-6">
+              <p className="font-black text-xl">✓ ขอบคุณที่ติดต่อ!</p>
+              <p className="font-mono text-sm mt-2">จะตอบกลับเร็วๆนี้</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4 text-left mb-6">
+              <div>
+                <label className="block font-black mb-2 uppercase text-sm">ชื่อ *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="ชื่อของคุณ"
+                  className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[#9BF6FF]"
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name */}
-                <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">
-                    ชื่อ *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="ชื่อของคุณ"
-                    className="w-full border-2 border-black p-3 font-mono focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neo-blue"
-                  />
+              <div>
+                <label className="block font-black mb-2 uppercase text-sm">Email *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="your.email@example.com"
+                  className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[#9BF6FF]"
+                />
+              </div>
+              <div>
+                <label className="block font-black mb-2 uppercase text-sm">Message *</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  placeholder="ข้อความของคุณ..."
+                  rows="4"
+                  className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[#9BF6FF] resize-none"
+                />
+              </div>
+              
+              {submitError && (
+                <div className="border-4 border-black bg-[#FFADAD] font-mono p-3 text-center">
+                  {submitError}
                 </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your.email@example.com"
-                    className="w-full border-2 border-black p-3 font-mono focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neo-blue"
-                  />
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block font-bold mb-2 uppercase text-sm">
-                    Message *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    placeholder="ข้อความของคุณ..."
-                    rows="5"
-                    className="w-full border-2 border-black p-3 font-mono focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neo-blue resize-none"
-                  />
-                </div>
-
-                {submitError && (
-                  <div className="border-2 border-black bg-red-100 text-red-700 font-mono p-3">
-                    {submitError}
-                  </div>
-                )}
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="w-full bg-neo-blue border-2 border-black p-3 font-black text-sm sm:text-base text-white hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-neo uppercase"
-                >
-                  ส่งข้อความ →
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-4 sm:space-y-6">
-            {/* Email */}
-            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
-                📧 Email
-              </h4>
-              <a
-                href={`mailto:${profileData.email}`}
-                className="font-mono text-sm sm:text-base text-neo-blue hover:underline decoration-4 break-all"
+              )}
+              
+              <button
+                type="submit"
+                className="w-full bg-black text-white border-4 border-black px-8 py-4 font-black text-xl hover:bg-[#FF6B6B] hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff] flex items-center justify-center gap-3"
               >
-                {profileData.email}
-              </a>
-            </div>
-
-            {/* Phone */}
-            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
-                📱 Phone
-              </h4>
-              <a
-                href={`tel:${profileData.phone}`}
-                className="font-mono text-sm sm:text-base text-neo-green hover:underline decoration-4"
-              >
-                {profileData.phone}
-              </a>
-            </div>
-
-            {/* Location */}
-            <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-neo hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200">
-              <h4 className="font-black text-base sm:text-lg mb-2 uppercase">
-                📍 Location
-              </h4>
-              <p className="font-mono text-sm sm:text-base text-gray-700">
-                {profileData.location}
-              </p>
-            </div>
-
-            {/* Resume Download */}
-            <div className="bg-neo-yellow border-4 border-black p-4 sm:p-6 shadow-neo">
-              <h4 className="font-black text-base sm:text-lg mb-3 uppercase">
-                📄 Resume
-              </h4>
-              <a
-                href={profileData.resume}
-                download
-                className="inline-block w-full text-center bg-black border-2 border-black text-white px-4 py-3 font-black text-sm sm:text-base hover:bg-white hover:text-black transition-all duration-200 uppercase"
-              >
-                Download CV →
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Social Links */}
-        <div className="mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t-4 border-black">
-          <h3 className="text-xl sm:text-2xl font-black mb-4 sm:mb-6 uppercase">
-            Follow Me
-          </h3>
-          <div className="flex gap-3 sm:gap-4 flex-wrap">
-            {[
-              { name: "GitHub", emoji: "🐙", url: "https://github.com" },
-              { name: "LinkedIn", emoji: "💼", url: "https://linkedin.com" },
-              { name: "Twitter", emoji: "𝕏", url: "https://twitter.com" },
-              { name: "Email", emoji: "✉️", url: "#" },
-            ].map((social, idx) => (
-              <a
-                key={idx}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border-4 border-black px-4 sm:px-6 py-2 sm:py-3 font-black text-sm sm:text-base hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 shadow-neo uppercase"
-              >
-                <span className="mr-2">{social.emoji}</span>
-                {social.name}
-              </a>
-            ))}
-          </div>
+                <Mail className="w-6 h-6" /> SEND MESSAGE
+              </button>
+            </form>
+          )}
+          
+          <a 
+            href={`mailto:${profileData?.email || 'contact@example.com'}`} 
+            className="inline-flex items-center bg-black text-white border-2 border-black px-8 py-4 font-black text-xl hover:bg-[#FF6B6B] hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff]"
+          >
+            <Mail className="w-6 h-6 mr-3" /> SEND EMAIL NOW
+          </a>
         </div>
       </div>
     </section>

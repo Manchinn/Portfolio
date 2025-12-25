@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../components/ui/Button/Button'
+import { ArrowRight, Github, Linkedin, Mail, Check } from 'lucide-react'
 
 // นำเข้า Sections ทั้งหมด
 import About from '../components/Sections/About'
@@ -14,72 +14,82 @@ import { profileData } from '../data/portfolio'
 
 const Home = () => {
   return (
-    <div className="flex flex-col">
+    <div className="font-sans text-black bg-[#FFFAEB] min-h-screen selection:bg-black selection:text-white">
 
       {/* --- Section 1: Hero --- */}
-      <section id="home" className="neo-section bg-neo-blue text-black flex items-center">
-        <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-2 items-center px-4 w-full">
-          {/* Hero copy */}
-          <div className="space-y-4 sm:space-y-6 animate-fade-in">
-            <span className="inline-flex items-center gap-2 bg-white border-2 border-black px-3 py-2 font-mono text-sm shadow-neo-sm uppercase">
-              🚀 Portfolio 2025
-            </span>
-            <div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight neo-heading border-b-0">
-                {profileData.name}
+      <header id="home" className="relative overflow-hidden scroll-mt-20 py-20 bg-[#FFFAEB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Hero copy */}
+            <div className="w-full lg:w-1/2 text-center lg:text-left">
+              <div className="inline-block bg-[#CAFFBF] border-2 border-black px-4 py-1 font-bold mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">
+                <span>👋 Open to work: Freelance & Contract</span>
+              </div>
+              <h1 className="text-5xl sm:text-7xl font-black text-black leading-none mb-6">
+                CHINNAKRIT SRIPAN<br/>
+                <span className="text-[#9BF6FF] bg-black px-2">PORTFOLIO</span><br/>
+                WEBSITE
               </h1>
-              <p className="text-xl sm:text-2xl font-bold text-black mt-2">{profileData.title}</p>
+              <p className="text-xl font-bold text-gray-700 mb-8 max-w-lg mx-auto lg:mx-0 border-l-4 border-black pl-4">
+                {profileData.shortBio || "ผมช่วยเปลี่ยนไอเดียของคุณให้เป็น Web Application ที่ใช้งานได้จริง สวยงาม รวดเร็ว และรองรับ SEO"}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="#projects" className="bg-[#FF9642] text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
+                  ดูผลงาน <ArrowRight className="ml-2 w-6 h-6 border-2 border-black rounded-full p-0.5 bg-white" />
+                </a>
+                <a href="#about" className="bg-white text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
+                  เกี่ยวกับผม
+                </a>
+              </div>
+              
+              <div className="mt-10 flex items-center justify-center lg:justify-start gap-6">
+                {[
+                  { Icon: Github, href: "https://github.com" },
+                  { Icon: Linkedin, href: "https://linkedin.com" },
+                  { Icon: Mail, href: `mailto:${profileData.email}` }
+                ].map((item, i) => (
+                  <a key={i} href={item.href} className="w-12 h-12 border-2 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform cursor-pointer">
+                    <item.Icon size={24} strokeWidth={2} />
+                  </a>
+                ))}
+              </div>
             </div>
-            <p className="font-mono text-base sm:text-lg text-black/80 max-w-xl">
-              {profileData.shortBio}
-            </p>
 
-            <div className="flex flex-wrap gap-3">
-              <a href="#projects">
-                <Button text="ดูผลงาน" color="bg-neo-yellow" className="neo-press shadow-neo-lg" />
-              </a>
-              <a href="#contact">
-                <Button text="ติดต่อผม" color="bg-neo-pink" className="neo-press shadow-neo-lg" />
-              </a>
-              <a href={profileData.resume} download>
-                <Button text="Download CV" color="bg-neo-green" className="neo-press shadow-neo-lg" />
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-              {[{ label: 'Projects', value: '6+' }, { label: 'Years', value: '2+' }, { label: 'Clients', value: '100%' }].map((stat, idx) => (
-                <div key={idx} className="neo-card p-4 text-center shadow-neo-sm">
-                  <div className="text-3xl font-black mb-1">{stat.value}</div>
-                  <div className="font-mono text-sm uppercase">{stat.label}</div>
+            {/* Hero Illustration (Geometric Shapes) */}
+            <div className="w-full lg:w-1/2 relative min-h-[400px] flex items-center justify-center">
+              <div className="absolute w-64 h-64 bg-[#FDFFB6] border-4 border-black top-0 right-10 z-0"></div>
+              <div className="absolute w-64 h-64 bg-[#FFC6FF] border-4 border-black bottom-0 left-10 z-0"></div>
+              
+              {/* Code Card */}
+              <div className="relative bg-white border-4 border-black p-6 z-10 w-full max-w-md shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                <div className="flex items-center justify-between border-b-4 border-black pb-4 mb-4 bg-[#A0C4FF] -mx-6 -mt-6 p-6">
+                  <span className="font-bold font-mono text-lg">App.tsx</span>
+                  <div className="flex gap-2">
+                    <div className="w-4 h-4 bg-[#FF6B6B] border-2 border-black rounded-full"></div>
+                    <div className="w-4 h-4 bg-[#FDFFB6] border-2 border-black rounded-full"></div>
+                    <div className="w-4 h-4 bg-[#CAFFBF] border-2 border-black rounded-full"></div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hero visual */}
-          <div className="neo-card neo-card-thick shadow-neo-lg p-6 sm:p-8 bg-white animate-scale-up flex flex-col gap-4">
-            {profileData.image && (
-              <div className="border-4 border-black overflow-hidden h-56 sm:h-72 bg-gray-100">
-                <img src={profileData.image} alt={profileData.name} className="w-full h-full object-cover" />
-              </div>
-            )}
-            <div className="space-y-2">
-              <h3 className="text-xl sm:text-2xl font-black uppercase">เกี่ยวกับผม</h3>
-              <p className="font-mono text-sm sm:text-base text-gray-800">{profileData.bio}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="neo-card shadow-neo-sm p-3">
-                <p className="font-black text-sm uppercase mb-1 text-neo-blue">Email</p>
-                <a href={`mailto:${profileData.email}`} className="font-mono text-sm break-all text-neo-blue hover:underline">{profileData.email}</a>
-              </div>
-              <div className="neo-card shadow-neo-sm p-3">
-                <p className="font-black text-sm uppercase mb-1 text-neo-pink">Location</p>
-                <p className="font-mono text-sm text-gray-800">{profileData.location}</p>
+                <div className="font-mono text-sm font-bold space-y-2">
+                  <div className="text-black"><span className="text-[#FF6B6B]">const</span> createSuccess = <span className="text-[#457B9D]">async</span> () ={'>'} {'{'}</div>
+                  <div className="pl-6 border-l-2 border-gray-200">
+                    <span className="text-[#FF6B6B]">const</span> project = <span className="text-[#457B9D]">await</span> buildSomethingCool();
+                  </div>
+                  <div className="pl-6 border-l-2 border-gray-200">
+                    <span className="text-[#FF6B6B]">return</span> <span className="text-[#2A9D8F]">"Ready to launch! 🚀"</span>;
+                  </div>
+                  <div className="text-black">{'}'}</div>
+                </div>
+                <div className="absolute -bottom-5 -right-5 bg-[#9BF6FF] border-4 border-black p-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+                  <Check size={20} strokeWidth={3} />
+                  <span>Build Success</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* --- Section 2: About --- */}
       <About />

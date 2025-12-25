@@ -1,4 +1,5 @@
 import React from 'react'
+import { User, Code, Users } from 'lucide-react'
 import { useProfile } from '../../hooks/usePortfolioData'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
@@ -10,58 +11,46 @@ const About = () => {
   if (!profileData) return <div className="text-center p-10">No profile data available</div>
 
   return (
-    <section id="about" className="min-h-screen bg-neo-yellow border-b-4 border-black p-4 sm:p-6 md:p-10 flex flex-col items-center justify-center">
-      <div className="w-full max-w-4xl">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-8 sm:mb-10 md:mb-12 border-b-4 border-black inline-block pb-2">ABOUT ME</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+    <section id="about" className="py-20 border-t-4 border-black bg-[#FFFFFC] scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Image */}
-          {profileData.image && (
-            <div className="border-4 border-black overflow-hidden shadow-neo h-64 sm:h-80 md:h-96">
-              <img
-                src={profileData.image}
-                alt={profileData.name}
-                className="w-full h-full object-cover"
-              />
+          <div className="w-full md:w-5/12 relative">
+            <div className="aspect-square bg-[#FFD6A5] border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden">
+              {profileData.image ? (
+                <img src={profileData.image} alt={profileData.name} className="w-full h-full object-cover" />
+              ) : (
+                <User size={150} strokeWidth={1.5} className="text-black" />
+              )}
             </div>
-          )}
+            <div className="absolute -bottom-6 -right-6 bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] max-w-xs">
+              <p className="font-black text-4xl">2+ YEARS</p>
+              <p className="font-bold text-sm bg-black text-white inline-block px-2">EXPERIENCE</p>
+            </div>
+          </div>
 
           {/* Content */}
-          <div className="bg-white border-4 border-black p-4 sm:p-6 md:p-8 shadow-neo flex flex-col justify-center">
-            <h3 className="text-xl sm:text-2xl font-black mb-3 sm:mb-4 text-neo-blue uppercase">ใครคือผม</h3>
-            <p className="font-mono text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 text-gray-700">
-              {profileData.bio}
+          <div className="w-full md:w-7/12">
+            <h2 className="text-xl font-black bg-[#BDB2FF] inline-block px-3 py-1 border-2 border-black mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">ABOUT ME</h2>
+            <h3 className="text-4xl md:text-5xl font-black text-black mb-6 uppercase leading-tight">
+              PARTNER ที่เข้าใจ<br/>ธุรกิจมากกว่าแค่<br/>นักเขียนโค้ด
+            </h3>
+            <p className="text-xl font-medium text-black mb-6 leading-relaxed">
+              {profileData.bio || "ผมเป็น Full Stack Developer ที่ไม่ได้แค่ทำให้เว็บ 'เสร็จ' แต่ทำให้มัน 'สุด' ผมชอบแก้ปัญหาและชอบเห็นตัวเลขการเติบโตของลูกค้า"}
             </p>
-
-            <div className="space-y-3 sm:space-y-4 border-t-4 border-black pt-4 sm:pt-6">
-              <div>
-                <h4 className="font-black uppercase text-sm text-neo-pink mb-2">📧 Email</h4>
-                <a href={`mailto:${profileData.email}`} className="font-mono text-sm sm:text-base text-neo-blue hover:underline break-all">
-                  {profileData.email}
-                </a>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+              <div className="p-6 bg-[#CAFFBF] border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                <Code size={32} strokeWidth={2} className="mb-3" />
+                <h4 className="font-black text-xl mb-2">Clean Code</h4>
+                <p className="font-mono text-sm">โค้ดที่อ่านง่าย บำรุงรักษาได้</p>
               </div>
-
-              <div>
-                <h4 className="font-black uppercase text-sm text-neo-pink mb-2">📍 Location</h4>
-                <p className="font-mono text-sm sm:text-base">{profileData.location}</p>
+              <div className="p-6 bg-[#9BF6FF] border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                <Users size={32} strokeWidth={2} className="mb-3" />
+                <h4 className="font-black text-xl mb-2">Team Player</h4>
+                <p className="font-mono text-sm">ทำงานเป็นทีมได้ดีเยี่ยม</p>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white border-4 border-black p-6 shadow-neo text-center">
-            <h4 className="text-3xl font-black text-neo-pink mb-2">6+</h4>
-            <p className="font-bold uppercase text-sm">Projects Completed</p>
-          </div>
-          <div className="bg-white border-4 border-black p-6 shadow-neo text-center">
-            <h4 className="text-3xl font-black text-neo-blue mb-2">2+</h4>
-            <p className="font-bold uppercase text-sm">Years Experience</p>
-          </div>
-          <div className="bg-white border-4 border-black p-6 shadow-neo text-center">
-            <h4 className="text-3xl font-black text-neo-green mb-2">100%</h4>
-            <p className="font-bold uppercase text-sm">Passion & Dedication</p>
           </div>
         </div>
       </div>
