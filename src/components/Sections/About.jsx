@@ -6,8 +6,8 @@ import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 const About = () => {
   const { data: profileData, loading, error, refetch } = useProfile()
   const educationPath = profileData?.education || [
-    { level: 'High School', name: 'โรงเรียนบางสะพานวิทยา', period: '2014 - 2020 (ม.1 - ม.6)' },
-    { level: 'University', name: 'มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ', period: '2021 - 2025 (ปริญญาตรี)' }
+    { level: 'High School', name: 'Bangsaphan Witthaya School', period: '2014 - 2020 (Grade 7 - 12)' },
+    { level: 'University', name: "King Mongkut's University of Technology North Bangkok", period: "2021 - 2025 (Bachelor's Degree)" }
   ]
 
   if (loading) return <Loading text="Loading profile..." />
@@ -40,7 +40,7 @@ const About = () => {
               {profileData.name || "FULL STACK DEVELOPER"}
             </h3>
             <p className="text-xl font-medium text-black leading-relaxed">
-              {profileData.bio || "สวัสดีครับ! ผมเป็น Full Stack Developer ที่หลงใหลในการสร้างเว็บแอปพลิเคชันที่สวยงามและใช้งานง่าย"}
+              {profileData.bio || "Hi! I'm a Full Stack Developer who loves building fast, beautiful, and usable web applications."}
             </p>
 
             <h4 className="text-lg font-black bg-[#FFD6A5] inline-block px-3 py-1 border-2 border-black mt-8 mb-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">EDUCATION PATH</h4>

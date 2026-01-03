@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 
 /**
  * Simple SEO Helper Component
- * ใช้สำหรับอัปเดต meta tags ต่างๆ
+ * Updates meta tags for basic SEO and social sharing
  */
 const SEOHelper = ({ 
-  title = "ชินกฤต - Frontend Developer Portfolio",
-  description = "Frontend Developer & Full-stack Developer Portfolio สร้างสรรค์เว็บไซต์ที่สวยงาม",
+  title = "Chinnakrit - Frontend Developer Portfolio",
+  description = "Frontend Developer & Full-stack Developer Portfolio crafting fast, beautiful web experiences",
   image = "/og-image.jpg",
   url = "https://your-portfolio-url.com",
   type = "website"
@@ -46,7 +46,7 @@ const SEOHelper = ({
     
   }, [title, description, image, url, type])
 
-  return null // ไม่ต้อง render ไรเลย
+  return null // nothing to render
 }
 
 export default SEOHelper

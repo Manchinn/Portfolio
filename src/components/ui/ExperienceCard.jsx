@@ -18,7 +18,7 @@ const ExperienceCard = ({ year, position, company, description, achievements }) 
       {/* Achievements */}
       {achievements && achievements.length > 0 && (
         <div>
-          <h4 className="font-black text-sm uppercase mb-3">ผลสำเร็จ:</h4>
+          <h4 className="font-black text-sm uppercase mb-3">Achievements:</h4>
           <ul className="space-y-2">
             {achievements.map((achievement, idx) => (
               <li key={idx} className="flex gap-3 font-mono text-sm">

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ArrowRight, Github, Linkedin, Mail, Check } from 'lucide-react'
 
-// นำเข้า Sections ทั้งหมด
+// Import all sections
 import About from '../components/Sections/About'
 import Skills from '../components/Sections/Skills'
 import Experience from '../components/Sections/Experience'
@@ -9,20 +9,20 @@ import Projects from '../components/Sections/Projects'
 import Contact from '../components/Sections/Contact'
 import Footer from '../components/layout/Footer'
 
-// นำเข้า Hook สำหรับดึงข้อมูลจาก API
+// Import hook for fetching profile data
 import { useProfile } from '../hooks/usePortfolioData'
 
 const Home = () => {
-  // ดึงข้อมูล profile จาก Backend API
+  // Fetch profile data from backend API
   const { data: profileData } = useProfile()
 
-  // Default values สำหรับตอนที่กำลังโหลด
+  // Default values while loading
   const defaultProfile = {
     shortBio: "My Portfolio Website to showcase my projects and skills.",
     email: "contact@example.com"
   }
 
-  // ใช้ข้อมูลจาก API หรือ default ถ้ายังโหลดไม่เสร็จ
+  // Use API data or fallback defaults while loading
   const profile = profileData || defaultProfile
 
   return (
@@ -43,7 +43,7 @@ const Home = () => {
                 WEBSITE
               </h1>
               <p className="text-xl font-bold text-gray-700 mb-8 max-w-lg mx-auto lg:mx-0 border-l-4 border-black pl-4">
-                {profile.shortBio || "ผมช่วยเปลี่ยนไอเดียของคุณให้เป็น Web Application ที่ใช้งานได้จริง สวยงาม รวดเร็ว และรองรับ SEO"}
+                {profile.shortBio || "I turn your ideas into real web applications—fast, beautiful, and SEO-ready."}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">

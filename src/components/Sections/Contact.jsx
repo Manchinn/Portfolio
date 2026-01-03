@@ -52,25 +52,25 @@ const Contact = () => {
         </h2>
         <div className="bg-white border-4 border-black p-8 inline-block shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-2xl transform -rotate-1">
           <p className="text-xl font-bold text-black mb-8">
-            อย่าปล่อยให้ไอเดียของคุณเป็นแค่ความฝัน ทักมาคุยรายละเอียดกันก่อนได้ครับ
+            Don’t let your ideas stay as dreams—let’s discuss the details and build it together.
           </p>
           
           {submitted ? (
             <div className="bg-[#CAFFBF] border-4 border-black p-6 text-center mb-6">
-              <p className="font-black text-xl">✓ ขอบคุณที่ติดต่อ!</p>
-              <p className="font-mono text-sm mt-2">จะตอบกลับเร็วๆนี้</p>
+              <p className="font-black text-xl">✓ Thanks for reaching out!</p>
+              <p className="font-mono text-sm mt-2">I’ll get back to you soon.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 text-left mb-6">
               <div>
-                <label className="block font-black mb-2 uppercase text-sm">ชื่อ *</label>
+                <label className="block font-black mb-2 uppercase text-sm">Name *</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="ชื่อของคุณ"
+                  placeholder="Your name"
                   className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[#9BF6FF]"
                 />
               </div>
@@ -93,7 +93,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  placeholder="ข้อความของคุณ..."
+                  placeholder="Your message..."
                   rows="4"
                   className="w-full border-4 border-black p-3 font-mono focus:outline-none focus:ring-4 focus:ring-[#9BF6FF] resize-none"
                 />

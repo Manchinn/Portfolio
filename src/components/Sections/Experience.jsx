@@ -18,7 +18,7 @@ const Experience = () => {
         <div className="text-center mb-16">
           <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_#FF6B6B]">EXPERIENCE</h2>
           <p className="mt-6 text-5xl font-black text-black uppercase">
-            เส้นทางการต่อสู้
+            Career Journey
           </p>
         </div>
         

@@ -24,10 +24,10 @@ const skillColors = [
 ]
 
 const softSkills = [
-  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'โค้ดอ่านง่าย' },
-  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'ทำงานเป็นทีม' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'แก้ปัญหาเก่ง' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'สื่อสารชัดเจน' }
+  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'Readable, maintainable code' },
+  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'Collaborative and reliable' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'Calm under pressure' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'Clear and concise' }
 ]
 
 const Skills = () => {

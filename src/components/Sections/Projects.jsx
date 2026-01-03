@@ -32,7 +32,7 @@ const Projects = () => {
         <div className="text-center mb-16">
           <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">Projects</h2>
           <p className="mt-4 text-5xl font-black text-black uppercase">
-            ผลงานที่โคตรภูมิใจ
+            Projects I'm Proud Of
           </p>
         </div>
 

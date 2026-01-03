@@ -2,10 +2,10 @@
 // API Configuration & Base Functions
 // ============================================
 
-// กำหนด API URL (เปลี่ยนเป็น backend URL ของคุณ)
+// Set API base URL (replace with your backend URL)
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
-// ตั้งค่า timeout สำหรับ API calls
+// Timeout for API calls
 const API_TIMEOUT = 10000 // 10 seconds
 
 /**

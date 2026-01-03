@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /* ============================================
-   Design Tokens (Tailwind v4 @theme)
-   สร้าง utility classes อัตโนมัติ เช่น bg-neo-yellow, shadow-neo
-   ============================================ */
+  Design Tokens (Tailwind v4 @theme)
+  Generates utility classes automatically e.g. bg-neo-yellow, shadow-neo
+  ============================================ */
 @theme {
   /* Brand Colors → bg-neo-*, text-neo-*, border-neo-* */
   --color-neo-yellow: #FFDE00;
@@ -95,9 +95,9 @@
 }
 
 /* ============================================
-   Additional CSS Variables (non-utility)
-   ใช้สำหรับ custom CSS ที่ไม่ต้องการ utility class
-   ============================================ */
+  Additional CSS Variables (non-utility)
+  For custom CSS that does not use utility classes
+  ============================================ */
 :root {
   /* Spacing Scale (for custom CSS) */
   --space-1: 0.25rem;
@@ -288,9 +288,9 @@ html {
 }
 
 /* ============================================
-   Neo-Brutalism Component Utilities
-   ใช้ @theme variables: shadow-neo, bg-neo-yellow, etc.
-   ============================================ */
+  Neo-Brutalism Component Utilities
+  Uses @theme variables: shadow-neo, bg-neo-yellow, etc.
+  ============================================ */
 
 /* Shadow utilities (map to @theme shadows) */
 .shadow-neo {

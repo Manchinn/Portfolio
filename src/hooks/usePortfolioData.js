@@ -6,8 +6,8 @@ import { useState, useEffect } from 'react'
 import * as PortfolioService from '../services/portfolioService'
 
 /**
- * Hook สำหรับดึงข้อมูล Portfolio
- * @param {Function} fetchFunction - Service function ที่ใช้ดึงข้อมูล
+ * Generic hook for fetching portfolio data
+ * @param {Function} fetchFunction - Service function used to fetch data
  * @returns {Object} { data, loading, error, refetch }
  */
 export const usePortfolioData = (fetchFunction) => {
@@ -40,44 +40,32 @@ export const usePortfolioData = (fetchFunction) => {
   return { data, loading, error, refetch }
 }
 
-/**
- * Hook สำหรับดึงข้อมูล Profile
- */
+/** Fetch profile data */
 export const useProfile = () => {
   return usePortfolioData(PortfolioService.getProfileData)
 }
 
-/**
- * Hook สำหรับดึงข้อมูล Skills
- */
+/** Fetch skills data */
 export const useSkills = () => {
   return usePortfolioData(PortfolioService.getSkills)
 }
 
-/**
- * Hook สำหรับดึงข้อมูล Experiences
- */
+/** Fetch experience data */
 export const useExperiences = () => {
   return usePortfolioData(PortfolioService.getExperiences)
 }
 
-/**
- * Hook สำหรับดึงข้อมูล Projects
- */
+/** Fetch projects data */
 export const useProjects = () => {
   return usePortfolioData(PortfolioService.getProjects)
 }
 
-/**
- * Hook สำหรับดึงข้อมูล Socials
- */
+/** Fetch social links data */
 export const useSocials = () => {
   return usePortfolioData(PortfolioService.getSocials)
 }
 
-/**
- * Hook สำหรับดึงข้อมูลทั้งหมดพร้อมกัน
- */
+/** Fetch all portfolio data */
 export const useAllPortfolioData = () => {
   return usePortfolioData(PortfolioService.getAllPortfolioData)
 }
