@@ -9,10 +9,22 @@ import Projects from '../components/Sections/Projects'
 import Contact from '../components/Sections/Contact'
 import Footer from '../components/layout/Footer'
 
-// นำเข้าข้อมูล
-import { profileData } from '../data/portfolio'
+// นำเข้า Hook สำหรับดึงข้อมูลจาก API
+import { useProfile } from '../hooks/usePortfolioData'
 
 const Home = () => {
+  // ดึงข้อมูล profile จาก Backend API
+  const { data: profileData } = useProfile()
+
+  // Default values สำหรับตอนที่กำลังโหลด
+  const defaultProfile = {
+    shortBio: "My Portfolio Website to showcase my projects and skills.",
+    email: "contact@example.com"
+  }
+
+  // ใช้ข้อมูลจาก API หรือ default ถ้ายังโหลดไม่เสร็จ
+  const profile = profileData || defaultProfile
+
   return (
     <div className="font-sans text-black bg-[#FFFAEB] min-h-screen selection:bg-black selection:text-white">
 
@@ -31,25 +43,25 @@ const Home = () => {
                 WEBSITE
               </h1>
               <p className="text-xl font-bold text-gray-700 mb-8 max-w-lg mx-auto lg:mx-0 border-l-4 border-black pl-4">
-                {profileData.shortBio || "ผมช่วยเปลี่ยนไอเดียของคุณให้เป็น Web Application ที่ใช้งานได้จริง สวยงาม รวดเร็ว และรองรับ SEO"}
+                {profile.shortBio || "ผมช่วยเปลี่ยนไอเดียของคุณให้เป็น Web Application ที่ใช้งานได้จริง สวยงาม รวดเร็ว และรองรับ SEO"}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="#projects" className="bg-[#FF9642] text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
-                  ดูผลงาน <ArrowRight className="ml-2 w-6 h-6 border-2 border-black rounded-full p-0.5 bg-white" />
+                  View Projects <ArrowRight className="ml-2 w-6 h-6 border-2 border-black rounded-full p-0.5 bg-white" />
                 </a>
                 <a href="#about" className="bg-white text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
-                  เกี่ยวกับผม
+                  About me
                 </a>
               </div>
               
               <div className="mt-10 flex items-center justify-center lg:justify-start gap-6">
                 {[
-                  { Icon: Github, href: "https://github.com" },
-                  { Icon: Linkedin, href: "https://linkedin.com" },
-                  { Icon: Mail, href: `mailto:${profileData.email}` }
+                  { Icon: Github, href: "https://github.com/Manchinn" },
+                  { Icon: Linkedin, href: "https://www.linkedin.com/in/chinnakrit-sripan-4674a436a/" },
+                  { Icon: Mail, href: `mailto:${profile.email}` }
                 ].map((item, i) => (
-                  <a key={i} href={item.href} className="w-12 h-12 border-2 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform cursor-pointer">
+                  <a key={i} href={item.href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 border-2 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform cursor-pointer">
                     <item.Icon size={24} strokeWidth={2} />
                   </a>
                 ))}
