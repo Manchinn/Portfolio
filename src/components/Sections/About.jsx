@@ -6,7 +6,7 @@ import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 const About = () => {
   const { data: profileData, loading, error, refetch } = useProfile()
   const educationPath = profileData?.education || [
-    { level: 'High School', name: 'Bangsaphan Witthaya School', period: '2014 - 2020 (Grade 7 - 12)' },
+    { level: 'High School', name: 'Bangsaphan Witthaya School', period: '2015 - 2020 (Grade 7 - 12)' },
     { level: 'University', name: "King Mongkut's University of Technology North Bangkok", period: "2021 - 2025 (Bachelor's Degree)" }
   ]
 
