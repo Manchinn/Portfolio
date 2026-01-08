@@ -1,10 +1,11 @@
 import React from 'react'
-import { User, GraduationCap } from 'lucide-react'
+import { GraduationCap } from 'lucide-react'
 import { useProfile } from '../../hooks/usePortfolioData'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
 const About = () => {
   const { data: profileData, loading, error, refetch } = useProfile()
+  const profileImage = profileData?.image?.trim() || ''
   const educationPath = profileData?.education || [
     { level: 'High School', name: 'Bangsaphan Witthaya School', period: '2015 - 2020 (Grade 7 - 12)' },
     { level: 'University', name: "King Mongkut's University of Technology North Bangkok", period: "2021 - 2025 (Bachelor's Degree)" }
@@ -21,11 +22,14 @@ const About = () => {
           {/* Image */}
           <div className="w-full md:w-5/12 relative">
             <div className="aspect-square bg-[#FFD6A5] border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden">
-              {profileData.image ? (
-                <img src={profileData.image} alt={profileData.name} className="w-full h-full object-cover" />
-              ) : (
-                <User size={150} strokeWidth={1.5} className="text-black" />
-              )}
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt={profileData.name ? `${profileData.name} portrait` : 'Profile portrait'}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+              ) : null}
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] max-w-xs">
               <p className="font-black text-4xl">2+ YEARS</p>
