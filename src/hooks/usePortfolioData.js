@@ -15,6 +15,14 @@ export const usePortfolioData = (fetchFunction) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // Get language key to trigger refetch on language change
+  const [languageKey, setLanguageKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('portfolio-language') || 'en'
+    }
+    return 'en'
+  })
+
   const fetchData = async () => {
     try {
       setLoading(true)
@@ -29,10 +37,35 @@ export const usePortfolioData = (fetchFunction) => {
     }
   }
 
+  // Listen for language changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const newLang = localStorage.getItem('portfolio-language') || 'en'
+      setLanguageKey(newLang)
+    }
+
+    // Listen for storage events (language changes in other tabs)
+    window.addEventListener('storage', handleStorageChange)
+
+    // Also check periodically for changes in the same tab
+    const interval = setInterval(() => {
+      const currentLang = localStorage.getItem('portfolio-language') || 'en'
+      if (currentLang !== languageKey) {
+        setLanguageKey(currentLang)
+      }
+    }, 500)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      clearInterval(interval)
+    }
+  }, [languageKey])
+
+  // Refetch when language changes
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [languageKey])
 
   const refetch = () => {
     fetchData()

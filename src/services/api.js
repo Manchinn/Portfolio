@@ -8,6 +8,14 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 // Timeout for API calls
 const API_TIMEOUT = 10000 // 10 seconds
 
+// Get current language from localStorage
+const getLanguage = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('portfolio-language') || 'en'
+  }
+  return 'en'
+}
+
 /**
  * Fetch wrapper with timeout & error handling
  */
@@ -21,6 +29,7 @@ const fetchWithTimeout = async (url, options = {}, timeout = API_TIMEOUT) => {
       signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
+        'Accept-Language': getLanguage(),
         ...options.headers,
       }
     })
