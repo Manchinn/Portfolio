@@ -11,10 +11,12 @@ import Footer from '../components/layout/Footer'
 
 // Import hook for fetching profile data
 import { useProfile } from '../hooks/usePortfolioData'
+import { useTranslation } from '../i18n/useTranslation'
 
 const Home = () => {
   // Fetch profile data from backend API
   const { data: profileData } = useProfile()
+  const { t } = useTranslation()
 
   // Default values while loading
   const defaultProfile = {
@@ -35,7 +37,7 @@ const Home = () => {
             {/* Hero copy */}
             <div className="w-full lg:w-1/2 text-center lg:text-left">
               <div className="inline-block bg-[#CAFFBF] border-2 border-black px-4 py-1 font-bold mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">
-                <span>👋 Open to work: Freelance & Contract</span>
+                <span>👋 {t('hero.openToWork')}</span>
               </div>
               <h1 className="text-5xl sm:text-7xl font-black text-black leading-none mb-6">
                 CHINNAKRIT SRIPAN<br/>
@@ -43,15 +45,15 @@ const Home = () => {
                 WEBSITE
               </h1>
               <p className="text-xl font-bold text-gray-700 mb-8 max-w-lg mx-auto lg:mx-0 border-l-4 border-black pl-4">
-                {profile.shortBio || "I turn your ideas into real web applications—fast, beautiful, and SEO-ready."}
+                {profile.shortBio || t('hero.subtitle')}
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="#projects" className="bg-[#FF9642] text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
-                  View Projects <ArrowRight className="ml-2 w-6 h-6 border-2 border-black rounded-full p-0.5 bg-white" />
+                  {t('hero.viewProjects')} <ArrowRight className="ml-2 w-6 h-6 border-2 border-black rounded-full p-0.5 bg-white" />
                 </a>
                 <a href="#about" className="bg-white text-black border-2 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center">
-                  About me
+                  {t('hero.aboutMe')}
                 </a>
               </div>
               

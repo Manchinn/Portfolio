@@ -1,24 +1,26 @@
 import React from 'react'
 import { Calendar } from 'lucide-react'
 import { useExperiences } from '../../hooks/usePortfolioData'
+import { useTranslation } from '../../i18n/useTranslation'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
 const expColors = ['bg-[#FFADAD]', 'bg-[#FDFFB6]', 'bg-[#CAFFBF]', 'bg-[#9BF6FF]', 'bg-[#A0C4FF]', 'bg-[#BDB2FF]']
 
 const Experience = () => {
   const { data: experiences, loading, error, refetch } = useExperiences()
+  const { t, tl } = useTranslation()
 
-  if (loading) return <Loading text="Loading experiences..." />
+  if (loading) return <Loading />
   if (error) return <ErrorDisplay error={error} onRetry={refetch} />
-  if (!experiences || !Array.isArray(experiences)) return <div className="text-center p-10">No experience data available</div>
+  if (!experiences || !Array.isArray(experiences)) return <div className="text-center p-10">{tl({ en: 'No experience data available', th: 'ไม่มีข้อมูลประสบการณ์', zh: '暂无工作经验' })}</div>
 
   return (
     <section id="experience" className="py-20 border-t-4 border-black bg-[#FFFAEB] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_#FF6B6B]">EXPERIENCE</h2>
+          <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_#FF6B6B]">{t('experience.title').toUpperCase()}</h2>
           <p className="mt-6 text-5xl font-black text-black uppercase">
-            Career Journey
+            {tl({ en: 'Career Journey', th: 'เส้นทางอาชีพ', zh: '职业历程' })}
           </p>
         </div>
         

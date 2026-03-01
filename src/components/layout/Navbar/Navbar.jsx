@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { navItems } from '../../../data/portfolio'
+import { useTranslation } from '../../../i18n/useTranslation'
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  const { t, language, changeLanguage, languages } = useTranslation()
+
+  const currentLang = languages.find(l => l.code === language)
 
   return (
     <nav className="bg-white sticky top-0 z-50 border-b-4 border-black">
@@ -18,22 +23,52 @@ const Navbar = () => {
           </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8 items-center">
+          <div className="hidden md:flex space-x-6 items-center">
             {navItems.filter(item => item.label !== 'Contact').map((item, idx) => (
-              <a 
-                key={idx} 
-                href={item.href} 
+              <a
+                key={idx}
+                href={item.href}
                 className="text-black font-bold text-lg hover:underline decoration-4 decoration-[#FF6B6B] underline-offset-4 uppercase"
               >
-                {item.label}
+                {t(`nav.${item.label.toLowerCase()}`)}
               </a>
             ))}
-            <a 
-              href="#contact" 
+            <a
+              href="#contact"
               className="bg-[#A0C4FF] text-black border-2 border-black px-6 py-2 font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all uppercase"
             >
-              Contact Me!
+              {t('nav.contact')}!
             </a>
+
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="flex items-center gap-1 bg-[#FDFFB6] border-2 border-black px-3 py-2 font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all"
+              >
+                <Globe size={18} />
+                <span className="uppercase">{currentLang?.name || language}</span>
+                <ChevronDown size={16} className={`transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Dropdown */}
+              {isLangOpen && (
+                <div className="absolute right-0 mt-2 bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-50 min-w-[120px]">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        changeLanguage(lang.code)
+                        setIsLangOpen(false)
+                      }}
+                      className={`w-full text-left px-4 py-2 font-bold hover:bg-[#FDFFB6] transition-colors ${language === lang.code ? 'bg-[#FDFFB6]' : ''}`}
+                    >
+                      {lang.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -52,15 +87,35 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-[#FFD6A5] border-t-4 border-black p-4 space-y-4">
           {navItems.map((item, idx) => (
-            <a 
-              key={idx} 
-              href={item.href} 
+            <a
+              key={idx}
+              href={item.href}
               className="block text-black font-bold text-xl uppercase border-b-2 border-black pb-2"
               onClick={() => setIsMenuOpen(false)}
             >
-              {item.label}
+              {t(`nav.${item.label.toLowerCase()}`)}
             </a>
           ))}
+
+          {/* Mobile Language Switcher */}
+          <div className="space-y-2">
+            <p className="font-bold text-sm uppercase">เลือกภาษา / Select Language</p>
+            <div className="flex gap-2">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => changeLanguage(lang.code)}
+                  className={`flex-1 py-2 font-bold border-2 border-black transition-all ${
+                    language === lang.code
+                      ? 'bg-black text-white'
+                      : 'bg-white text-black hover:bg-[#FDFFB6]'
+                  }`}
+                >
+                  {lang.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </nav>

@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于",
+    "skills": "技能",
+    "experience": "经验",
+    "projects": "作品",
+    "contact": "联系"
+  },
+  "hero": {
+    "openToWork": "接自由职业和合同工作",
+    "subtitle": "我将您的想法转化为快速、美观、SEO友好的Web应用。",
+    "viewProjects": "查看作品",
+    "aboutMe": "关于我"
+  },
+  "about": {
+    "title": "关于我",
+    "description": "我是一名热爱构建现代、响应式、用户友好Web应用的前端开发者。我喜欢将复杂的问题转化为简单美丽的界面解决方案。",
+    "highlights": "我的热爱",
+    "highlight1": "构建交互式Web体验",
+    "highlight2": "学习新技术",
+    "highlight3": "与团队协作",
+    "contactInfo": "联系信息",
+    "location": "泰国曼谷",
+    "downloadCV": "下载简历"
+  },
+  "skills": {
+    "title": "技能和工具",
+    "subtitle": "我使用的技术"
+  },
+  "experience": {
+    "title": "工作经验",
+    "present": "现在"
+  },
+  "projects": {
+    "title": "我的作品",
+    "subtitle": "我的一些近期作品",
+    "viewDemo": "查看演示",
+    "viewCode": "查看代码"
+  },
+  "contact": {
+    "title": "联系我",
+    "subtitle": "有项目想法？让我们聊聊！",
+    "name": "姓名",
+    "email": "邮箱",
+    "message": "留言",
+    "send": "发送消息",
+    "sending": "发送中...",
+    "success": "消息发送成功！",
+    "error": "发送失败，请重试。"
+  },
+  "footer": {
+    "copyright": "版权所有。",
+    "builtWith": "构建于"
+  }
+}

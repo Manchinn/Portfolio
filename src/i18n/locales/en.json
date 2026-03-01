@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "openToWork": "Open to work: Freelance & Contract",
+    "subtitle": "I turn your ideas into real web applications—fast, beautiful, and SEO-ready.",
+    "viewProjects": "View Projects",
+    "aboutMe": "About me"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm a passionate Frontend Developer with expertise in building modern, responsive, and user-friendly web applications. I love turning complex problems into simple, beautiful interface solutions.",
+    "highlights": "What I Love",
+    "highlight1": "Building interactive web experiences",
+    "highlight2": "Learning new technologies",
+    "highlight3": "Collaborating with teams",
+    "contactInfo": "Contact Info",
+    "location": "Bangkok, Thailand",
+    "downloadCV": "Download CV"
+  },
+  "skills": {
+    "title": "Skills & Tools",
+    "subtitle": "Technologies I work with"
+  },
+  "experience": {
+    "title": "Work Experience",
+    "present": "Present"
+  },
+  "projects": {
+    "title": "My Projects",
+    "subtitle": "Some of my recent work",
+    "viewDemo": "View Demo",
+    "viewCode": "View Code"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Have a project in mind? Let's talk!",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again."
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "builtWith": "Built with"
+  }
+}

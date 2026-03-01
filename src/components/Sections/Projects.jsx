@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ShoppingCart, Layers, Layout, ExternalLink, Github } from 'lucide-react'
 import { useProjects } from '../../hooks/usePortfolioData'
+import { useTranslation } from '../../i18n/useTranslation'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
 const projectIcons = {
@@ -21,18 +22,19 @@ const projectColors = [
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
   const { data: projects, loading, error, refetch } = useProjects()
+  const { t, tl } = useTranslation()
 
-  if (loading) return <Loading text="Loading projects..." />
+  if (loading) return <Loading />
   if (error) return <ErrorDisplay error={error} onRetry={refetch} />
-  if (!projects || !Array.isArray(projects)) return <div className="text-center p-10">No projects data available</div>
+  if (!projects || !Array.isArray(projects)) return <div className="text-center p-10">{tl({ en: 'No projects data available', th: 'ไม่มีข้อมูลผลงาน', zh: '暂无项目数据' })}</div>
 
   return (
     <section id="projects" className="py-20 border-t-4 border-black bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">Projects</h2>
+          <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">{t('projects.title')}</h2>
           <p className="mt-4 text-5xl font-black text-black uppercase">
-            Projects I'm Proud Of
+            {tl({ en: "Projects I'm Proud Of", th: 'ผลงานที่ภูมิใจ', zh: '我的得意作品' })}
           </p>
         </div>
 
@@ -152,7 +154,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="flex-1 bg-black border-2 border-black text-white py-3 font-black text-center hover:bg-white hover:text-black transition-all duration-200 uppercase flex items-center justify-center gap-2"
                   >
-                    <Github size={20} /> GitHub
+                    <Github size={20} /> {t('projects.viewCode')}
                   </a>
                 )}
                 {selectedProject.demo && (
@@ -162,7 +164,7 @@ const Projects = () => {
                     rel="noopener noreferrer"
                     className="flex-1 bg-[#FF90E8] border-2 border-black py-3 font-black text-center hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase flex items-center justify-center gap-2"
                   >
-                    <ExternalLink size={20} /> Live Demo
+                    <ExternalLink size={20} /> {t('projects.viewDemo')}
                   </a>
                 )}
               </div>

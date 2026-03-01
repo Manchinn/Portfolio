@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Database, Smartphone, Code, Layers, Globe, Terminal, Users, Lightbulb, MessageCircle, Heart } from 'lucide-react'
 import { useSkills } from '../../hooks/usePortfolioData'
+import { useTranslation } from '../../i18n/useTranslation'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
 const skillIcons = {
@@ -23,28 +24,51 @@ const skillColors = [
   'bg-[#A0C4FF]'
 ]
 
-const softSkills = [
+const softSkillsEn = [
   { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'Readable, maintainable code' },
   { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'Collaborative and reliable' },
   { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'Calm under pressure' },
   { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'Clear and concise' }
 ]
 
+const softSkillsTh = [
+  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'โค้ดอ่านง่าย ดูแลรักษาได้' },
+  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'ทำงานเป็นทีมได้ดี' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'คิดหาทางออกในสถานการณ์ยากลำบาก' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'สื่อสารได้ชัดเจน' }
+]
+
+const softSkillsZh = [
+  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: '可读、可维护的代码' },
+  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: '团队协作能力强' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: '压力下保持冷静' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: '表达清晰简洁' }
+]
+
 const Skills = () => {
   const { data: skills, loading, error, refetch } = useSkills()
+  const { language, tl } = useTranslation()
 
-  if (loading) return <Loading text="Loading skills..." />
+  const getSoftSkills = () => {
+    if (language === 'th') return softSkillsTh
+    if (language === 'zh') return softSkillsZh
+    return softSkillsEn
+  }
+
+  const softSkills = getSoftSkills()
+
+  if (loading) return <Loading />
   if (error) return <ErrorDisplay error={error} onRetry={refetch} />
-  if (!skills || !Array.isArray(skills)) return <div className="text-center p-10">No skills data available</div>
+  if (!skills || !Array.isArray(skills)) return <div className="text-center p-10">{tl({ en: 'No skills data available', th: 'ไม่มีข้อมูลทักษะ', zh: '暂无技能数据' })}</div>
 
   return (
     <section id="skills" className="py-20 border-t-4 border-black bg-black text-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
           <div>
-            <h2 className="text-xl font-black text-[#FFADAD] mb-2 uppercase tracking-widest">My Skills</h2>
+            <h2 className="text-xl font-black text-[#FFADAD] mb-2 uppercase tracking-widest">{tl({ en: 'My Skills', th: 'ทักษะของผม', zh: '我的技能' })}</h2>
             <p className="text-5xl md:text-6xl font-black uppercase text-white">
-              Weapons <br/> of Choice
+              {tl({ en: 'Weapons', th: 'เครื่องมือ', zh: '武器' })} <br/> {tl({ en: 'of Choice', th: 'ในการทำงาน', zh: '的选择' })}
             </p>
           </div>
           <div className="mt-4 md:mt-0">
@@ -54,7 +78,7 @@ const Skills = () => {
 
         {/* Technical Skills */}
         <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-wider flex items-center gap-3">
-          <Terminal className="w-6 h-6" /> Technical Skills
+          <Terminal className="w-6 h-6" /> {tl({ en: 'Technical Skills', th: 'ทักษะด้านเทคนิค', zh: '技术技能' })}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {skills.map((skillGroup, index) => {
@@ -79,7 +103,7 @@ const Skills = () => {
 
         {/* Soft Skills */}
         <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-wider flex items-center gap-3">
-          <Heart className="w-6 h-6" /> Soft Skills
+          <Heart className="w-6 h-6" /> {tl({ en: 'Soft Skills', th: 'ทักษะซอฟต์', zh: '软技能' })}
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {softSkills.map((skill, index) => {

@@ -1,9 +1,12 @@
 import React from 'react'
+import { useTranslation } from '../../i18n/useTranslation'
 
 /**
  * Loading Spinner Component
  */
-const Loading = ({ size = 'medium', text = 'Loading...' }) => {
+const Loading = ({ size = 'medium', text }) => {
+  const { tl } = useTranslation()
+  const defaultText = text || tl({ en: 'Loading...', th: 'กำลังโหลด...', zh: '加载中...' })
   const sizeClasses = {
     small: 'w-6 h-6 border-2',
     medium: 'w-12 h-12 border-4',
@@ -15,8 +18,8 @@ const Loading = ({ size = 'medium', text = 'Loading...' }) => {
       <div
         className={`${sizeClasses[size]} border-black border-t-transparent rounded-full animate-spin`}
       ></div>
-      {text && (
-        <p className="mt-4 font-mono text-lg font-bold animate-pulse">{text}</p>
+      {defaultText && (
+        <p className="mt-4 font-mono text-lg font-bold animate-pulse">{defaultText}</p>
       )}
     </div>
   )
@@ -63,17 +66,23 @@ export const LoadingSkeleton = ({ type = 'card' }) => {
  * Error Display Component
  */
 export const ErrorDisplay = ({ error, onRetry }) => {
+  const { tl } = useTranslation()
+
   return (
     <div className="flex flex-col items-center justify-center p-10 bg-neo-pink border-4 border-black">
       <div className="text-6xl mb-4">⚠️</div>
-      <h3 className="text-2xl font-black mb-2 uppercase">Oops! Something went wrong</h3>
-      <p className="font-mono text-gray-700 mb-6">{error || 'Unknown error occurred'}</p>
+      <h3 className="text-2xl font-black mb-2 uppercase">
+        {tl({ en: 'Oops! Something went wrong', th: 'โอ้! มีบางอย่างผิดพลาด', zh: '出错了！' })}
+      </h3>
+      <p className="font-mono text-gray-700 mb-6">
+        {error || tl({ en: 'Unknown error occurred', th: 'เกิดข้อผิดพลาดที่ไม่ทราบ', zh: '发生未知错误' })}
+      </p>
       {onRetry && (
         <button
           onClick={onRetry}
           className="bg-black text-white border-2 border-black px-6 py-3 font-bold hover:bg-white hover:text-black transition-all duration-200"
         >
-          Try Again
+          {tl({ en: 'Try Again', th: 'ลองอีกครั้ง', zh: '重试' })}
         </button>
       )}
     </div>
