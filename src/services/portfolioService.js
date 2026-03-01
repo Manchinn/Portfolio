@@ -74,3 +74,34 @@ export const getAllPortfolioData = async () => {
   if (response.success) return response.data;
   throw new Error(response.error || "Failed to fetch portfolio data");
 };
+
+/**
+ * Get Articles
+ * @returns {Promise<Array>} Articles array
+ */
+export const getArticles = async () => {
+  const response = await API.fetchArticles();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch articles");
+};
+
+/**
+ * Get Featured Articles
+ * @returns {Promise<Array>} Featured articles array
+ */
+export const getFeaturedArticles = async () => {
+  const response = await API.fetchFeaturedArticles();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch featured articles");
+};
+
+/**
+ * Get Single Article by Slug
+ * @param {string} slug - Article slug
+ * @returns {Promise<Object>} Article data
+ */
+export const getArticle = async (slug) => {
+  const response = await API.fetchArticleBySlug(slug);
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch article");
+};

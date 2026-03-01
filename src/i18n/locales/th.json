@@ -5,6 +5,7 @@
     "skills": "ทักษะ",
     "experience": "ประสบการณ์",
     "projects": "ผลงาน",
+    "articles": "บทความ",
     "contact": "ติดต่อ"
   },
   "hero": {
@@ -37,6 +38,12 @@
     "subtitle": "ผลงานล่าสุดบางส่วน",
     "viewDemo": "ดู Demo",
     "viewCode": "ดู Code"
+  },
+  "articles": {
+    "title": "บทความ",
+    "subtitle": "บทความล่าสุด",
+    "readMore": "อ่านเพิ่มเติม",
+    "viewAll": "ดูบทความทั้งหมด"
   },
   "contact": {
     "title": "ติดต่อผม",

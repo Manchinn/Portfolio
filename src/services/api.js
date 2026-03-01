@@ -132,6 +132,42 @@ export const submitContactForm = async (formData) => {
 }
 
 /**
+ * Fetch articles
+ */
+export const fetchArticles = async () => {
+  try {
+    return await fetchWithTimeout(`${API_BASE_URL}/articles`)
+  } catch (error) {
+    console.error('Error fetching articles:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Fetch featured articles
+ */
+export const fetchFeaturedArticles = async () => {
+  try {
+    return await fetchWithTimeout(`${API_BASE_URL}/articles/featured`)
+  } catch (error) {
+    console.error('Error fetching featured articles:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Fetch single article by slug
+ */
+export const fetchArticleBySlug = async (slug) => {
+  try {
+    return await fetchWithTimeout(`${API_BASE_URL}/articles/${slug}`)
+  } catch (error) {
+    console.error('Error fetching article:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
  * Fetch all portfolio data at once
  */
 export const fetchAllPortfolioData = async () => {

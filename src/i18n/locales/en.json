@@ -5,6 +5,7 @@
     "skills": "Skills",
     "experience": "Experience",
     "projects": "Projects",
+    "articles": "Articles",
     "contact": "Contact"
   },
   "hero": {
@@ -37,6 +38,12 @@
     "subtitle": "Some of my recent work",
     "viewDemo": "View Demo",
     "viewCode": "View Code"
+  },
+  "articles": {
+    "title": "Blog",
+    "subtitle": "Latest Articles",
+    "readMore": "Read More",
+    "viewAll": "View All Articles"
   },
   "contact": {
     "title": "Get In Touch",

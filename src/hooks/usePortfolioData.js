@@ -103,3 +103,18 @@ export const useSocials = () => {
 export const useAllPortfolioData = () => {
   return usePortfolioData(PortfolioService.getAllPortfolioData)
 }
+
+/** Fetch articles */
+export const useArticles = () => {
+  return usePortfolioData(PortfolioService.getArticles)
+}
+
+/** Fetch featured articles */
+export const useFeaturedArticles = () => {
+  return usePortfolioData(PortfolioService.getFeaturedArticles)
+}
+
+/** Fetch single article by slug */
+export const useArticle = (slug) => {
+  return usePortfolioData(() => PortfolioService.getArticle(slug))
+}
