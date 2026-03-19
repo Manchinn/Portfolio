@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { ShoppingCart, Layers, Layout, ExternalLink, Github } from 'lucide-react'
 import { useProjects } from '../../hooks/usePortfolioData'
 import { useTranslation } from '../../i18n/useTranslation'
@@ -24,6 +24,87 @@ const Projects = () => {
   const { data: projects, loading, error, refetch } = useProjects()
   const { t, tl } = useTranslation()
 
+  // Refs for focus management
+  const modalRef = useRef(null)
+  const triggerRef = useRef(null)
+
+  const closeModal = useCallback(() => {
+    setSelectedProject(null)
+  }, [])
+
+  const openModal = useCallback((project, e) => {
+    triggerRef.current = e.currentTarget
+    setSelectedProject(project)
+  }, [])
+
+  // Focus the modal when it opens, return focus to trigger on close
+  useEffect(() => {
+    if (selectedProject && modalRef.current) {
+      modalRef.current.focus()
+    }
+    if (!selectedProject && triggerRef.current) {
+      triggerRef.current.focus()
+      triggerRef.current = null
+    }
+  }, [selectedProject])
+
+  // Escape key handler
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selectedProject, closeModal])
+
+  // Focus trap
+  useEffect(() => {
+    if (!selectedProject || !modalRef.current) return
+
+    const handleTab = (e) => {
+      if (e.key !== 'Tab') return
+
+      const focusableSelectors = 'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      const focusableElements = modalRef.current.querySelectorAll(focusableSelectors)
+      if (focusableElements.length === 0) return
+
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleTab)
+    return () => document.removeEventListener('keydown', handleTab)
+  }, [selectedProject])
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.classList.add('overflow-hidden')
+    } else {
+      document.body.classList.remove('overflow-hidden')
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [selectedProject])
+
   if (loading) return <Loading />
   if (error) return <ErrorDisplay error={error} onRetry={refetch} />
   if (!projects || !Array.isArray(projects)) return <div className="text-center p-10">{tl({ en: 'No projects data available', th: 'ไม่มีข้อมูลผลงาน', zh: '暂无项目数据' })}</div>
@@ -42,12 +123,12 @@ const Projects = () => {
           {projects.map((project, index) => {
             const IconComponent = projectIcons[index % 3] || Layout
             const bgColor = projectColors[index % projectColors.length]
-            
+
             return (
-              <div 
-                key={project.id} 
+              <div
+                key={project.id}
                 className="border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
-                onClick={() => setSelectedProject(project)}
+                onClick={(e) => openModal(project, e)}
               >
                 {/* Icon Header */}
                 <div className={`h-48 ${bgColor} border-b-4 border-black flex items-center justify-center relative overflow-hidden`}>
@@ -60,12 +141,12 @@ const Projects = () => {
                     {project.category || 'Web App'}
                   </div>
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-black uppercase mb-2">{project.title}</h3>
                   <p className="font-mono text-sm text-gray-600 mb-4 flex-grow">{project.description}</p>
-                  
+
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tech && project.tech.slice(0, 3).map((tech, idx) => (
@@ -83,13 +164,25 @@ const Projects = () => {
 
       {/* Project Detail Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-          <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-modal-title"
+          ref={modalRef}
+          tabIndex={-1}
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Close Button */}
             <div className="flex justify-between items-center border-b-4 border-black p-6 sticky top-0 bg-white">
-              <h3 className="text-2xl sm:text-3xl font-black uppercase">{selectedProject.title}</h3>
+              <h3 id="project-modal-title" className="text-2xl sm:text-3xl font-black uppercase">{selectedProject.title}</h3>
               <button
-                onClick={() => setSelectedProject(null)}
+                onClick={closeModal}
+                aria-label="Close"
                 className="w-10 h-10 border-2 border-black bg-[#FFADAD] flex items-center justify-center font-black text-xl hover:bg-[#FF6B6B] transition-colors"
               >
                 ✕

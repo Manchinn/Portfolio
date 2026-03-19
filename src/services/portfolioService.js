@@ -105,3 +105,21 @@ export const getArticle = async (slug) => {
   if (response.success) return response.data;
   throw new Error(response.error || "Failed to fetch article");
 };
+
+/**
+ * Get Notifications
+ */
+export const getNotifications = async () => {
+  const response = await API.fetchNotifications();
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to fetch notifications");
+};
+
+/**
+ * Mark Notifications as Read
+ */
+export const markAsRead = async (ids) => {
+  const response = await API.markNotificationsRead(ids);
+  if (response.success) return response.data;
+  throw new Error(response.error || "Failed to mark notifications as read");
+};

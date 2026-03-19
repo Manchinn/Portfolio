@@ -132,6 +132,33 @@ export const submitContactForm = async (formData) => {
 }
 
 /**
+ * Fetch notifications
+ */
+export const fetchNotifications = async () => {
+  try {
+    return await fetchWithTimeout(`${API_BASE_URL}/notifications`)
+  } catch (error) {
+    console.error('Error fetching notifications:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
+ * Mark notifications as read
+ */
+export const markNotificationsRead = async (ids) => {
+  try {
+    return await fetchWithTimeout(`${API_BASE_URL}/notifications/read`, {
+      method: 'POST',
+      body: JSON.stringify({ ids })
+    })
+  } catch (error) {
+    console.error('Error marking notifications as read:', error)
+    return { success: false, error: error.message }
+  }
+}
+
+/**
  * Fetch articles
  */
 export const fetchArticles = async () => {

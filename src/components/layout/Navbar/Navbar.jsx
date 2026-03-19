@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { navItems } from '../../../data/portfolio'
 import { useTranslation } from '../../../i18n/useTranslation'
+import NotificationBell from '../../ui/NotificationBell'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -39,6 +40,9 @@ const Navbar = () => {
             >
               {t('nav.contact')}!
             </a>
+
+            {/* Notification Bell */}
+            <NotificationBell />
 
             {/* Language Switcher */}
             <div className="relative">

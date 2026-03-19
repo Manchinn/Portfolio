@@ -2,7 +2,8 @@
 // Custom Hook for Portfolio Data
 // ============================================
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
+import { LanguageContext } from '../i18n/useTranslation'
 import * as PortfolioService from '../services/portfolioService'
 
 /**
@@ -15,13 +16,8 @@ export const usePortfolioData = (fetchFunction) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Get language key to trigger refetch on language change
-  const [languageKey, setLanguageKey] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('portfolio-language') || 'en'
-    }
-    return 'en'
-  })
+  // Get language from context so data refetches when language changes
+  const { language } = useContext(LanguageContext)
 
   const fetchData = async () => {
     try {
@@ -37,35 +33,25 @@ export const usePortfolioData = (fetchFunction) => {
     }
   }
 
-  // Listen for language changes
+  // Listen for cross-tab language changes via storage event
   useEffect(() => {
-    const handleStorageChange = () => {
-      const newLang = localStorage.getItem('portfolio-language') || 'en'
-      setLanguageKey(newLang)
+    const handleStorageChange = (e) => {
+      if (e.key === 'portfolio-language') {
+        // Context will update via LanguageProvider, triggering refetch below
+      }
     }
 
-    // Listen for storage events (language changes in other tabs)
     window.addEventListener('storage', handleStorageChange)
-
-    // Also check periodically for changes in the same tab
-    const interval = setInterval(() => {
-      const currentLang = localStorage.getItem('portfolio-language') || 'en'
-      if (currentLang !== languageKey) {
-        setLanguageKey(currentLang)
-      }
-    }, 500)
-
     return () => {
       window.removeEventListener('storage', handleStorageChange)
-      clearInterval(interval)
     }
-  }, [languageKey])
+  }, [])
 
   // Refetch when language changes
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [languageKey])
+  }, [language])
 
   const refetch = () => {
     fetchData()
@@ -117,4 +103,20 @@ export const useFeaturedArticles = () => {
 /** Fetch single article by slug */
 export const useArticle = (slug) => {
   return usePortfolioData(() => PortfolioService.getArticle(slug))
+}
+
+/** Fetch notifications with markAsRead action */
+export const useNotifications = () => {
+  const base = usePortfolioData(PortfolioService.getNotifications)
+
+  const markAsRead = useCallback(async (ids) => {
+    try {
+      await PortfolioService.markAsRead(ids)
+      base.refetch()
+    } catch (err) {
+      console.error('Error marking notifications as read:', err)
+    }
+  }, [base.refetch])
+
+  return { ...base, markAsRead }
 }
