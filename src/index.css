@@ -10,6 +10,16 @@
   --color-neo-pink: #FF90E8;
   --color-neo-blue: #5471FF;
   --color-neo-green: #90EE90;
+  --color-neo-cream: #FFFAEB;
+  --color-neo-coral: #FF6B6B;
+  --color-neo-orange: #FF9642;
+  --color-neo-red-light: #FFADAD;
+  --color-neo-peach: #FFD6A5;
+  --color-neo-lemon: #FDFFB6;
+  --color-neo-mint: #CAFFBF;
+  --color-neo-cyan: #9BF6FF;
+  --color-neo-sky: #A0C4FF;
+  --color-neo-lavender: #BDB2FF;
 
   /* Neo-Brutalism Shadows → shadow-neo, shadow-neo-sm, shadow-neo-lg */
   --shadow-neo: 4px 4px 0 #000;
@@ -129,90 +139,12 @@ html {
 
 /* ============================================
    Animation & Transitions
+   ใช้ @theme keyframes (kebab-case) เท่านั้น — ลบ camelCase duplicates แล้ว
    ============================================ */
-
-/* Fade In Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Slide In From Left */
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Slide In From Right */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Bounce */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Scale Up */
-@keyframes scaleUp {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Utility Classes */
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.6s ease-out forwards;
-}
-
-.animate-bounce-slow {
-  animation: bounce 2s infinite;
-}
-
-.animate-scale-up {
-  animation: scaleUp 0.6s ease-out forwards;
-}
 
 /* Stagger Animation */
 .animate-stagger > * {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fade-in 0.6s ease-out forwards;
 }
 
 .animate-stagger > *:nth-child(1) { animation-delay: 0s; }
@@ -241,16 +173,7 @@ html {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
 }
 
-/* Loading Animation */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
+/* Loading Animation — ใช้ shimmer keyframe จาก @theme */
 .animate-shimmer {
   background: linear-gradient(
     90deg,
@@ -292,17 +215,9 @@ html {
   Uses @theme variables: shadow-neo, bg-neo-yellow, etc.
   ============================================ */
 
-/* Shadow utilities (map to @theme shadows) */
-.shadow-neo {
+/* Shadow utilities — .shadow-neo-soft ใช้ soft shadow, ไม่ชนกับ Tailwind utility shadow-neo จาก @theme */
+.shadow-neo-soft {
   box-shadow: var(--shadow-neo-soft);
-}
-
-.shadow-neo-sm {
-  box-shadow: var(--shadow-neo-sm);
-}
-
-.shadow-neo-lg {
-  box-shadow: var(--shadow-neo-lg);
 }
 
 /* Interactive Press Effect */

@@ -1,8 +1,6 @@
-import { useState, useEffect, createContext, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { translations, languages } from './index'
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const LanguageContext = createContext()
+import { LanguageContext } from './useTranslation'
 
 // Get saved language or default to 'en'
 const getInitialLanguage = () => {
@@ -65,13 +63,4 @@ export const LanguageProvider = ({ children }) => {
       {children}
     </LanguageContext.Provider>
   )
-}
-
-// Hook to use translation
-export const useTranslation = () => {
-  const context = useContext(LanguageContext)
-  if (!context) {
-    throw new Error('useTranslation must be used within a LanguageProvider')
-  }
-  return context
 }

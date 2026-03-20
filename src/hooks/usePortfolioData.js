@@ -19,7 +19,7 @@ export const usePortfolioData = (fetchFunction) => {
   // Get language from context so data refetches when language changes
   const { language } = useContext(LanguageContext)
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -31,31 +31,16 @@ export const usePortfolioData = (fetchFunction) => {
     } finally {
       setLoading(false)
     }
-  }
-
-  // Listen for cross-tab language changes via storage event
-  useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === 'portfolio-language') {
-        // Context will update via LanguageProvider, triggering refetch below
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
+  }, [fetchFunction])
 
   // Refetch when language changes
   useEffect(() => {
     fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language])
+  }, [language, fetchData])
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     fetchData()
-  }
+  }, [fetchData])
 
   return { data, loading, error, refetch }
 }
@@ -102,21 +87,23 @@ export const useFeaturedArticles = () => {
 
 /** Fetch single article by slug */
 export const useArticle = (slug) => {
-  return usePortfolioData(() => PortfolioService.getArticle(slug))
+  const fetchArticle = useCallback(() => PortfolioService.getArticle(slug), [slug])
+  return usePortfolioData(fetchArticle)
 }
 
 /** Fetch notifications with markAsRead action */
 export const useNotifications = () => {
   const base = usePortfolioData(PortfolioService.getNotifications)
+  const { refetch } = base
 
   const markAsRead = useCallback(async (ids) => {
     try {
       await PortfolioService.markAsRead(ids)
-      base.refetch()
+      refetch()
     } catch (err) {
       console.error('Error marking notifications as read:', err)
     }
-  }, [base.refetch])
+  }, [refetch])
 
   return { ...base, markAsRead }
 }

@@ -3,10 +3,11 @@ import { Bell } from 'lucide-react'
 import { useNotifications } from '../../hooks/usePortfolioData'
 import { useTranslation } from '../../i18n/useTranslation'
 
+// ใช้ CSS custom properties จาก @theme เพื่อไม่ hardcode hex
 const TYPE_COLORS = {
-  info:    { bg: '#A0C4FF', label: 'INFO' },
-  success: { bg: '#B9FBC0', label: 'OK' },
-  warning: { bg: '#FFD6A5', label: 'WARN' },
+  info:    { bg: 'var(--color-neo-sky)', label: 'INFO' },
+  success: { bg: 'var(--color-neo-mint)', label: 'OK' },
+  warning: { bg: 'var(--color-neo-peach)', label: 'WARN' },
 }
 
 const NotificationBell = () => {
@@ -47,20 +48,20 @@ const NotificationBell = () => {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={tl({ en: 'Notifications', th: 'การแจ้งเตือน', zh: '通知' })}
-        className={`relative flex items-center justify-center w-10 h-10 border-2 border-black font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] ${isOpen ? 'bg-black text-white' : 'bg-[#FDFFB6] text-black'}`}
+        className={`relative flex items-center justify-center w-10 h-10 border-2 border-black font-bold shadow-neo-sm transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-neo-sm ${isOpen ? 'bg-black text-white' : 'bg-neo-lemon text-black'}`}
       >
         <Bell size={18} strokeWidth={2.5} />
         {unreadCount > 0 && (
-          <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-[3px] bg-[#FF6B6B] text-white text-[10px] font-black border-2 border-black flex items-center justify-center leading-none">
+          <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-[3px] bg-neo-coral text-white text-[10px] font-black border-2 border-black flex items-center justify-center leading-none">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] z-50 flex flex-col">
+        <div className="absolute right-0 mt-2 w-80 bg-white border-4 border-black shadow-neo z-50 flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b-4 border-black bg-[#FF6B6B]">
+          <div className="flex items-center justify-between px-4 py-3 border-b-4 border-black bg-neo-coral">
             <span className="font-black text-sm uppercase tracking-wide text-black">
               {tl({ en: 'Notifications', th: 'การแจ้งเตือน', zh: '通知' })}
               {unreadCount > 0 && (
@@ -72,7 +73,7 @@ const NotificationBell = () => {
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllRead}
-                className="text-[11px] font-black uppercase border-2 border-black bg-white text-black px-2 py-0.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all"
+                className="text-[11px] font-black uppercase border-2 border-black bg-white text-black px-2 py-0.5 shadow-neo-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-neo-sm transition-all"
               >
                 {tl({ en: 'Mark all read', th: 'อ่านทั้งหมด', zh: '全部已读' })}
               </button>
@@ -116,7 +117,7 @@ const NotificationBell = () => {
                         <p className={`text-sm font-black uppercase truncate ${n.read ? 'text-gray-600' : 'text-black'}`}>
                           {n.title}
                         </p>
-                        {!n.read && <span className="shrink-0 w-2 h-2 rounded-full bg-[#FF6B6B] border border-black" />}
+                        {!n.read && <span className="shrink-0 w-2 h-2 rounded-full bg-neo-coral border border-black" />}
                       </div>
                       <p className={`text-xs mt-0.5 line-clamp-2 ${n.read ? 'text-gray-400' : 'text-gray-700'}`}>
                         {n.message}

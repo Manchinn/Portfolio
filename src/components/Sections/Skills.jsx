@@ -16,33 +16,33 @@ const skillIcons = {
 }
 
 const skillColors = [
-  'bg-[#FFADAD]',
-  'bg-[#FFD6A5]',
-  'bg-[#FDFFB6]',
-  'bg-[#CAFFBF]',
-  'bg-[#9BF6FF]',
-  'bg-[#A0C4FF]'
+  'bg-neo-red-light',
+  'bg-neo-peach',
+  'bg-neo-lemon',
+  'bg-neo-mint',
+  'bg-neo-cyan',
+  'bg-neo-sky'
 ]
 
 const softSkillsEn = [
-  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'Readable, maintainable code' },
-  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'Collaborative and reliable' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'Calm under pressure' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'Clear and concise' }
+  { name: 'Clean Code', icon: Code, color: 'bg-neo-mint', desc: 'Readable, maintainable code' },
+  { name: 'Teamwork', icon: Users, color: 'bg-neo-cyan', desc: 'Collaborative and reliable' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-neo-red-light', desc: 'Calm under pressure' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-neo-lavender', desc: 'Clear and concise' }
 ]
 
 const softSkillsTh = [
-  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: 'โค้ดอ่านง่าย ดูแลรักษาได้' },
-  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: 'ทำงานเป็นทีมได้ดี' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: 'คิดหาทางออกในสถานการณ์ยากลำบาก' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: 'สื่อสารได้ชัดเจน' }
+  { name: 'Clean Code', icon: Code, color: 'bg-neo-mint', desc: 'โค้ดอ่านง่าย ดูแลรักษาได้' },
+  { name: 'Teamwork', icon: Users, color: 'bg-neo-cyan', desc: 'ทำงานเป็นทีมได้ดี' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-neo-red-light', desc: 'คิดหาทางออกในสถานการณ์ยากลำบาก' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-neo-lavender', desc: 'สื่อสารได้ชัดเจน' }
 ]
 
 const softSkillsZh = [
-  { name: 'Clean Code', icon: Code, color: 'bg-[#CAFFBF]', desc: '可读、可维护的代码' },
-  { name: 'Teamwork', icon: Users, color: 'bg-[#9BF6FF]', desc: '团队协作能力强' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-[#FFADAD]', desc: '压力下保持冷静' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-[#BDB2FF]', desc: '表达清晰简洁' }
+  { name: 'Clean Code', icon: Code, color: 'bg-neo-mint', desc: '可读、可维护的代码' },
+  { name: 'Teamwork', icon: Users, color: 'bg-neo-cyan', desc: '团队协作能力强' },
+  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-neo-red-light', desc: '压力下保持冷静' },
+  { name: 'Communication', icon: MessageCircle, color: 'bg-neo-lavender', desc: '表达清晰简洁' }
 ]
 
 const Skills = () => {
@@ -64,9 +64,9 @@ const Skills = () => {
   return (
     <section id="skills" className="py-20 border-t-4 border-black bg-black text-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div>
-            <h2 className="text-xl font-black text-[#FFADAD] mb-2 uppercase tracking-widest">{tl({ en: 'My Skills', th: 'ทักษะของผม', zh: '我的技能' })}</h2>
+            <h2 className="text-xl font-black text-neo-red-light mb-2 uppercase tracking-widest">{tl({ en: 'My Skills', th: 'ทักษะของผม', zh: '我的技能' })}</h2>
             <p className="text-5xl md:text-6xl font-black uppercase text-white">
               {tl({ en: 'Weapons', th: 'เครื่องมือ', zh: '武器' })} <br/> {tl({ en: 'of Choice', th: 'ในการทำงาน', zh: '的选择' })}
             </p>
@@ -105,7 +105,7 @@ const Skills = () => {
         <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-wider flex items-center gap-3">
           <Heart className="w-6 h-6" /> {tl({ en: 'Soft Skills', th: 'ทักษะซอฟต์', zh: '软技能' })}
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {softSkills.map((skill, index) => {
             const IconComponent = skill.icon
             return (

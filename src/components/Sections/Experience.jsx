@@ -4,7 +4,7 @@ import { useExperiences } from '../../hooks/usePortfolioData'
 import { useTranslation } from '../../i18n/useTranslation'
 import Loading, { ErrorDisplay } from '../../components/ui/Loading'
 
-const expColors = ['bg-[#FFADAD]', 'bg-[#FDFFB6]', 'bg-[#CAFFBF]', 'bg-[#9BF6FF]', 'bg-[#A0C4FF]', 'bg-[#BDB2FF]']
+const expColors = ['bg-neo-red-light', 'bg-neo-lemon', 'bg-neo-mint', 'bg-neo-cyan', 'bg-neo-sky', 'bg-neo-lavender']
 
 const Experience = () => {
   const { data: experiences, loading, error, refetch } = useExperiences()
@@ -15,25 +15,31 @@ const Experience = () => {
   if (!experiences || !Array.isArray(experiences)) return <div className="text-center p-10">{tl({ en: 'No experience data available', th: 'ไม่มีข้อมูลประสบการณ์', zh: '暂无工作经验' })}</div>
 
   return (
-    <section id="experience" className="py-20 border-t-4 border-black bg-[#FFFAEB] scroll-mt-20">
+    <section id="experience" className="py-20 border-t-4 border-black bg-neo-cream scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_#FF6B6B]">{t('experience.title').toUpperCase()}</h2>
-          <p className="mt-6 text-5xl font-black text-black uppercase">
+          <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_var(--color-neo-coral)]">{t('experience.title').toUpperCase()}</h2>
+          <p className="mt-6 text-5xl md:text-6xl font-black text-black uppercase">
             {tl({ en: 'Career Journey', th: 'เส้นทางอาชีพ', zh: '职业历程' })}
           </p>
         </div>
         
+        {/* タイムライン — mobile: left-border, desktop: center timeline */}
         <div className="relative max-w-4xl mx-auto">
-          {/* Timeline Line */}
+          {/* Desktop Timeline Line (center) */}
           <div className="absolute left-1/2 transform -translate-x-1/2 w-2 h-full bg-black hidden md:block"></div>
-          
+          {/* Mobile Timeline Line (left border) — แสดงเฉพาะ mobile */}
+          <div className="absolute left-4 top-0 w-1 h-full bg-black md:hidden"></div>
+
           <div className="space-y-12">
             {experiences.map((exp, index) => (
               <div key={exp.id || index} className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} items-center justify-between relative`}>
+                {/* Mobile Timeline Dot */}
+                <div className="absolute left-2.5 top-6 w-4 h-4 bg-black border-2 border-white z-10 md:hidden"></div>
+
                 {/* Content */}
-                <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
-                  <div className={`${expColors[index % expColors.length]} border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform`}>
+                <div className={`w-full pl-10 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                  <div className={`${expColors[index % expColors.length]} border-4 border-black p-6 shadow-neo-lg hover:-translate-y-1 transition-transform`}>
                     <div className="flex items-center gap-2 mb-2">
                       <Calendar size={18} strokeWidth={3} />
                       <span className="font-mono text-sm font-bold">{exp.year}</span>
@@ -43,10 +49,10 @@ const Experience = () => {
                     <p className="font-mono text-sm text-gray-600">{exp.description}</p>
                   </div>
                 </div>
-                
-                {/* Timeline Dot */}
+
+                {/* Desktop Timeline Dot */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-black border-4 border-white items-center justify-center z-10"></div>
-                
+
                 {/* Spacer */}
                 <div className="hidden md:block w-5/12"></div>
               </div>

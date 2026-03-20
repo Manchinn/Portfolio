@@ -56,6 +56,11 @@
     "success": "消息发送成功！",
     "error": "发送失败，请重试。"
   },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "您要查找的页面不存在或已被移动。",
+    "backToHome": "返回首页"
+  },
   "footer": {
     "copyright": "版权所有。",
     "builtWith": "构建于"

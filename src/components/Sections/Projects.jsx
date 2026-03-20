@@ -14,9 +14,9 @@ const projectColors = [
   'bg-[#FFD6FF]',
   'bg-[#C8B6FF]',
   'bg-[#B8C0FF]',
-  'bg-[#9BF6FF]',
-  'bg-[#CAFFBF]',
-  'bg-[#FDFFB6]'
+  'bg-neo-cyan',
+  'bg-neo-mint',
+  'bg-neo-lemon'
 ]
 
 const Projects = () => {
@@ -114,7 +114,7 @@ const Projects = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">{t('projects.title')}</h2>
-          <p className="mt-4 text-5xl font-black text-black uppercase">
+          <p className="mt-4 text-5xl md:text-6xl font-black text-black uppercase">
             {tl({ en: "Projects I'm Proud Of", th: 'ผลงานที่ภูมิใจ', zh: '我的得意作品' })}
           </p>
         </div>
@@ -127,7 +127,7 @@ const Projects = () => {
             return (
               <div
                 key={project.id}
-                className="border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
+                className="border-4 border-black bg-white shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
                 onClick={(e) => openModal(project, e)}
               >
                 {/* Icon Header */}
@@ -174,7 +174,7 @@ const Projects = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white border-4 border-black shadow-neo-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -183,7 +183,7 @@ const Projects = () => {
               <button
                 onClick={closeModal}
                 aria-label="Close"
-                className="w-10 h-10 border-2 border-black bg-[#FFADAD] flex items-center justify-center font-black text-xl hover:bg-[#FF6B6B] transition-colors"
+                className="w-10 h-10 border-2 border-black bg-neo-red-light flex items-center justify-center font-black text-xl hover:bg-neo-coral transition-colors"
               >
                 ✕
               </button>
@@ -204,18 +204,18 @@ const Projects = () => {
 
               {/* Description */}
               <div>
-                <h4 className="font-black text-lg uppercase mb-2 text-[#5471FF]">Description</h4>
+                <h4 className="font-black text-lg uppercase mb-2 text-neo-blue">Description</h4>
                 <p className="font-mono text-base text-gray-700">{selectedProject.longDescription || selectedProject.description}</p>
               </div>
 
               {/* Tech Stack */}
               <div>
-                <h4 className="font-black text-lg uppercase mb-3 text-[#FF6B6B]">Tech Stack</h4>
+                <h4 className="font-black text-lg uppercase mb-3 text-neo-coral">Tech Stack</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.tech && selectedProject.tech.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="bg-[#5471FF] border-2 border-black px-4 py-2 font-bold text-sm text-white"
+                      className="bg-neo-blue border-2 border-black px-4 py-2 font-bold text-sm text-white"
                     >
                       {tech}
                     </span>
@@ -230,7 +230,7 @@ const Projects = () => {
                   <ul className="space-y-2">
                     {selectedProject.highlights.map((highlight, idx) => (
                       <li key={idx} className="flex gap-3 font-mono text-sm">
-                        <span className="text-[#FF6B6B] font-black">▶</span>
+                        <span className="text-neo-coral font-black">▶</span>
                         <span>{highlight}</span>
                       </li>
                     ))}
@@ -255,7 +255,7 @@ const Projects = () => {
                     href={selectedProject.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-[#FF90E8] border-2 border-black py-3 font-black text-center hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase flex items-center justify-center gap-2"
+                    className="flex-1 bg-neo-pink border-2 border-black py-3 font-black text-center hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200 shadow-neo uppercase flex items-center justify-center gap-2"
                   >
                     <ExternalLink size={20} /> {t('projects.viewDemo')}
                   </a>

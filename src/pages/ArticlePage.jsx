@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Clock, Calendar, Tag, ArrowRight } from 'lucide-react'
 import { useArticle } from '../hooks/usePortfolioData'
 import { useTranslation } from '../i18n/useTranslation'
+import * as PortfolioService from '../services/portfolioService'
 import Loading, { ErrorDisplay } from '../components/ui/Loading'
 
 const ArticlePage = () => {
@@ -15,11 +16,8 @@ const ArticlePage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api'}/articles`)
-        const data = await response.json()
-        if (data.success) {
-          setAllArticles(data.data.filter(a => a.slug !== slug).slice(0, 3))
-        }
+        const articles = await PortfolioService.getArticles()
+        setAllArticles(articles.filter(a => a.slug !== slug).slice(0, 3))
       } catch (err) {
         console.error('Error fetching articles:', err)
       }
@@ -31,10 +29,10 @@ const ArticlePage = () => {
   if (error) return <ErrorDisplay error={error} onRetry={refetch} />
   if (!article) {
     return (
-      <div className="min-h-screen bg-[#FFFAEB] flex items-center justify-center">
+      <div className="min-h-screen bg-neo-cream flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-black mb-4">Article Not Found</h1>
-          <Link to="/" className="text-[#FF6B6B] font-bold hover:underline">
+          <Link to="/" className="text-neo-coral font-bold hover:underline">
             {tl({ en: 'Go Home', th: 'กลับหน้าหลัก', zh: '返回首页' })}
           </Link>
         </div>
@@ -43,13 +41,13 @@ const ArticlePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFAEB]">
+    <div className="min-h-screen bg-neo-cream">
       {/* Header */}
       <header className="bg-black text-white py-8">
         <div className="max-w-4xl mx-auto px-4">
           <Link
             to="/#articles"
-            className="inline-flex items-center gap-2 text-white font-bold hover:text-[#FF6B6B] transition-colors"
+            className="inline-flex items-center gap-2 text-white font-bold hover:text-neo-coral transition-colors"
           >
             <ArrowLeft size={20} />
             {tl({ en: 'Back to Articles', th: 'กลับไปบทความ', zh: '返回文章' })}
@@ -60,7 +58,7 @@ const ArticlePage = () => {
       {/* Article Content */}
       <article className="max-w-4xl mx-auto px-4 py-12">
         {/* Cover Image */}
-        <div className="border-4 border-black mb-8 overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <div className="border-4 border-black mb-8 overflow-hidden shadow-neo-lg">
           <img
             src={article.coverImage}
             alt={article.title}
@@ -91,7 +89,7 @@ const ArticlePage = () => {
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-8">
           {article.tags?.map((tag, idx) => (
-            <span key={idx} className="bg-[#FDFFB6] px-3 py-1 text-sm font-bold border-2 border-black">
+            <span key={idx} className="bg-neo-lemon px-3 py-1 text-sm font-bold border-2 border-black">
               {tag}
             </span>
           ))}
@@ -123,7 +121,7 @@ const ArticlePage = () => {
         <div className="mt-12 pt-8 border-t-4 border-black">
           <Link
             to="/#articles"
-            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-bold border-2 border-black hover:bg-white hover:text-black transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+            className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-bold border-2 border-black hover:bg-white hover:text-black transition-colors shadow-neo"
           >
             {tl({ en: 'Back to Articles', th: 'กลับไปบทความ', zh: '返回文章' })}
             <ArrowRight size={20} />
@@ -143,7 +141,7 @@ const ArticlePage = () => {
                 <Link
                   key={relatedArticle.id}
                   to={`/article/${relatedArticle.slug}`}
-                  className="border-4 border-black bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all block"
+                  className="border-4 border-black bg-white shadow-neo hover:shadow-neo-lg hover:-translate-y-1 transition-all block"
                 >
                   <div className="h-32 overflow-hidden border-b-4 border-black">
                     <img

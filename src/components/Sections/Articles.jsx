@@ -17,10 +17,10 @@ const Articles = () => {
   const displayedArticles = articles.slice(0, 4)
 
   return (
-    <section id="articles" className="py-20 border-t-4 border-black bg-[#FFFAEB] scroll-mt-20">
+    <section id="articles" className="py-20 border-t-4 border-black bg-neo-cream scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-xl font-black text-[#FF6B6B] mb-2 uppercase tracking-widest">
+          <h2 className="text-xl font-black text-neo-coral mb-2 uppercase tracking-widest">
             {tl({ en: 'Blog', th: 'บทความ', zh: '博客' })}
           </h2>
           <p className="text-5xl md:text-6xl font-black uppercase text-black">
@@ -32,7 +32,7 @@ const Articles = () => {
           {displayedArticles.map((article) => (
             <article
               key={article.id}
-              className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-all duration-200 flex flex-col h-full"
+              className="bg-white border-4 border-black shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 transition-all duration-200 flex flex-col h-full"
             >
               {/* Cover Image */}
               <div className="h-48 overflow-hidden border-b-4 border-black">
@@ -59,14 +59,14 @@ const Articles = () => {
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
+                <p className="font-mono text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">
                   {article.excerpt}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {article.tags?.slice(0, 2).map((tag, idx) => (
-                    <span key={idx} className="bg-[#FDFFB6] px-2 py-1 text-xs font-bold border border-black">
+                    <span key={idx} className="bg-neo-lemon px-2 py-1 text-xs font-bold border border-black">
                       {tag}
                     </span>
                   ))}
@@ -81,7 +81,7 @@ const Articles = () => {
                 {/* Read More */}
                 <Link
                   to={`/article/${article.slug}`}
-                  className="inline-flex items-center gap-2 text-black font-bold hover:text-[#FF6B6B] transition-colors"
+                  className="inline-flex items-center gap-2 text-black font-bold hover:text-neo-coral transition-colors"
                 >
                   {tl({ en: 'Read More', th: 'อ่านเพิ่มเติม', zh: '阅读更多' })}
                   <ArrowRight size={16} />
@@ -95,7 +95,7 @@ const Articles = () => {
         <div className="text-center">
           <a
             href="#articles"
-            className="inline-block bg-black text-white border-4 border-black px-8 py-4 font-black text-lg shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
+            className="inline-block bg-black text-white border-4 border-black px-8 py-4 font-black text-lg shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo transition-all"
           >
             {tl({ en: 'View All Articles', th: 'ดูบทความทั้งหมด', zh: '查看所有文章' })}
           </a>

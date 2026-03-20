@@ -29,7 +29,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Image */}
           <div className="w-full md:w-5/12 relative">
-            <div className="aspect-square bg-[#FFD6A5] border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center overflow-hidden">
+            <div className="aspect-square bg-neo-peach border-4 border-black shadow-neo-lg flex items-center justify-center overflow-hidden">
               {profileImage ? (
                 <img
                   src={profileImage}
@@ -39,15 +39,16 @@ const About = () => {
                 />
               ) : null}
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-white border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] max-w-xs">
-              <p className="font-black text-4xl">2+ {tl({ en: 'YEARS', th: 'ปี', zh: '年' })}</p>
+            {/* ป้ายประสบการณ์ — constrain ภายใน parent บน mobile */}
+            <div className="absolute -bottom-4 right-0 md:-bottom-6 md:-right-6 bg-white border-4 border-black p-3 md:p-4 shadow-neo max-w-[200px] md:max-w-xs">
+              <p className="font-black text-2xl md:text-4xl">2+ {tl({ en: 'YEARS', th: 'ปี', zh: '年' })}</p>
               <p className="font-bold text-sm bg-black text-white inline-block px-2">{tl({ en: 'EXPERIENCE', th: 'ประสบการณ์', zh: '经验' })}</p>
             </div>
           </div>
 
           {/* Personal Info */}
           <div className="w-full md:w-7/12">
-            <h2 className="text-xl font-black bg-[#BDB2FF] inline-block px-3 py-1 border-2 border-black mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">{t('about.title').toUpperCase()}</h2>
+            <h2 className="text-xl font-black bg-neo-lavender inline-block px-3 py-1 border-2 border-black mb-4 shadow-neo">{t('about.title').toUpperCase()}</h2>
             <h3 className="text-4xl md:text-5xl font-black text-black mb-6 uppercase leading-tight">
               {profileData.name || tl({ en: 'FULL STACK DEVELOPER', th: 'นักพัฒนาเว็บ', zh: '全栈开发者' })}
             </h3>
@@ -55,11 +56,11 @@ const About = () => {
               {profileData.bio || t('about.description')}
             </p>
 
-            <h4 className="text-lg font-black bg-[#FFD6A5] inline-block px-3 py-1 border-2 border-black mt-8 mb-4 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">{tl({ en: 'EDUCATION PATH', th: 'การศึกษา', zh: '教育背景' })}</h4>
+            <h4 className="text-lg font-black bg-neo-peach inline-block px-3 py-1 border-2 border-black mt-8 mb-4 shadow-neo-sm">{tl({ en: 'EDUCATION PATH', th: 'การศึกษา', zh: '教育背景' })}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {educationPath.map((edu, idx) => (
-                <div key={idx} className="p-5 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex gap-3 items-start">
-                  <div className="p-2 bg-[#CAFFBF] border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                <div key={idx} className="p-5 bg-white border-4 border-black shadow-neo flex gap-3 items-start">
+                  <div className="p-2 bg-neo-mint border-2 border-black shadow-neo-sm">
                     <GraduationCap className="w-6 h-6 text-black" />
                   </div>
                   <div>

@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="bg-black text-white py-12 border-t-4 border-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left">
-          <h3 className="text-3xl font-black">DEV<span className="text-[#FF6B6B]">FOLIO</span></h3>
+          <h3 className="text-3xl font-black">DEV<span className="text-neo-coral">FOLIO</span></h3>
           <p className="text-sm text-gray-400 mt-1 font-mono">{tl({ en: 'BUILDING THE WEB, BRUTALLY.', th: 'สร้างเว็บอย่างมีสไตล์', zh: '暴力美学构建网站' })}</p>
         </div>
         <div className="flex space-x-4">
@@ -18,7 +18,7 @@ const Footer = () => {
             <a
               key={i}
               href="#"
-              className="w-10 h-10 bg-white border-2 border-white text-black flex items-center justify-center hover:bg-[#FF6B6B] hover:border-[#FF6B6B] transition-colors"
+              className="w-10 h-10 bg-white border-2 border-white text-black flex items-center justify-center hover:bg-neo-coral hover:border-neo-coral transition-colors"
             >
               <Icon size={20} />
             </a>

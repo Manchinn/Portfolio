@@ -2,7 +2,7 @@
 // Portfolio Service - Data Management Layer
 // ============================================
 
-import * as API from "./api";
+import * as API from './api';
 
 /**
  * Get Profile Data
@@ -11,7 +11,7 @@ import * as API from "./api";
 export const getProfileData = async () => {
   const response = await API.fetchProfile();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch profile");
+  throw new Error(response.error || 'Failed to fetch profile');
 };
 
 /**
@@ -21,7 +21,7 @@ export const getProfileData = async () => {
 export const getSkills = async () => {
   const response = await API.fetchSkills();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch skills");
+  throw new Error(response.error || 'Failed to fetch skills');
 };
 
 /**
@@ -31,7 +31,7 @@ export const getSkills = async () => {
 export const getExperiences = async () => {
   const response = await API.fetchExperiences();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch experiences");
+  throw new Error(response.error || 'Failed to fetch experiences');
 };
 
 /**
@@ -41,7 +41,7 @@ export const getExperiences = async () => {
 export const getProjects = async () => {
   const response = await API.fetchProjects();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch projects");
+  throw new Error(response.error || 'Failed to fetch projects');
 };
 
 /**
@@ -51,7 +51,7 @@ export const getProjects = async () => {
 export const getSocials = async () => {
   const response = await API.fetchSocials();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch socials");
+  throw new Error(response.error || 'Failed to fetch socials');
 };
 
 /**
@@ -62,7 +62,7 @@ export const getSocials = async () => {
 export const submitContact = async (formData) => {
   const response = await API.submitContactForm(formData);
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to submit contact form");
+  throw new Error(response.error || 'Failed to submit contact form');
 };
 
 /**
@@ -72,7 +72,7 @@ export const submitContact = async (formData) => {
 export const getAllPortfolioData = async () => {
   const response = await API.fetchAllPortfolioData();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch portfolio data");
+  throw new Error(response.error || 'Failed to fetch portfolio data');
 };
 
 /**
@@ -82,7 +82,7 @@ export const getAllPortfolioData = async () => {
 export const getArticles = async () => {
   const response = await API.fetchArticles();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch articles");
+  throw new Error(response.error || 'Failed to fetch articles');
 };
 
 /**
@@ -92,7 +92,7 @@ export const getArticles = async () => {
 export const getFeaturedArticles = async () => {
   const response = await API.fetchFeaturedArticles();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch featured articles");
+  throw new Error(response.error || 'Failed to fetch featured articles');
 };
 
 /**
@@ -103,7 +103,7 @@ export const getFeaturedArticles = async () => {
 export const getArticle = async (slug) => {
   const response = await API.fetchArticleBySlug(slug);
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch article");
+  throw new Error(response.error || 'Failed to fetch article');
 };
 
 /**
@@ -112,7 +112,7 @@ export const getArticle = async (slug) => {
 export const getNotifications = async () => {
   const response = await API.fetchNotifications();
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to fetch notifications");
+  throw new Error(response.error || 'Failed to fetch notifications');
 };
 
 /**
@@ -121,5 +121,5 @@ export const getNotifications = async () => {
 export const markAsRead = async (ids) => {
   const response = await API.markNotificationsRead(ids);
   if (response.success) return response.data;
-  throw new Error(response.error || "Failed to mark notifications as read");
+  throw new Error(response.error || 'Failed to mark notifications as read');
 };
