@@ -1,10 +1,12 @@
+'use client'
+
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { ShoppingCart, Layers, Layout, ExternalLink, Github } from 'lucide-react'
-import { useProjects } from '../../hooks/usePortfolioData'
-import { useTranslation } from '../../i18n/useTranslation'
-import Loading, { ErrorDisplay } from '../../components/ui/Loading'
+import { projects } from '@/data/portfolio'
+import { useTranslation } from '@/i18n/useTranslation'
+import type { Language, Project } from '@/data/types'
 
-const projectIcons = {
+const projectIcons: Record<number, React.ElementType> = {
   0: ShoppingCart,
   1: Layers,
   2: Layout
@@ -20,19 +22,19 @@ const projectColors = [
 ]
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState(null)
-  const { data: projects, loading, error, refetch } = useProjects()
-  const { t, tl } = useTranslation()
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const { t, tl, language } = useTranslation()
+  const projectsData = projects[language as Language]
 
   // Refs for focus management
-  const modalRef = useRef(null)
-  const triggerRef = useRef(null)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLElement | null>(null)
 
   const closeModal = useCallback(() => {
     setSelectedProject(null)
   }, [])
 
-  const openModal = useCallback((project, e) => {
+  const openModal = useCallback((project: Project, e: React.MouseEvent<HTMLDivElement>) => {
     triggerRef.current = e.currentTarget
     setSelectedProject(project)
   }, [])
@@ -52,7 +54,7 @@ const Projects = () => {
   useEffect(() => {
     if (!selectedProject) return
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeModal()
       }
@@ -66,11 +68,11 @@ const Projects = () => {
   useEffect(() => {
     if (!selectedProject || !modalRef.current) return
 
-    const handleTab = (e) => {
+    const handleTab = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return
 
       const focusableSelectors = 'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
-      const focusableElements = modalRef.current.querySelectorAll(focusableSelectors)
+      const focusableElements = modalRef.current!.querySelectorAll<HTMLElement>(focusableSelectors)
       if (focusableElements.length === 0) return
 
       const firstElement = focusableElements[0]
@@ -105,22 +107,18 @@ const Projects = () => {
     }
   }, [selectedProject])
 
-  if (loading) return <Loading />
-  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
-  if (!projects || !Array.isArray(projects)) return <div className="text-center p-10">{tl({ en: 'No projects data available', th: 'ไม่มีข้อมูลผลงาน', zh: '暂无项目数据' })}</div>
-
   return (
     <section id="projects" className="py-20 border-t-4 border-black bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">{t('projects.title')}</h2>
           <p className="mt-4 text-5xl md:text-6xl font-black text-black uppercase">
-            {tl({ en: "Projects I'm Proud Of", th: 'ผลงานที่ภูมิใจ', zh: '我的得意作品' })}
+            {tl({ en: "Projects I'm Proud Of", th: 'ผลงานที่ภูมิใจ' })}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {projects.map((project, index) => {
+          {projectsData.map((project, index) => {
             const IconComponent = projectIcons[index % 3] || Layout
             const bgColor = projectColors[index % projectColors.length]
 
