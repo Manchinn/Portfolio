@@ -1,21 +1,22 @@
+'use client'
+
 import React, { useState, useRef, useEffect } from 'react'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { navItems } from '../../../data/portfolio'
 import { useTranslation } from '../../../i18n/useTranslation'
-import NotificationBell from '../../ui/NotificationBell'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
   const { t, language, changeLanguage, languages } = useTranslation()
-  const langRef = useRef(null)
+  const langRef = useRef<HTMLDivElement>(null)
 
   const currentLang = languages.find(l => l.code === language)
 
   // Click-outside handler สำหรับ language dropdown — ปิด dropdown เมื่อคลิกนอก
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (langRef.current && !langRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
         setIsLangOpen(false)
       }
     }
@@ -34,7 +35,7 @@ const Navbar = () => {
             </div>
             <span className="text-2xl font-black tracking-tighter">DEV<span className="text-neo-coral">FOLIO</span></span>
           </div>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
             {navItems.filter(item => item.label !== 'Contact').map((item, idx) => (
@@ -52,9 +53,6 @@ const Navbar = () => {
             >
               {t('nav.contact')}!
             </a>
-
-            {/* Notification Bell */}
-            <NotificationBell />
 
             {/* Language Switcher */}
             <div className="relative" ref={langRef}>
@@ -87,9 +85,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button + NotificationBell */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-3">
-            <NotificationBell />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-black border-2 border-black p-1 shadow-neo-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px]"
@@ -139,4 +136,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default Navbar
