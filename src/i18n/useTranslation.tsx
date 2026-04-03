@@ -1,61 +1,50 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 import { translations, languages } from './index'
 import { LanguageContext } from './useTranslation'
 
-// Get saved language or default to 'en'
-const getInitialLanguage = () => {
+const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
     const saved = localStorage.getItem('portfolio-language')
-    if (saved && translations[saved]) {
-      return saved
-    }
+    if (saved && translations[saved]) return saved
   }
   return 'en'
 }
 
-// Provider component
-export const LanguageProvider = ({ children }) => {
+export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [language, setLanguage] = useState(getInitialLanguage)
 
   useEffect(() => {
     localStorage.setItem('portfolio-language', language)
-    // Update html lang attribute for SEO
     document.documentElement.lang = language
   }, [language])
 
-  const t = (key) => {
+  const t = (key: string): string => {
     const keys = key.split('.')
-    let value = translations[language]
-
+    let value: unknown = translations[language]
     for (const k of keys) {
       if (value && typeof value === 'object') {
-        value = value[k]
+        value = (value as Record<string, unknown>)[k]
       } else {
-        // Fallback to English if key not found
-        value = translations['en']
+        let fallback: unknown = translations['en']
         for (const k2 of keys) {
-          if (value && typeof value === 'object') {
-            value = value[k2]
-          } else {
-            return key // Return key if not found
-          }
+          if (fallback && typeof fallback === 'object') {
+            fallback = (fallback as Record<string, unknown>)[k2]
+          } else return key
         }
-        break
+        return (typeof fallback === 'string' ? fallback : key)
       }
     }
-
-    return value || key
+    return (typeof value === 'string' ? value : key)
   }
 
-  // Helper for inline translations: tl({ en: 'English', th: 'ไทย', zh: '中文' })
-  const tl = (translationsObj) => {
+  const tl = (translationsObj: Record<string, string>): string => {
     return translationsObj[language] || translationsObj['en'] || Object.values(translationsObj)[0]
   }
 
-  const changeLanguage = (lang) => {
-    if (translations[lang]) {
-      setLanguage(lang)
-    }
+  const changeLanguage = (lang: string) => {
+    if (translations[lang]) setLanguage(lang)
   }
 
   return (
