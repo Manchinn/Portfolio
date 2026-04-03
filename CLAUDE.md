@@ -4,61 +4,62 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Portfolio frontend — React 19 SPA with Vite and Tailwind CSS v4. JSX (not TypeScript). Fetches all data from the backend API.
+Portfolio website for Chinnakrit Sripan — Next.js 15 App Router with TypeScript. All data is static (no backend API). Deployed on Vercel.
 
 ## Architecture
 
 ```
 src/
-  App.jsx                          → Root component with react-router-dom v7
-  main.jsx                         → Entry point
-  pages/
-    Home.jsx, ArticlePage.jsx, NotFound.jsx
+  app/
+    layout.tsx              → Root layout (Navbar, LanguageProvider)
+    page.tsx                → Home page (Hero + all sections)
+    article/[slug]/
+      page.tsx              → SSG with generateStaticParams
+      ArticleContent.tsx    → Client component for article rendering
+    not-found.tsx           → 404 page
+    globals.css             → Tailwind CSS + neo-brutalist theme
   components/
-    layout/   → Navbar, Footer
-    Sections/ → About, Skills, Experience, Projects, Articles, Contact
-    ui/       → Loading, NotificationBell
-  services/
-    api.js              → fetch wrapper with timeout, reads VITE_API_URL
-    portfolioService.js → service layer wrapping api.js calls
-  hooks/
-    usePortfolioData.js → React hook for data fetching
-  i18n/
-    index.js, useTranslation.js → i18n, language in localStorage (key: portfolio-language)
+    layout/Navbar/Navbar.tsx → Sticky navbar with language switcher
+    layout/Footer.tsx
+    sections/               → About, Skills, Experience, Projects, Articles, Contact
+    ui/Loading.tsx           → Loading spinner and error display
   data/
-    portfolio.js → static/fallback data
+    portfolio.ts            → All portfolio data (en/th), single source of truth
+    types.ts                → TypeScript interfaces
+  i18n/
+    LanguageContext.ts       → Context + useTranslation hook
+    LanguageProvider.tsx     → Provider component (client-side, localStorage)
+    useTranslation.ts        → Re-export (public API)
+    locales/en.json, th.json → UI label translations
 ```
 
 ### Data Flow
 
-`Component → usePortfolioData hook → portfolioService → api.js (fetch) → Backend /api/*`
+Components import directly from `@/data/portfolio.ts`. Language selection via `useTranslation()` context picks en/th data. No API calls, no fetch hooks.
 
-All API responses have `{ success, data }` shape. Language sent via `Accept-Language` header.
+### Rendering
+
+- `/` — Static (SSG)
+- `/article/[slug]` — SSG via `generateStaticParams` from article slugs
+- All section components are `'use client'` (use React context for i18n)
 
 ## Commands
 
 ```bash
-npm install
-npm run dev       # vite dev server (localhost:5173)
-npm run build     # production build → dist/
-npm run preview   # preview production build
-npm run lint      # eslint
+npm run dev       # Next.js dev server (localhost:3000)
+npm run build     # Production build
+npm run start     # Start production server
+npm run lint      # Next.js ESLint
 ```
-
-## Environment Variables
-
-| Variable | Purpose | Default |
-|----------|---------|---------|
-| `VITE_API_URL` | Backend API base URL | `http://localhost:3000/api` |
 
 ## Key Libraries
 
-- `react-router-dom` v7 — routing
-- `lucide-react` — icons
-- `@tailwindcss/vite` — Tailwind CSS v4 Vite plugin
+- next 15, react 19, typescript
+- tailwindcss 4 + @tailwindcss/postcss
+- lucide-react (icons)
 
 ## Deployment
 
-Vercel auto-deploys. Standard Vite build.
+Vercel auto-deploys. Production domains: `chinnakrit.dev`, `www.chinnakrit.dev`
 
-- Production domains: `chinnakrit.dev`, `www.chinnakrit.dev`
+No environment variables needed (all data is static).
