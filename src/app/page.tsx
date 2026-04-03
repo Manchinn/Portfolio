@@ -6,12 +6,12 @@ import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
 
 // Import all sections
-import About from '@/components/Sections/About'
-import Skills from '@/components/Sections/Skills'
-import Experience from '@/components/Sections/Experience'
-import Projects from '@/components/Sections/Projects'
-import Articles from '@/components/Sections/Articles'
-import Contact from '@/components/Sections/Contact'
+import About from '@/components/sections/About'
+import Skills from '@/components/sections/Skills'
+import Experience from '@/components/sections/Experience'
+import Projects from '@/components/sections/Projects'
+import Articles from '@/components/sections/Articles'
+import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
 
 export default function Home() {

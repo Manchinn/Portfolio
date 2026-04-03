@@ -1,21 +1,4 @@
-'use client'
-
-import { createContext, useContext } from 'react'
-
-export interface TranslationContext {
-  t: (key: string) => string
-  tl: (translations: Record<string, string>) => string
-  language: string
-  changeLanguage: (lang: string) => void
-  languages: { code: string; name: string; nativeName: string }[]
-}
-
-export const LanguageContext = createContext<TranslationContext | null>(null)
-
-export const useTranslation = (): TranslationContext => {
-  const context = useContext(LanguageContext)
-  if (!context) {
-    throw new Error('useTranslation must be used within a LanguageProvider')
-  }
-  return context
-}
+// Re-export everything from separate files for clean public API
+export { LanguageContext, useTranslation } from './LanguageContext'
+export type { TranslationContext } from './LanguageContext'
+export { LanguageProvider } from './LanguageProvider'

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { translations, languages } from './index'
-import { LanguageContext } from './useTranslation'
+import { LanguageContext } from './LanguageContext'
 
 const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
