@@ -1,39 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Clock, Calendar, Tag, ArrowRight } from 'lucide-react'
-import { useArticle } from '../hooks/usePortfolioData'
-import { useTranslation } from '../i18n/useTranslation'
-import * as PortfolioService from '../services/portfolioService'
-import Loading, { ErrorDisplay } from '../components/ui/Loading'
+'use client'
 
-const ArticlePage = () => {
-  const { slug } = useParams()
-  const { data: article, loading, error, refetch } = useArticle(slug)
-  const { tl } = useTranslation()
-  const [allArticles, setAllArticles] = useState([])
+import Link from 'next/link'
+import { ArrowLeft, Clock, Calendar, ArrowRight } from 'lucide-react'
+import { articles } from '@/data/portfolio'
+import { useTranslation } from '@/i18n/useTranslation'
+import type { Language } from '@/data/types'
 
-  // Fetch all articles to show related articles
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const articles = await PortfolioService.getArticles()
-        setAllArticles(articles.filter(a => a.slug !== slug).slice(0, 3))
-      } catch (err) {
-        console.error('Error fetching articles:', err)
-      }
-    }
-    fetchArticles()
-  }, [slug])
+interface ArticleContentProps {
+  slug: string
+}
 
-  if (loading) return <Loading />
-  if (error) return <ErrorDisplay error={error} onRetry={refetch} />
+export default function ArticleContent({ slug }: ArticleContentProps) {
+  const { tl, language } = useTranslation()
+  const langArticles = articles[language as Language]
+  const article = langArticles.find(a => a.slug === slug)
+  const allArticles = langArticles.filter(a => a.slug !== slug).slice(0, 3)
+
   if (!article) {
     return (
       <div className="min-h-screen bg-neo-cream flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-black mb-4">Article Not Found</h1>
-          <Link to="/" className="text-neo-coral font-bold hover:underline">
-            {tl({ en: 'Go Home', th: 'กลับหน้าหลัก', zh: '返回首页' })}
+          <Link href="/" className="text-neo-coral font-bold hover:underline">
+            {tl({ en: 'Go Home', th: 'กลับหน้าหลัก' })}
           </Link>
         </div>
       </div>
@@ -46,11 +35,11 @@ const ArticlePage = () => {
       <header className="bg-black text-white py-8">
         <div className="max-w-4xl mx-auto px-4">
           <Link
-            to="/#articles"
+            href="/#articles"
             className="inline-flex items-center gap-2 text-white font-bold hover:text-neo-coral transition-colors"
           >
             <ArrowLeft size={20} />
-            {tl({ en: 'Back to Articles', th: 'กลับไปบทความ', zh: '返回文章' })}
+            {tl({ en: 'Back to Articles', th: 'กลับไปบทความ' })}
           </Link>
         </div>
       </header>
@@ -120,10 +109,10 @@ const ArticlePage = () => {
         {/* Back to Articles */}
         <div className="mt-12 pt-8 border-t-4 border-black">
           <Link
-            to="/#articles"
+            href="/#articles"
             className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 font-bold border-2 border-black hover:bg-white hover:text-black transition-colors shadow-neo"
           >
-            {tl({ en: 'Back to Articles', th: 'กลับไปบทความ', zh: '返回文章' })}
+            {tl({ en: 'Back to Articles', th: 'กลับไปบทความ' })}
             <ArrowRight size={20} />
           </Link>
         </div>
@@ -134,13 +123,13 @@ const ArticlePage = () => {
         <section className="bg-white border-t-4 border-black py-12">
           <div className="max-w-4xl mx-auto px-4">
             <h2 className="text-2xl font-black uppercase mb-8">
-              {tl({ en: 'Related Articles', th: 'บทความที่เกี่ยวข้อง', zh: '相关文章' })}
+              {tl({ en: 'Related Articles', th: 'บทความที่เกี่ยวข้อง' })}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {allArticles.map((relatedArticle) => (
                 <Link
                   key={relatedArticle.id}
-                  to={`/article/${relatedArticle.slug}`}
+                  href={`/article/${relatedArticle.slug}`}
                   className="border-4 border-black bg-white shadow-neo hover:shadow-neo-lg hover:-translate-y-1 transition-all block"
                 >
                   <div className="h-32 overflow-hidden border-b-4 border-black">
@@ -163,5 +152,3 @@ const ArticlePage = () => {
     </div>
   )
 }
-
-export default ArticlePage
