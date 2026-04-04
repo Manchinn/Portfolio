@@ -39,7 +39,7 @@ export interface Project {
   longDescription: string
   tech: string[]
   image: string
-  github: string
+  github?: string
   demo: string
   date: string
   category: string
