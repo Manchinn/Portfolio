@@ -42,7 +42,7 @@ ${styleGuide}
 
   let result = '';
 
-  const stream = client.beta.sessions.events.stream(session.id);
+  const stream = await client.beta.sessions.events.stream(session.id);
   await client.beta.sessions.events.send(session.id, {
     events: [{
       type: "user.message",
@@ -52,7 +52,7 @@ ${styleGuide}
 
   for await (const event of stream) {
     if (event.type === "agent.message") {
-      for (const block of event.content) {
+      for (const block of (event as { content: { type: string; text: string }[] }).content) {
         if (block.type === "text") result += block.text;
       }
     }
