@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import ContentCard from '@/components/admin/ContentCard'
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'
+const API = '/api'
 
 interface ContentPiece {
   id: string
