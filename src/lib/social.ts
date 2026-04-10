@@ -20,7 +20,7 @@ export async function postToFacebook(text: string, hashtags: string[] = []) {
 
 export async function postToThreads(text: string, hashtags: string[] = []) {
   const userId = process.env.THREADS_USER_ID;
-  const token = process.env.FB_ACCESS_TOKEN;
+  const token = process.env.THREADS_ACCESS_TOKEN || process.env.FB_ACCESS_TOKEN;
 
   const createRes = await fetch(
     `https://graph.threads.net/v1.0/${userId}/threads`,
