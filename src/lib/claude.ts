@@ -37,10 +37,13 @@ export async function generateContent(articleContent: string, styleGuide: string
   });
 
   const msg = response as Anthropic.Message;
-  const result = msg.content
+  let result = msg.content
     .filter((block): block is Anthropic.TextBlock => block.type === "text")
     .map((block) => block.text)
     .join("");
+
+  // Strip markdown code fences if present
+  result = result.replace(/^```(?:json)?\s*\n?/i, '').replace(/\n?```\s*$/i, '').trim();
 
   return JSON.parse(result);
 }
