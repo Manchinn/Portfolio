@@ -30,12 +30,11 @@ export async function generateContent(articleContent: string, styleGuide: string
   const response = await client.messages.create({
     model: "claude-haiku-4-5-20251001",
     max_tokens: 4096,
-    system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
+    system: systemPrompt,
     messages: [
       { role: "user", content: articleContent },
     ],
-    betas: ["prompt-caching-2024-07-31"],
-  } as Anthropic.MessageCreateParams);
+  });
 
   const msg = response as Anthropic.Message;
   const result = msg.content
