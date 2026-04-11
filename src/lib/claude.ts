@@ -33,11 +33,11 @@ export async function generateContent(articleContent: string, styleGuide: string
     system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
     tools: [
       {
-        type: "advisor_20260301" as const,
+        type: "advisor_20260301",
         name: "advisor",
         model: "claude-opus-4-6",
         max_uses: 1,
-      } as Anthropic.Tool,
+      } as unknown as Anthropic.Tool,
     ],
     messages: [
       { role: "user", content: articleContent },
@@ -45,7 +45,8 @@ export async function generateContent(articleContent: string, styleGuide: string
     betas: ["advisor-tool-2026-03-01", "prompt-caching-2024-07-31"],
   } as Anthropic.MessageCreateParams);
 
-  const result = response.content
+  const msg = response as Anthropic.Message;
+  const result = msg.content
     .filter((block): block is Anthropic.TextBlock => block.type === "text")
     .map((block) => block.text)
     .join("");
