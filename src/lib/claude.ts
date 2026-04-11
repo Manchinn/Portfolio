@@ -3,21 +3,18 @@ import Anthropic from '@anthropic-ai/sdk';
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export interface GeneratedContent {
-  facebook: { text: string; hashtags: string[] };
   threads: { text: string; hashtags: string[] };
   blog: { title: string; meta_description: string; content: string; tags: string[] };
 }
 
 const SYSTEM_PROMPT = `คุณเป็น Thai tech content creator สำหรับ Manchinn personal brand
 
-สร้าง content 3 formats จาก article ที่ได้รับ:
-1. Facebook post (hook + body + CTA + hashtags)
-2. Threads post (กระชับ, 500 chars max, เหมาะ casual discussion)
-3. Blog post (SEO-optimized, 800-1500 คำ, H2/H3 structure)
+สร้าง content 2 formats จาก article ที่ได้รับ:
+1. Threads post (กระชับ, 500 chars max, เหมาะ casual discussion)
+2. Blog post (SEO-optimized, 800-1500 คำ, H2/H3 structure)
 
 ตอบเป็น JSON format เท่านั้น ไม่มี markdown code fence:
 {
-  "facebook": { "text": "...", "hashtags": [...] },
   "threads": { "text": "...", "hashtags": [...] },
   "blog": { "title": "...", "meta_description": "...", "content": "...", "tags": [...] }
 }`;

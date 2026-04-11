@@ -4,7 +4,6 @@ interface ContentPiece {
   id: string
   created: string
   status: string
-  facebook: { text: string; hashtags: string[]; published?: boolean; post_url?: string }
   threads: { text: string; hashtags: string[]; published?: boolean; post_url?: string }
   blog: { title: string; meta_description: string; content: string; published?: boolean; slug?: string }
 }
@@ -25,27 +24,6 @@ export default function ContentCard({ content, onPublish }: ContentCardProps) {
       </div>
 
       <div className="space-y-4 text-sm">
-        {/* Facebook */}
-        <div className="p-3 border-2 border-black bg-blue-50">
-          <div className="flex items-center justify-between mb-2">
-            <strong className="text-blue-600">Facebook</strong>
-            {content.facebook?.published ? (
-              <span className="text-green-600 text-xs font-bold">✓ Published</span>
-            ) : (
-              <button
-                onClick={() => onPublish(content.id, 'facebook')}
-                className="bg-blue-500 text-white px-3 py-1 text-xs border-2 border-black font-bold hover:bg-blue-600"
-              >
-                Post FB
-              </button>
-            )}
-          </div>
-          <p className="text-gray-700 line-clamp-3">{content.facebook?.text}</p>
-          {content.facebook?.hashtags && (
-            <p className="text-blue-400 text-xs mt-1">{content.facebook.hashtags.join(' ')}</p>
-          )}
-        </div>
-
         {/* Threads */}
         <div className="p-3 border-2 border-black bg-gray-50">
           <div className="flex items-center justify-between mb-2">

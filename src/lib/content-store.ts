@@ -5,7 +5,6 @@ export interface ContentRecord {
   id: string;
   created: string;
   status: string;
-  facebook: { text: string; hashtags: string[]; published?: boolean; post_id?: string; post_url?: string };
   threads: { text: string; hashtags: string[]; published?: boolean; post_id?: string; post_url?: string };
   blog: { title: string; meta_description: string; content: string; tags: string[]; published?: boolean; slug?: string };
 }

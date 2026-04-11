@@ -9,7 +9,6 @@ interface ContentPiece {
   id: string
   created: string
   status: string
-  facebook: { text: string; hashtags: string[]; published?: boolean; post_url?: string }
   threads: { text: string; hashtags: string[]; published?: boolean; post_url?: string }
   blog: { title: string; meta_description: string; content: string; published?: boolean; slug?: string }
 }
@@ -91,7 +90,7 @@ export default function AdminContent() {
             disabled={loading || !articleText.trim()}
             className="bg-neo-yellow px-6 py-3 border-4 border-black font-bold shadow-[4px_4px_0px_0px_#000] hover:shadow-none transition-shadow disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {loading ? 'Generating...' : 'Generate Content (3 formats)'}
+            {loading ? 'Generating...' : 'Generate Content (2 formats)'}
           </button>
           {loading && <span className="text-sm text-gray-500 font-mono animate-pulse">Claude กำลังสร้าง content...</span>}
         </div>
