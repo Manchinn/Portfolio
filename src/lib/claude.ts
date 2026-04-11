@@ -31,18 +31,10 @@ export async function generateContent(articleContent: string, styleGuide: string
     model: "claude-haiku-4-5-20251001",
     max_tokens: 4096,
     system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
-    tools: [
-      {
-        type: "advisor_20260301",
-        name: "advisor",
-        model: "claude-opus-4-6",
-        max_uses: 1,
-      } as unknown as Anthropic.Tool,
-    ],
     messages: [
       { role: "user", content: articleContent },
     ],
-    betas: ["advisor-tool-2026-03-01", "prompt-caching-2024-07-31"],
+    betas: ["prompt-caching-2024-07-31"],
   } as Anthropic.MessageCreateParams);
 
   const msg = response as Anthropic.Message;
