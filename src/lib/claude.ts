@@ -8,13 +8,7 @@ export interface GeneratedContent {
   blog: { title: string; meta_description: string; content: string; tags: string[] };
 }
 
-export async function generateContent(articleContent: string, styleGuide: string = ''): Promise<GeneratedContent> {
-  const agent = await client.beta.agents.create({
-    name: "Content Writer",
-    model: "claude-sonnet-4-6",
-    system: `คุณเป็น Thai tech content creator สำหรับ Manchinn personal brand
-ใช้ style guide นี้:
-${styleGuide}
+const SYSTEM_PROMPT = `คุณเป็น Thai tech content creator สำหรับ Manchinn personal brand
 
 สร้าง content 3 formats จาก article ที่ได้รับ:
 1. Facebook post (hook + body + CTA + hashtags)
@@ -26,40 +20,35 @@ ${styleGuide}
   "facebook": { "text": "...", "hashtags": [...] },
   "threads": { "text": "...", "hashtags": [...] },
   "blog": { "title": "...", "meta_description": "...", "content": "...", "tags": [...] }
-}`,
-    tools: [{ type: "agent_toolset_20260401" }],
-  });
+}`;
 
-  const environment = await client.beta.environments.create({
-    name: `content-${Date.now()}`,
-    config: { type: "cloud", networking: { type: "unrestricted" } },
-  });
+export async function generateContent(articleContent: string, styleGuide: string = ''): Promise<GeneratedContent> {
+  const systemPrompt = styleGuide
+    ? `${SYSTEM_PROMPT}\n\nStyle guide:\n${styleGuide}`
+    : SYSTEM_PROMPT;
 
-  const session = await client.beta.sessions.create({
-    agent: agent.id,
-    environment_id: environment.id,
-  });
+  const response = await client.messages.create({
+    model: "claude-haiku-4-5-20251001",
+    max_tokens: 4096,
+    system: [{ type: "text", text: systemPrompt, cache_control: { type: "ephemeral" } }],
+    tools: [
+      {
+        type: "advisor_20260301" as const,
+        name: "advisor",
+        model: "claude-opus-4-6",
+        max_uses: 1,
+      } as Anthropic.Tool,
+    ],
+    messages: [
+      { role: "user", content: articleContent },
+    ],
+    betas: ["advisor-tool-2026-03-01", "prompt-caching-2024-07-31"],
+  } as Anthropic.MessageCreateParams);
 
-  let result = '';
-
-  const stream = await client.beta.sessions.events.stream(session.id);
-  await client.beta.sessions.events.send(session.id, {
-    events: [{
-      type: "user.message",
-      content: [{ type: "text", text: articleContent }],
-    }],
-  });
-
-  for await (const event of stream) {
-    if (event.type === "agent.message") {
-      for (const block of (event as { content: { type: string; text: string }[] }).content) {
-        if (block.type === "text") result += block.text;
-      }
-    }
-    if (event.type === "session.status_idle") break;
-  }
-
-  await client.beta.environments.archive(environment.id);
+  const result = response.content
+    .filter((block): block is Anthropic.TextBlock => block.type === "text")
+    .map((block) => block.text)
+    .join("");
 
   return JSON.parse(result);
 }
