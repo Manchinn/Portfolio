@@ -16,6 +16,14 @@ export async function POST(request: NextRequest) {
 
     const selectedModel: ModelId = validModelIds.has(model) ? model : 'haiku-4.5';
 
+    // Check API key exists before calling
+    if (selectedModel === 'gemini-flash' && !process.env.GOOGLE_AI_API_KEY) {
+      return NextResponse.json({ error: 'GOOGLE_AI_API_KEY not configured' }, { status: 500 });
+    }
+    if (selectedModel === 'gpt-4o-mini' && !process.env.OPENAI_API_KEY) {
+      return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
+    }
+
     const { owner, repo } = parseGitHubUrl(repoUrl);
     const repoContext = await fetchRepoContext(owner, repo);
     const contextString = buildContextString(repoContext);
@@ -36,10 +44,13 @@ export async function POST(request: NextRequest) {
     });
   } catch (err) {
     const raw = err instanceof Error ? err.message : String(err);
-    console.error(`[prompts/generate] model=${requestedModel} error=`, raw);
+    const errName = err instanceof Error ? err.constructor.name : 'Unknown';
+    console.error(`[generate] model=${requestedModel}`);
+    console.error(`[generate] type=${errName}`);
+    console.error(`[generate] msg=${raw.slice(0, 200)}`);
     const safe = raw.includes('Invalid GitHub URL') || raw.includes('not found')
       ? raw
-      : 'Failed to generate prompt. Please try again.';
+      : `Failed to generate (${requestedModel}): ${raw.slice(0, 100)}`;
     return NextResponse.json({ error: safe }, { status: 500 });
   }
 }
