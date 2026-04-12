@@ -6,5 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: 'https://www.chinnakrit.dev/#about', lastModified: new Date(), priority: 0.8 },
     { url: 'https://www.chinnakrit.dev/#projects', lastModified: new Date(), priority: 0.8 },
     { url: 'https://www.chinnakrit.dev/#contact', lastModified: new Date(), priority: 0.5 },
+    { url: 'https://www.chinnakrit.dev/prompts', lastModified: new Date(), priority: 0.7 },
   ]
 }

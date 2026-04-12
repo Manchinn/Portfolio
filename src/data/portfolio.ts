@@ -7,6 +7,7 @@ export const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Articles", href: "#articles" },
+  { label: "Prompts", href: "/prompts" },
   { label: "Contact", href: "#contact" },
 ]
 
