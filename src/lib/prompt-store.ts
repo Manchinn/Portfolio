@@ -1,4 +1,4 @@
-import { put, list, del } from '@vercel/blob';
+import { put, list, del, get } from '@vercel/blob';
 
 export interface PromptRecord {
   slug: string
@@ -32,10 +32,17 @@ function isValidSlug(slug: string): boolean {
   return /^[a-z0-9-]+$/.test(slug);
 }
 
+async function readBlob(url: string): Promise<PromptRecord> {
+  const response = await get(url, { access: 'private' });
+  if (!response || response.statusCode !== 200) throw new Error('Blob not found');
+  const text = await new Response(response.stream).text();
+  return JSON.parse(text) as PromptRecord;
+}
+
 export async function savePrompt(record: PromptRecord): Promise<void> {
   if (!isValidSlug(record.slug)) throw new Error('Invalid slug');
   await put(`${PREFIX}${record.slug}.json`, JSON.stringify(record), {
-    access: 'public',
+    access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
   });
@@ -47,8 +54,7 @@ export async function getPrompt(slug: string): Promise<PromptRecord | null> {
     const { blobs } = await list({ prefix: `${PREFIX}${slug}.json` });
     const blob = blobs.find(b => b.pathname === `${PREFIX}${slug}.json`);
     if (!blob) return null;
-    const res = await fetch(blob.url);
-    return await res.json() as PromptRecord;
+    return await readBlob(blob.url);
   } catch {
     return null;
   }
@@ -61,8 +67,7 @@ export async function listPrompts(): Promise<PromptRecord[]> {
   for (const blob of blobs) {
     if (!blob.pathname.endsWith('.json')) continue;
     try {
-      const res = await fetch(blob.url);
-      const record = await res.json() as PromptRecord;
+      const record = await readBlob(blob.url);
       items.push(record);
     } catch {
       // skip corrupted blobs
