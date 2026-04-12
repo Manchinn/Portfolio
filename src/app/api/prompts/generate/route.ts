@@ -1,18 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parseGitHubUrl, fetchRepoContext, buildContextString } from '@/lib/github';
-import { generatePrompt } from '@/lib/prompt-generator';
+import { generatePrompt, MODELS } from '@/lib/prompt-generator';
+import type { ModelId } from '@/lib/prompt-generator';
+
+const validModelIds = new Set(MODELS.map(m => m.id));
 
 export async function POST(request: NextRequest) {
   try {
-    const { repoUrl } = await request.json();
+    const { repoUrl, model } = await request.json();
     if (!repoUrl || typeof repoUrl !== 'string') {
       return NextResponse.json({ error: 'repoUrl is required' }, { status: 400 });
     }
 
+    const selectedModel: ModelId = validModelIds.has(model) ? model : 'haiku-4.5';
+
     const { owner, repo } = parseGitHubUrl(repoUrl);
     const repoContext = await fetchRepoContext(owner, repo);
     const contextString = buildContextString(repoContext);
-    const prompt = await generatePrompt(contextString);
+    const prompt = await generatePrompt(contextString, selectedModel);
 
     return NextResponse.json({
       success: true,

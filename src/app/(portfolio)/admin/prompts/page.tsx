@@ -16,6 +16,14 @@ interface PromptRecord {
   createdAt: string
 }
 
+type ModelId = 'haiku-4.5' | 'gemini-flash' | 'gpt-4o-mini'
+
+const MODEL_OPTIONS: { id: ModelId; label: string; cost: string }[] = [
+  { id: 'haiku-4.5', label: 'Claude Haiku 4.5', cost: '~$0.004' },
+  { id: 'gemini-flash', label: 'Gemini 2.0 Flash', cost: '~$0.001' },
+  { id: 'gpt-4o-mini', label: 'GPT-4o Mini', cost: '~$0.002' },
+]
+
 interface GenerateResult {
   prompt: string
   metadata: {
@@ -30,6 +38,7 @@ interface GenerateResult {
 export default function AdminPrompts() {
   const [prompts, setPrompts] = useState<PromptRecord[]>([])
   const [repoUrl, setRepoUrl] = useState('')
+  const [selectedModel, setSelectedModel] = useState<ModelId>('haiku-4.5')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -60,7 +69,7 @@ export default function AdminPrompts() {
       const res = await fetch('/api/prompts/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ repoUrl }),
+        body: JSON.stringify({ repoUrl, model: selectedModel }),
       })
       const data = await res.json()
       if (data.success) {
@@ -143,15 +152,26 @@ export default function AdminPrompts() {
       {/* Generate section */}
       <div className="mb-8 border-4 border-black bg-white p-6 shadow-[4px_4px_0px_0px_#000]">
         <h2 className="font-bold mb-3 text-lg">Generate from GitHub Repo</h2>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <input
             type="url"
             value={repoUrl}
             onChange={e => setRepoUrl(e.target.value)}
             placeholder="https://github.com/owner/repo"
-            className="flex-1 p-3 border-4 border-black font-mono text-sm focus:outline-none focus:border-neo-blue"
+            className="flex-1 min-w-[300px] p-3 border-4 border-black font-mono text-sm focus:outline-none focus:border-neo-blue"
             onKeyDown={e => e.key === 'Enter' && handleGenerate()}
           />
+          <select
+            value={selectedModel}
+            onChange={e => setSelectedModel(e.target.value as ModelId)}
+            className="p-3 border-4 border-black font-mono text-sm focus:outline-none focus:border-neo-blue bg-white"
+          >
+            {MODEL_OPTIONS.map(m => (
+              <option key={m.id} value={m.id}>
+                {m.label} ({m.cost}/repo)
+              </option>
+            ))}
+          </select>
           <button
             onClick={handleGenerate}
             disabled={loading || !repoUrl.trim()}
