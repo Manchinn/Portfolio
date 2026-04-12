@@ -48,7 +48,7 @@ const Navbar = () => {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               className="bg-neo-sky text-black border-2 border-black px-6 py-2 font-bold shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-sm transition-all uppercase"
             >
               {t('nav.contact')}!

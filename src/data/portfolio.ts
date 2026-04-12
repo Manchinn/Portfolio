@@ -1,14 +1,14 @@
 import type { Profile, ProfileCommon, SkillGroup, Experience, Project, Social, Article, Language, LocalizedData } from './types'
 
 export const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Articles", href: "#articles" },
+  { label: "Home", href: "/#home" },
+  { label: "About", href: "/#about" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Articles", href: "/#articles" },
   { label: "Prompts", href: "/prompts" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ]
 
 export const profile: LocalizedData<Profile> = {
