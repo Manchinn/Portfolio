@@ -1,8 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
-import { GoogleGenAI } from '@google/genai';
 import OpenAI from 'openai';
 
-export type ModelId = 'haiku-4.5' | 'gemini-flash' | 'gpt-4o-mini';
+export type ModelId = 'haiku-4.5' | 'qwen-turbo' | 'groq-llama';
 
 export interface ModelOption {
   id: ModelId
@@ -13,8 +12,8 @@ export interface ModelOption {
 
 export const MODELS: ModelOption[] = [
   { id: 'haiku-4.5', label: 'Claude Haiku 4.5', provider: 'Anthropic', costPerRepo: '~$0.004' },
-  { id: 'gemini-flash', label: 'Gemini 2.0 Flash', provider: 'Google', costPerRepo: '~$0.001' },
-  { id: 'gpt-4o-mini', label: 'GPT-4o Mini', provider: 'OpenAI', costPerRepo: '~$0.002' },
+  { id: 'qwen-turbo', label: 'Qwen Turbo', provider: 'Alibaba', costPerRepo: 'Free' },
+  { id: 'groq-llama', label: 'Llama 3.3 70B', provider: 'Groq', costPerRepo: 'Free' },
 ];
 
 const SYSTEM_PROMPT = `You reverse-engineer GitHub repositories into concise prompts.
@@ -46,24 +45,30 @@ async function generateWithHaiku(context: string): Promise<string> {
     .trim();
 }
 
-async function generateWithGemini(context: string): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_API_KEY || '' });
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash',
-    contents: context,
-    config: {
-      systemInstruction: SYSTEM_PROMPT,
-      maxOutputTokens: 2048,
-    },
+async function generateWithQwen(context: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.DASHSCOPE_API_KEY,
+    baseURL: 'https://dashscope-intl.aliyuncs.com/compatible-mode/v1',
+  });
+  const response = await client.chat.completions.create({
+    model: 'qwen-turbo',
+    max_tokens: 2048,
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user', content: context },
+    ],
   });
 
-  return (response.text ?? '').trim();
+  return (response.choices[0]?.message?.content ?? '').trim();
 }
 
-async function generateWithGPT4oMini(context: string): Promise<string> {
-  const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+async function generateWithGroq(context: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: 'https://api.groq.com/openai/v1',
+  });
   const response = await client.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: 'llama-3.3-70b-versatile',
     max_tokens: 2048,
     messages: [
       { role: 'system', content: SYSTEM_PROMPT },
@@ -78,10 +83,10 @@ export async function generatePrompt(repoContext: string, model: ModelId = 'haik
   switch (model) {
     case 'haiku-4.5':
       return generateWithHaiku(repoContext);
-    case 'gemini-flash':
-      return generateWithGemini(repoContext);
-    case 'gpt-4o-mini':
-      return generateWithGPT4oMini(repoContext);
+    case 'qwen-turbo':
+      return generateWithQwen(repoContext);
+    case 'groq-llama':
+      return generateWithGroq(repoContext);
     default:
       return generateWithHaiku(repoContext);
   }

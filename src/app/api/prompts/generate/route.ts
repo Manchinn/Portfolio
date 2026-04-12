@@ -17,11 +17,11 @@ export async function POST(request: NextRequest) {
     const selectedModel: ModelId = validModelIds.has(model) ? model : 'haiku-4.5';
 
     // Check API key exists before calling
-    if (selectedModel === 'gemini-flash' && !process.env.GOOGLE_AI_API_KEY) {
-      return NextResponse.json({ error: 'GOOGLE_AI_API_KEY not configured' }, { status: 500 });
+    if (selectedModel === 'qwen-turbo' && !process.env.DASHSCOPE_API_KEY) {
+      return NextResponse.json({ error: 'DASHSCOPE_API_KEY not configured' }, { status: 500 });
     }
-    if (selectedModel === 'gpt-4o-mini' && !process.env.OPENAI_API_KEY) {
-      return NextResponse.json({ error: 'OPENAI_API_KEY not configured' }, { status: 500 });
+    if (selectedModel === 'groq-llama' && !process.env.GROQ_API_KEY) {
+      return NextResponse.json({ error: 'GROQ_API_KEY not configured' }, { status: 500 });
     }
 
     const { owner, repo } = parseGitHubUrl(repoUrl);
