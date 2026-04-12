@@ -6,8 +6,10 @@ import type { ModelId } from '@/lib/prompt-generator';
 const validModelIds = new Set(MODELS.map(m => m.id));
 
 export async function POST(request: NextRequest) {
+  let requestedModel = 'unknown';
   try {
     const { repoUrl, model } = await request.json();
+    requestedModel = model || 'haiku-4.5';
     if (!repoUrl || typeof repoUrl !== 'string') {
       return NextResponse.json({ error: 'repoUrl is required' }, { status: 400 });
     }
@@ -33,7 +35,8 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (err) {
-    const raw = err instanceof Error ? err.message : '';
+    const raw = err instanceof Error ? err.message : String(err);
+    console.error(`[prompts/generate] model=${requestedModel} error=`, raw);
     const safe = raw.includes('Invalid GitHub URL') || raw.includes('not found')
       ? raw
       : 'Failed to generate prompt. Please try again.';
