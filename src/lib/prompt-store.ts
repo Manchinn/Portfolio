@@ -1,5 +1,4 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
-import { join, resolve } from 'path';
+import { put, list, del } from '@vercel/blob';
 
 export interface PromptRecord {
   slug: string
@@ -15,11 +14,7 @@ export interface PromptRecord {
   updatedAt: string
 }
 
-const PROMPTS_DIR = join('/tmp', 'prompts-library');
-
-function ensureDir(): void {
-  if (!existsSync(PROMPTS_DIR)) mkdirSync(PROMPTS_DIR, { recursive: true });
-}
+const PREFIX = 'prompts/';
 
 function slugify(name: string, owner: string): string {
   return `${owner}-${name}`
@@ -33,37 +28,60 @@ export function generateSlug(repoName: string, repoOwner: string): string {
   return slugify(repoName, repoOwner);
 }
 
-function safePath(slug: string): string | null {
-  if (!/^[a-z0-9-]+$/.test(slug)) return null;
-  const resolved = resolve(join(PROMPTS_DIR, `${slug}.json`));
-  if (!resolved.startsWith(resolve(PROMPTS_DIR) + '/') && !resolved.startsWith(resolve(PROMPTS_DIR) + '\\')) return null;
-  return resolved;
+function isValidSlug(slug: string): boolean {
+  return /^[a-z0-9-]+$/.test(slug);
 }
 
-export function savePrompt(record: PromptRecord): void {
-  ensureDir();
-  const filePath = safePath(record.slug);
-  if (!filePath) throw new Error('Invalid slug');
-  writeFileSync(filePath, JSON.stringify(record, null, 2));
+export async function savePrompt(record: PromptRecord): Promise<void> {
+  if (!isValidSlug(record.slug)) throw new Error('Invalid slug');
+  await put(`${PREFIX}${record.slug}.json`, JSON.stringify(record), {
+    access: 'public',
+    contentType: 'application/json',
+    addRandomSuffix: false,
+  });
 }
 
-export function getPrompt(slug: string): PromptRecord | null {
-  const filePath = safePath(slug);
-  if (!filePath || !existsSync(filePath)) return null;
-  return JSON.parse(readFileSync(filePath, 'utf-8'));
+export async function getPrompt(slug: string): Promise<PromptRecord | null> {
+  if (!isValidSlug(slug)) return null;
+  try {
+    const { blobs } = await list({ prefix: `${PREFIX}${slug}.json` });
+    const blob = blobs.find(b => b.pathname === `${PREFIX}${slug}.json`);
+    if (!blob) return null;
+    const res = await fetch(blob.url);
+    return await res.json() as PromptRecord;
+  } catch {
+    return null;
+  }
 }
 
-export function listPrompts(): PromptRecord[] {
-  ensureDir();
-  const files = readdirSync(PROMPTS_DIR).filter(f => f.endsWith('.json'));
-  const items = files.map(f => JSON.parse(readFileSync(join(PROMPTS_DIR, f), 'utf-8')) as PromptRecord);
+export async function listPrompts(): Promise<PromptRecord[]> {
+  const { blobs } = await list({ prefix: PREFIX });
+  const items: PromptRecord[] = [];
+
+  for (const blob of blobs) {
+    if (!blob.pathname.endsWith('.json')) continue;
+    try {
+      const res = await fetch(blob.url);
+      const record = await res.json() as PromptRecord;
+      items.push(record);
+    } catch {
+      // skip corrupted blobs
+    }
+  }
+
   items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   return items;
 }
 
-export function deletePrompt(slug: string): boolean {
-  const filePath = safePath(slug);
-  if (!filePath || !existsSync(filePath)) return false;
-  unlinkSync(filePath);
-  return true;
+export async function deletePrompt(slug: string): Promise<boolean> {
+  if (!isValidSlug(slug)) return false;
+  try {
+    const { blobs } = await list({ prefix: `${PREFIX}${slug}.json` });
+    const blob = blobs.find(b => b.pathname === `${PREFIX}${slug}.json`);
+    if (!blob) return false;
+    await del(blob.url);
+    return true;
+  } catch {
+    return false;
+  }
 }

@@ -3,7 +3,7 @@ import { listPrompts, savePrompt, generateSlug } from '@/lib/prompt-store';
 import type { PromptRecord } from '@/lib/prompt-store';
 
 export async function GET() {
-  const items = listPrompts();
+  const items = await listPrompts();
   return NextResponse.json({ success: true, data: items });
 }
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       updatedAt: now,
     };
 
-    savePrompt(record);
+    await savePrompt(record);
     return NextResponse.json({ success: true, data: record });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';

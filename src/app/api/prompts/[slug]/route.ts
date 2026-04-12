@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const record = getPrompt(slug);
+  const record = await getPrompt(slug);
   if (!record) {
     return NextResponse.json({ error: 'Prompt not found' }, { status: 404 });
   }
@@ -18,7 +18,7 @@ export async function DELETE(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const deleted = deletePrompt(slug);
+  const deleted = await deletePrompt(slug);
   if (!deleted) {
     return NextResponse.json({ error: 'Prompt not found' }, { status: 404 });
   }
