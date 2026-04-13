@@ -16,10 +16,11 @@ interface PromptRecord {
   createdAt: string
 }
 
-type ModelId = 'haiku-4.5' | 'qwen-turbo' | 'groq-llama'
+type ModelId = 'haiku-4.5' | 'gemini-flash' | 'qwen-turbo' | 'groq-llama'
 
 const MODEL_OPTIONS: { id: ModelId; label: string; cost: string }[] = [
   { id: 'haiku-4.5', label: 'Claude Haiku 4.5', cost: '~$0.004' },
+  { id: 'gemini-flash', label: 'Gemini 2.5 Flash', cost: 'Free' },
   { id: 'qwen-turbo', label: 'Qwen Turbo', cost: 'Free' },
   { id: 'groq-llama', label: 'Llama 3.3 70B (Groq)', cost: 'Free' },
 ]
