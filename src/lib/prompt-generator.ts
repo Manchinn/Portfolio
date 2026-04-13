@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 
-export type ModelId = 'haiku-4.5' | 'qwen-turbo' | 'groq-llama';
+export type ModelId = 'haiku-4.5' | 'gemini-flash' | 'qwen-turbo' | 'groq-llama';
 
 export interface ModelOption {
   id: ModelId
@@ -12,6 +12,7 @@ export interface ModelOption {
 
 export const MODELS: ModelOption[] = [
   { id: 'haiku-4.5', label: 'Claude Haiku 4.5', provider: 'Anthropic', costPerRepo: '~$0.004' },
+  { id: 'gemini-flash', label: 'Gemini 2.5 Flash', provider: 'Google', costPerRepo: 'Free' },
   { id: 'qwen-turbo', label: 'Qwen Turbo', provider: 'Alibaba', costPerRepo: 'Free' },
   { id: 'groq-llama', label: 'Llama 3.3 70B', provider: 'Groq', costPerRepo: 'Free' },
 ];
@@ -62,6 +63,23 @@ async function generateWithQwen(context: string): Promise<string> {
   return (response.choices[0]?.message?.content ?? '').trim();
 }
 
+async function generateWithGemini(context: string): Promise<string> {
+  const client = new OpenAI({
+    apiKey: process.env.GOOGLE_AI_API_KEY,
+    baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+  });
+  const response = await client.chat.completions.create({
+    model: 'gemini-2.5-flash',
+    max_tokens: 2048,
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user', content: context },
+    ],
+  });
+
+  return (response.choices[0]?.message?.content ?? '').trim();
+}
+
 async function generateWithGroq(context: string): Promise<string> {
   const client = new OpenAI({
     apiKey: process.env.GROQ_API_KEY,
@@ -83,6 +101,8 @@ export async function generatePrompt(repoContext: string, model: ModelId = 'haik
   switch (model) {
     case 'haiku-4.5':
       return generateWithHaiku(repoContext);
+    case 'gemini-flash':
+      return generateWithGemini(repoContext);
     case 'qwen-turbo':
       return generateWithQwen(repoContext);
     case 'groq-llama':
