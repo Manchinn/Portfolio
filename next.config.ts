@@ -1,6 +1,20 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/prompts',
+        destination: 'https://prompts.chinnakrit.dev',
+        permanent: true,
+      },
+      {
+        source: '/prompts/:path*',
+        destination: 'https://prompts.chinnakrit.dev/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
