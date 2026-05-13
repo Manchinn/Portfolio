@@ -11,17 +11,17 @@
   },
   "hero": {
     "openToWork": "พร้อมรับงาน Freelance และ Contract",
-    "subtitle": "ผมแปลงไอเดียของคุณให้เป็นเว็บแอปพลิเคชันที่สวยงาม รวดเร็ว และพร้อมใช้งาน",
+    "subtitle": "ผมสร้าง AI automation และ full-stack systems ที่เชื่อมแอป เซิร์ฟเวอร์ และ workflow จริง",
     "viewProjects": "ดูผลงาน",
     "aboutMe": "เกี่ยวกับผม"
   },
   "about": {
     "title": "เกี่ยวกับผม",
-    "description": "ผมเป็นนักพัฒนาเว็บ Frontend ที่หลงใหลในการสร้างเว็บแอปพลิเคชันสมัยใหม่ ตอบสนองได้ดี และใช้งานง่าย ผมชอบแก้ปัญหาที่ซับซ้อนให้เป็นโซลูชันที่เรียบง่ายและสวยงาม",
-    "highlights": "สิ่งที่ผมชอบ",
-    "highlight1": "สร้างประสบการณ์เว็บที่โต้ตอบได้",
-    "highlight2": "เรียนรู้เทคโนโลยีใหม่ๆ",
-    "highlight3": "ทำงานร่วมกับทีม",
+    "description": "ผมสร้าง AI automation และ full-stack systems ที่ใช้งานได้จริง โดยคิดเรื่อง deployment, monitoring และ security ตั้งแต่แรก",
+    "highlights": "สิ่งที่ผมสร้าง",
+    "highlight1": "AI assistant workflows",
+    "highlight2": "Internal APIs และ automation tools",
+    "highlight3": "Web systems ที่พร้อมใช้จริง",
     "contactInfo": "ข้อมูลติดต่อ",
     "location": "กรุงเทพมหานคร ประเทศไทย",
     "downloadCV": "ดาวน์โหลดประวัติ"
@@ -36,7 +36,7 @@
   },
   "projects": {
     "title": "ผลงานของผม",
-    "subtitle": "ผลงานล่าสุดบางส่วน",
+    "subtitle": "AI automation และ full-stack systems ล่าสุด",
     "viewDemo": "ดู Demo",
     "viewCode": "ดู Code"
   },
@@ -48,7 +48,7 @@
   },
   "contact": {
     "title": "ติดต่อผม",
-    "subtitle": "มีโปรเดคในใจ? มาคุยกันเลย!",
+    "subtitle": "มีโปรเจกต์ในใจ? มาคุยกันเลย!",
     "name": "ชื่อ",
     "email": "อีเมล",
     "message": "ข้อความ",

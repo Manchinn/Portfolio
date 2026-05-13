@@ -11,17 +11,17 @@
   },
   "hero": {
     "openToWork": "Open to work: Freelance & Contract",
-    "subtitle": "I turn your ideas into real web applications—fast, beautiful, and SEO-ready.",
+    "subtitle": "I build AI automation and full-stack systems that connect apps, servers, and real workflows.",
     "viewProjects": "View Projects",
     "aboutMe": "About me"
   },
   "about": {
     "title": "About Me",
-    "description": "I'm a passionate Frontend Developer with expertise in building modern, responsive, and user-friendly web applications. I love turning complex problems into simple, beautiful interface solutions.",
-    "highlights": "What I Love",
-    "highlight1": "Building interactive web experiences",
-    "highlight2": "Learning new technologies",
-    "highlight3": "Collaborating with teams",
+    "description": "I build practical AI automation and full-stack systems with production-minded deployment, monitoring, and security habits.",
+    "highlights": "What I Build",
+    "highlight1": "AI assistant workflows",
+    "highlight2": "Internal APIs and automation tools",
+    "highlight3": "Production-ready web systems",
     "contactInfo": "Contact Info",
     "location": "Bangkok, Thailand",
     "downloadCV": "Download CV"
@@ -36,7 +36,7 @@
   },
   "projects": {
     "title": "My Projects",
-    "subtitle": "Some of my recent work",
+    "subtitle": "Recent AI automation and full-stack systems",
     "viewDemo": "View Demo",
     "viewCode": "View Code"
   },
