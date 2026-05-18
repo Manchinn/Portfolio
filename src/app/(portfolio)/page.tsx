@@ -21,7 +21,7 @@ const landingCopy = {
     headline: 'Systems that connect AI, web apps, and real operations.',
     subcopy:
       'I design and build practical AI assistant workflows, internal tools, and full-stack systems that can be deployed, monitored, and maintained.',
-    primaryCta: 'View systems',
+    primaryCta: 'View demos',
     secondaryCta: 'Start a project',
     status: 'Available for focused freelance and contract builds',
     visualTitle: 'Production workflow',
@@ -55,7 +55,7 @@ const landingCopy = {
     headline: 'สร้างระบบที่เชื่อม AI, เว็บแอป และงานปฏิบัติการจริง',
     subcopy:
       'ผมออกแบบและสร้าง AI assistant workflows, internal tools และ full-stack systems ที่ deploy, monitor และดูแลต่อได้จริง',
-    primaryCta: 'ดูระบบที่สร้าง',
+    primaryCta: 'ดู Demo',
     secondaryCta: 'เริ่มคุยโปรเจกต์',
     status: 'พร้อมรับงาน freelance และ contract แบบมี scope ชัด',
     visualTitle: 'Production workflow',
@@ -116,7 +116,7 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                <a href="#projects" className="flex items-center justify-center border-2 border-black bg-black px-7 py-4 text-base font-black uppercase text-white shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+                <a href="/demos" className="flex items-center justify-center border-2 border-black bg-black px-7 py-4 text-base font-black uppercase text-white shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
                   {copy.primaryCta} <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
                 <a href="#contact" className="flex items-center justify-center border-2 border-black bg-neo-orange px-7 py-4 text-base font-black uppercase text-black shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
