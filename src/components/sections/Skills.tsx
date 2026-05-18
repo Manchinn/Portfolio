@@ -1,12 +1,19 @@
 'use client'
 
 import React from 'react'
-import { Layout, Database, Smartphone, Code, Layers, Globe, Terminal, Users, Lightbulb, MessageCircle, Heart } from 'lucide-react'
+import { Bot, Code, Database, Globe, Layout, Layers, MessageCircle, ServerCog, Smartphone, Terminal, Workflow } from 'lucide-react'
 import { skills } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
 
 const skillIcons: Record<string, React.ElementType> = {
+  'AI Automation': Bot,
+  'Full-stack Systems': Layout,
+  'ระบบ Full-stack': Layout,
+  'DevOps & Infrastructure': ServerCog,
+  'DevOps และ Infrastructure': ServerCog,
+  'Frontend & Tools': Workflow,
+  'Frontend และเครื่องมือ': Workflow,
   'Frontend': Layout,
   'Backend': Database,
   'Mobile': Smartphone,
@@ -18,94 +25,88 @@ const skillIcons: Record<string, React.ElementType> = {
 }
 
 const skillColors = [
-  'bg-neo-red-light',
-  'bg-neo-peach',
-  'bg-neo-lemon',
-  'bg-neo-mint',
   'bg-neo-cyan',
-  'bg-neo-sky'
+  'bg-neo-mint',
+  'bg-neo-lemon',
+  'bg-neo-peach',
+  'bg-neo-lavender',
+  'bg-white'
 ]
 
-const softSkillsEn = [
-  { name: 'Clean Code', icon: Code, color: 'bg-neo-mint', desc: 'Readable, maintainable code' },
-  { name: 'Teamwork', icon: Users, color: 'bg-neo-cyan', desc: 'Collaborative and reliable' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-neo-red-light', desc: 'Calm under pressure' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-neo-lavender', desc: 'Clear and concise' }
-]
-
-const softSkillsTh = [
-  { name: 'Clean Code', icon: Code, color: 'bg-neo-mint', desc: 'โค้ดอ่านง่าย ดูแลรักษาได้' },
-  { name: 'Teamwork', icon: Users, color: 'bg-neo-cyan', desc: 'ทำงานเป็นทีมได้ดี' },
-  { name: 'Problem Solving', icon: Lightbulb, color: 'bg-neo-red-light', desc: 'คิดหาทางออกในสถานการณ์ยากลำบาก' },
-  { name: 'Communication', icon: MessageCircle, color: 'bg-neo-lavender', desc: 'สื่อสารได้ชัดเจน' }
-]
+const capabilityCopy = {
+  en: [
+    { label: 'Discovery', text: 'Map the workflow, users, data, risks, and launch path.' },
+    { label: 'Build', text: 'Implement UI, API routes, integrations, auth-aware flows, and storage.' },
+    { label: 'Operate', text: 'Prepare health checks, alerts, deployment notes, and maintenance habits.' },
+  ],
+  th: [
+    { label: 'Discovery', text: 'ไล่ workflow, users, data, risks และ path สำหรับ launch' },
+    { label: 'Build', text: 'ทำ UI, API routes, integrations, auth-aware flows และ storage' },
+    { label: 'Operate', text: 'เตรียม health checks, alerts, deployment notes และวิธีดูแลต่อ' },
+  ],
+}
 
 const Skills = () => {
   const { language, tl } = useTranslation()
   const skillsData = skills[language as Language]
-
-  const getSoftSkills = () => {
-    if (language === 'th') return softSkillsTh
-    return softSkillsEn
-  }
-
-  const softSkills = getSoftSkills()
+  const capabilities = capabilityCopy[language as Language]
 
   return (
     <section id="skills" className="py-20 border-t-4 border-black bg-black text-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
+        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end mb-14">
           <div>
-            <h2 className="text-xl font-black text-neo-red-light mb-2 uppercase tracking-widest">{tl({ en: 'My Skills', th: 'ทักษะของผม' })}</h2>
-            <p className="text-5xl md:text-6xl font-black uppercase text-white">
-              {tl({ en: 'Weapons', th: 'เครื่องมือ' })} <br/> {tl({ en: 'of Choice', th: 'ในการทำงาน' })}
+            <h2 className="text-xl font-black text-neo-cyan mb-2 uppercase tracking-widest">{tl({ en: 'Capability Map', th: 'แผนที่ความสามารถ' })}</h2>
+            <p className="text-4xl md:text-6xl font-black uppercase text-white leading-tight">
+              {tl({ en: 'Tools for shipped systems', th: 'เครื่องมือสำหรับระบบที่ส่งมอบได้จริง' })}
             </p>
           </div>
-          <div className="mt-4 md:mt-0">
-            <Terminal className="w-16 h-16 text-white" />
+          <div className="border-2 border-white bg-white p-5 text-black shadow-[6px_6px_0px_0px_rgba(255,255,255,0.25)]">
+            <MessageCircle className="mb-4 h-8 w-8" />
+            <p className="text-sm font-black uppercase text-gray-500">{tl({ en: 'How I package work', th: 'รูปแบบการทำงาน' })}</p>
+            <p className="mt-2 text-lg font-black leading-7">
+              {tl({
+                en: 'Automation, internal tools, and web systems with deployment thinking included.',
+                th: 'Automation, internal tools และ web systems ที่คิดเรื่อง deployment ตั้งแต่แรก',
+              })}
+            </p>
           </div>
         </div>
 
-        {/* Technical Skills */}
-        <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-wider flex items-center gap-3">
-          <Terminal className="w-6 h-6" /> {tl({ en: 'Technical Skills', th: 'ทักษะด้านเทคนิค' })}
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {skillsData.map((skillGroup, index) => {
             const IconComponent = skillIcons[skillGroup.category] || Code
             const bgColor = skillColors[index % skillColors.length]
 
             return (
               <div key={index} className="flex flex-col bg-white border-4 border-white p-0 hover:-translate-y-2 transition-transform duration-200">
-                <div className={`p-4 border-b-4 border-black flex justify-between items-center ${bgColor}`}>
+                <div className={`p-4 border-b-4 border-black flex justify-between items-start gap-4 ${bgColor}`}>
                   <h3 className="text-xl font-black uppercase text-black">{skillGroup.category}</h3>
-                  <IconComponent className="w-8 h-8 text-black" />
+                  <IconComponent className="w-8 h-8 shrink-0 text-black" />
                 </div>
-                <div className="p-6 bg-black">
-                  <p className="font-mono text-gray-300 text-sm">
-                    {skillGroup.items.map(item => item.name).join(', ')}
-                  </p>
+                <div className="grid gap-3 p-5 bg-black">
+                  {skillGroup.items.map((item) => (
+                    <div key={item.name} className="flex items-center justify-between gap-3 border border-white/20 bg-white/5 px-3 py-2">
+                      <span className="text-sm font-bold text-gray-100">{item.name}</span>
+                      <span className="shrink-0 text-xs font-black uppercase text-neo-cyan">{item.level}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Soft Skills */}
-        <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-wider flex items-center gap-3">
-          <Heart className="w-6 h-6" /> {tl({ en: 'Soft Skills', th: 'ทักษะซอฟต์' })}
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {softSkills.map((skill, index) => {
-            const IconComponent = skill.icon
-            return (
-              <div key={index} className={`p-6 ${skill.color} border-4 border-black shadow-[6px_6px_0px_0px_rgba(255,255,255,0.3)] text-center hover:-translate-y-2 transition-transform duration-200`}>
-                <IconComponent size={36} strokeWidth={2} className="mb-3 mx-auto text-black" />
-                <h4 className="font-black text-lg text-black">{skill.name}</h4>
-                <p className="font-mono text-xs mt-2 text-black">{skill.desc}</p>
+        <div className="grid gap-4 md:grid-cols-3">
+          {capabilities.map((item) => (
+            <div key={item.label} className="border-2 border-white bg-white p-5 text-black">
+              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center border-2 border-black bg-neo-orange shadow-neo-sm">
+                <Terminal className="h-5 w-5" />
               </div>
-            )
-          })}
+              <h3 className="text-lg font-black uppercase">{item.label}</h3>
+              <p className="mt-2 text-sm font-bold leading-6 text-gray-700">{item.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

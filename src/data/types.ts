@@ -44,6 +44,11 @@ export interface Project {
   date: string
   category: string
   highlights: string[]
+  caseStudy?: {
+    problem: string
+    built: string
+    result: string
+  }
 }
 
 export interface Social {

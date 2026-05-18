@@ -1,15 +1,43 @@
 'use client'
 
 import React from 'react'
-import { GraduationCap } from 'lucide-react'
+import { CheckCircle2, GraduationCap, ShieldCheck, Wrench } from 'lucide-react'
 import { profile, profileCommon } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
+
+const focusAreas = {
+  en: [
+    'AI workflows connected to real channels like LINE and internal APIs',
+    'Full-stack web apps with admin, content, and workflow surfaces',
+    'Deployment-minded systems with health checks, alerts, and safe defaults',
+  ],
+  th: [
+    'AI workflows ที่เชื่อมช่องทางจริง เช่น LINE และ internal APIs',
+    'Full-stack web apps พร้อม admin, content และ workflow surfaces',
+    'ระบบที่คิดเรื่อง deployment, health checks, alerts และ safe defaults',
+  ],
+}
+
+const workingModel = {
+  en: [
+    { title: 'Scope first', desc: 'Define the workflow, data, access, and operational path before UI polish.' },
+    { title: 'Build usable slices', desc: 'Ship small but complete systems that can be tested and improved quickly.' },
+    { title: 'Operate after launch', desc: 'Add checks, alerts, docs, and handoff notes so the system survives real use.' },
+  ],
+  th: [
+    { title: 'Scope first', desc: 'กำหนด workflow, data, access และ operation path ก่อน polish UI' },
+    { title: 'Build usable slices', desc: 'ส่งมอบระบบชิ้นเล็กแต่ครบ flow ทดสอบและปรับต่อได้เร็ว' },
+    { title: 'Operate after launch', desc: 'เพิ่ม checks, alerts, docs และ handoff notes ให้ระบบอยู่ได้หลัง launch' },
+  ],
+}
 
 const About = () => {
   const { t, tl, language } = useTranslation()
   const profileData = { ...profile[language as Language], ...profileCommon }
   const profileImage = profileData.image?.trim() || ''
+  const areas = focusAreas[language as Language]
+  const model = workingModel[language as Language]
 
   const getEducationPath = () => {
     return [
@@ -23,10 +51,10 @@ const About = () => {
   return (
     <section id="about" className="py-20 border-t-4 border-black bg-[#FFFFFC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center gap-12">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           {/* Image */}
-          <div className="w-full md:w-5/12 relative">
-            <div className="aspect-square bg-neo-peach border-4 border-black shadow-neo-lg flex items-center justify-center overflow-hidden">
+          <div className="relative">
+            <div className="aspect-[4/5] bg-neo-peach border-4 border-black shadow-neo-lg flex items-center justify-center overflow-hidden">
               {profileImage ? (
                 <img
                   src={profileImage}
@@ -36,37 +64,45 @@ const About = () => {
                 />
               ) : null}
             </div>
-            {/* ป้ายประสบการณ์ — constrain ภายใน parent บน mobile */}
-            <div className="absolute -bottom-4 right-0 md:-bottom-6 md:-right-6 bg-white border-4 border-black p-3 md:p-4 shadow-neo max-w-[200px] md:max-w-xs">
-              <p className="font-black text-2xl md:text-4xl">2+ {tl({ en: 'YEARS', th: 'ปี' })}</p>
-              <p className="font-bold text-sm bg-black text-white inline-block px-2">{tl({ en: 'EXPERIENCE', th: 'ประสบการณ์' })}</p>
+            <div className="absolute -bottom-4 right-0 md:-bottom-6 md:-right-6 bg-white border-4 border-black p-3 md:p-4 shadow-neo max-w-[240px] md:max-w-xs">
+              <p className="font-black text-2xl md:text-4xl">{tl({ en: 'SYSTEMS', th: 'ระบบจริง' })}</p>
+              <p className="font-bold text-sm bg-black text-white inline-block px-2">{tl({ en: 'AI / WEB / OPS', th: 'AI / WEB / OPS' })}</p>
             </div>
           </div>
 
           {/* Personal Info */}
-          <div className="w-full md:w-7/12">
+          <div>
             <h2 className="text-xl font-black bg-neo-lavender inline-block px-3 py-1 border-2 border-black mb-4 shadow-neo">{t('about.title').toUpperCase()}</h2>
             <h3 className="text-4xl md:text-5xl font-black text-black mb-6 uppercase leading-tight">
-              {profileData.name || tl({ en: 'FULL STACK DEVELOPER', th: 'นักพัฒนาเว็บ' })}
+              {tl({ en: 'I build practical systems for AI-enabled work.', th: 'ผมสร้างระบบใช้งานจริงสำหรับงานที่ใช้ AI' })}
             </h3>
             <p className="text-xl font-medium text-black leading-relaxed">
               {profileData.bio || t('about.description')}
             </p>
 
-            <h4 className="text-lg font-black bg-neo-peach inline-block px-3 py-1 border-2 border-black mt-8 mb-4 shadow-neo-sm">{tl({ en: 'EDUCATION PATH', th: 'การศึกษา' })}</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {educationPath.map((edu, idx) => (
-                <div key={idx} className="p-5 bg-white border-4 border-black shadow-neo flex gap-3 items-start">
-                  <div className="p-2 bg-neo-mint border-2 border-black shadow-neo-sm">
-                    <GraduationCap className="w-6 h-6 text-black" />
-                  </div>
-                  <div>
-                    <p className="font-black text-sm uppercase tracking-wide">{edu.level}</p>
-                    <p className="font-bold text-lg text-black leading-snug">{edu.name}</p>
-                    <p className="font-mono text-xs text-gray-700 mt-1">{edu.period}</p>
-                  </div>
+            <div className="mt-8 grid gap-3">
+              {areas.map((area) => (
+                <div key={area} className="flex gap-3 border-2 border-black bg-white p-4 shadow-neo-sm">
+                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-black" strokeWidth={3} />
+                  <p className="font-bold leading-7">{area}</p>
                 </div>
               ))}
+            </div>
+
+            <h4 className="text-lg font-black bg-neo-peach inline-block px-3 py-1 border-2 border-black mt-8 mb-4 shadow-neo-sm">{tl({ en: 'WORKING MODEL', th: 'วิธีทำงาน' })}</h4>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {model.map((item, idx) => {
+                const Icon = idx === 0 ? ShieldCheck : idx === 1 ? Wrench : GraduationCap
+                return (
+                  <div key={item.title} className="p-4 bg-white border-4 border-black shadow-neo">
+                    <div className="mb-3 inline-flex p-2 bg-neo-mint border-2 border-black shadow-neo-sm">
+                      <Icon className="w-5 h-5 text-black" />
+                    </div>
+                    <p className="font-black text-sm uppercase tracking-wide">{item.title}</p>
+                    <p className="mt-2 text-sm font-bold leading-6 text-gray-700">{item.desc}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>

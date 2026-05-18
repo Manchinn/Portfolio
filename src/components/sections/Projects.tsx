@@ -1,24 +1,25 @@
 'use client'
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import { ShoppingCart, Layers, Layout, ExternalLink, Github } from 'lucide-react'
+import { Bot, ExternalLink, Github, Layout, Network, ServerCog, Workflow } from 'lucide-react'
 import { projects } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { Language, Project } from '@/data/types'
 
 const projectIcons: Record<number, React.ElementType> = {
-  0: ShoppingCart,
-  1: Layers,
-  2: Layout
+  0: Bot,
+  1: Workflow,
+  2: Network,
+  3: ServerCog,
 }
 
 const projectColors = [
-  'bg-[#FFD6FF]',
-  'bg-[#C8B6FF]',
-  'bg-[#B8C0FF]',
-  'bg-neo-cyan',
-  'bg-neo-mint',
-  'bg-neo-lemon'
+  'bg-[#111827] text-white',
+  'bg-[#2563eb] text-white',
+  'bg-[#16a34a] text-white',
+  'bg-[#f59e0b] text-black',
+  'bg-neo-cyan text-black',
+  'bg-neo-mint text-black',
 ]
 
 const Projects = () => {
@@ -110,49 +111,75 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 border-t-4 border-black bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">{t('projects.title')}</h2>
-          <p className="mt-4 text-5xl md:text-6xl font-black text-black uppercase">
-            {tl({ en: "Projects I'm Proud Of", th: 'ผลงานที่ภูมิใจ' })}
+          <p className="mt-4 text-4xl md:text-6xl font-black text-black uppercase">
+            {tl({ en: 'Systems as case studies', th: 'ผลงานแบบ Case Study' })}
+          </p>
+          <p className="mx-auto mt-5 max-w-3xl text-lg font-bold leading-8 text-gray-700">
+            {tl({
+              en: 'Each project is framed by the problem, the system built, and the operational result it supports.',
+              th: 'แต่ละโปรเจกต์เล่าเป็นปัญหา ระบบที่สร้าง และผลลัพธ์เชิงการใช้งานที่รองรับ',
+            })}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
           {projectsData.map((project, index) => {
-            const IconComponent = projectIcons[index % 3] || Layout
+            const IconComponent = projectIcons[index % 4] || Layout
             const bgColor = projectColors[index % projectColors.length]
+            const caseStudy = project.caseStudy
 
             return (
               <div
                 key={project.id}
-                className="border-4 border-black bg-white shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
+                className="border-4 border-black bg-white shadow-neo-lg hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
                 onClick={(e) => openModal(project, e)}
               >
-                {/* Icon Header */}
-                <div className={`h-48 ${bgColor} border-b-4 border-black flex items-center justify-center relative overflow-hidden`}>
-                  {project.image ? (
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <IconComponent className="w-16 h-16 text-black opacity-50 group-hover:scale-110 transition-transform" />
-                  )}
-                  <div className="absolute top-4 right-4 bg-white border-2 border-black px-3 py-1 font-bold text-xs uppercase">
-                    {project.category || 'Web App'}
+                <div className={`${bgColor} border-b-4 border-black p-5`}>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center border-2 border-black bg-white text-black shadow-neo-sm">
+                      <IconComponent className="h-7 w-7 group-hover:scale-110 transition-transform" strokeWidth={2.5} />
+                    </div>
+                    <div className="border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase text-black">
+                      {project.category || 'System'}
+                    </div>
                   </div>
+                  <p className="mt-8 text-sm font-black uppercase opacity-80">{project.date}</p>
+                  <h3 className="mt-2 text-2xl font-black uppercase leading-tight">{project.title}</h3>
                 </div>
 
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-black uppercase mb-2">{project.title}</h3>
-                  <p className="font-mono text-sm text-gray-600 mb-4 flex-grow">{project.description}</p>
-
-                  {/* Tech Stack */}
+                <div className="p-6 flex flex-col flex-grow gap-5">
+                  <p className="text-base font-bold leading-7 text-gray-700">{project.description}</p>
+                  {caseStudy && (
+                    <div className="grid gap-3">
+                      <div className="border-2 border-black bg-[#f7f3e8] p-4">
+                        <p className="text-xs font-black uppercase text-gray-500">{tl({ en: 'Problem', th: 'ปัญหา' })}</p>
+                        <p className="mt-2 text-sm font-bold leading-6">{caseStudy.problem}</p>
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <div className="border-2 border-black bg-white p-4">
+                          <p className="text-xs font-black uppercase text-gray-500">{tl({ en: 'Built', th: 'ระบบที่สร้าง' })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6">{caseStudy.built}</p>
+                        </div>
+                        <div className="border-2 border-black bg-white p-4">
+                          <p className="text-xs font-black uppercase text-gray-500">{tl({ en: 'Result', th: 'ผลลัพธ์' })}</p>
+                          <p className="mt-2 text-sm font-bold leading-6">{caseStudy.result}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tech && project.tech.slice(0, 3).map((tech, idx) => (
-                      <span key={idx} className="bg-black text-white px-2 py-1 text-xs font-bold">
+                    {project.tech && project.tech.slice(0, 4).map((tech, idx) => (
+                      <span key={idx} className="bg-black text-white px-3 py-1.5 text-xs font-bold">
                         {tech}
                       </span>
                     ))}
                   </div>
+                  <button className="mt-1 inline-flex items-center justify-center border-2 border-black bg-neo-orange px-4 py-3 text-sm font-black uppercase shadow-neo-sm transition-all group-hover:translate-x-[1px] group-hover:translate-y-[1px] group-hover:shadow-none">
+                    {tl({ en: 'Open case study', th: 'ดู Case Study' })}
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </button>
                 </div>
               </div>
             )
@@ -189,21 +216,29 @@ const Projects = () => {
 
             {/* Content */}
             <div className="p-6 sm:p-8 space-y-6">
-              {/* Image */}
-              {selectedProject.image && (
-                <div className="border-4 border-black overflow-hidden">
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="w-full h-64 object-cover"
-                  />
+              {selectedProject.caseStudy && (
+                <div className="grid gap-4">
+                  <div className="border-2 border-black bg-[#f7f3e8] p-4">
+                    <h4 className="font-black text-sm uppercase mb-2 text-gray-500">{tl({ en: 'Problem', th: 'ปัญหา' })}</h4>
+                    <p className="text-base font-bold leading-7 text-gray-700">{selectedProject.caseStudy.problem}</p>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="border-2 border-black p-4">
+                      <h4 className="font-black text-sm uppercase mb-2 text-gray-500">{tl({ en: 'Built', th: 'ระบบที่สร้าง' })}</h4>
+                      <p className="text-base font-bold leading-7 text-gray-700">{selectedProject.caseStudy.built}</p>
+                    </div>
+                    <div className="border-2 border-black p-4">
+                      <h4 className="font-black text-sm uppercase mb-2 text-gray-500">{tl({ en: 'Result', th: 'ผลลัพธ์' })}</h4>
+                      <p className="text-base font-bold leading-7 text-gray-700">{selectedProject.caseStudy.result}</p>
+                    </div>
+                  </div>
                 </div>
               )}
 
               {/* Description */}
               <div>
-                <h4 className="font-black text-lg uppercase mb-2 text-neo-blue">Description</h4>
-                <p className="font-mono text-base text-gray-700">{selectedProject.longDescription || selectedProject.description}</p>
+                <h4 className="font-black text-lg uppercase mb-2 text-neo-blue">{tl({ en: 'System notes', th: 'รายละเอียดระบบ' })}</h4>
+                <p className="text-base font-bold leading-7 text-gray-700">{selectedProject.longDescription || selectedProject.description}</p>
               </div>
 
               {/* Tech Stack */}

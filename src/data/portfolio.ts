@@ -227,6 +227,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "https://hermes.cslogbook.me/line/webhook/health",
       date: "2026",
       category: "AI Assistant",
+      caseStudy: {
+        problem: "The assistant needed to run on a real LINE webhook with secure public routing, service monitoring, and safe fallback behavior.",
+        built: "A VPS-hosted Hermes workflow behind Nginx with SSL, systemd service management, health checks, and OpenRouter model routing.",
+        result: "A production-ready assistant foundation that can receive LINE traffic, expose a health endpoint, and stay locked down outside the intended routes.",
+      },
       highlights: [
         "Connected LINE webhook traffic through Nginx to a local Hermes Gateway",
         "Added production health endpoint and service monitoring",
@@ -243,6 +248,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "/demos/codex-devops",
       date: "2026",
       category: "DevOps Automation",
+      caseStudy: {
+        problem: "Operational checks, deployment notes, and LINE notifications were scattered across manual commands.",
+        built: "A Codex-to-Hermes command workflow for health checks, notify, reports, event logs, and secured internal API calls.",
+        result: "Repeatable local operations that let Codex report system state and send alerts without exposing private server internals.",
+      },
       highlights: [
         "Wrapped production health checks into repeatable local commands",
         "Sent LINE notifications and reports through Hermes",
@@ -259,6 +269,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "/demos/vault-assistant",
       date: "2026",
       category: "Knowledge System",
+      caseStudy: {
+        problem: "The private Obsidian vault should not be exposed directly to a server-side assistant.",
+        built: "A sanitized, read-only knowledge export pattern for Hermes with personal assistant and wiki-style retrieval use cases.",
+        result: "A safer assistant context path that keeps raw private notes local while still enabling structured knowledge lookup.",
+      },
       highlights: [
         "Used a sanitized export instead of direct private vault access",
         "Designed for read-only personal knowledge retrieval",
@@ -275,6 +290,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "",
       date: "2024",
       category: "Full-stack App",
+      caseStudy: {
+        problem: "Student activity tracking and admin follow-up needed a structured workflow instead of scattered records.",
+        built: "A full-stack logbook system with database-backed records, authentication workflows, dashboard views, and deployment operations.",
+        result: "A maintainable student logbook foundation that supported administration workflows and later production handoff planning.",
+      },
       highlights: [
         "Built student logbook and administration workflows",
         "Implemented database-backed features and dashboard screens",
@@ -293,6 +313,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "https://hermes.cslogbook.me/line/webhook/health",
       date: "2026",
       category: "AI Assistant",
+      caseStudy: {
+        problem: "ต้องให้ assistant รับ LINE webhook จริงได้ โดยมี public routing ที่ปลอดภัย, monitoring และ fallback behavior ที่ควบคุมได้",
+        built: "สร้าง Hermes workflow บน VPS หลัง Nginx พร้อม SSL, systemd service, health checks และ OpenRouter model routing",
+        result: "ได้ foundation ของ assistant ที่พร้อมใช้จริง รับ LINE traffic ได้ มี health endpoint และล็อก route ที่ไม่ต้องการเปิดเผย",
+      },
       highlights: [
         "เชื่อม LINE webhook ผ่าน Nginx ไปยัง Hermes Gateway ในเครื่อง",
         "เพิ่ม health endpoint และแนวทาง monitor service สำหรับ production",
@@ -309,6 +334,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "/demos/codex-devops",
       date: "2026",
       category: "DevOps Automation",
+      caseStudy: {
+        problem: "งานเช็กระบบ, บันทึก deployment และ LINE notification กระจายอยู่ในคำสั่ง manual หลายจุด",
+        built: "สร้าง workflow ให้ Codex เรียก Hermes สำหรับ health check, notify, report, event log และ secured internal API",
+        result: "ได้ operations ที่เรียกซ้ำได้จากเครื่อง local ให้ Codex รายงานสถานะและส่ง alert โดยไม่เปิด private server internals",
+      },
       highlights: [
         "ทำ production health check ให้เรียกซ้ำได้ผ่าน local command",
         "ส่ง LINE notifications และ reports ผ่าน Hermes",
@@ -325,6 +355,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "/demos/vault-assistant",
       date: "2026",
       category: "Knowledge System",
+      caseStudy: {
+        problem: "ไม่ควรเปิด private Obsidian vault ตรงๆ ให้ assistant ที่ทำงานฝั่ง server",
+        built: "ออกแบบ sanitized read-only knowledge export สำหรับ Hermes เพื่อใช้กับ personal assistant และ wiki-style retrieval",
+        result: "ได้ทางเชื่อม context ที่ปลอดภัยขึ้น เก็บ raw private notes ไว้ local แต่ยังค้นคืนความรู้แบบมีโครงสร้างได้",
+      },
       highlights: [
         "ใช้ sanitized export แทนการเปิด private vault โดยตรง",
         "ออกแบบสำหรับ read-only personal knowledge retrieval",
@@ -341,6 +376,11 @@ export const projects: LocalizedData<Project[]> = {
       demo: "",
       date: "2024",
       category: "Full-stack App",
+      caseStudy: {
+        problem: "การติดตามกิจกรรมนักศึกษาและงาน follow-up ฝั่ง admin ต้องการ workflow ที่เป็นระบบกว่า scattered records",
+        built: "สร้าง full-stack logbook system พร้อม database-backed records, authentication workflows, dashboard views และ deployment operations",
+        result: "ได้ foundation สำหรับ student logbook ที่ดูแลต่อได้ รองรับ admin workflow และวางแผน handoff ฝั่ง production ได้",
+      },
       highlights: [
         "สร้าง workflow สำหรับ student logbook และงาน administration",
         "ทำ database-backed features และ dashboard screens",
