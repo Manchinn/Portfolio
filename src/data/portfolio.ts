@@ -224,7 +224,7 @@ export const projects: LocalizedData<Project[]> = {
       longDescription: "Built a LINE-connected AI assistant with a production webhook on hermes.cslogbook.me, Nginx reverse proxy, Hermes Gateway on 127.0.0.1:8646, OpenRouter model provider, systemd service management, SSL, health checks, firewall rules, fail2ban, and locked-down Nginx fallback routes.",
       tech: ["Hermes", "LINE Messaging API", "Nginx", "systemd", "OpenRouter"],
       image: "https://placehold.co/600x400/111827/ffffff?text=Hermes+LINE+AI",
-      demo: "https://hermes.cslogbook.me/line/webhook/health",
+      demo: "/demos/hermes-line-assistant",
       date: "2026",
       category: "AI Assistant",
       caseStudy: {
@@ -287,7 +287,7 @@ export const projects: LocalizedData<Project[]> = {
       longDescription: "Built and operated a CS Logbook system for tracking student work and progress, including database-backed records, authentication workflows, dashboard views, and production deployment operations before the server was later cleaned and reused for Hermes.",
       tech: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
       image: "https://placehold.co/600x400/f59e0b/000000?text=CS+Logbook",
-      demo: "",
+      demo: "/demos/internal-tools-dashboard",
       date: "2024",
       category: "Full-stack App",
       caseStudy: {
@@ -310,7 +310,7 @@ export const projects: LocalizedData<Project[]> = {
       longDescription: "สร้าง AI assistant ที่เชื่อม LINE ผ่าน webhook บน hermes.cslogbook.me ใช้ Nginx reverse proxy, Hermes Gateway ที่ 127.0.0.1:8646, OpenRouter model provider, systemd service, SSL, health checks, firewall, fail2ban และ Nginx fallback routes ที่ล็อกไว้",
       tech: ["Hermes", "LINE Messaging API", "Nginx", "systemd", "OpenRouter"],
       image: "https://placehold.co/600x400/111827/ffffff?text=Hermes+LINE+AI",
-      demo: "https://hermes.cslogbook.me/line/webhook/health",
+      demo: "/demos/hermes-line-assistant",
       date: "2026",
       category: "AI Assistant",
       caseStudy: {
@@ -373,7 +373,7 @@ export const projects: LocalizedData<Project[]> = {
       longDescription: "สร้างและดูแล CS Logbook system สำหรับติดตามงานและความคืบหน้าของนักศึกษา มี records ที่เก็บใน database, authentication workflows, dashboard views และงานดูแล production ก่อน cleanup server และ reuse domain สำหรับ Hermes",
       tech: ["React", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
       image: "https://placehold.co/600x400/f59e0b/000000?text=CS+Logbook",
-      demo: "",
+      demo: "/demos/internal-tools-dashboard",
       date: "2024",
       category: "Full-stack App",
       caseStudy: {
