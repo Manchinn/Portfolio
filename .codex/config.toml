@@ -1,0 +1,34 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Project-local Codex CLI configuration.
+# Keep this scoped to workflow guidance; do not store secrets here.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+persistent_instructions = "Follow AGENTS.md, preserve bilingual portfolio content, keep public demo copy sanitized, and use npm run build as the verification gate."
+
+[features]
+multi_agent = true
+
+[agents]
+max_threads = 4
+max_depth = 1
+
+[agents.explorer]
+description = "Read-only explorer for tracing portfolio code paths before edits."
+config_file = "agents/explorer.toml"
+
+[agents.reviewer]
+description = "Read-only reviewer for correctness, security, regressions, and missing tests."
+config_file = "agents/reviewer.toml"
+
+[agents.docs_researcher]
+description = "Read-only docs verifier for framework and API behavior."
+config_file = "agents/docs-researcher.toml"
+
+[profiles.strict]
+approval_policy = "on-request"
+sandbox_mode = "read-only"
+web_search = "cached"

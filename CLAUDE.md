@@ -76,6 +76,19 @@ For local dev that touches admin/prompts/content, pull env from Vercel:
 vercel env pull .env.local
 ```
 
+## AI Workflow Files
+
+- `AGENTS.md` — shared agent rules for this repo, including RTK usage and portfolio guardrails
+- `.codex/AGENTS.md` — Codex-specific workflow guidance
+- `.codex/config.toml` — project-local Codex settings and read-only agent role definitions
+- `.codex/agents/*.toml` — read-only explorer, reviewer, and docs verifier roles
+- `scripts/verify.sh` — typecheck/lint/test detection plus required build gate
+- `scripts/review.sh` — focused diff generation and lightweight security scan
+- `scripts/deploy-check.sh` — pre-deploy checks for git state, tracked env files, public-copy safety, and build
+- `scripts/*.ps1` — Windows PowerShell equivalents for local use
+
+Project verification should still treat `npm run build` as the required gate.
+
 ## Environment Variables
 
 See `.env.example` for full list. Summary:

@@ -1,0 +1,11 @@
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+sandbox_mode = "read-only"
+
+developer_instructions = """
+Stay in exploration mode.
+Trace the real execution path and cite exact file paths and symbol names.
+Do not propose broad refactors unless asked.
+For this portfolio, check bilingual EN/TH data paths and public demo sanitization risks.
+Report findings as: file, line range, observation.
+"""
