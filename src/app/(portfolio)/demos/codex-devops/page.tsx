@@ -4,7 +4,7 @@ import { Activity, Bell, CheckCircle2, FileText, ShieldCheck, Terminal } from 'l
 const commands = [
   {
     command: 'hermes health',
-    response: 'OK 200 - Hermes gateway reachable, LINE webhook health endpoint responding.',
+    response: 'OK - assistant gateway reachable, health check responding.',
   },
   {
     command: 'hermes notify "Deployment finished"',
@@ -16,14 +16,14 @@ const commands = [
   },
   {
     command: 'prod-health',
-    response: 'Nginx 200, gateway service active, SSL valid, fallback routes locked.',
+    response: 'Public route healthy, private gateway active, security checks passed.',
   },
 ]
 
 const events = [
   { type: 'health_check', project: 'Hermes', summary: 'Webhook and gateway health passed', status: 'ok' },
   { type: 'deploy_alert', project: 'Portfolio', summary: 'Build passed and deployment notification sent', status: 'sent' },
-  { type: 'security_review', project: 'VPS', summary: 'Public fallback routes return 403', status: 'logged' },
+  { type: 'security_review', project: 'VPS', summary: 'Public exposure review completed', status: 'logged' },
 ]
 
 export default function CodexDevOpsDemoPage() {
@@ -50,7 +50,7 @@ export default function CodexDevOpsDemoPage() {
             <div className="border-4 border-white bg-neo-cyan p-5 text-black shadow-neo-lg">
               <p className="font-black uppercase">What this demo shows</p>
               <p className="mt-3 font-mono text-sm">
-                Mocked command responses and notifications based on the real workflow shape. No bearer token, private endpoint, or production LINE identity is used here.
+                Mocked command responses and notifications based on the real workflow shape. No private credential, endpoint, or production identity is used here.
               </p>
             </div>
           </div>

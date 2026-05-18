@@ -87,7 +87,7 @@ const landingCopy = {
 }
 
 const serviceIcons = [Bot, Workflow, Network, ServerCog]
-const techStack = ['Next.js', 'React', 'TypeScript', 'Vercel', 'OpenAI', 'LINE API', 'Nginx', 'Docker']
+const techStack = ['Next.js', 'React', 'TypeScript', 'Vercel', 'OpenAI', 'LINE API', 'Secure Ops', 'Docker']
 
 export default function Home() {
   const { language } = useTranslation()

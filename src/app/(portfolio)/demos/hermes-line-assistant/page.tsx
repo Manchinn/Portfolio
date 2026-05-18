@@ -8,7 +8,7 @@ const messageFlow = [
   },
   {
     actor: 'Hermes',
-    message: 'Health endpoint is reachable. Gateway service is active. Public fallback routes stay locked.',
+    message: 'Service health is good. Gateway is active. Public exposure remains limited.',
   },
   {
     actor: 'Operator',
@@ -17,16 +17,16 @@ const messageFlow = [
 ]
 
 const architecture = [
-  { label: 'LINE webhook', detail: 'Receives real messaging traffic through a public HTTPS endpoint.' },
-  { label: 'Nginx edge', detail: 'Routes only intended paths and blocks unknown public access.' },
-  { label: 'Hermes gateway', detail: 'Runs behind localhost with health checks and service management.' },
-  { label: 'Model provider', detail: 'Routes assistant requests through configurable AI provider settings.' },
+  { label: 'Messaging channel', detail: 'Receives user requests through a controlled public entry point.' },
+  { label: 'Secure edge', detail: 'Routes intended traffic while keeping private service details hidden.' },
+  { label: 'Assistant gateway', detail: 'Runs as a private service with monitoring and operational checks.' },
+  { label: 'Model layer', detail: 'Routes assistant requests through configurable AI provider settings.' },
 ]
 
 const safeguards = [
-  'No private bearer token in the browser',
+  'No private credentials in the browser',
   'No raw production conversation data',
-  'No direct localhost or server internals exposed',
+  'No server internals exposed',
   'Demo content mirrors workflow shape only',
 ]
 
@@ -48,16 +48,16 @@ export default function HermesLineAssistantDemoPage() {
                 Hermes LINE AI Assistant
               </h1>
               <p className="mt-6 max-w-3xl text-lg font-bold sm:text-xl">
-                A public-safe walkthrough of a production assistant architecture: LINE webhook, Nginx routing, local gateway, health checks, and operational reporting.
+                A public-safe walkthrough of a production assistant architecture: messaging channel, secure routing, private gateway, health checks, and operational reporting.
               </p>
             </div>
             <div className="border-4 border-black bg-white p-5 shadow-neo-lg">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="text-green-700" size={28} />
-                <p className="font-black uppercase">Production-shaped, token-free</p>
+                <p className="font-black uppercase">Production-shaped, credential-free</p>
               </div>
               <p className="mt-3 font-mono text-sm">
-                This page explains the workflow without calling the live webhook, exposing private endpoints, or showing production LINE identities.
+                This page explains the workflow without calling live endpoints, exposing private configuration, or showing production identities.
               </p>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function HermesLineAssistantDemoPage() {
             <h2 className="text-2xl font-black uppercase">Operational Surface</h2>
           </div>
           <ul className="space-y-3 font-bold">
-            {['Health endpoint', 'systemd service checks', 'SSL and Nginx routing', 'LINE notification reports'].map((item) => (
+            {['Health checks', 'Service monitoring', 'Secure public routing', 'Notification reports'].map((item) => (
               <li key={item} className="flex gap-3">
                 <CheckCircle2 className="shrink-0 text-green-700" />
                 {item}
