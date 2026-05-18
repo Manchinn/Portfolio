@@ -119,7 +119,7 @@ export default function Home() {
                 <a href="/demos" className="flex items-center justify-center border-2 border-black bg-black px-7 py-4 text-base font-black uppercase text-white shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
                   {copy.primaryCta} <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
-                <a href="#contact" className="flex items-center justify-center border-2 border-black bg-neo-orange px-7 py-4 text-base font-black uppercase text-black shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+                <a href="/work-with-me" className="flex items-center justify-center border-2 border-black bg-neo-orange px-7 py-4 text-base font-black uppercase text-black shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
                   {copy.secondaryCta}
                 </a>
               </div>

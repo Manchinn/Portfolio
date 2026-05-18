@@ -126,6 +126,21 @@ export default function DemosPage() {
             )
           })}
         </div>
+
+        <div className="mt-10 border-4 border-black bg-neo-cyan p-6 shadow-neo-lg">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="font-mono text-xs font-black uppercase text-gray-700">Next step</p>
+              <h2 className="mt-2 text-2xl font-black uppercase">
+                {lang === 'th' ? 'อยากทำ workflow แบบนี้ให้ใช้งานจริง?' : 'Want a workflow like this for your own operation?'}
+              </h2>
+            </div>
+            <Link href="/work-with-me" className="inline-flex items-center justify-center border-2 border-black bg-black px-5 py-3 text-sm font-black uppercase text-white shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+              {lang === 'th' ? 'เริ่ม Brief' : 'Start a brief'}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
+        </div>
       </section>
     </main>
   )

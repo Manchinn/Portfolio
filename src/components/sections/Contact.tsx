@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Mail } from 'lucide-react'
 import { profileCommon } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
@@ -99,6 +100,13 @@ const Contact = () => {
           >
             <Mail className="w-6 h-6 mr-3" /> {tl({ en: 'SEND EMAIL NOW', th: 'ส่งอีเมล' })}
           </a>
+
+          <Link
+            href="/work-with-me"
+            className="mt-4 inline-flex items-center bg-neo-lemon text-black border-2 border-black px-8 py-4 font-black text-xl hover:bg-neo-cyan transition-all shadow-[4px_4px_0px_0px_#ffffff]"
+          >
+            {tl({ en: 'START A PROJECT BRIEF', th: 'เริ่ม BRIEF โปรเจกต์' })}
+          </Link>
         </div>
       </div>
     </section>
