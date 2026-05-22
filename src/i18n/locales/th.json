@@ -1,10 +1,13 @@
 {
   "nav": {
     "home": "หน้าหลัก",
+    "timeline": "ไทม์ไลน์",
+    "systems": "ระบบ",
     "about": "เกี่ยวกับ",
     "skills": "ทักษะ",
     "experience": "ประสบการณ์",
     "projects": "ผลงาน",
+    "stack": "Stack",
     "demos": "Demos",
     "work": "จ้างงาน",
     "articles": "บทความ",

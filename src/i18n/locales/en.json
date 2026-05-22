@@ -1,10 +1,13 @@
 {
   "nav": {
     "home": "Home",
+    "timeline": "Timeline",
+    "systems": "Systems",
     "about": "About",
     "skills": "Skills",
     "experience": "Experience",
     "projects": "Projects",
+    "stack": "Stack",
     "demos": "Demos",
     "work": "Work",
     "articles": "Articles",

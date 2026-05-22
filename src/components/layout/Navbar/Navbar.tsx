@@ -25,40 +25,40 @@ const Navbar = () => {
   }, [isLangOpen])
 
   return (
-    <nav className="bg-white sticky top-0 z-50 border-b-4 border-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
+    <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2 transform hover:-rotate-2 transition-transform cursor-pointer">
-            <div className="w-10 h-10 bg-black flex items-center justify-center border-2 border-black shadow-neo">
-              <span className="text-white font-black text-xl">D</span>
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-700">
+              <span className="text-sm font-black text-white">C/</span>
             </div>
-            <span className="text-2xl font-black tracking-tighter">DEV<span className="text-neo-coral">FOLIO</span></span>
+            <span className="text-sm font-black uppercase tracking-[0.18em] text-slate-900">System Profile</span>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6 items-center">
+          <div className="hidden items-center gap-2 md:flex">
             {navItems.filter(item => item.label !== 'Contact').map((item, idx) => (
               <a
                 key={idx}
                 href={item.href}
-                className="text-black font-bold text-lg hover:underline decoration-4 decoration-neo-coral underline-offset-4 uppercase"
+                className="rounded-md px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-500 transition hover:bg-blue-50 hover:text-blue-700"
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
               </a>
             ))}
             <a
               href="/#contact"
-              className="bg-neo-sky text-black border-2 border-black px-6 py-2 font-bold shadow-neo hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-sm transition-all uppercase"
+              className="rounded-md bg-blue-700 px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800"
             >
-              {t('nav.contact')}!
+              {t('nav.contact')}
             </a>
 
             {/* Language Switcher */}
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-1 bg-neo-lemon border-2 border-black px-3 py-2 font-bold shadow-neo-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-neo-sm transition-all"
+                className="flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
               >
                 <Globe size={18} />
                 <span className="uppercase">{currentLang?.name || language}</span>
@@ -67,7 +67,7 @@ const Navbar = () => {
 
               {/* Dropdown */}
               {isLangOpen && (
-                <div className="absolute right-0 mt-2 bg-white border-4 border-black shadow-neo z-50 min-w-[120px]">
+                <div className="absolute right-0 z-50 mt-2 min-w-[120px] rounded-md border border-slate-200 bg-white shadow-lg">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -75,7 +75,7 @@ const Navbar = () => {
                         changeLanguage(lang.code)
                         setIsLangOpen(false)
                       }}
-                      className={`w-full text-left px-4 py-2 font-bold hover:bg-neo-lemon transition-colors ${language === lang.code ? 'bg-neo-lemon' : ''}`}
+                      className={`w-full px-4 py-2 text-left text-sm font-bold transition-colors hover:bg-blue-50 ${language === lang.code ? 'bg-blue-50 text-blue-700' : 'text-slate-700'}`}
                     >
                       {lang.name}
                     </button>
@@ -89,7 +89,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center gap-3">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-black border-2 border-black p-1 shadow-neo-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px]"
+              className="rounded-md border border-slate-200 p-2 text-slate-700"
             >
               {isMenuOpen ? <X size={28} strokeWidth={3} /> : <Menu size={28} strokeWidth={3} />}
             </button>
@@ -99,12 +99,12 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-neo-peach border-t-4 border-black p-4 space-y-4">
+        <div className="space-y-3 border-t border-slate-200 bg-white p-4 md:hidden">
           {navItems.map((item, idx) => (
             <a
               key={idx}
               href={item.href}
-              className="block text-black font-bold text-xl uppercase border-b-2 border-black pb-2"
+              className="block rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-black uppercase tracking-[0.12em] text-slate-700"
               onClick={() => setIsMenuOpen(false)}
             >
               {t(`nav.${item.label.toLowerCase()}`)}
@@ -113,16 +113,16 @@ const Navbar = () => {
 
           {/* Mobile Language Switcher */}
           <div className="space-y-2">
-            <p className="font-bold text-sm uppercase">เลือกภาษา / Select Language</p>
+            <p className="text-sm font-bold uppercase text-slate-500">เลือกภาษา / Select Language</p>
             <div className="flex gap-2">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => changeLanguage(lang.code)}
-                  className={`flex-1 py-2 font-bold border-2 border-black transition-all ${
+                  className={`flex-1 rounded-md border py-2 font-bold transition-all ${
                     language === lang.code
-                      ? 'bg-black text-white'
-                      : 'bg-white text-black hover:bg-neo-lemon'
+                      ? 'border-blue-700 bg-blue-700 text-white'
+                      : 'border-slate-200 bg-white text-slate-700 hover:bg-blue-50'
                   }`}
                 >
                   {lang.name}
