@@ -33,6 +33,12 @@ const quickQuestions = [
   'How should I position the portfolio?',
 ]
 
+const retrievalFlow = [
+  { label: 'Sanitize', detail: 'Export only safe notes and remove private local vault content.' },
+  { label: 'Search', detail: 'Match the question against a small trusted context set.' },
+  { label: 'Answer', detail: 'Return a concise response with the same assistant style the real workflow expects.' },
+]
+
 function answerQuestion(question: string) {
   const normalized = question.toLowerCase()
 
@@ -164,6 +170,25 @@ export default function VaultAssistantDemoPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="border-4 border-black bg-white shadow-neo-lg">
+          <div className="border-b-4 border-black bg-neo-lemon px-6 py-4">
+            <h2 className="text-2xl font-black uppercase">Retrieval Proof</h2>
+          </div>
+          <div className="grid gap-4 p-6 md:grid-cols-3">
+            {retrievalFlow.map((step, index) => (
+              <article key={step.label} className="border-2 border-black bg-neo-cream p-4">
+                <div className="mb-3 inline-flex h-9 w-9 items-center justify-center border-2 border-black bg-white font-black">
+                  {index + 1}
+                </div>
+                <h3 className="text-xl font-black uppercase">{step.label}</h3>
+                <p className="mt-3 font-mono text-sm text-gray-700">{step.detail}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

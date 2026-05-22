@@ -19,6 +19,13 @@ const modules = [
   { icon: Database, title: 'Data Foundation', body: 'A full-stack base for auth, records, dashboards, and deployment.' },
 ]
 
+const handoffChecks = [
+  'Clear owner and status for every record',
+  'Summary metrics for quick admin review',
+  'Mock table shape that matches a real operator workflow',
+  'No live school data or private identifiers',
+]
+
 export default function InternalToolsDashboardDemoPage() {
   return (
     <main className="min-h-screen bg-neo-cream text-black">
@@ -134,6 +141,18 @@ export default function InternalToolsDashboardDemoPage() {
           <p className="max-w-4xl font-bold leading-relaxed">
             The important product lesson is the workflow: replace scattered admin records with a structured system that can be reviewed, operated, and handed off.
           </p>
+        </div>
+
+        <div className="mt-8 border-4 border-black bg-white p-6 shadow-neo-lg">
+          <h2 className="text-2xl font-black uppercase">Review Checklist</h2>
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            {handoffChecks.map((item) => (
+              <div key={item} className="flex gap-3 border-2 border-black bg-neo-cream p-4 font-bold">
+                <CheckCircle2 className="shrink-0 text-green-700" />
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>

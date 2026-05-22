@@ -30,6 +30,12 @@ const safeguards = [
   'Demo content mirrors workflow shape only',
 ]
 
+const proofPoints = [
+  { label: 'Before', detail: 'Operator checks and reports depended on manual commands and scattered context.' },
+  { label: 'After', detail: 'A controlled assistant flow can answer status questions, send summaries, and keep an event trail.' },
+  { label: 'Public proof', detail: 'This demo shows the user journey, request path, and safety boundaries without exposing live configuration.' },
+]
+
 export default function HermesLineAssistantDemoPage() {
   return (
     <main className="min-h-screen bg-neo-cream text-black">
@@ -125,6 +131,22 @@ export default function HermesLineAssistantDemoPage() {
               <div key={item} className="border-2 border-black bg-neo-pink p-4 font-black">
                 {item}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="border-4 border-black bg-white shadow-neo-lg">
+          <div className="border-b-4 border-black bg-neo-cyan px-6 py-4">
+            <h2 className="text-2xl font-black uppercase">Case-study Proof</h2>
+          </div>
+          <div className="grid gap-4 p-6 md:grid-cols-3">
+            {proofPoints.map((point) => (
+              <article key={point.label} className="border-2 border-black bg-neo-cream p-4">
+                <p className="font-mono text-xs font-black uppercase text-gray-600">{point.label}</p>
+                <p className="mt-2 font-bold leading-7">{point.detail}</p>
+              </article>
             ))}
           </div>
         </div>

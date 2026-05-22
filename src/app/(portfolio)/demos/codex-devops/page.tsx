@@ -26,6 +26,12 @@ const events = [
   { type: 'security_review', project: 'VPS', summary: 'Public exposure review completed', status: 'logged' },
 ]
 
+const proofPoints = [
+  { label: 'Trigger', detail: 'A local operator runs a small command instead of opening multiple dashboards.' },
+  { label: 'Response', detail: 'The workflow returns a health summary, notification state, and event-log status.' },
+  { label: 'Boundary', detail: 'The demo keeps all endpoints, tokens, and infrastructure identifiers out of the browser.' },
+]
+
 export default function CodexDevOpsDemoPage() {
   return (
     <main className="min-h-screen bg-neo-cream text-black">
@@ -119,6 +125,18 @@ export default function CodexDevOpsDemoPage() {
                   {event.status}
                 </span>
               </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 border-4 border-black bg-neo-mint p-6 shadow-neo-lg">
+          <h2 className="text-2xl font-black uppercase">Operator Proof Points</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {proofPoints.map((point) => (
+              <article key={point.label} className="border-2 border-black bg-white p-4">
+                <p className="font-mono text-xs font-black uppercase text-gray-600">{point.label}</p>
+                <p className="mt-2 font-bold leading-7">{point.detail}</p>
+              </article>
             ))}
           </div>
         </div>
