@@ -2,13 +2,12 @@ import type { Profile, ProfileCommon, SkillGroup, Experience, Project, Social, A
 
 export const navItems = [
   { label: "Home", href: "/#home" },
-  { label: "About", href: "/#about" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Experience", href: "/#experience" },
+  { label: "Timeline", href: "/#timeline" },
+  { label: "Systems", href: "/#systems" },
   { label: "Projects", href: "/#projects" },
+  { label: "Stack", href: "/#stack" },
   { label: "Demos", href: "/demos" },
   { label: "Work", href: "/work-with-me" },
-  { label: "Articles", href: "/#articles" },
   { label: "Prompts", href: "/prompts" },
   { label: "Contact", href: "/#contact" },
 ]
