@@ -2,22 +2,38 @@
 
 import { FormEvent, useMemo, useState } from 'react'
 import Link from 'next/link'
-import { AlertCircle, ArrowRight, BriefcaseBusiness, CalendarClock, CheckCircle2, Mail, MessageSquareText, WalletCards } from 'lucide-react'
+import {
+  AlertCircle,
+  ArrowRight,
+  BriefcaseBusiness,
+  CalendarClock,
+  CheckCircle2,
+  ClipboardList,
+  LockKeyhole,
+  Mail,
+  MessageSquareText,
+  ShieldCheck,
+  WalletCards,
+  Workflow,
+} from 'lucide-react'
 import { profileCommon } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
 
 const workCopy = {
   en: {
-    eyebrow: 'Work With Me',
+    eyebrow: 'Intake Console',
     title: 'Start with the problem, then scope the system.',
     intro:
       'Use this short brief to describe the workflow you want to improve. It opens a prepared email draft, so no project details are stored on this site.',
-    back: 'Back home',
+    back: 'Back to system profile',
     send: 'Create email draft',
     preview: 'Email preview',
     ready: 'Brief ready',
     incomplete: 'Add a little more detail before creating the draft',
+    briefTitle: 'Project Brief',
+    safetyTitle: 'Safety Rules',
+    intakeTitle: 'Intake Status',
     name: 'Name',
     email: 'Email',
     projectType: 'Project type',
@@ -41,17 +57,21 @@ const workCopy = {
       problem: 'Describe the current problem in at least 30 characters.',
       goal: 'Describe the desired result in at least 30 characters.',
     },
+    steps: ['Describe current friction', 'Select scope and timing', 'Send prepared email draft'],
   },
   th: {
-    eyebrow: 'Work With Me',
+    eyebrow: 'Intake Console',
     title: 'เริ่มจากปัญหา แล้วค่อย scope ระบบให้ชัด',
     intro:
       'กรอก brief สั้นๆ เพื่อบอก workflow ที่อยากปรับปรุง หน้านี้จะเปิด email draft ให้ส่งเอง จึงไม่มีการเก็บรายละเอียดโปรเจกต์บนเว็บ',
-    back: 'กลับหน้าหลัก',
+    back: 'กลับหน้า System Profile',
     send: 'สร้าง Email Draft',
     preview: 'ตัวอย่าง Email',
     ready: 'Brief พร้อมส่ง',
     incomplete: 'เพิ่มรายละเอียดอีกนิดก่อนสร้าง draft',
+    briefTitle: 'Project Brief',
+    safetyTitle: 'Safety Rules',
+    intakeTitle: 'Intake Status',
     name: 'ชื่อ',
     email: 'อีเมล',
     projectType: 'ประเภทงาน',
@@ -75,6 +95,7 @@ const workCopy = {
       problem: 'อธิบายปัญหาปัจจุบันอย่างน้อย 30 ตัวอักษร',
       goal: 'อธิบายผลลัพธ์ที่ต้องการอย่างน้อย 30 ตัวอักษร',
     },
+    steps: ['อธิบาย friction ปัจจุบัน', 'เลือก scope และ timing', 'ส่ง email draft ที่เตรียมไว้'],
   },
 }
 
@@ -82,6 +103,22 @@ const minDetailLength = 30
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function PanelHeader({ title, badge }: { title: string; badge?: string }) {
+  return (
+    <div className="mb-5 flex items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-3">
+        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-blue-600"></span>
+        <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-900">{title}</h2>
+      </div>
+      {badge && (
+        <span className="rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700">
+          {badge}
+        </span>
+      )}
+    </div>
+  )
 }
 
 export default function WorkWithMePage() {
@@ -143,176 +180,192 @@ export default function WorkWithMePage() {
   }
 
   return (
-    <main className="min-h-screen bg-neo-cream text-black">
-      <section className="border-b-4 border-black bg-neo-mint">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <Link href="/#home" className="inline-flex items-center border-2 border-black bg-white px-4 py-2 text-sm font-black uppercase shadow-neo-sm hover:translate-x-[1px] hover:translate-y-[1px]">
-            {copy.back}
-          </Link>
-
-          <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+    <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
+      <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
+        <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
+          <div className="grid gap-8 xl:grid-cols-[1.35fr_0.85fr] xl:items-end">
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 border-2 border-black bg-black px-4 py-2 font-black uppercase text-white shadow-neo">
-                <BriefcaseBusiness size={20} />
-                {copy.eyebrow}
+              <Link href="/#home" className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
+                {copy.back}
+              </Link>
+              <div className="mt-8">
+                <PanelHeader title={copy.eyebrow} badge={copy.projectType} />
+                <h1 className="max-w-5xl text-4xl font-black leading-none tracking-tight text-slate-950 sm:text-6xl">
+                  {copy.title}
+                </h1>
+                <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+                  {copy.intro}
+                </p>
               </div>
-              <h1 className="max-w-4xl text-4xl font-black uppercase leading-tight sm:text-6xl">
-                {copy.title}
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg font-bold leading-8 sm:text-xl">
-                {copy.intro}
-              </p>
             </div>
 
-            <div className="border-4 border-black bg-white p-5 shadow-neo-lg">
+            <aside className="rounded-md border border-slate-200 bg-slate-50 p-5">
+              <PanelHeader title={copy.safetyTitle} />
               <div className="grid gap-3">
-                {copy.notes.map((note) => (
-                  <div key={note} className="border-2 border-black bg-neo-lemon px-4 py-3 font-black">
+                {copy.notes.map((note, index) => (
+                  <div key={note} className="flex items-center gap-3 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700">
+                    {index === 0 ? <LockKeyhole className="h-5 w-5 text-blue-700" /> : index === 1 ? <ShieldCheck className="h-5 w-5 text-blue-700" /> : <Mail className="h-5 w-5 text-blue-700" />}
                     {note}
                   </div>
                 ))}
               </div>
-            </div>
+            </aside>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.85fr] lg:px-8">
-        <form onSubmit={handleSubmit} className="border-4 border-black bg-white shadow-neo-lg">
-          <div className="border-b-4 border-black bg-neo-sky px-5 py-4">
-            <h2 className="text-2xl font-black uppercase">Project Brief</h2>
-          </div>
-
-          <div className="grid gap-5 p-5 sm:grid-cols-2">
-            <div className={`sm:col-span-2 border-2 border-black p-4 font-black ${isReady ? 'bg-neo-mint' : 'bg-neo-lemon'}`}>
-              <div className="flex items-center gap-3">
-                {isReady ? <CheckCircle2 className="text-green-700" size={22} /> : <AlertCircle className="text-amber-700" size={22} />}
-                <p className="uppercase">{isReady ? copy.ready : copy.incomplete}</p>
+        <section className="grid gap-5 xl:grid-cols-[0.72fr_1.15fr_0.82fr]">
+          <aside className="grid gap-5">
+            <div className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+              <PanelHeader title={copy.intakeTitle} />
+              <div className={`rounded-md border p-4 ${isReady ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+                <div className="flex items-center gap-3">
+                  {isReady ? <CheckCircle2 className="text-emerald-700" size={22} /> : <AlertCircle className="text-amber-700" size={22} />}
+                  <p className="text-sm font-black uppercase tracking-[0.12em] text-slate-800">{isReady ? copy.ready : copy.incomplete}</p>
+                </div>
+                {submitted && !isReady && (
+                  <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700">
+                    {validationErrors.map((error) => (
+                      <li key={error}>- {error}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              {submitted && !isReady && (
-                <ul className="mt-3 grid gap-2 font-mono text-sm normal-case text-gray-800 sm:grid-cols-2">
-                  {validationErrors.map((error) => (
-                    <li key={error}>- {error}</li>
-                  ))}
-                </ul>
-              )}
+
+              <div className="mt-5 grid gap-3">
+                {copy.steps.map((step, index) => (
+                  <div key={step} className="flex gap-3 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-slate-600">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-700 text-[10px] font-black text-white">
+                      {index + 1}
+                    </span>
+                    {step}
+                  </div>
+                ))}
+              </div>
             </div>
+          </aside>
 
-            <label className="block font-black uppercase">
-              {copy.name}
-              <input
-                required
-                value={form.name}
-                onChange={(event) => updateForm('name', event.target.value)}
-                placeholder={copy.placeholders.name}
-                className="mt-2 w-full border-2 border-black p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              />
-            </label>
+          <form onSubmit={handleSubmit} className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+            <PanelHeader title={copy.briefTitle} badge={isReady ? copy.ready : undefined} />
 
-            <label className="block font-black uppercase">
-              {copy.email}
-              <input
-                required
-                type="email"
-                value={form.email}
-                onChange={(event) => updateForm('email', event.target.value)}
-                placeholder={copy.placeholders.email}
-                className="mt-2 w-full border-2 border-black p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              />
-            </label>
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
+                {copy.name}
+                <input
+                  required
+                  value={form.name}
+                  onChange={(event) => updateForm('name', event.target.value)}
+                  placeholder={copy.placeholders.name}
+                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                />
+              </label>
 
-            <label className="block font-black uppercase">
-              <span className="inline-flex items-center gap-2"><MessageSquareText size={18} /> {copy.projectType}</span>
-              <select
-                value={form.projectType}
-                onChange={(event) => updateForm('projectType', event.target.value)}
-                className="mt-2 w-full border-2 border-black bg-white p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
+                {copy.email}
+                <input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(event) => updateForm('email', event.target.value)}
+                  placeholder={copy.placeholders.email}
+                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                />
+              </label>
+
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
+                <span className="inline-flex items-center gap-2"><MessageSquareText size={16} /> {copy.projectType}</span>
+                <select
+                  value={form.projectType}
+                  onChange={(event) => updateForm('projectType', event.target.value)}
+                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                >
+                  {copy.projectTypes.map((item) => (
+                    <option key={item}>{item}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
+                <span className="inline-flex items-center gap-2"><WalletCards size={16} /> {copy.budget}</span>
+                <select
+                  value={form.budget}
+                  onChange={(event) => updateForm('budget', event.target.value)}
+                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                >
+                  {copy.budgets.map((item) => (
+                    <option key={item}>{item}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
+                <span className="inline-flex items-center gap-2"><CalendarClock size={16} /> {copy.timeline}</span>
+                <select
+                  value={form.timeline}
+                  onChange={(event) => updateForm('timeline', event.target.value)}
+                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                >
+                  {copy.timelines.map((item) => (
+                    <option key={item}>{item}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
+                {copy.problem}
+                <textarea
+                  required
+                  minLength={minDetailLength}
+                  value={form.problem}
+                  onChange={(event) => updateForm('problem', event.target.value)}
+                  placeholder={copy.placeholders.problem}
+                  rows={5}
+                  className="mt-2 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                />
+                <span className="mt-2 block font-mono text-xs normal-case text-slate-500">
+                  {form.problem.trim().length}/{minDetailLength}
+                </span>
+              </label>
+
+              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
+                {copy.goal}
+                <textarea
+                  required
+                  minLength={minDetailLength}
+                  value={form.goal}
+                  onChange={(event) => updateForm('goal', event.target.value)}
+                  placeholder={copy.placeholders.goal}
+                  rows={4}
+                  className="mt-2 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                />
+                <span className="mt-2 block font-mono text-xs normal-case text-slate-500">
+                  {form.goal.trim().length}/{minDetailLength}
+                </span>
+              </label>
+
+              <button
+                type="submit"
+                disabled={!isReady}
+                className="inline-flex items-center justify-center rounded-md bg-blue-700 px-6 py-4 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-400 disabled:text-slate-100 sm:col-span-2"
               >
-                {copy.projectTypes.map((item) => (
-                  <option key={item}>{item}</option>
-                ))}
-              </select>
-            </label>
+                <Mail className="mr-2 h-5 w-5" />
+                {copy.send}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </button>
+            </div>
+          </form>
 
-            <label className="block font-black uppercase">
-              <span className="inline-flex items-center gap-2"><WalletCards size={18} /> {copy.budget}</span>
-              <select
-                value={form.budget}
-                onChange={(event) => updateForm('budget', event.target.value)}
-                className="mt-2 w-full border-2 border-black bg-white p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              >
-                {copy.budgets.map((item) => (
-                  <option key={item}>{item}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block font-black uppercase sm:col-span-2">
-              <span className="inline-flex items-center gap-2"><CalendarClock size={18} /> {copy.timeline}</span>
-              <select
-                value={form.timeline}
-                onChange={(event) => updateForm('timeline', event.target.value)}
-                className="mt-2 w-full border-2 border-black bg-white p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              >
-                {copy.timelines.map((item) => (
-                  <option key={item}>{item}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block font-black uppercase sm:col-span-2">
-              {copy.problem}
-              <textarea
-                required
-                minLength={minDetailLength}
-                value={form.problem}
-                onChange={(event) => updateForm('problem', event.target.value)}
-                placeholder={copy.placeholders.problem}
-                rows={5}
-                className="mt-2 w-full resize-none border-2 border-black p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              />
-              <span className="mt-2 block font-mono text-xs normal-case text-gray-600">
-                {form.problem.trim().length}/{minDetailLength}
-              </span>
-            </label>
-
-            <label className="block font-black uppercase sm:col-span-2">
-              {copy.goal}
-              <textarea
-                required
-                minLength={minDetailLength}
-                value={form.goal}
-                onChange={(event) => updateForm('goal', event.target.value)}
-                placeholder={copy.placeholders.goal}
-                rows={4}
-                className="mt-2 w-full resize-none border-2 border-black p-3 font-mono text-sm normal-case outline-none focus:shadow-neo-sm"
-              />
-              <span className="mt-2 block font-mono text-xs normal-case text-gray-600">
-                {form.goal.trim().length}/{minDetailLength}
-              </span>
-            </label>
-
-            <button
-              type="submit"
-              disabled={!isReady}
-              className="inline-flex items-center justify-center border-2 border-black bg-black px-6 py-4 text-base font-black uppercase text-white shadow-neo transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-200 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0 sm:col-span-2"
-            >
-              <Mail className="mr-2 h-5 w-5" />
-              {copy.send}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
-          </div>
-        </form>
-
-        <aside className="border-4 border-black bg-[#111827] text-white shadow-neo-lg">
-          <div className="border-b-4 border-black bg-black px-5 py-4">
-            <h2 className="text-2xl font-black uppercase">{copy.preview}</h2>
-          </div>
-          <pre className="whitespace-pre-wrap p-5 font-mono text-sm leading-7 text-gray-200">
-            {emailBody}
-          </pre>
-        </aside>
-      </section>
+          <aside className="rounded-md border border-slate-200 bg-[#0f172a] p-6 text-white shadow-[0_18px_50px_rgba(15,23,42,0.12)]">
+            <PanelHeader title={copy.preview} badge="mailto" />
+            <div className="mb-4 flex items-center gap-3 rounded-md border border-white/10 bg-white/5 p-3 text-sm font-semibold text-slate-200">
+              <ClipboardList className="h-5 w-5 text-blue-300" />
+              <span>{form.projectType}</span>
+            </div>
+            <pre className="max-h-[720px] overflow-auto whitespace-pre-wrap rounded-md border border-white/10 bg-black/20 p-4 font-mono text-sm leading-7 text-slate-200">
+              {emailBody}
+            </pre>
+          </aside>
+        </section>
+      </div>
     </main>
   )
 }
