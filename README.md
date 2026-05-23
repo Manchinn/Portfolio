@@ -13,10 +13,10 @@ Next.js portfolio for Chinnakrit Sripan, focused on AI automation, full-stack sy
 ## Key Paths
 
 - `src/data/portfolio.ts` - bilingual portfolio content source of truth
-- `src/app/(portfolio)/` - main portfolio, demos, prompts, articles, and lead-capture pages
+- `src/app/(portfolio)/` - main portfolio, demos, articles, and lead-capture pages
 - `src/app/saas/` - standalone FlowSync SaaS landing page demo
-- `src/app/api/` - route handlers
-- `src/middleware.ts` - protected admin route handling
+- `src/app/api/prompts/` - read-only feed (and protected writes) for the external prompts site
+- `src/middleware.ts` - ADMIN_TOKEN gate for `/api/prompts/*` writes
 
 ## Local Commands
 

@@ -19,7 +19,7 @@ The parent folder contains project-level docs. Work from this `frontend` folder 
 - Stack: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
 - Production: Vercel auto-deploys from `master`
 - Public site: portfolio, bilingual EN/TH content, public demo pages, prompt redirect surface, lead-capture page
-- Legacy admin/CMS code still exists in the repo. Treat it as a removal candidate for the next cleanup pass unless the user explicitly asks to keep or extend it.
+- Legacy admin/CMS surface was removed (see history). Only the `/api/prompts/*` feed remains as legacy.
 
 ## Hard Rules
 
@@ -39,8 +39,11 @@ src/i18n/locales/th.json           Thai UI copy
 src/app/(portfolio)/page.tsx       Main portfolio page
 src/app/(portfolio)/demos/         Public demo pages
 src/app/(portfolio)/work-with-me/  Lead capture page
-src/app/api/*                      Route Handlers
-src/middleware.ts                  Legacy admin/API route protection
+src/app/api/prompts/*              Prompts feed for external prompts site
+src/lib/prompt-store.ts            Vercel Blob backing store for prompts feed
+src/lib/github.ts                  GitHub API helper (repo cards)
+src/middleware.ts                  ADMIN_TOKEN gate for /api/prompts/* writes
+next.config.ts                     /prompts and /prompts/* redirect to prompts.chinnakrit.dev
 ```
 
 ## Verification
@@ -77,24 +80,34 @@ Require explicit user approval before:
 
 ## Current Task Handoff
 
-Recent completed work:
+Recently completed cleanup (May 2026):
 
-- Portfolio project cards were strengthened with proof-oriented metadata and CTA treatment.
-- Public demo detail pages use `src/components/demos/DemoDetailShell.tsx`.
-- Lightweight CSS/Tailwind animation utilities were added with `prefers-reduced-motion` support.
-- Mobile hamburger behavior was checked after the animation pass.
-- `src/app/favicon.ico/route.ts` was added for the site icon.
+- Removed admin UI (`src/app/(portfolio)/admin/*`) and admin login API (`src/app/api/admin/login/`).
+- Removed prompts UI pages under `src/app/(portfolio)/prompts/*` (shadowed by external redirect in `next.config.ts`).
+- Removed orphan content pipeline: `src/app/api/content/*`, `src/lib/content-store.ts`, `src/lib/social.ts`, `src/lib/claude.ts`.
+- Removed `src/app/api/prompts/generate/` and `src/lib/prompt-generator.ts` (no UI consumer).
+- Removed hidden `/admin/prompts` link from `src/components/layout/Footer.tsx`.
+- `src/middleware.ts` simplified — matcher only on `/api/prompts/:path*`, still requires `ADMIN_TOKEN` for non-GET.
 
-Next recommended task:
+Remaining legacy surface (kept intentionally):
 
-- Remove the legacy portfolio admin/login surface from the public portfolio app.
-- Start with admin UI and login removal: `src/app/(portfolio)/admin/*`, `src/app/api/admin/login/route.ts`, admin matcher behavior in `src/middleware.ts`, and the hidden `/admin/prompts` footer link.
-- Keep public copy sanitized. Do not expose private admin route details in portfolio content.
-- Decide separately whether legacy prompt/content APIs should remain, because `/prompts` currently redirects externally via `next.config.ts`.
+- `src/app/api/prompts/` GET/POST/DELETE — external `prompts.chinnakrit.dev` likely consumes the GET feed; POST/DELETE are protected by middleware. Do not delete without confirming the external site's coupling.
+- `src/lib/prompt-store.ts` — backing store for the prompts feed above.
+- `ADMIN_TOKEN` env var on Vercel — still required by middleware.
 
-Verification for the admin cleanup:
+Likely-unused env vars on Vercel (safe to remove after confirming nothing else uses them):
+
+- `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `DASHSCOPE_API_KEY`, `GOOGLE_AI_API_KEY` — no AI gen code remains in this repo.
+- `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_USERNAME` — Threads publisher removed.
+
+Next recommended tasks (pick based on user intent):
+
+1. Confirm whether `prompts.chinnakrit.dev` actually reads `/api/prompts/*`. If not, delete `src/app/api/prompts/`, `src/lib/prompt-store.ts`, and `src/middleware.ts` (and drop `ADMIN_TOKEN`).
+2. Prune unused env vars listed above from Vercel project settings.
+3. Update `.env.example` to match the trimmed env surface.
+
+Verification gate after any code change:
 
 ```powershell
 npm run build
-rg -n "admin|admin_token|ADMIN_TOKEN|/admin|api/admin" src next.config.ts README.md AGENTS.md CLAUDE.md
 ```
