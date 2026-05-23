@@ -212,7 +212,7 @@ function CardHeader({ title, badge }: { title: string; badge?: string }) {
 
 function DashboardCard({ children, className = '', id }: { children: React.ReactNode; className?: string; id?: string }) {
   return (
-    <section id={id} className={`rounded-md border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] ${className}`}>
+    <section id={id} className={`motion-card rounded-md border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)] ${className}`}>
       {children}
     </section>
   )
@@ -268,7 +268,7 @@ export default function Home() {
         </aside>
 
         <div className="grid gap-5">
-          <div className="grid gap-5 xl:grid-cols-[1.7fr_1fr]">
+          <div className="motion-stagger grid gap-5 xl:grid-cols-[1.7fr_1fr]">
             <DashboardCard className="p-6 sm:p-8">
               <div className="grid gap-8 lg:grid-cols-[1.2fr_0.85fr] lg:items-start">
                 <div>
@@ -363,12 +363,12 @@ export default function Home() {
 
             <DashboardCard id="systems" className="p-6">
               <CardHeader title={copy.systemsTitle} />
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="motion-stagger grid gap-4 sm:grid-cols-2">
                 {copy.workflowSystems.map((system, index) => {
                   const Icon = workflowIcons[index]
                   return (
-                    <article key={system.title} className="rounded-md border border-slate-200 bg-white p-4 text-center">
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md bg-blue-50 text-blue-700">
+                    <article key={system.title} className="motion-card rounded-md border border-slate-200 bg-white p-4 text-center">
+                      <div className="motion-icon mx-auto flex h-12 w-12 items-center justify-center rounded-md bg-blue-50 text-blue-700">
                         <Icon size={25} />
                       </div>
                       <h3 className="mt-4 text-sm font-black text-slate-950">{system.title}</h3>
@@ -381,10 +381,10 @@ export default function Home() {
 
             <DashboardCard id="stack" className="p-6">
               <CardHeader title={copy.stackTitle} badge={copy.coreTools} />
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3">
+              <div className="motion-stagger grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3">
                 {copy.stack.map((tool, index) => (
-                  <div key={tool} className="flex items-center gap-3 rounded-md border border-slate-200 bg-white px-3 py-3">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-50 text-blue-700">
+                  <div key={tool} className="motion-card flex items-center gap-3 rounded-md border border-slate-200 bg-white px-3 py-3">
+                    <div className="motion-icon flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-50 text-blue-700">
                       {index % 3 === 0 ? <Bot size={18} /> : index % 3 === 1 ? <Layers3 size={18} /> : <Zap size={18} />}
                     </div>
                     <span className="text-xs font-black text-slate-700">{tool}</span>
@@ -398,16 +398,16 @@ export default function Home() {
 
             <DashboardCard id="projects" className="p-6">
               <CardHeader title={copy.projectsTitle} />
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+              <div className="motion-stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
                 {projectData.map((project, index) => {
                   const Icon = projectIcons[index] ?? Rocket
                   return (
                     <Link
                       key={project.id}
                       href={project.demo}
-                      className="rounded-md border border-slate-200 bg-white p-4 text-center transition hover:border-blue-200 hover:bg-blue-50"
+                      className="motion-card rounded-md border border-slate-200 bg-white p-4 text-center transition hover:border-blue-200 hover:bg-blue-50"
                     >
-                      <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-md bg-slate-50 text-slate-700">
+                      <div className="motion-icon mx-auto flex h-11 w-11 items-center justify-center rounded-md bg-slate-50 text-slate-700">
                         <Icon size={24} />
                       </div>
                       <h3 className="mt-4 min-h-10 text-sm font-black leading-5 text-slate-950">{project.title}</h3>
@@ -424,7 +424,7 @@ export default function Home() {
 
             <DashboardCard className="p-6">
               <CardHeader title={copy.skillsTitle} badge={copy.coreSkills} />
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+              <div className="motion-stagger grid grid-cols-2 gap-x-4 gap-y-3">
                 {coreSkills.map((skill) => (
                   <div key={skill} className="border-b border-slate-100 pb-2 text-xs font-semibold text-slate-600">
                     {skill}
@@ -439,29 +439,29 @@ export default function Home() {
 
           <DashboardCard id="contact" className="p-6">
             <CardHeader title={copy.contactTitle} />
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              <a href={`mailto:${profileData.email}`} className="flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
+            <div className="motion-stagger grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <a href={`mailto:${profileData.email}`} className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
                 <Mail className="h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">Email</p>
                   <p className="mt-1 text-sm font-black text-slate-800">{profileData.email}</p>
                 </div>
               </a>
-              <a href={`tel:${profileData.phone.replaceAll(' ', '')}`} className="flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
+              <a href={`tel:${profileData.phone.replaceAll(' ', '')}`} className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
                 <Phone className="h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">Phone</p>
                   <p className="mt-1 text-sm font-black text-slate-800">{profileData.phone}</p>
                 </div>
               </a>
-              <a href={linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
+              <a href={linkedin} target="_blank" rel="noreferrer" className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
                 <Linkedin className="h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">LinkedIn</p>
                   <p className="mt-1 text-sm font-black text-slate-800">Chinnakrit Sripan</p>
                 </div>
               </a>
-              <a href={github} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
+              <a href={github} target="_blank" rel="noreferrer" className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4 hover:border-blue-200 hover:bg-blue-50">
                 <Github className="h-5 w-5 text-slate-500" />
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">GitHub</p>

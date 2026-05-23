@@ -111,7 +111,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-20 border-t-4 border-black bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
+        <div className="motion-enter text-center mb-14">
           <h2 className="text-xl font-black text-black uppercase tracking-widest border-b-4 border-black inline-block pb-1">{t('projects.title')}</h2>
           <p className="mt-4 text-4xl md:text-6xl font-black text-black uppercase">
             {tl({ en: 'Systems as case studies', th: 'ผลงานแบบ Case Study' })}
@@ -124,7 +124,7 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        <div className="motion-stagger grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
           {projectsData.map((project, index) => {
             const IconComponent = projectIcons[index % 4] || Layout
             const bgColor = projectColors[index % projectColors.length]
@@ -133,12 +133,12 @@ const Projects = () => {
             return (
               <div
                 key={project.id}
-                className="border-4 border-black bg-white shadow-neo-lg hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
+                className="motion-card border-4 border-black bg-white shadow-neo-lg hover:-translate-y-1 transition-all flex flex-col h-full group cursor-pointer"
                 onClick={(e) => openModal(project, e)}
               >
                 <div className={`${bgColor} border-b-4 border-black p-5`}>
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center border-2 border-black bg-white text-black shadow-neo-sm">
+                    <div className="motion-icon flex h-14 w-14 shrink-0 items-center justify-center border-2 border-black bg-white text-black shadow-neo-sm">
                       <IconComponent className="h-7 w-7 group-hover:scale-110 transition-transform" strokeWidth={2.5} />
                     </div>
                     <div className="border-2 border-black bg-white px-3 py-1 text-xs font-black uppercase text-black">
@@ -190,7 +190,7 @@ const Projects = () => {
       {/* Project Detail Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
+          className="motion-enter fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
           role="dialog"
           aria-modal="true"
           aria-labelledby="project-modal-title"
@@ -199,7 +199,7 @@ const Projects = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-white border-4 border-black shadow-neo-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="motion-scale bg-white border-4 border-black shadow-neo-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}

@@ -33,10 +33,10 @@ const Contact = () => {
   return (
     <section id="contact" className="bg-neo-lavender py-20 border-t-4 border-black scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-5xl md:text-6xl font-black text-black mb-8 uppercase leading-tight">
+        <h2 className="motion-enter text-5xl md:text-6xl font-black text-black mb-8 uppercase leading-tight">
           {tl({ en: 'READY TO', th: 'พร้อม' })}<br/>{tl({ en: 'START?', th: 'เริ่มต้นหรือยัง' })}
         </h2>
-        <div className="bg-white border-4 border-black p-8 inline-block shadow-neo-lg max-w-2xl block rotate-0 sm:-rotate-1">
+        <div className="motion-card bg-white border-4 border-black p-8 inline-block shadow-neo-lg max-w-2xl block rotate-0 sm:-rotate-1">
           <p className="text-xl font-bold text-black mb-8">
             {tl({ en: 'Don\'t let your ideas stay as dreams—let\'s discuss the details and build it together.', th: 'อย่าให้ไอเดียของคุณเป็นแค่ความฝัน—มาคุยกันเลยและสร้างมันขึ้นมาด้วยกัน' })}
           </p>
@@ -87,7 +87,7 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-black text-white border-4 border-black px-8 py-4 font-black text-xl hover:bg-neo-coral hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff] flex items-center justify-center gap-3"
+                className="motion-card w-full bg-black text-white border-4 border-black px-8 py-4 font-black text-xl hover:bg-neo-coral hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff] flex items-center justify-center gap-3"
               >
                 <Mail className="w-6 h-6" /> {t('contact.send').toUpperCase()}
               </button>
@@ -96,14 +96,14 @@ const Contact = () => {
 
           <a
             href={`mailto:${profileCommon.email}`}
-            className="inline-flex items-center bg-black text-white border-2 border-black px-8 py-4 font-black text-xl hover:bg-neo-coral hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff]"
+            className="motion-card inline-flex items-center bg-black text-white border-2 border-black px-8 py-4 font-black text-xl hover:bg-neo-coral hover:text-black transition-all shadow-[4px_4px_0px_0px_#ffffff]"
           >
             <Mail className="w-6 h-6 mr-3" /> {tl({ en: 'SEND EMAIL NOW', th: 'ส่งอีเมล' })}
           </a>
 
           <Link
             href="/work-with-me"
-            className="mt-4 inline-flex items-center bg-neo-lemon text-black border-2 border-black px-8 py-4 font-black text-xl hover:bg-neo-cyan transition-all shadow-[4px_4px_0px_0px_#ffffff]"
+            className="motion-card mt-4 inline-flex items-center bg-neo-lemon text-black border-2 border-black px-8 py-4 font-black text-xl hover:bg-neo-cyan transition-all shadow-[4px_4px_0px_0px_#ffffff]"
           >
             {tl({ en: 'START A PROJECT BRIEF', th: 'เริ่ม BRIEF โปรเจกต์' })}
           </Link>

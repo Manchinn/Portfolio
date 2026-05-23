@@ -15,7 +15,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-20 border-t-4 border-black bg-neo-cream scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="motion-enter text-center mb-16">
           <h2 className="text-xl font-black bg-black text-white inline-block px-4 py-2 transform -rotate-2 shadow-[4px_4px_0px_0px_var(--color-neo-coral)]">{t('experience.title').toUpperCase()}</h2>
           <p className="mt-6 text-5xl md:text-6xl font-black text-black uppercase">
             {tl({ en: 'Career Journey', th: 'เส้นทางอาชีพ' })}
@@ -29,7 +29,7 @@ const Experience = () => {
           {/* Mobile Timeline Line (left border) — แสดงเฉพาะ mobile */}
           <div className="absolute left-4 top-0 w-1 h-full bg-black md:hidden"></div>
 
-          <div className="space-y-12">
+          <div className="motion-stagger space-y-12">
             {experiencesData.map((exp, index) => (
               <div key={exp.id || index} className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} items-center justify-between relative`}>
                 {/* Mobile Timeline Dot */}
@@ -37,7 +37,7 @@ const Experience = () => {
 
                 {/* Content */}
                 <div className={`w-full pl-10 md:pl-0 md:w-5/12 ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
-                  <div className={`${expColors[index % expColors.length]} border-4 border-black p-6 shadow-neo-lg hover:-translate-y-1 transition-transform`}>
+                  <div className={`motion-card ${expColors[index % expColors.length]} border-4 border-black p-6 shadow-neo-lg hover:-translate-y-1 transition-transform`}>
                     <div className="flex items-center gap-2 mb-2">
                       <Calendar size={18} strokeWidth={3} />
                       <span className="font-mono text-sm font-bold">{exp.year}</span>

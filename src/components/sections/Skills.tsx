@@ -54,7 +54,7 @@ const Skills = () => {
   return (
     <section id="skills" className="py-20 border-t-4 border-black bg-black text-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end mb-14">
+        <div className="motion-enter grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end mb-14">
           <div>
             <h2 className="text-xl font-black text-neo-cyan mb-2 uppercase tracking-widest">{tl({ en: 'Capability Map', th: 'แผนที่ความสามารถ' })}</h2>
             <p className="text-4xl md:text-6xl font-black uppercase text-white leading-tight">
@@ -73,16 +73,16 @@ const Skills = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="motion-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {skillsData.map((skillGroup, index) => {
             const IconComponent = skillIcons[skillGroup.category] || Code
             const bgColor = skillColors[index % skillColors.length]
 
             return (
-              <div key={index} className="flex flex-col bg-white border-4 border-white p-0 hover:-translate-y-2 transition-transform duration-200">
+              <div key={index} className="motion-card flex flex-col bg-white border-4 border-white p-0 hover:-translate-y-2 transition-transform duration-200">
                 <div className={`p-4 border-b-4 border-black flex justify-between items-start gap-4 ${bgColor}`}>
                   <h3 className="text-xl font-black uppercase text-black">{skillGroup.category}</h3>
-                  <IconComponent className="w-8 h-8 shrink-0 text-black" />
+                  <IconComponent className="motion-icon w-8 h-8 shrink-0 text-black" />
                 </div>
                 <div className="grid gap-3 p-5 bg-black">
                   {skillGroup.items.map((item) => (
@@ -97,9 +97,9 @@ const Skills = () => {
           })}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="motion-stagger grid gap-4 md:grid-cols-3">
           {capabilities.map((item) => (
-            <div key={item.label} className="border-2 border-white bg-white p-5 text-black">
+            <div key={item.label} className="motion-card border-2 border-white bg-white p-5 text-black">
               <div className="mb-4 inline-flex h-10 w-10 items-center justify-center border-2 border-black bg-neo-orange shadow-neo-sm">
                 <Terminal className="h-5 w-5" />
               </div>

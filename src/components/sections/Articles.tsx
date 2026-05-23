@@ -17,7 +17,7 @@ const Articles = () => {
   return (
     <section id="articles" className="py-20 border-t-4 border-black bg-neo-cream scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="motion-enter text-center mb-16">
           <h2 className="text-xl font-black text-neo-coral mb-2 uppercase tracking-widest">
             {tl({ en: 'Blog', th: 'บทความ' })}
           </h2>
@@ -26,18 +26,18 @@ const Articles = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="motion-stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {displayedArticles.map((article) => (
             <article
               key={article.id}
-              className="bg-white border-4 border-black shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 transition-all duration-200 flex flex-col h-full"
+              className="motion-card bg-white border-4 border-black shadow-neo-lg hover:shadow-neo-lg hover:-translate-y-1 transition-all duration-200 flex flex-col h-full"
             >
               {/* Cover Image */}
               <div className="h-48 overflow-hidden border-b-4 border-black">
                 <img
                   src={article.coverImage}
                   alt={article.title}
-                  className="w-full h-full object-cover"
+                  className="motion-icon w-full h-full object-cover"
                 />
               </div>
 

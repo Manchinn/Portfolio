@@ -51,10 +51,10 @@ const About = () => {
   return (
     <section id="about" className="py-20 border-t-4 border-black bg-[#FFFFFC] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="motion-stagger grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           {/* Image */}
           <div className="relative">
-            <div className="aspect-[4/5] bg-neo-peach border-4 border-black shadow-neo-lg flex items-center justify-center overflow-hidden">
+            <div className="motion-card aspect-[4/5] bg-neo-peach border-4 border-black shadow-neo-lg flex items-center justify-center overflow-hidden">
               {profileImage ? (
                 <img
                   src={profileImage}
@@ -82,7 +82,7 @@ const About = () => {
 
             <div className="mt-8 grid gap-3">
               {areas.map((area) => (
-                <div key={area} className="flex gap-3 border-2 border-black bg-white p-4 shadow-neo-sm">
+                <div key={area} className="motion-card flex gap-3 border-2 border-black bg-white p-4 shadow-neo-sm">
                   <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-black" strokeWidth={3} />
                   <p className="font-bold leading-7">{area}</p>
                 </div>
@@ -94,7 +94,7 @@ const About = () => {
               {model.map((item, idx) => {
                 const Icon = idx === 0 ? ShieldCheck : idx === 1 ? Wrench : GraduationCap
                 return (
-                  <div key={item.title} className="p-4 bg-white border-4 border-black shadow-neo">
+                  <div key={item.title} className="motion-card p-4 bg-white border-4 border-black shadow-neo">
                     <div className="mb-3 inline-flex p-2 bg-neo-mint border-2 border-black shadow-neo-sm">
                       <Icon className="w-5 h-5 text-black" />
                     </div>

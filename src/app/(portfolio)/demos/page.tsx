@@ -125,7 +125,7 @@ export default function DemosPage() {
   return (
     <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
       <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
-        <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
+        <section className="motion-enter rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
           <div className="grid gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
             <div>
               <Link href="/#home" className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
@@ -142,12 +142,12 @@ export default function DemosPage() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+            <div className="motion-stagger grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
               {copy.stats.map((stat, index) => {
                 const Icon = statIcons[index]
                 return (
-                  <div key={stat.label} className="flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-white text-blue-700">
+                  <div key={stat.label} className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4">
+                    <div className="motion-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-white text-blue-700">
                       <Icon size={22} />
                     </div>
                     <div>
@@ -165,11 +165,11 @@ export default function DemosPage() {
           <aside className="grid gap-5">
             <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
               <PanelHeader title={copy.proofLabel} />
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+              <div className="motion-stagger grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
                 {copy.proofItems.map((item, index) => {
                   const Icon = proofIcons[index]
                   return (
-                    <div key={item} className="flex items-center gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
+                    <div key={item} className="motion-card flex items-center gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
                       <Icon className="h-5 w-5 shrink-0 text-blue-700" />
                       <span className="text-sm font-black text-slate-700">{item}</span>
                     </div>
@@ -191,18 +191,18 @@ export default function DemosPage() {
             </section>
           </aside>
 
-          <section className="grid gap-5 md:grid-cols-2">
+          <section className="motion-stagger grid gap-5 md:grid-cols-2">
             {demoProjects.map((project, index) => {
               const Icon = demoIcons[index] ?? Bot
 
               return (
-                <article key={project.id} className="rounded-md border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                <article key={project.id} className="motion-card rounded-md border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <p className="text-[10px] font-black uppercase tracking-[0.15em] text-blue-700">{project.category}</p>
                       <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950">{project.title}</h2>
                     </div>
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-700">
+                    <div className="motion-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-700">
                       <Icon size={26} />
                     </div>
                   </div>
@@ -241,7 +241,7 @@ export default function DemosPage() {
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                       {copy.controlLabels.status}
                     </span>
-                    <Link href={project.demo} className="inline-flex items-center justify-center rounded-md bg-blue-700 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800">
+                    <Link href={project.demo} className="motion-card inline-flex items-center justify-center rounded-md bg-blue-700 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800">
                       {copy.open}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
