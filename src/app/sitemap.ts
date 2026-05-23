@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: 'https://www.chinnakrit.dev/demos/codex-devops', lastModified: new Date(), priority: 0.7 },
     { url: 'https://www.chinnakrit.dev/demos/vault-assistant', lastModified: new Date(), priority: 0.7 },
     { url: 'https://www.chinnakrit.dev/demos/internal-tools-dashboard', lastModified: new Date(), priority: 0.7 },
+    { url: 'https://www.chinnakrit.dev/saas', lastModified: new Date(), priority: 0.7 },
     { url: 'https://www.chinnakrit.dev/prompts', lastModified: new Date(), priority: 0.7 },
   ]
 }

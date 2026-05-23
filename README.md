@@ -1,16 +1,35 @@
-# React + Vite
+# Chinnakrit Portfolio Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Next.js portfolio for Chinnakrit Sripan, focused on AI automation, full-stack systems, public demo pages, and bilingual EN/TH content.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Next.js 15 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Vercel deployment from `master`
 
-## React Compiler
+## Key Paths
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/data/portfolio.ts` - bilingual portfolio content source of truth
+- `src/app/(portfolio)/` - main portfolio, demos, prompts, articles, and lead-capture pages
+- `src/app/saas/` - standalone FlowSync SaaS landing page demo
+- `src/app/api/` - route handlers
+- `src/middleware.ts` - protected admin route handling
 
-## Expanding the ESLint configuration
+## Local Commands
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```powershell
+npm run dev
+npm run build
+```
+
+Use `npm run build` before considering implementation work complete.
+
+## Content Rules
+
+- Keep English and Thai content in sync in `src/data/portfolio.ts`.
+- Keep public demo copy sanitized.
+- Do not expose credentials, private URLs, internal route behavior, or nonpublic network details.
+- Add API logic under `src/app/api/*`; do not recreate a separate `backend/` folder.
