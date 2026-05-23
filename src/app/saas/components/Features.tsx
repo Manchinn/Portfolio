@@ -4,37 +4,37 @@ const features = [
   {
     icon: Brain,
     title: 'AI จัดลำดับงานให้',
-    description: 'AI วิเคราะห์งานทั้งหมดและจัดลำดับความสำคัญให้อัตโนมัติตาม deadline และทรัพยากรที่มี',
+    description: 'แนวคิด AI ช่วยแนะนำลำดับความสำคัญจาก deadline, workload และ context ของทีม',
     color: 'bg-indigo-50 text-indigo-600',
   },
   {
     icon: Users,
     title: 'มอบหมายงานอัตโนมัติ',
-    description: 'ระบบตรวจสอบ workload ของแต่ละคนและมอบหมายงานให้คนที่เหมาะสมที่สุดโดยอัตโนมัติ',
+    description: 'ตัวอย่าง workflow สำหรับดู capacity ของทีมก่อนเสนอคนที่เหมาะกับงานแต่ละชิ้น',
     color: 'bg-violet-50 text-violet-600',
   },
   {
     icon: Bell,
     title: 'แจ้งเตือนก่อน Deadline',
-    description: 'ส่ง notification ล่วงหน้าผ่าน Line, Email หรือ Slack ก่อนถึงกำหนดส่งงาน',
+    description: 'ออกแบบ notification flow สำหรับเตือนงานสำคัญผ่านช่องทางที่ทีมใช้อยู่แล้ว',
     color: 'bg-blue-50 text-blue-600',
   },
   {
     icon: BarChart3,
     title: 'Dashboard แบบ Real-time',
-    description: 'เห็นภาพรวม progress ของทีมทั้งหมดในหน้าเดียว อัปเดตทันทีแบบ real-time',
+    description: 'mockup dashboard สำหรับเห็น progress, blockers และงานที่ต้องตัดสินใจในหน้าเดียว',
     color: 'bg-emerald-50 text-emerald-600',
   },
   {
     icon: Zap,
     title: 'Automation สุดยืดหยุ่น',
-    description: 'สร้าง workflow อัตโนมัติด้วย drag & drop ไม่ต้องเขียนโค้ด ตั้งค่าได้ในไม่กี่นาที',
+    description: 'แสดงแนวทางตั้ง workflow ซ้ำ ๆ ให้เป็น automation โดยไม่ผูกกับระบบจริงใน demo',
     color: 'bg-amber-50 text-amber-600',
   },
   {
     icon: Shield,
-    title: 'ปลอดภัย ระดับองค์กร',
-    description: 'ข้อมูลเข้ารหัส AES-256 รองรับ SSO, 2FA และ audit log ครบถ้วนตามมาตรฐาน ISO 27001',
+    title: 'ออกแบบโดยคิดเรื่องความปลอดภัย',
+    description: 'copy และ UI ใน demo เลี่ยงข้อมูลจริง พร้อมวางตำแหน่งสำหรับ auth, role และ audit ในระบบจริง',
     color: 'bg-rose-50 text-rose-600',
   },
 ]
@@ -49,7 +49,7 @@ export default function Features() {
             ทุกสิ่งที่ทีมคุณต้องการ
           </h2>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-            FlowSync รวมทุก tool ที่จำเป็นไว้ในที่เดียว ไม่ต้องสลับแอปอีกต่อไป
+            FlowSync เป็นตัวอย่างการเล่า product idea ให้เข้าใจง่าย ตั้งแต่ problem ถึง conversion
           </p>
         </div>
 

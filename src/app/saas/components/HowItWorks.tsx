@@ -5,19 +5,19 @@ const steps = [
     step: '01',
     icon: Upload,
     title: 'นำเข้างานของคุณ',
-    description: 'เชื่อมต่อกับ Jira, Trello, Asana หรือนำเข้าจาก spreadsheet ได้ทันที ใช้เวลาไม่เกิน 5 นาที',
+    description: 'เริ่มจากตัวอย่างงานใน Jira, Trello, Asana หรือ spreadsheet เพื่อแสดง workflow หลักของทีม',
   },
   {
     step: '02',
     icon: Settings,
     title: 'ตั้งค่า AI ให้รู้จักทีม',
-    description: 'บอก AI เกี่ยวกับ role ของแต่ละคน ความเชี่ยวชาญ และ capacity — AI จะจำและเรียนรู้ไปเรื่อยๆ',
+    description: 'กำหนด role, ความเชี่ยวชาญ และ capacity เพื่อจำลอง logic สำหรับจัดลำดับและแนะนำงาน',
   },
   {
     step: '03',
     icon: TrendingUp,
-    title: 'ทีมทำงานได้เร็วขึ้น 3 เท่า',
-    description: 'ดู dashboard แบบ real-time ติดตาม progress ทุกงาน และรับ report อัตโนมัติทุกสัปดาห์',
+    title: 'เห็นภาพรวมและจุดติดขัดเร็วขึ้น',
+    description: 'ดู dashboard, progress และ weekly report concept เพื่อช่วยทีมตัดสินใจจากข้อมูลชุดเดียวกัน',
   },
 ]
 
@@ -31,7 +31,7 @@ export default function HowItWorks() {
             เริ่มต้นได้ใน 3 ขั้นตอน
           </h2>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-            ไม่มีการ setup ที่ซับซ้อน ไม่ต้องฝึกอบรมนาน ทีมของคุณจะพร้อมใช้งานภายในวันแรก
+            หน้า demo นี้เน้นอธิบาย onboarding flow ของ product concept โดยไม่เชื่อมต่อระบบจริง
           </p>
         </div>
 

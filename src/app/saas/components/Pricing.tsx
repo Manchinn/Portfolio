@@ -4,51 +4,50 @@ const plans = [
   {
     name: 'ฟรี',
     price: '0',
-    period: 'ตลอดไป',
-    description: 'สำหรับทีมขนาดเล็กที่เพิ่งเริ่มต้น',
+    period: 'ตัวอย่าง',
+    description: 'สำหรับโชว์ onboarding ของทีมขนาดเล็ก',
     features: [
       'สมาชิกได้ถึง 3 คน',
       'งานสูงสุด 100 งาน',
       'AI จัดลำดับงานพื้นฐาน',
       'Dashboard มาตรฐาน',
-      'Storage 1 GB',
+      'ตัวอย่างพื้นที่แนบไฟล์',
     ],
-    cta: 'เริ่มใช้ฟรี',
+    cta: 'ดู flow นี้',
     highlighted: false,
   },
   {
     name: 'Pro',
     price: '299',
-    period: 'ต่อคน/เดือน',
-    description: 'สำหรับทีมที่ต้องการ AI เต็มรูปแบบ',
+    period: 'ตัวอย่าง/เดือน',
+    description: 'สำหรับโชว์ package หลักของ product',
     features: [
-      'สมาชิกไม่จำกัด',
-      'งานไม่จำกัด',
-      'AI เต็มรูปแบบ + Auto-assign',
-      'Automation workflow',
-      'Integration 50+ แอป',
-      'Storage 100 GB',
-      'Priority support',
+      'ทีมและงานมากขึ้น',
+      'AI assist + Auto-assign concept',
+      'Automation workflow examples',
+      'Integration placeholders',
+      'พื้นที่แนบไฟล์มากขึ้น',
+      'Priority support concept',
     ],
-    cta: 'ทดลอง 14 วันฟรี',
+    cta: 'ดู package demo',
     highlighted: true,
     badge: 'ยอดนิยม',
   },
   {
-    name: 'Enterprise',
+    name: 'Custom',
     price: 'ติดต่อ',
-    period: 'ราคาพิเศษ',
-    description: 'สำหรับองค์กรขนาดใหญ่ที่ต้องการ custom',
+    period: 'ตามขอบเขต',
+    description: 'สำหรับโชว์แนวทางปรับใช้กับ workflow เฉพาะ',
     features: [
       'ทุกอย่างใน Pro',
-      'SSO / SAML',
-      'Audit log ละเอียด',
-      'SLA 99.99% uptime',
-      'Dedicated account manager',
-      'Custom integration',
-      'On-premise option',
+      'Role และ permission concept',
+      'Audit trail concept',
+      'Deployment planning',
+      'Custom workflow mapping',
+      'Integration planning',
+      'Security review checklist',
     ],
-    cta: 'ติดต่อทีมขาย',
+    cta: 'ดู scope ตัวอย่าง',
     highlighted: false,
   },
 ]
@@ -60,9 +59,9 @@ export default function Pricing() {
         <div className="text-center mb-16">
           <p className="text-indigo-600 font-semibold text-sm uppercase tracking-widest mb-3">ราคา</p>
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
-            ราคาที่โปร่งใส ไม่มีค่าใช้จ่ายแอบแฝง
+            Pricing section สำหรับ demo product page
           </h2>
-          <p className="text-xl text-gray-500">ยกเลิกได้ทุกเมื่อ ไม่มีสัญญาผูกมัด</p>
+          <p className="text-xl text-gray-500">ตัวเลขเป็นตัวอย่างสำหรับสื่อสารแพ็กเกจ ไม่ใช่ข้อเสนอเชิงพาณิชย์จริง</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">

@@ -23,9 +23,10 @@ export default function SaasFooter() {
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm">ผลิตภัณฑ์</h4>
             <ul className="space-y-2 text-sm">
-              {['ฟีเจอร์', 'ราคา', 'Changelog', 'Roadmap'].map((item) => (
-                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
-              ))}
+              <li><a href="#features" className="hover:text-white transition-colors">ฟีเจอร์</a></li>
+              <li><a href="#how-it-works" className="hover:text-white transition-colors">วิธีใช้งาน</a></li>
+              <li><a href="#pricing" className="hover:text-white transition-colors">ราคา</a></li>
+              <li><a href="#faq" className="hover:text-white transition-colors">FAQ</a></li>
             </ul>
           </div>
 
@@ -33,9 +34,10 @@ export default function SaasFooter() {
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm">บริษัท</h4>
             <ul className="space-y-2 text-sm">
-              {['เกี่ยวกับเรา', 'Blog', 'ร่วมงานกับเรา', 'ติดต่อ'].map((item) => (
-                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
-              ))}
+              <li><Link href="/#about" className="hover:text-white transition-colors">เกี่ยวกับ Chinnakrit</Link></li>
+              <li><Link href="/prompts" className="hover:text-white transition-colors">Prompts</Link></li>
+              <li><Link href="/work-with-me" className="hover:text-white transition-colors">Work with me</Link></li>
+              <li><Link href="/#contact" className="hover:text-white transition-colors">ติดต่อ</Link></li>
             </ul>
           </div>
 
@@ -43,9 +45,9 @@ export default function SaasFooter() {
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm">กฎหมาย</h4>
             <ul className="space-y-2 text-sm">
-              {['นโยบายความเป็นส่วนตัว', 'ข้อกำหนดการใช้งาน', 'นโยบาย Cookie'].map((item) => (
-                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
-              ))}
+              <li><span className="text-gray-500">Prototype demo</span></li>
+              <li><span className="text-gray-500">No payment flow</span></li>
+              <li><span className="text-gray-500">No customer data</span></li>
             </ul>
           </div>
         </div>

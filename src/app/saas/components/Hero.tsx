@@ -8,7 +8,7 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
             <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
-            ใหม่ — FlowSync AI 2.0 มาแล้ว
+            Prototype demo — AI workflow landing page
           </div>
 
           {/* Headline */}
@@ -21,8 +21,8 @@ export default function Hero() {
 
           {/* Subheadline */}
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            FlowSync ช่วยให้ทีมของคุณทำงานได้เร็วขึ้น 3 เท่า ด้วย AI ที่เข้าใจ workflow ของคุณ
-            จัดลำดับงาน มอบหมายอัตโนมัติ และแจ้งเตือนก่อนถึง deadline
+            FlowSync เป็นตัวอย่าง product concept สำหรับทีมที่ต้องการลดงานซ้ำซ้อน
+            จัดลำดับงาน มอบหมายงาน และเห็นภาพรวม workflow ในที่เดียว
           </p>
 
           {/* CTAs */}
@@ -31,7 +31,7 @@ export default function Hero() {
               href="#cta"
               className="inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200"
             >
-              เริ่มใช้งานฟรี 14 วัน
+              ดู prototype flow
               <ArrowRight className="w-5 h-5" />
             </a>
             <a
@@ -45,7 +45,7 @@ export default function Hero() {
 
           {/* Social Proof */}
           <p className="mt-8 text-sm text-gray-500">
-            ✓ ไม่ต้องใส่บัตรเครดิต &nbsp;·&nbsp; ✓ ยกเลิกได้ทุกเมื่อ &nbsp;·&nbsp; ✓ ใช้งานได้ทันที
+            ✓ Public-safe demo &nbsp;·&nbsp; ✓ Responsive sections &nbsp;·&nbsp; ✓ No private systems exposed
           </p>
 
           {/* Product Mockup */}

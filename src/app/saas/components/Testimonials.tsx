@@ -2,30 +2,30 @@ import { Star } from 'lucide-react'
 
 const testimonials = [
   {
-    name: 'สมชาย วงศ์วิลาส',
-    role: 'Head of Engineering',
-    company: 'TechCorp Thailand',
-    avatar: 'https://placehold.co/64x64/6366f1/ffffff?text=สช',
+    name: 'Persona A',
+    role: 'Engineering Lead',
+    company: 'Workflow-heavy team',
+    avatar: 'https://placehold.co/64x64/6366f1/ffffff?text=A',
     content:
-      'FlowSync เปลี่ยนวิธีทำงานของทีมเราไปเลย จากที่เคยประชุม standup นาน 45 นาที ตอนนี้เหลือแค่ 10 นาที เพราะทุกคนรู้งานของตัวเองแล้วจาก AI',
+      'ตัวอย่าง testimonial นี้ช่วยสื่อ pain point ของทีมที่ต้องการเห็นงาน, blocker และ owner ในที่เดียวก่อนประชุม',
     rating: 5,
   },
   {
-    name: 'ณัฐธิดา สุขสวัสดิ์',
+    name: 'Persona B',
     role: 'Product Manager',
-    company: 'StartupX',
-    avatar: 'https://placehold.co/64x64/8b5cf6/ffffff?text=ณธ',
+    company: 'Growing product team',
+    avatar: 'https://placehold.co/64x64/8b5cf6/ffffff?text=B',
     content:
-      'ชอบมากที่ AI มอบหมายงานให้อัตโนมัติ ไม่ต้องมานั่งแบ่งงานให้เสียเวลา ทีม 12 คนทำงานได้เต็มศักยภาพทุกคน ROI คุ้มมากในเดือนแรก',
+      'ใช้เป็นตัวอย่าง copy สำหรับ buyer ที่ต้องจัดลำดับ backlog และมอบหมายงานโดยไม่เพิ่มขั้นตอน manual',
     rating: 5,
   },
   {
-    name: 'วิชัย ธนาพร',
-    role: 'CEO',
-    company: 'Digital Agency BKK',
-    avatar: 'https://placehold.co/64x64/06b6d4/ffffff?text=วช',
+    name: 'Persona C',
+    role: 'Operations Owner',
+    company: 'Service business',
+    avatar: 'https://placehold.co/64x64/06b6d4/ffffff?text=C',
     content:
-      'ทดลองใช้ 3 เดือน ตัดสินใจ upgrade เป็น Enterprise เลย เพราะ audit log และ SSO ตอบโจทย์ลูกค้า enterprise ที่ต้องการ compliance ทีมขายก็ helpful มากครับ',
+      'เหมาะสำหรับแสดงมุมมอง operations: ต้องการ report, ownership และ audit trail concept ที่อธิบายง่ายให้ทีมเข้าใจ',
     rating: 5,
   },
 ]
@@ -35,11 +35,11 @@ export default function Testimonials() {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="text-indigo-600 font-semibold text-sm uppercase tracking-widest mb-3">รีวิว</p>
+          <p className="text-indigo-600 font-semibold text-sm uppercase tracking-widest mb-3">Persona proof</p>
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
-            ทีมชั้นนำไว้วางใจ FlowSync
+            ตัวอย่างเสียงจากกลุ่มผู้ใช้เป้าหมาย
           </h2>
-          <p className="text-xl text-gray-500">จากทีมนักพัฒนา, ผู้จัดการ และ CEO ทั่วประเทศไทย</p>
+          <p className="text-xl text-gray-500">ใช้ persona cards เพื่อเล่า buyer pain points โดยไม่อ้างอิงลูกค้าจริง</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

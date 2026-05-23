@@ -5,24 +5,24 @@ import { ChevronDown } from 'lucide-react'
 
 const faqs = [
   {
-    question: 'ทดลองใช้ฟรี 14 วัน ต้องใส่บัตรเครดิตไหม?',
-    answer: 'ไม่ต้องครับ ทดลองใช้ฟรีได้เลยโดยไม่ต้องใส่ข้อมูลการชำระเงินใดๆ เมื่อครบ 14 วัน ระบบจะแจ้งให้คุณเลือกแพ็กเกจ ถ้าไม่ต่อก็จะ downgrade เป็น Free plan อัตโนมัติ',
+    question: 'หน้านี้เป็น product จริงหรือ demo?',
+    answer: 'เป็น public-safe prototype demo สำหรับโชว์ landing page, product messaging และ responsive UI composition ยังไม่เชื่อมต่อระบบสมัครสมาชิกหรือ payment จริง',
   },
   {
-    question: 'FlowSync รองรับกี่คนต่อทีม?',
-    answer: 'Free plan รองรับสูงสุด 3 คน, Pro plan ไม่จำกัดจำนวนสมาชิก, Enterprise plan รองรับทีมขนาดใหญ่หลายพันคนพร้อม custom pricing',
+    question: 'FlowSync ใช้ข้อมูลจริงหรือไม่?',
+    answer: 'ไม่ใช้ข้อมูลจริงครับ เนื้อหาทั้งหมดเป็น mock content เพื่อสาธิต product concept และไม่เปิดเผย private system, credentials หรือข้อมูลลูกค้า',
   },
   {
-    question: 'ข้อมูลของเราปลอดภัยไหม?',
-    answer: 'ปลอดภัยมากครับ ข้อมูลทั้งหมดเข้ารหัสด้วย AES-256 ทั้ง in-transit และ at-rest เซิร์ฟเวอร์อยู่ใน data center ที่ได้รับการรับรอง ISO 27001 และ SOC 2 Type II',
+    question: 'ถ้าจะทำเป็น product จริงต้องเพิ่มอะไร?',
+    answer: 'ต้องเพิ่ม auth, database, workspace model, role permissions, audit trail, integration layer, input validation และ security review ตามขอบเขตการใช้งานจริง',
   },
   {
     question: 'เชื่อมต่อกับ tools ที่ใช้อยู่ได้ไหม?',
-    answer: 'ได้เลยครับ FlowSync รองรับ integration กับ Jira, Trello, Asana, Slack, Microsoft Teams, Google Workspace, GitHub, GitLab และอีกกว่า 50 แอป ผ่าน native integration และ Zapier',
+    answer: 'ใน demo นี้เป็น placeholder สำหรับ integration story เท่านั้น ถ้าทำจริงสามารถเลือกเชื่อม Jira, Trello, Slack, GitHub หรือเครื่องมืออื่นตาม workflow ที่ต้องการ',
   },
   {
-    question: 'ยกเลิก subscription แล้วข้อมูลหายไหม?',
-    answer: 'ไม่หายครับ หลังยกเลิก คุณยังเข้าถึงข้อมูลได้ 30 วัน และสามารถ export ข้อมูลทั้งหมดได้ในรูปแบบ CSV หรือ JSON ก่อนที่ account จะถูก deactivate',
+    question: 'ทำไมมี pricing section ถ้ายังเป็น demo?',
+    answer: 'pricing section ใช้แสดงว่า landing page ครบโครงสร้างแบบ SaaS และช่วยอธิบาย packaging ของ offer ได้ ตัวเลขเป็นตัวอย่าง ไม่ใช่ข้อเสนอขายจริง',
   },
 ]
 
