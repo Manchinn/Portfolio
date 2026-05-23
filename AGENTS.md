@@ -18,8 +18,8 @@ The parent folder contains project-level docs. Work from this `frontend` folder 
 
 - Stack: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
 - Production: Vercel auto-deploys from `master`
-- Public site: portfolio, bilingual EN/TH content, public demo pages, lead-capture page
-- Admin/CMS: Next.js Route Handlers, private Vercel Blob storage, cookie-gated admin routes
+- Public site: portfolio, bilingual EN/TH content, public demo pages, prompt redirect surface, lead-capture page
+- Legacy admin/CMS code still exists in the repo. Treat it as a removal candidate for the next cleanup pass unless the user explicitly asks to keep or extend it.
 
 ## Hard Rules
 
@@ -40,7 +40,7 @@ src/app/(portfolio)/page.tsx       Main portfolio page
 src/app/(portfolio)/demos/         Public demo pages
 src/app/(portfolio)/work-with-me/  Lead capture page
 src/app/api/*                      Route Handlers
-src/middleware.ts                  Admin route protection
+src/middleware.ts                  Legacy admin/API route protection
 ```
 
 ## Verification
@@ -74,3 +74,27 @@ Require explicit user approval before:
 - Creating PRs or releases
 - Calling external services beyond normal package/build tooling
 - Changing infrastructure, credentials, or production env vars
+
+## Current Task Handoff
+
+Recent completed work:
+
+- Portfolio project cards were strengthened with proof-oriented metadata and CTA treatment.
+- Public demo detail pages use `src/components/demos/DemoDetailShell.tsx`.
+- Lightweight CSS/Tailwind animation utilities were added with `prefers-reduced-motion` support.
+- Mobile hamburger behavior was checked after the animation pass.
+- `src/app/favicon.ico/route.ts` was added for the site icon.
+
+Next recommended task:
+
+- Remove the legacy portfolio admin/login surface from the public portfolio app.
+- Start with admin UI and login removal: `src/app/(portfolio)/admin/*`, `src/app/api/admin/login/route.ts`, admin matcher behavior in `src/middleware.ts`, and the hidden `/admin/prompts` footer link.
+- Keep public copy sanitized. Do not expose private admin route details in portfolio content.
+- Decide separately whether legacy prompt/content APIs should remain, because `/prompts` currently redirects externally via `next.config.ts`.
+
+Verification for the admin cleanup:
+
+```powershell
+npm run build
+rg -n "admin|admin_token|ADMIN_TOKEN|/admin|api/admin" src next.config.ts README.md AGENTS.md CLAUDE.md
+```

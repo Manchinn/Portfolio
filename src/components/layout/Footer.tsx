@@ -29,7 +29,6 @@ const Footer = () => {
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-gray-800 text-sm font-mono text-gray-500 flex justify-between items-center">
         <span>© {currentYear} DEVFOLIO. {tl({ en: 'NO RIGHTS RESERVED.', th: 'สงวนลิขสิทธิ์' })}</span>
-        <a href="/admin/prompts" className="text-gray-700 hover:text-gray-400 transition-colors">·</a>
       </div>
     </footer>
   )
