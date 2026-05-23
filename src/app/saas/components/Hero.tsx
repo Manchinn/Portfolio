@@ -2,17 +2,17 @@ import { ArrowRight, Play } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section id="hero" className="bg-gradient-to-br from-indigo-50 via-white to-violet-50 py-20 lg:py-32">
+    <section id="hero" className="mobile-page bg-gradient-to-br from-indigo-50 via-white to-violet-50 py-20 lg:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+          <div className="mobile-safe-text inline-flex flex-wrap items-center justify-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-center text-xs font-semibold leading-5 mb-6 sm:text-sm">
             <span className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
             Prototype demo — AI workflow landing page
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+          <h1 className="mobile-safe-text text-3xl font-extrabold leading-tight text-gray-900 mb-6 sm:text-5xl lg:text-7xl">
             จัดการงานด้วย{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
               AI อัตโนมัติ
@@ -20,7 +20,7 @@ export default function Hero() {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="mobile-safe-text mx-auto mb-10 max-w-2xl text-base leading-relaxed text-gray-600 sm:text-xl">
             FlowSync เป็นตัวอย่าง product concept สำหรับทีมที่ต้องการลดงานซ้ำซ้อน
             จัดลำดับงาน มอบหมายงาน และเห็นภาพรวม workflow ในที่เดียว
           </p>
@@ -44,7 +44,7 @@ export default function Hero() {
           </div>
 
           {/* Social Proof */}
-          <p className="mt-8 text-sm text-gray-500">
+          <p className="mt-8 text-sm leading-6 text-gray-500">
             ✓ Public-safe demo &nbsp;·&nbsp; ✓ Responsive sections &nbsp;·&nbsp; ✓ No private systems exposed
           </p>
 

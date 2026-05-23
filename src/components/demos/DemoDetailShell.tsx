@@ -110,13 +110,13 @@ const iconMap = {
 
 function PanelHeader({ title, badge }: { title: string; badge?: string }) {
   return (
-    <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div className="flex min-w-0 items-center gap-3">
         <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-slate-950"></span>
         <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-800">{title}</h2>
       </div>
       {badge && (
-        <span className="border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
+        <span className="hidden border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-500 sm:inline-block">
           {badge}
         </span>
       )}
@@ -150,25 +150,25 @@ export default function DemoDetailShell({
   }, [assistantQuestions, question])
 
   return (
-    <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
+    <main className="mobile-page min-h-screen bg-[#f6f8fb] text-slate-950">
       <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
         <section className={`motion-enter border border-slate-200 bg-white p-6 ${styles.glow} sm:p-8`}>
-          <div className="grid gap-8 xl:grid-cols-[1.28fr_0.82fr] xl:items-end">
-            <div>
+          <div className="grid min-w-0 gap-8 xl:grid-cols-[1.28fr_0.82fr] xl:items-end">
+            <div className="min-w-0">
               <Link href="/demos" className="motion-card inline-flex items-center border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-slate-300 hover:bg-white">
                 Back to demos
               </Link>
               <div className="mt-8">
                 <PanelHeader title={eyebrow} badge="Public-safe detail" />
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-end">
+                <div className="flex min-w-0 flex-col gap-5 lg:flex-row lg:items-end">
                   <div className={`flex h-16 w-16 shrink-0 items-center justify-center ${styles.bg} text-white`}>
                     <Icon size={34} />
                   </div>
-                  <h1 className="max-w-5xl text-4xl font-black leading-none tracking-tight text-slate-950 sm:text-6xl">
+                  <h1 className="mobile-safe-text text-2xl font-black leading-tight tracking-tight text-slate-950 sm:max-w-5xl sm:text-5xl lg:text-6xl">
                     {title}
                   </h1>
                 </div>
-                <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+                <p className="mobile-safe-text mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
                   {description}
                 </p>
               </div>

@@ -196,13 +196,13 @@ const metricIcons = [Bot, Zap, Activity]
 
 function CardHeader({ title, badge }: { title: string; badge?: string }) {
   return (
-    <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div className="flex min-w-0 items-center gap-3">
         <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-blue-600"></span>
         <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-900">{title}</h2>
       </div>
       {badge && (
-        <span className="shrink-0 rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700">
+        <span className="hidden shrink-0 rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700 sm:inline-block">
           {badge}
         </span>
       )}
@@ -232,7 +232,7 @@ export default function Home() {
   const roleSegments = profileData.title.split(/ & | \/ /)
 
   return (
-    <main id="home" className="min-h-screen bg-[#f6f8fb] text-slate-950">
+    <main id="home" className="min-h-screen overflow-x-hidden bg-[#f6f8fb] text-slate-950">
       <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:grid-cols-[64px_1fr]">
         <aside className="hidden rounded-md border border-slate-200 bg-white py-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] lg:flex lg:min-h-[calc(100vh-112px)] lg:flex-col lg:items-center lg:justify-between lg:sticky lg:top-24">
           <div className="flex flex-col items-center gap-7">
@@ -270,15 +270,15 @@ export default function Home() {
         <div className="grid gap-5">
           <div className="motion-stagger grid gap-5 xl:grid-cols-[1.7fr_1fr]">
             <DashboardCard className="p-6 sm:p-8">
-              <div className="grid gap-8 lg:grid-cols-[1.2fr_0.85fr] lg:items-start">
-                <div>
+              <div className="grid min-w-0 gap-8 lg:grid-cols-[1.2fr_0.85fr] lg:items-start">
+                <div className="min-w-0">
                   <CardHeader title={copy.operatorId} />
-                  <h1 className="max-w-4xl text-5xl font-black leading-none tracking-tight text-slate-950 sm:text-7xl">
+                  <h1 className="max-w-full break-words text-4xl font-black leading-none tracking-tight text-slate-950 [overflow-wrap:anywhere] sm:max-w-4xl sm:text-6xl lg:text-7xl">
                     {profileData.name}
                   </h1>
-                  <p className="mt-5 flex flex-wrap gap-x-3 gap-y-2 text-base font-semibold text-slate-700">
+                  <p className="mt-5 flex min-w-0 flex-wrap gap-x-3 gap-y-2 text-sm font-semibold text-slate-700 sm:text-base">
                     {roleSegments.map((part, index) => (
-                      <span key={part} className="inline-flex items-center gap-3">
+                      <span key={part} className="inline-flex min-w-0 items-center gap-3 break-words [overflow-wrap:anywhere]">
                         {part}
                         {index < roleSegments.length - 1 && <span className="h-1 w-1 rounded-full bg-blue-500"></span>}
                       </span>

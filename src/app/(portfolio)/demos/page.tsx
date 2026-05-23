@@ -102,13 +102,13 @@ const proofIcons = [Workflow, Gauge, Database, Network]
 
 function PanelHeader({ title, badge }: { title: string; badge?: string }) {
   return (
-    <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div className="flex min-w-0 items-center gap-3">
         <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-blue-600"></span>
         <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-900">{title}</h2>
       </div>
       {badge && (
-        <span className="rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700">
+        <span className="hidden rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700 sm:inline-block">
           {badge}
         </span>
       )}
@@ -123,20 +123,20 @@ export default function DemosPage() {
   const demoProjects = projects[lang].filter((project) => project.demo)
 
   return (
-    <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
+    <main className="mobile-page min-h-screen bg-[#f6f8fb] text-slate-950">
       <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
         <section className="motion-enter rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
-          <div className="grid gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
-            <div>
+          <div className="grid min-w-0 gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
+            <div className="min-w-0">
               <Link href="/#home" className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
                 {copy.back}
               </Link>
               <div className="mt-8">
                 <PanelHeader title={copy.eyebrow} badge={copy.scopeLabel} />
-                <h1 className="max-w-5xl text-4xl font-black leading-none tracking-tight text-slate-950 sm:text-6xl">
+                <h1 className="mobile-safe-text text-2xl font-black leading-tight tracking-tight text-slate-950 sm:max-w-5xl sm:text-5xl lg:text-6xl">
                   {copy.title}
                 </h1>
-                <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
+                <p className="mobile-safe-text mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
                   {copy.intro}
                 </p>
               </div>
