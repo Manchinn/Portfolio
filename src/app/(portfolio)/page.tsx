@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import {
   Activity,
+  ArrowRight,
   Bot,
   Boxes,
   BrainCircuit,
@@ -49,6 +50,8 @@ const dashboardCopy = {
     contactTitle: 'Contact & Digital Presence',
     coreTools: 'Core Tools',
     coreSkills: 'Core Skills',
+    projectProof: 'Proof',
+    openProof: 'Open proof',
     systemFooter: 'System profile',
     version: 'Version 2.0',
     updated: 'Updated May 2026',
@@ -122,6 +125,8 @@ const dashboardCopy = {
     contactTitle: 'Contact & Digital Presence',
     coreTools: 'Core Tools',
     coreSkills: 'Core Skills',
+    projectProof: 'Proof',
+    openProof: 'เปิด Proof',
     systemFooter: 'System profile',
     version: 'Version 2.0',
     updated: 'Updated May 2026',
@@ -401,21 +406,46 @@ export default function Home() {
               <div className="motion-stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
                 {projectData.map((project, index) => {
                   const Icon = projectIcons[index] ?? Rocket
+                  const proofLine = project.caseStudy?.result ?? project.description
                   return (
                     <Link
                       key={project.id}
                       href={project.demo}
-                      className="motion-card rounded-md border border-slate-200 bg-white p-4 text-center transition hover:border-blue-200 hover:bg-blue-50"
+                      className="motion-card group overflow-hidden rounded-md border border-slate-200 bg-white text-left transition hover:border-blue-200 hover:bg-blue-50"
                     >
-                      <div className="motion-icon mx-auto flex h-11 w-11 items-center justify-center rounded-md bg-slate-50 text-slate-700">
-                        <Icon size={24} />
+                      <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
+                        <img
+                          src={project.image}
+                          alt=""
+                          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                          loading="lazy"
+                        />
+                        <div className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-md border border-white/60 bg-white/90 text-slate-800 shadow-sm">
+                          <Icon size={22} />
+                        </div>
+                        <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase text-slate-800 shadow-sm">
+                          {project.category}
+                        </span>
                       </div>
-                      <h3 className="mt-4 min-h-10 text-sm font-black leading-5 text-slate-950">{project.title}</h3>
-                      <p className="mt-2 line-clamp-3 text-xs font-semibold leading-5 text-slate-500">{project.description}</p>
-                      <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black uppercase text-emerald-700">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        Live
-                      </span>
+                      <div className="p-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-blue-700">{project.date}</p>
+                          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black uppercase text-emerald-700">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                            Live
+                          </span>
+                        </div>
+                        <h3 className="mt-4 min-h-10 text-sm font-black leading-5 text-slate-950">{project.title}</h3>
+                        <p className="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{project.description}</p>
+                        <div className="mt-4 rounded-md border border-slate-200 bg-slate-50 p-3">
+                          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">{copy.projectProof}</p>
+                          <p className="mt-2 line-clamp-3 text-xs font-semibold leading-5 text-slate-600">{proofLine}</p>
+                        </div>
+                        <span className="mt-4 inline-flex items-center text-xs font-black uppercase tracking-[0.12em] text-blue-700">
+                          {copy.openProof}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </span>
+                      </div>
                     </Link>
                   )
                 })}

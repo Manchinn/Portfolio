@@ -35,6 +35,7 @@ const demoCopy = {
     scopeLabel: 'Public scope',
     footerLabel: 'Next operator action',
     footerTitle: 'Turn one of these workflows into a scoped build.',
+    proofSignals: 'สัญญาณ Proof',
     stats: [
       { label: 'Demo modules', value: '4' },
       { label: 'Private data', value: '0' },
@@ -71,6 +72,7 @@ const demoCopy = {
     scopeLabel: 'Public scope',
     footerLabel: 'Next operator action',
     footerTitle: 'เลือก workflow แล้ว scope เป็นงาน build จริง',
+    proofSignals: 'Proof signals',
     stats: [
       { label: 'Demo modules', value: '4' },
       { label: 'Private data', value: '0' },
@@ -234,6 +236,18 @@ export default function DemosPage() {
                         {tech}
                       </span>
                     ))}
+                  </div>
+
+                  <div className="mt-5 rounded-md border border-slate-200 bg-slate-50 p-4">
+                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{copy.proofSignals}</p>
+                    <div className="mt-3 grid gap-2">
+                      {project.highlights.slice(0, 2).map((highlight) => (
+                        <div key={highlight} className="flex gap-2 text-xs font-semibold leading-5 text-slate-600">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                          {highlight}
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
