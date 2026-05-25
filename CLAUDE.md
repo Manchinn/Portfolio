@@ -79,6 +79,20 @@ vercel env pull .env.local
 
 Project verification should still treat `npm run build` as the required gate.
 
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs are tracked in GitHub Issues for `Manchinn/portfolio`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Use the default mattpocock/skills triage label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This is a single-context repo. See `docs/agents/domain.md`.
+
 ## Current Handoff (May 2026)
 
 Recently completed cleanup commits on `master`:
