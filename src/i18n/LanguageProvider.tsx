@@ -4,21 +4,23 @@ import { useState, useEffect } from 'react'
 import { translations, languages } from './index'
 import { LanguageContext } from './LanguageContext'
 
-const getInitialLanguage = (): string => {
-  if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('portfolio-language')
-    if (saved && translations[saved]) return saved
-  }
-  return 'en'
-}
-
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState(getInitialLanguage)
+  const [language, setLanguage] = useState('en')
+  const [isLanguageLoaded, setIsLanguageLoaded] = useState(false)
 
   useEffect(() => {
+    const saved = localStorage.getItem('portfolio-language')
+    if (saved && translations[saved]) {
+      setLanguage(saved)
+    }
+    setIsLanguageLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isLanguageLoaded) return
     localStorage.setItem('portfolio-language', language)
     document.documentElement.lang = language
-  }, [language])
+  }, [isLanguageLoaded, language])
 
   const t = (key: string): string => {
     const keys = key.split('.')

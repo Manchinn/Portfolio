@@ -124,19 +124,19 @@ export default function DemosPage() {
   const demoProjects = projects[lang].filter((project) => Boolean(project.demo))
 
   return (
-    <main className="min-h-screen bg-saas-bg text-saas-ink">
+    <main className="min-h-screen overflow-x-hidden bg-saas-bg text-saas-ink">
       <SaasSection className="overflow-hidden pb-14 pt-14 sm:pb-18 sm:pt-18 lg:pb-20 lg:pt-20" wide>
         <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(circle_at_20%_15%,rgba(223,247,232,0.95),transparent_32%),radial-gradient(circle_at_78%_12%,rgba(255,244,214,0.88),transparent_30%)]" />
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.65fr)] lg:items-end">
-          <div>
+        <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.65fr)] lg:items-end">
+          <div className="min-w-0">
             <SaasButton href="/#home" variant="secondary" className="mb-10">
               {copy.back}
             </SaasButton>
             <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.eyebrow}</p>
-            <h1 className="mt-5 max-w-5xl text-balance text-4xl font-black leading-[0.98] text-saas-ink sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-full text-balance break-words text-4xl font-black leading-[0.98] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
               {copy.title}
             </h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-saas-muted sm:text-lg">{copy.intro}</p>
+            <p className="mt-6 max-w-full break-words text-base leading-8 text-saas-muted sm:max-w-3xl sm:text-lg">{copy.intro}</p>
           </div>
 
           <SaasCard className="grid gap-3 p-4" tone="default">
@@ -161,8 +161,8 @@ export default function DemosPage() {
       <SaasSection className="pt-8" wide>
         <SaasHeader eyebrow={copy.browseLabel} title={copy.browseTitle} subtitle={copy.browseIntro} align="split" />
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(280px,0.45fr)_minmax(0,1fr)]">
-          <aside className="grid content-start gap-5">
+        <div className="mt-12 grid min-w-0 gap-5 lg:grid-cols-[minmax(280px,0.45fr)_minmax(0,1fr)]">
+          <aside className="grid min-w-0 content-start gap-5">
             <SaasCard tone="mint">
               <h2 className="text-sm font-black uppercase tracking-[0.14em] text-saas-green">{copy.proofLabel}</h2>
               <div className="mt-5 grid gap-3">
@@ -191,7 +191,7 @@ export default function DemosPage() {
             </SaasCard>
           </aside>
 
-          <section className="grid gap-5 md:grid-cols-2">
+          <section className="grid min-w-0 gap-5 md:grid-cols-2">
             {demoProjects.map((project, index) => {
               const Icon = demoIcons[index] ?? Bot
               const tone = cardTones[index % cardTones.length]

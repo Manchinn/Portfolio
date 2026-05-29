@@ -211,7 +211,7 @@ export default function WorkWithMePage() {
       <section className="relative overflow-hidden pt-16 sm:pt-20">
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-saas-mint/70 to-transparent" aria-hidden />
         <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:px-8 lg:py-20">
-          <div className="relative">
+          <div className="relative min-w-0">
             <Link
               href="/#home"
               className="inline-flex items-center gap-2 rounded-full border border-saas-line bg-white px-4 py-2 text-sm font-black text-saas-ink shadow-saas-sm transition hover:border-saas-green hover:text-saas-green"
@@ -220,10 +220,10 @@ export default function WorkWithMePage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <p className="mt-9 text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.eyebrow}</p>
-            <h1 className="mt-5 max-w-5xl text-balance text-5xl font-black leading-[0.96] text-saas-ink sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.96] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
               {copy.title}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-saas-muted">{copy.intro}</p>
+            <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{copy.intro}</p>
           </div>
 
           <SaasCard tone="dark" className="relative self-end rounded-[24px] p-6 sm:p-8">
@@ -240,9 +240,9 @@ export default function WorkWithMePage() {
               {copy.notes.map((note, index) => {
                 const Icon = index === 0 ? LockKeyhole : index === 1 ? ShieldCheck : Mail
                 return (
-                  <div key={note} className="flex gap-3 rounded-[14px] border border-white/12 bg-white/7 p-4 text-sm font-bold leading-6 text-white/82">
+                  <div key={note} className="flex min-w-0 gap-3 rounded-[14px] border border-white/12 bg-white/7 p-4 text-sm font-bold leading-6 text-white/82">
                     <Icon className="mt-0.5 h-5 w-5 shrink-0 text-saas-mint" />
-                    <span>{note}</span>
+                    <span className="min-w-0 break-words">{note}</span>
                   </div>
                 )
               })}

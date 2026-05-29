@@ -170,13 +170,13 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
     <section id="home" className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24">
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-saas-mint/60 to-transparent" aria-hidden />
       <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.92fr)] lg:px-8 lg:py-24">
-        <div className="relative">
+        <div className="relative min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{c.heroEyebrow}</p>
-          <h1 className="mt-5 max-w-5xl text-balance text-5xl font-black leading-[0.95] text-saas-ink sm:text-6xl lg:text-7xl">
+          <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.95] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
             {c.heroTitlePrefix}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-saas-muted">{data.bio}</p>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-saas-muted">{c.heroBody}</p>
+          <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{data.bio}</p>
+          <p className="mt-4 max-w-full break-words text-base leading-7 text-saas-muted sm:max-w-2xl">{c.heroBody}</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <SaasButton href="/work-with-me" icon={<ArrowRight className="h-4 w-4" />}>
               {c.primaryCta}
@@ -187,7 +187,7 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
           </div>
         </div>
 
-        <div className="relative grid gap-4 self-end">
+        <div className="relative grid min-w-0 gap-4 self-end">
           <SaasCard tone="dark" className="rounded-[24px] p-6 sm:p-8">
             <div className="flex items-center justify-between gap-4">
               <div>

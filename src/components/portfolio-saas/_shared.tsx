@@ -10,7 +10,7 @@ type SaasSectionProps = {
 export function SaasSection({ id, children, className = '', wide = false }: SaasSectionProps) {
   return (
     <section id={id} className={`relative py-20 sm:py-24 lg:py-28 ${className}`}>
-      <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${wide ? 'max-w-[1280px]' : 'max-w-[1180px]'}`}>
+      <div className={`mx-auto min-w-0 max-w-full px-4 sm:px-6 lg:px-8 ${wide ? 'max-w-[1280px]' : 'max-w-[1180px]'}`}>
         {children}
       </div>
     </section>
@@ -30,7 +30,7 @@ export function SaasHeader({ eyebrow, title, subtitle, align = 'left', rightSlot
 
   if (align === 'split') {
     return (
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <HeaderText eyebrow={eyebrow} title={title} subtitle={subtitle} />
         {rightSlot && <div className="lg:pb-2">{rightSlot}</div>}
       </div>
@@ -38,7 +38,7 @@ export function SaasHeader({ eyebrow, title, subtitle, align = 'left', rightSlot
   }
 
   return (
-    <div className={centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}>
+    <div className={centered ? 'mx-auto min-w-0 max-w-3xl text-center' : 'min-w-0 max-w-3xl'}>
       <HeaderText eyebrow={eyebrow} title={title} subtitle={subtitle} centered={centered} />
     </div>
   )
@@ -58,11 +58,11 @@ function HeaderText({
   return (
     <>
       <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{eyebrow}</p>
-      <h2 className="mt-4 text-balance text-3xl font-black leading-[1.04] text-saas-ink sm:text-4xl lg:text-5xl">
+      <h2 className="mt-4 max-w-full text-balance break-words text-3xl font-black leading-[1.04] text-saas-ink sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {subtitle && (
-        <p className={`mt-5 text-base leading-8 text-saas-muted sm:text-lg ${centered ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}>
+        <p className={`mt-5 max-w-full break-words text-base leading-8 text-saas-muted sm:text-lg ${centered ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}>
           {subtitle}
         </p>
       )}
@@ -89,7 +89,7 @@ const toneClass = {
 export function SaasCard({ children, className = '', tone = 'default', hover = false }: SaasCardProps) {
   return (
     <div
-      className={`rounded-[14px] border p-5 shadow-saas-sm ${toneClass[tone]} ${
+      className={`min-w-0 max-w-full overflow-hidden rounded-[14px] border p-5 shadow-saas-sm ${toneClass[tone]} ${
         hover ? 'transition duration-200 hover:-translate-y-1 hover:shadow-saas-md' : ''
       } ${className}`}
     >
