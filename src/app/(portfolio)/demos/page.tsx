@@ -13,6 +13,7 @@ import {
   MessageCircle,
   Network,
   ShieldCheck,
+  ShoppingBag,
   Sparkles,
   Terminal,
   Workflow,
@@ -37,7 +38,7 @@ const demoCopy = {
     footerTitle: 'Turn one of these workflows into a scoped build.',
     proofSignals: 'สัญญาณ Proof',
     stats: [
-      { label: 'Demo modules', value: '4' },
+      { label: 'Demo modules', value: '5' },
       { label: 'Private data', value: '0' },
       { label: 'Proof mode', value: 'Sanitized' },
     ],
@@ -74,7 +75,7 @@ const demoCopy = {
     footerTitle: 'เลือก workflow แล้ว scope เป็นงาน build จริง',
     proofSignals: 'Proof signals',
     stats: [
-      { label: 'Demo modules', value: '4' },
+      { label: 'Demo modules', value: '5' },
       { label: 'Private data', value: '0' },
       { label: 'Proof mode', value: 'Sanitized' },
     ],
@@ -98,7 +99,7 @@ const demoCopy = {
   },
 }
 
-const demoIcons = [MessageCircle, Terminal, Bot, LayoutDashboard]
+const demoIcons = [MessageCircle, Terminal, Bot, LayoutDashboard, ShoppingBag]
 const statIcons = [Grid3X3, LockKeyhole, ShieldCheck]
 const proofIcons = [Workflow, Gauge, Database, Network]
 
