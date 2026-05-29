@@ -2,12 +2,10 @@ import type { Profile, ProfileCommon, SkillGroup, Experience, Project, Social, A
 
 export const navItems = [
   { label: "Home", href: "/#home" },
-  { label: "Workflow", href: "/#workflow" },
-  { label: "Systems", href: "/#systems" },
+  { label: "Work", href: "/#work" },
   { label: "Demos", href: "/demos" },
   { label: "Stack", href: "/#stack" },
-  { label: "Work", href: "/work-with-me" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/work-with-me" },
 ]
 
 export const profile: LocalizedData<Profile> = {

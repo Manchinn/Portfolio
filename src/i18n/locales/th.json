@@ -1,5 +1,6 @@
 {
   "nav": {
+    "tagline": "Portfolio นักพัฒนา",
     "home": "หน้าหลัก",
     "timeline": "ไทม์ไลน์",
     "workflow": "Workflow",
@@ -10,7 +11,7 @@
     "projects": "ผลงาน",
     "stack": "Stack",
     "demos": "Demos",
-    "work": "จ้างงาน",
+    "work": "ผลงาน",
     "articles": "บทความ",
     "prompts": "Prompts",
     "contact": "ติดต่อ"

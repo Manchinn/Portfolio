@@ -37,7 +37,7 @@ A Public-Safe Demo route that keeps the interaction model needed for its specifi
 _Avoid_: One-size-fits-all demo template, unrelated per-demo theme
 
 **Portfolio Journey Navigation**:
-The canonical navigation path for the portfolio shell: Home, Workflow, Systems, Demos, Stack, Work, and Contact. Navigation should point to real sections or high-intent routes, not legacy anchors, duplicated concepts, or external distractions.
+The canonical navigation path for the simplified portfolio shell: Home, Work, Demos, Stack, and Contact. Work points to selected project proof, Demos points to the interactive gallery, Stack points to capabilities, and Contact points to the project inquiry route. Navigation should point to real sections or high-intent routes, not legacy anchors, duplicated concepts, or external distractions.
 _Avoid_: Timeline nav without a timeline section, duplicated Projects and Systems links, Prompts as a primary portfolio nav item
 
 ## Example Dialogue
@@ -66,6 +66,6 @@ Dev: "Should every demo detail page use the same layout?"
 
 Domain expert: "No. Each Demo Detail Surface can keep a workflow-specific layout, but the shell, colors, type, spacing, and CTA language should belong to the same portfolio design system."
 
-Dev: "Should the navbar keep Timeline, Projects, and Prompts?"
+Dev: "Should the navbar keep Workflow, Systems, Work, Timeline, Projects, or Prompts?"
 
-Domain expert: "No. Use Portfolio Journey Navigation: Home, Workflow, Systems, Demos, Stack, Work, and Contact."
+Domain expert: "No. Use the simplified Portfolio Journey Navigation: Home, Work, Demos, Stack, and Contact."

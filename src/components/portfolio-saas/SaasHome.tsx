@@ -177,7 +177,7 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
           </h1>
           <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{c.heroBody}</p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <SaasButton href="/#systems" icon={<ArrowRight className="h-4 w-4" />}>
+            <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />}>
               {c.primaryCta}
             </SaasButton>
             <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
@@ -226,14 +226,14 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
 
 function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; projects: Project[] }) {
   return (
-    <SaasSection id="systems" className="bg-white/55">
+    <SaasSection id="work" className="bg-white/55">
       <SaasHeader
         eyebrow={c.selectedEyebrow}
         title={c.selectedTitle}
         subtitle={c.selectedSubtitle}
         align="split"
         rightSlot={
-          <SaasButton href="/#systems" variant="secondary">
+          <SaasButton href="/#work" variant="secondary">
             {c.viewWork}
           </SaasButton>
         }

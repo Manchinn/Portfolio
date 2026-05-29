@@ -30,7 +30,7 @@ const demoCopy = {
       'Browse public-safe demo surfaces that show frontend structure, product thinking, data states, and responsive interaction without exposing private project details.',
     back: 'Back to portfolio',
     open: 'Open demo',
-    brief: 'Start a project inquiry',
+    brief: 'Get in touch',
     browseLabel: 'Interactive gallery',
     browseTitle: 'Choose a demo by product surface, project type, or UI behavior.',
     browseIntro:
@@ -74,7 +74,7 @@ const demoCopy = {
       'รวม demo surface แบบ public-safe ที่โชว์โครงสร้าง frontend, product thinking, data state และ responsive interaction โดยไม่เปิดรายละเอียด private project',
     back: 'กลับหน้า Portfolio',
     open: 'เปิด Demo',
-    brief: 'เริ่ม Project Inquiry',
+    brief: 'ติดต่อ',
     browseLabel: 'Interactive gallery',
     browseTitle: 'เลือก demo จาก product surface, ประเภทโปรเจกต์ หรือพฤติกรรม UI ที่อยากดู',
     browseIntro:

@@ -38,7 +38,7 @@ const Navbar = () => {
             <div className="hidden min-w-0 sm:block">
               <p className="text-sm font-black leading-none text-saas-ink">Chinnakrit.dev</p>
               <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-saas-muted">
-                AI workflow portfolio
+                {t('nav.tagline')}
               </p>
             </div>
           </a>
@@ -57,7 +57,7 @@ const Navbar = () => {
               ))}
             </div>
             <a
-              href="/#contact"
+              href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-full bg-saas-green px-4 py-3 text-xs font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong focus-visible:shadow-saas-focus"
             >
               {t('nav.contact')}
@@ -102,7 +102,7 @@ const Navbar = () => {
           {/* Tablet Menu */}
           <div className="hidden items-center gap-2 md:flex lg:hidden">
             <a
-              href="/#contact"
+              href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-full bg-saas-green px-4 py-3 text-xs font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong"
             >
               {t('nav.contact')}
