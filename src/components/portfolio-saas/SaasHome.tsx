@@ -16,7 +16,6 @@ import {
 import { profile, profileCommon, projects, skills } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
-import { copy } from '@/components/portfolio/copy'
 import { SaasButton, SaasCard, SaasHeader, SaasSection } from './_shared'
 
 type LocalCopy = {
@@ -37,6 +36,7 @@ type LocalCopy = {
   stackEyebrow: string
   stackTitle: string
   stackSubtitle: string
+  stackGroups: Array<{ heading: string; items: string[] }>
   contactEyebrow: string
   contactTitle: string
   contactSubtitle: string
@@ -83,6 +83,20 @@ const localCopy: Record<Language, LocalCopy> = {
     stackTitle: 'Tools I use to ship practical products.',
     stackSubtitle:
       'A compact view of the web, app, AI, and operations tools behind the selected work.',
+    stackGroups: [
+      {
+        heading: 'AI & Models',
+        items: ['ChatGPT', 'OpenAI API', 'Claude', 'OpenRouter', 'Prompt patterns', 'RAG-style retrieval'],
+      },
+      {
+        heading: 'Web & App',
+        items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Vercel Blob'],
+      },
+      {
+        heading: 'Ops & Channels',
+        items: ['LINE Messaging API', 'PowerShell', 'Codex CLI', 'VPS reverse proxy', 'Health checks', 'Docker'],
+      },
+    ],
     contactEyebrow: 'Contact',
     contactTitle: 'Have a project or role that fits this work?',
     contactSubtitle:
@@ -128,6 +142,20 @@ const localCopy: Record<Language, LocalCopy> = {
     stackTitle: 'เครื่องมือที่ใช้ ship งานจริง',
     stackSubtitle:
       'สรุป stack ฝั่ง web, app, AI และ operations ที่อยู่เบื้องหลัง selected work',
+    stackGroups: [
+      {
+        heading: 'AI & Models',
+        items: ['ChatGPT', 'OpenAI API', 'Claude', 'OpenRouter', 'Prompt patterns', 'RAG-style retrieval'],
+      },
+      {
+        heading: 'Web & App',
+        items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Vercel Blob'],
+      },
+      {
+        heading: 'Ops & Channels',
+        items: ['LINE Messaging API', 'PowerShell', 'Codex CLI', 'VPS reverse proxy', 'Health checks', 'Docker'],
+      },
+    ],
     contactEyebrow: 'Contact',
     contactTitle: 'มีโปรเจกต์หรือ role ที่เข้ากับงานแนวนี้ไหม?',
     contactSubtitle:
@@ -150,7 +178,6 @@ export function SaasHome() {
   const lang = language as Language
   const c = localCopy[lang]
   const data = { ...profile[lang], ...profileCommon }
-  const stackCopy = copy[lang].stack
   const selectedProjects = projects[lang].slice(0, 4)
   const demoProjects = projects[lang].filter((project) => project.demo).slice(0, 3)
 
@@ -159,7 +186,7 @@ export function SaasHome() {
       <SaasHero c={c} data={data} />
       <SelectedWork c={c} projects={selectedProjects} />
       <InteractiveDemos c={c} projects={demoProjects} />
-      <StackSection c={c} groups={stackCopy.groups} skillGroups={skills[lang]} />
+      <StackSection c={c} groups={c.stackGroups} skillGroups={skills[lang]} />
       <ContactSection c={c} email={data.email} location={data.location} />
     </main>
   )
