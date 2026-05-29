@@ -16,7 +16,6 @@ import {
   ShoppingBag,
   Sparkles,
   Terminal,
-  Workflow,
 } from 'lucide-react'
 import { SaasButton, SaasCard, SaasHeader, SaasSection } from '@/components/portfolio-saas/_shared'
 import { projects } from '@/data/portfolio'
@@ -26,95 +25,97 @@ import { useTranslation } from '@/i18n/useTranslation'
 const demoCopy = {
   en: {
     eyebrow: 'Demo Gallery',
-    title: 'Public-safe demos that prove the workflow, not just the screen.',
+    title: 'Interactive portfolio demos you can open and inspect.',
     intro:
-      'Compare sanitized product surfaces that show how messy operations become scoped prompts, working UI, validation paths, and handoff-ready systems.',
+      'Browse public-safe demo surfaces that show frontend structure, product thinking, data states, and responsive interaction without exposing private project details.',
     back: 'Back to portfolio',
     open: 'Open demo',
-    brief: 'Start a workflow brief',
-    browseLabel: 'Proof hub',
-    browseTitle: 'Choose the proof surface that matches the problem you care about.',
+    brief: 'Start a project inquiry',
+    browseLabel: 'Interactive gallery',
+    browseTitle: 'Choose a demo by product surface, project type, or UI behavior.',
     browseIntro:
-      'Each card uses existing portfolio project data and keeps private records, real customer details, and internal infrastructure out of the public surface.',
-    proofLabel: 'Proof signals',
+      'Each card keeps the project story readable while making the clickable demo route easy to inspect. Records are fictional, sanitized, or sample-only.',
+    proofLabel: 'What to inspect',
     statusLabel: 'Public-safe boundary',
     cardLabels: {
       problem: 'Problem',
-      built: 'Build',
-      result: 'Result',
+      built: 'Built',
+      result: 'Outcome',
       scope: 'Scope',
-      proof: 'Workflow proof',
-      status: 'Public demo',
+      caseStudy: 'Case study context',
+      surface: 'Interactive surface',
+      status: 'Open demo',
     },
     stats: [
-      { label: 'Demo surfaces', value: '6' },
+      { label: 'Demo routes', value: '6' },
       { label: 'Private data', value: '0' },
-      { label: 'Proof mode', value: 'Sanitized' },
+      { label: 'Data mode', value: 'Sanitized' },
     ],
     proofItems: [
-      'Problem-to-build framing',
-      'Responsive product surfaces',
+      'Responsive layouts',
+      'Product and dashboard UI',
       'Mock records and sample states',
-      'Safe handoff-friendly evidence',
+      'Clear route-level composition',
     ],
     statusItems: [
       'Static or frontend-only public demos',
       'Fictional, sanitized, or sample records only',
-      'No credentials, private URLs, or internal route behavior',
+      'No credentials, private URLs, customer records, or internal route behavior',
     ],
-    footerLabel: 'Next step',
-    footerTitle: 'Have a workflow that should become a public-safe demo or production tool?',
+    footerLabel: 'Project inquiry',
+    footerTitle: 'Have a project idea that needs a clear first interface?',
     footerIntro:
-      'Send the problem, constraints, and expected outcome. I will turn it into a scoped build plan with a safe first surface.',
+      'Send the product goal, constraints, and useful sample states. I will turn it into a scoped plan and a safe first surface.',
   },
   th: {
     eyebrow: 'Demo Gallery',
-    title: 'Public-safe demos ที่พิสูจน์ workflow ไม่ใช่แค่หน้าจอ',
+    title: 'Interactive portfolio demos ที่เปิดดูและ inspect ได้',
     intro:
-      'ดูตัวอย่าง product surface ที่ sanitize แล้ว โชว์การเปลี่ยนงานที่ยุ่งให้เป็น scoped prompt, working UI, validation path และระบบที่ส่งต่อได้',
+      'รวม demo surface แบบ public-safe ที่โชว์โครงสร้าง frontend, product thinking, data state และ responsive interaction โดยไม่เปิดรายละเอียด private project',
     back: 'กลับหน้า Portfolio',
     open: 'เปิด Demo',
-    brief: 'เริ่ม Workflow Brief',
-    browseLabel: 'Proof hub',
-    browseTitle: 'เลือก proof surface ที่ตรงกับปัญหาที่อยากดู',
+    brief: 'เริ่ม Project Inquiry',
+    browseLabel: 'Interactive gallery',
+    browseTitle: 'เลือก demo จาก product surface, ประเภทโปรเจกต์ หรือพฤติกรรม UI ที่อยากดู',
     browseIntro:
-      'แต่ละ card ใช้ project data เดิมใน portfolio และไม่เปิด private records, ข้อมูลลูกค้าจริง หรือ internal infrastructure บน public surface',
-    proofLabel: 'Proof signals',
+      'แต่ละ card เก็บ project story ให้อ่านง่าย พร้อมทำให้ route ของ demo ที่คลิกได้ชัดเจน ข้อมูลทั้งหมดเป็น fictional, sanitized หรือ sample-only',
+    proofLabel: 'สิ่งที่ควร inspect',
     statusLabel: 'Public-safe boundary',
     cardLabels: {
       problem: 'Problem',
-      built: 'Build',
-      result: 'Result',
+      built: 'Built',
+      result: 'Outcome',
       scope: 'Scope',
-      proof: 'Workflow proof',
-      status: 'Public demo',
+      caseStudy: 'Case study context',
+      surface: 'Interactive surface',
+      status: 'Open demo',
     },
     stats: [
-      { label: 'Demo surfaces', value: '6' },
+      { label: 'Demo routes', value: '6' },
       { label: 'Private data', value: '0' },
-      { label: 'Proof mode', value: 'Sanitized' },
+      { label: 'Data mode', value: 'Sanitized' },
     ],
     proofItems: [
-      'Frame จาก problem ไป build',
-      'Product surface ที่ responsive',
+      'Responsive layouts',
+      'Product และ dashboard UI',
       'Mock records และ sample states',
-      'หลักฐานที่ safe และส่งต่องานได้',
+      'Route-level composition ที่ชัดเจน',
     ],
     statusItems: [
       'Static หรือ frontend-only public demos',
       'ใช้ข้อมูล fictional, sanitized หรือ sample records เท่านั้น',
-      'ไม่มี credentials, private URLs หรือ internal route behavior',
+      'ไม่มี credentials, private URLs, customer records หรือ internal route behavior',
     ],
-    footerLabel: 'Next step',
-    footerTitle: 'มี workflow ที่ควรทำเป็น public-safe demo หรือ production tool ไหม?',
+    footerLabel: 'Project inquiry',
+    footerTitle: 'มีไอเดียโปรเจกต์ที่ควรเริ่มจาก interface ที่ชัดเจนไหม?',
     footerIntro:
-      'ส่ง problem, constraints และ outcome ที่ต้องการ แล้วผมจะช่วย scope เป็น build plan พร้อม safe first surface',
+      'ส่ง product goal, constraints และ sample states ที่ควรมี แล้วผมจะช่วย scope เป็น plan และ safe first surface',
   },
 }
 
 const demoIcons = [MessageCircle, Terminal, Bot, LayoutDashboard, ShoppingBag, Sparkles]
 const statIcons = [Grid3X3, LockKeyhole, ShieldCheck]
-const proofIcons = [Workflow, Gauge, Database, Eye]
+const proofIcons = [Sparkles, Gauge, Database, Eye]
 const cardTones = ['mint', 'cream', 'lilac', 'coral', 'default', 'mint'] as const
 
 export default function DemosPage() {
@@ -212,6 +213,7 @@ export default function DemosPage() {
 
                   {project.caseStudy && (
                     <div className="mt-6 grid gap-3">
+                      <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{copy.cardLabels.caseStudy}</p>
                       <ProofBlock label={copy.cardLabels.problem} value={project.caseStudy.problem} featured />
                       <div className="grid gap-3 sm:grid-cols-2">
                         <ProofBlock label={copy.cardLabels.built} value={project.caseStudy.built} />
@@ -229,7 +231,7 @@ export default function DemosPage() {
                   </div>
 
                   <div className="mt-5 rounded-[12px] border border-white/70 bg-white/65 p-4">
-                    <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{copy.cardLabels.proof}</p>
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{copy.cardLabels.surface}</p>
                     <div className="mt-3 grid gap-2">
                       {project.highlights.slice(0, 2).map((highlight) => (
                         <div key={highlight} className="flex gap-2 text-sm font-semibold leading-6 text-saas-muted">
