@@ -23,6 +23,30 @@
   --color-console-live: #4ade80;
   --color-console-warn: #fbbf24;
 
+  /* === Modern SaaS Theme (portfolio redesign) ===
+     Staged next to console tokens so older demo/detail surfaces keep working. */
+  --color-saas-bg: #fbfbf7;
+  --color-saas-surface: #ffffff;
+  --color-saas-surface-soft: #f3f7f2;
+  --color-saas-ink: #17211b;
+  --color-saas-muted: #647066;
+  --color-saas-line: #dfe7dd;
+  --color-saas-green: #1f8f5f;
+  --color-saas-green-strong: #106b45;
+  --color-saas-blue: #4169e1;
+  --color-saas-lilac: #d9d2ff;
+  --color-saas-mint: #dff7e8;
+  --color-saas-cream: #fff4d6;
+  --color-saas-coral: #ffb8a9;
+
+  --shadow-saas-sm: 0 8px 24px rgba(23, 33, 27, 0.06);
+  --shadow-saas-md: 0 18px 48px rgba(23, 33, 27, 0.08);
+  --shadow-saas-focus: 0 0 0 4px rgba(31, 143, 95, 0.16);
+
+  --radius-saas-sm: 8px;
+  --radius-saas-md: 14px;
+  --radius-saas-lg: 24px;
+
   --font-display: var(--font-plex-sans, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-jetbrains, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
 
