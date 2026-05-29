@@ -11,9 +11,9 @@ import {
   LockKeyhole,
   Mail,
   MessageSquareText,
+  Send,
   ShieldCheck,
   WalletCards,
-  Workflow,
 } from 'lucide-react'
 import { profileCommon } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
@@ -22,31 +22,32 @@ import { SaasCard, SaasHeader, SaasSection } from '@/components/portfolio-saas/_
 
 const workCopy = {
   en: {
-    eyebrow: 'Workflow intake',
-    title: 'Scope one messy workflow into a clear build path.',
+    eyebrow: 'Project inquiry',
+    title: 'Tell me what you want to build next.',
     intro:
-      'Use this short brief to describe the workflow you want to improve. It opens a prepared email draft, so no project details are stored on this site.',
+      'Use this short contact brief to share the project, prototype, or technical help you are considering. It opens a prepared email draft, so no project details are stored on this site.',
     back: 'Back to portfolio',
     send: 'Create email draft',
     preview: 'Email draft preview',
-    ready: 'Brief ready',
+    ready: 'Inquiry ready',
     incomplete: 'Add a little more detail before creating the draft',
-    briefTitle: 'Project brief',
-    safetyTitle: 'Safe intake model',
-    processTitle: 'How the scoping flow works',
-    intakeTitle: 'Brief status',
+    briefTitle: 'Project inquiry',
+    safetyTitle: 'Private by default',
+    safetyHeadline: 'No storage, local draft first.',
+    processTitle: 'How this contact path works',
+    intakeTitle: 'Inquiry status',
     name: 'Name',
     email: 'Email',
     projectType: 'Project type',
     budget: 'Budget range',
     timeline: 'Timeline',
-    problem: 'Problem or workflow',
+    problem: 'Project context',
     goal: 'What should be true after this works?',
     placeholders: {
       name: 'Your name',
       email: 'your.email@example.com',
-      problem: 'What is slow, manual, risky, or hard to track right now?',
-      goal: 'Example: operators can check status, trigger actions, and get reports from one place.',
+      problem: 'What are you trying to build, improve, or clarify?',
+      goal: 'Example: a cleaner portfolio page, a demo prototype, an internal tool, or a small automation.',
     },
     projectTypes: ['AI Assistant', 'Internal Tool', 'Full-stack App', 'DevOps Automation'],
     budgets: ['Under $500', '$500 - $1,500', '$1,500 - $3,000', '$3,000+'],
@@ -64,45 +65,54 @@ const workCopy = {
     },
     steps: [
       {
-        title: 'Describe current friction',
-        body: 'Share the repeated task, bottleneck, or handoff that should become easier to run.',
+        title: 'Share the project shape',
+        body: 'Describe the page, product idea, internal tool, automation, or technical question you want help with.',
       },
       {
-        title: 'Choose scope and timing',
-        body: 'Pick a rough project shape so the first reply can focus on an achievable slice.',
+        title: 'Choose rough scope',
+        body: 'Pick a project type, budget range, and timing so the first reply can focus on a realistic next step.',
       },
       {
-        title: 'Send a prepared draft',
-        body: 'The browser opens your local mail client with a readable brief. Nothing is stored here.',
+        title: 'Send from your email',
+        body: 'The browser opens your local mail client with a readable draft. You can review everything before sending.',
       },
     ],
+    emailLabels: {
+      subject: 'Project inquiry',
+      type: 'Project type',
+      budget: 'Budget',
+      timeline: 'Timeline',
+      context: 'Project context',
+      result: 'Desired result',
+    },
   },
   th: {
-    eyebrow: 'Workflow intake',
-    title: 'เปลี่ยน workflow ที่ยุ่งให้เป็น scope งานที่ชัด',
+    eyebrow: 'Project inquiry',
+    title: 'เล่าโปรเจกต์ที่อยากสร้างหรือปรับปรุง',
     intro:
-      'กรอก brief สั้นๆ เพื่อบอก workflow ที่อยากปรับปรุง หน้านี้จะเปิด email draft ให้ส่งเอง จึงไม่มีการเก็บรายละเอียดโปรเจกต์บนเว็บ',
+      'กรอก contact brief สั้นๆ เพื่อบอกโปรเจกต์ prototype หรืองานเทคนิคที่อยากให้ช่วย หน้านี้จะเปิด email draft ให้ส่งเอง จึงไม่มีการเก็บรายละเอียดโปรเจกต์บนเว็บ',
     back: 'กลับหน้า portfolio',
     send: 'สร้าง Email Draft',
     preview: 'ตัวอย่าง Email Draft',
-    ready: 'Brief พร้อมส่ง',
+    ready: 'Inquiry พร้อมส่ง',
     incomplete: 'เพิ่มรายละเอียดอีกนิดก่อนสร้าง draft',
-    briefTitle: 'Project brief',
-    safetyTitle: 'Safe intake model',
-    processTitle: 'ขั้นตอนการ scope งาน',
-    intakeTitle: 'สถานะ brief',
+    briefTitle: 'Project inquiry',
+    safetyTitle: 'Private by default',
+    safetyHeadline: 'ไม่เก็บข้อมูลบนเว็บ เปิด draft ในเครื่องก่อน',
+    processTitle: 'ขั้นตอนการติดต่อ',
+    intakeTitle: 'สถานะ inquiry',
     name: 'ชื่อ',
     email: 'อีเมล',
     projectType: 'ประเภทงาน',
     budget: 'งบประมาณ',
     timeline: 'ระยะเวลา',
-    problem: 'ปัญหาหรือ workflow',
+    problem: 'บริบทโปรเจกต์',
     goal: 'ถ้าระบบนี้สำเร็จ ควรเกิดอะไรขึ้น?',
     placeholders: {
       name: 'ชื่อของคุณ',
       email: 'your.email@example.com',
-      problem: 'ตอนนี้งานส่วนไหนช้า manual เสี่ยง หรือ track ยาก?',
-      goal: 'เช่น operator เช็ก status, trigger action และดู report ได้จากที่เดียว',
+      problem: 'อยากสร้าง ปรับปรุง หรือเคลียร์เรื่องเทคนิคอะไร?',
+      goal: 'เช่น หน้า portfolio ที่ชัดขึ้น, demo prototype, internal tool หรือ automation เล็กๆ',
     },
     projectTypes: ['AI Assistant', 'Internal Tool', 'Full-stack App', 'DevOps Automation'],
     budgets: ['ต่ำกว่า $500', '$500 - $1,500', '$1,500 - $3,000', '$3,000+'],
@@ -120,18 +130,26 @@ const workCopy = {
     },
     steps: [
       {
-        title: 'เล่า friction ปัจจุบัน',
-        body: 'บอกงานซ้ำ bottleneck หรือ handoff ที่ควรทำให้ง่ายขึ้น',
+        title: 'เล่ารูปทรงของโปรเจกต์',
+        body: 'บอกหน้าเว็บ product idea, internal tool, automation หรือคำถามเทคนิคที่อยากให้ช่วย',
       },
       {
-        title: 'เลือก scope และ timing',
-        body: 'เลือกประเภทงานคร่าวๆ เพื่อให้คำตอบแรกโฟกัส slice ที่ทำได้จริง',
+        title: 'เลือก scope คร่าวๆ',
+        body: 'เลือกประเภทงาน งบประมาณ และเวลา เพื่อให้คำตอบแรกโฟกัส next step ที่ทำได้จริง',
       },
       {
-        title: 'ส่ง draft ที่เตรียมไว้',
-        body: 'Browser จะเปิด mail client พร้อม brief ที่อ่านง่าย และเว็บนี้ไม่เก็บข้อมูลไว้',
+        title: 'ส่งจากอีเมลของคุณ',
+        body: 'Browser จะเปิด mail client พร้อม draft ที่อ่านง่าย คุณตรวจรายละเอียดก่อนส่งได้',
       },
     ],
+    emailLabels: {
+      subject: 'Project inquiry',
+      type: 'ประเภทงาน',
+      budget: 'งบประมาณ',
+      timeline: 'ระยะเวลา',
+      context: 'บริบทโปรเจกต์',
+      result: 'ผลลัพธ์ที่ต้องการ',
+    },
   },
 }
 
@@ -180,19 +198,19 @@ export default function WorkWithMePage() {
     return [
       `Name: ${form.name || '-'}`,
       `Email: ${form.email || '-'}`,
-      `Project type: ${form.projectType}`,
-      `Budget: ${form.budget}`,
-      `Timeline: ${form.timeline}`,
+      `${copy.emailLabels.type}: ${form.projectType}`,
+      `${copy.emailLabels.budget}: ${form.budget}`,
+      `${copy.emailLabels.timeline}: ${form.timeline}`,
       '',
-      'Problem / workflow:',
+      `${copy.emailLabels.context}:`,
       form.problem || '-',
       '',
-      'Desired result:',
+      `${copy.emailLabels.result}:`,
       form.goal || '-',
     ].join('\n')
-  }, [form])
+  }, [copy.emailLabels.budget, copy.emailLabels.context, copy.emailLabels.result, copy.emailLabels.timeline, copy.emailLabels.type, form])
 
-  const mailtoHref = `mailto:${profileCommon.email}?subject=${encodeURIComponent(`Project brief: ${form.projectType}`)}&body=${encodeURIComponent(emailBody)}`
+  const mailtoHref = `mailto:${profileCommon.email}?subject=${encodeURIComponent(`${copy.emailLabels.subject}: ${form.projectType}`)}&body=${encodeURIComponent(emailBody)}`
 
   const updateForm = (field: keyof typeof form, value: string) => {
     setForm((current) => ({ ...current, [field]: value }))
@@ -230,7 +248,7 @@ export default function WorkWithMePage() {
             <div className="flex items-start justify-between gap-5">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{copy.safetyTitle}</p>
-                <h2 className="mt-4 text-3xl font-black leading-tight text-white">No storage, local draft first.</h2>
+                <h2 className="mt-4 text-3xl font-black leading-tight text-white">{copy.safetyHeadline}</h2>
               </div>
               <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-saas-mint">
                 <ShieldCheck className="h-7 w-7" />
@@ -256,7 +274,7 @@ export default function WorkWithMePage() {
           {copy.steps.map((step, index) => (
             <SaasCard key={step.title} tone={index === 1 ? 'cream' : index === 2 ? 'lilac' : 'mint'}>
               <div className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-white text-saas-green shadow-saas-sm">
-                {index === 0 ? <Workflow className="h-5 w-5" /> : index === 1 ? <WalletCards className="h-5 w-5" /> : <Mail className="h-5 w-5" />}
+                {index === 0 ? <MessageSquareText className="h-5 w-5" /> : index === 1 ? <WalletCards className="h-5 w-5" /> : <Send className="h-5 w-5" />}
               </div>
               <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-saas-green">0{index + 1}</p>
               <h2 className="mt-2 text-xl font-black text-saas-ink">{step.title}</h2>
