@@ -6,283 +6,281 @@ import {
   Bot,
   CheckCircle2,
   Database,
+  Eye,
   Gauge,
   Grid3X3,
   LayoutDashboard,
   LockKeyhole,
   MessageCircle,
-  Network,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
   Terminal,
   Workflow,
 } from 'lucide-react'
+import { SaasButton, SaasCard, SaasHeader, SaasSection } from '@/components/portfolio-saas/_shared'
 import { projects } from '@/data/portfolio'
-import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
+import { useTranslation } from '@/i18n/useTranslation'
 
 const demoCopy = {
   en: {
-    eyebrow: 'Demo Control Center',
-    title: 'Public-safe proof for real workflow systems.',
+    eyebrow: 'Demo Gallery',
+    title: 'Public-safe demos that prove the workflow, not just the screen.',
     intro:
-      'Each demo is a sanitized operating surface: enough workflow, state, and result to evaluate the system thinking without exposing private data or infrastructure.',
-    back: 'Back to system profile',
+      'Compare sanitized product surfaces that show how messy operations become scoped prompts, working UI, validation paths, and handoff-ready systems.',
+    back: 'Back to portfolio',
     open: 'Open demo',
-    brief: 'Start a brief',
-    proofLabel: 'Proof model',
-    statusLabel: 'Demo status',
-    scopeLabel: 'Public scope',
-    footerLabel: 'Next operator action',
-    footerTitle: 'Turn one of these workflows into a scoped build.',
-    proofSignals: 'สัญญาณ Proof',
+    brief: 'Start a workflow brief',
+    browseLabel: 'Proof hub',
+    browseTitle: 'Choose the proof surface that matches the problem you care about.',
+    browseIntro:
+      'Each card uses existing portfolio project data and keeps private records, real customer details, and internal infrastructure out of the public surface.',
+    proofLabel: 'Proof signals',
+    statusLabel: 'Public-safe boundary',
+    cardLabels: {
+      problem: 'Problem',
+      built: 'Build',
+      result: 'Result',
+      scope: 'Scope',
+      proof: 'Workflow proof',
+      status: 'Public demo',
+    },
     stats: [
-      { label: 'Demo modules', value: '5' },
+      { label: 'Demo surfaces', value: '6' },
       { label: 'Private data', value: '0' },
       { label: 'Proof mode', value: 'Sanitized' },
     ],
     proofItems: [
-      'workflow path',
-      'operator surface',
-      'mock outputs',
-      'safety boundary',
+      'Problem-to-build framing',
+      'Responsive product surfaces',
+      'Mock records and sample states',
+      'Safe handoff-friendly evidence',
     ],
     statusItems: [
-      'Static pages only',
-      'Mock records and sample notes',
-      'No live private endpoints',
+      'Static or frontend-only public demos',
+      'Fictional, sanitized, or sample records only',
+      'No credentials, private URLs, or internal route behavior',
     ],
-    controlLabels: {
-      workflow: 'Workflow',
-      built: 'Built',
-      result: 'Result',
-      status: 'Live demo',
-    },
+    footerLabel: 'Next step',
+    footerTitle: 'Have a workflow that should become a public-safe demo or production tool?',
+    footerIntro:
+      'Send the problem, constraints, and expected outcome. I will turn it into a scoped build plan with a safe first surface.',
   },
   th: {
-    eyebrow: 'Demo Control Center',
-    title: 'Public-safe proof สำหรับ workflow systems จริง',
+    eyebrow: 'Demo Gallery',
+    title: 'Public-safe demos ที่พิสูจน์ workflow ไม่ใช่แค่หน้าจอ',
     intro:
-      'แต่ละ demo เป็น operating surface ที่ sanitize แล้ว โชว์ workflow, state และผลลัพธ์พอให้ประเมินแนวคิดของระบบ โดยไม่เปิด private data หรือ infrastructure',
-    back: 'กลับหน้า System Profile',
+      'ดูตัวอย่าง product surface ที่ sanitize แล้ว โชว์การเปลี่ยนงานที่ยุ่งให้เป็น scoped prompt, working UI, validation path และระบบที่ส่งต่อได้',
+    back: 'กลับหน้า Portfolio',
     open: 'เปิด Demo',
-    brief: 'เริ่ม Brief',
-    proofLabel: 'Proof model',
-    statusLabel: 'Demo status',
-    scopeLabel: 'Public scope',
-    footerLabel: 'Next operator action',
-    footerTitle: 'เลือก workflow แล้ว scope เป็นงาน build จริง',
-    proofSignals: 'Proof signals',
+    brief: 'เริ่ม Workflow Brief',
+    browseLabel: 'Proof hub',
+    browseTitle: 'เลือก proof surface ที่ตรงกับปัญหาที่อยากดู',
+    browseIntro:
+      'แต่ละ card ใช้ project data เดิมใน portfolio และไม่เปิด private records, ข้อมูลลูกค้าจริง หรือ internal infrastructure บน public surface',
+    proofLabel: 'Proof signals',
+    statusLabel: 'Public-safe boundary',
+    cardLabels: {
+      problem: 'Problem',
+      built: 'Build',
+      result: 'Result',
+      scope: 'Scope',
+      proof: 'Workflow proof',
+      status: 'Public demo',
+    },
     stats: [
-      { label: 'Demo modules', value: '5' },
+      { label: 'Demo surfaces', value: '6' },
       { label: 'Private data', value: '0' },
       { label: 'Proof mode', value: 'Sanitized' },
     ],
     proofItems: [
-      'workflow path',
-      'operator surface',
-      'mock outputs',
-      'safety boundary',
+      'Frame จาก problem ไป build',
+      'Product surface ที่ responsive',
+      'Mock records และ sample states',
+      'หลักฐานที่ safe และส่งต่องานได้',
     ],
     statusItems: [
-      'Static pages only',
-      'Mock records and sample notes',
-      'No live private endpoints',
+      'Static หรือ frontend-only public demos',
+      'ใช้ข้อมูล fictional, sanitized หรือ sample records เท่านั้น',
+      'ไม่มี credentials, private URLs หรือ internal route behavior',
     ],
-    controlLabels: {
-      workflow: 'Workflow',
-      built: 'Built',
-      result: 'Result',
-      status: 'Live demo',
-    },
+    footerLabel: 'Next step',
+    footerTitle: 'มี workflow ที่ควรทำเป็น public-safe demo หรือ production tool ไหม?',
+    footerIntro:
+      'ส่ง problem, constraints และ outcome ที่ต้องการ แล้วผมจะช่วย scope เป็น build plan พร้อม safe first surface',
   },
 }
 
-const demoIcons = [MessageCircle, Terminal, Bot, LayoutDashboard, ShoppingBag]
+const demoIcons = [MessageCircle, Terminal, Bot, LayoutDashboard, ShoppingBag, Sparkles]
 const statIcons = [Grid3X3, LockKeyhole, ShieldCheck]
-const proofIcons = [Workflow, Gauge, Database, Network]
-
-function PanelHeader({ title, badge }: { title: string; badge?: string }) {
-  return (
-    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-      <div className="flex min-w-0 items-center gap-3">
-        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-blue-600"></span>
-        <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-900">{title}</h2>
-      </div>
-      {badge && (
-        <span className="hidden rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700 sm:inline-block">
-          {badge}
-        </span>
-      )}
-    </div>
-  )
-}
+const proofIcons = [Workflow, Gauge, Database, Eye]
+const cardTones = ['mint', 'cream', 'lilac', 'coral', 'default', 'mint'] as const
 
 export default function DemosPage() {
   const { language } = useTranslation()
   const lang = language as Language
   const copy = demoCopy[lang]
-  const demoProjects = projects[lang].filter((project) => project.demo)
+  const demoProjects = projects[lang].filter((project) => Boolean(project.demo))
 
   return (
-    <main className="mobile-page min-h-screen bg-[#f6f8fb] text-slate-950">
-      <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
-        <section className="motion-enter rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
-          <div className="grid min-w-0 gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
-            <div className="min-w-0">
-              <Link href="/#home" className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
-                {copy.back}
-              </Link>
-              <div className="mt-8">
-                <PanelHeader title={copy.eyebrow} badge={copy.scopeLabel} />
-                <h1 className="mobile-safe-text text-2xl font-black leading-tight tracking-tight text-slate-950 sm:max-w-5xl sm:text-5xl lg:text-6xl">
-                  {copy.title}
-                </h1>
-                <p className="mobile-safe-text mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                  {copy.intro}
-                </p>
-              </div>
-            </div>
-
-            <div className="motion-stagger grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-              {copy.stats.map((stat, index) => {
-                const Icon = statIcons[index]
-                return (
-                  <div key={stat.label} className="motion-card flex items-center gap-4 rounded-md border border-slate-200 bg-slate-50 p-4">
-                    <div className="motion-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-white text-blue-700">
-                      <Icon size={22} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{stat.label}</p>
-                      <p className="mt-1 text-xl font-black text-slate-950">{stat.value}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+    <main className="min-h-screen bg-saas-bg text-saas-ink">
+      <SaasSection className="overflow-hidden pb-14 pt-14 sm:pb-18 sm:pt-18 lg:pb-20 lg:pt-20" wide>
+        <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(circle_at_20%_15%,rgba(223,247,232,0.95),transparent_32%),radial-gradient(circle_at_78%_12%,rgba(255,244,214,0.88),transparent_30%)]" />
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.65fr)] lg:items-end">
+          <div>
+            <SaasButton href="/#home" variant="secondary" className="mb-10">
+              {copy.back}
+            </SaasButton>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.eyebrow}</p>
+            <h1 className="mt-5 max-w-5xl text-balance text-4xl font-black leading-[0.98] text-saas-ink sm:text-6xl lg:text-7xl">
+              {copy.title}
+            </h1>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-saas-muted sm:text-lg">{copy.intro}</p>
           </div>
-        </section>
 
-        <div className="grid gap-5 xl:grid-cols-[0.72fr_1.55fr]">
-          <aside className="grid gap-5">
-            <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-              <PanelHeader title={copy.proofLabel} />
-              <div className="motion-stagger grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+          <SaasCard className="grid gap-3 p-4" tone="default">
+            {copy.stats.map((stat, index) => {
+              const Icon = statIcons[index]
+              return (
+                <div key={stat.label} className="flex items-center gap-4 rounded-[12px] border border-saas-line bg-saas-surface-soft p-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-saas-green shadow-saas-sm">
+                    <Icon size={21} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{stat.label}</p>
+                    <p className="mt-1 text-2xl font-black text-saas-ink">{stat.value}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </SaasCard>
+        </div>
+      </SaasSection>
+
+      <SaasSection className="pt-8" wide>
+        <SaasHeader eyebrow={copy.browseLabel} title={copy.browseTitle} subtitle={copy.browseIntro} align="split" />
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(280px,0.45fr)_minmax(0,1fr)]">
+          <aside className="grid content-start gap-5">
+            <SaasCard tone="mint">
+              <h2 className="text-sm font-black uppercase tracking-[0.14em] text-saas-green">{copy.proofLabel}</h2>
+              <div className="mt-5 grid gap-3">
                 {copy.proofItems.map((item, index) => {
                   const Icon = proofIcons[index]
                   return (
-                    <div key={item} className="motion-card flex items-center gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3">
-                      <Icon className="h-5 w-5 shrink-0 text-blue-700" />
-                      <span className="text-sm font-black text-slate-700">{item}</span>
+                    <div key={item} className="flex items-start gap-3 rounded-[12px] bg-white/70 p-3 text-sm font-bold leading-6 text-saas-ink">
+                      <Icon className="mt-0.5 h-5 w-5 shrink-0 text-saas-green" />
+                      <span>{item}</span>
                     </div>
                   )
                 })}
               </div>
-            </section>
+            </SaasCard>
 
-            <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-              <PanelHeader title={copy.statusLabel} />
-              <div className="space-y-3">
+            <SaasCard>
+              <h2 className="text-sm font-black uppercase tracking-[0.14em] text-saas-muted">{copy.statusLabel}</h2>
+              <div className="mt-5 grid gap-3">
                 {copy.statusItems.map((item) => (
-                  <div key={item} className="flex gap-3 rounded-md border border-slate-200 bg-white p-3 text-sm font-semibold text-slate-600">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
-                    {item}
+                  <div key={item} className="flex gap-3 text-sm font-semibold leading-6 text-saas-muted">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-saas-green" />
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
-            </section>
+            </SaasCard>
           </aside>
 
-          <section className="motion-stagger grid gap-5 md:grid-cols-2">
+          <section className="grid gap-5 md:grid-cols-2">
             {demoProjects.map((project, index) => {
               const Icon = demoIcons[index] ?? Bot
+              const tone = cardTones[index % cardTones.length]
 
               return (
-                <article key={project.id} className="motion-card rounded-md border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                <SaasCard key={project.id} tone={tone} hover className="flex min-h-full flex-col">
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-[10px] font-black uppercase tracking-[0.15em] text-blue-700">{project.category}</p>
-                      <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950">{project.title}</h2>
+                      <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+                      <h2 className="mt-3 text-2xl font-black leading-tight text-saas-ink">{project.title}</h2>
                     </div>
-                    <div className="motion-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-700">
-                      <Icon size={26} />
-                    </div>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/80 text-saas-green shadow-saas-sm">
+                      <Icon size={24} />
+                    </span>
                   </div>
 
-                  <p className="mt-4 min-h-14 text-sm font-semibold leading-7 text-slate-600">{project.description}</p>
+                  <p className="mt-4 text-sm font-semibold leading-7 text-saas-muted">{project.description}</p>
 
                   {project.caseStudy && (
-                    <div className="mt-5 grid gap-3">
-                      <div className="rounded-md border border-slate-200 bg-slate-50 p-4">
-                        <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{copy.controlLabels.workflow}</p>
-                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-700">{project.caseStudy.problem}</p>
-                      </div>
+                    <div className="mt-6 grid gap-3">
+                      <ProofBlock label={copy.cardLabels.problem} value={project.caseStudy.problem} featured />
                       <div className="grid gap-3 sm:grid-cols-2">
-                        <div className="rounded-md border border-slate-200 bg-white p-4">
-                          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{copy.controlLabels.built}</p>
-                          <p className="mt-2 line-clamp-3 text-xs font-semibold leading-5 text-slate-600">{project.caseStudy.built}</p>
-                        </div>
-                        <div className="rounded-md border border-slate-200 bg-white p-4">
-                          <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{copy.controlLabels.result}</p>
-                          <p className="mt-2 line-clamp-3 text-xs font-semibold leading-5 text-slate-600">{project.caseStudy.result}</p>
-                        </div>
+                        <ProofBlock label={copy.cardLabels.built} value={project.caseStudy.built} />
+                        <ProofBlock label={copy.cardLabels.result} value={project.caseStudy.result} />
                       </div>
                     </div>
                   )}
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tech.slice(0, 4).map((tech) => (
-                      <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-[0.1em] text-slate-600">
+                      <span key={tech} className="rounded-full border border-white/70 bg-white/70 px-3 py-1 text-xs font-black text-saas-muted">
                         {tech}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-5 rounded-md border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">{copy.proofSignals}</p>
+                  <div className="mt-5 rounded-[12px] border border-white/70 bg-white/65 p-4">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{copy.cardLabels.proof}</p>
                     <div className="mt-3 grid gap-2">
                       {project.highlights.slice(0, 2).map((highlight) => (
-                        <div key={highlight} className="flex gap-2 text-xs font-semibold leading-5 text-slate-600">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                          {highlight}
+                        <div key={highlight} className="flex gap-2 text-sm font-semibold leading-6 text-saas-muted">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-saas-green" />
+                          <span>{highlight}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                      {copy.controlLabels.status}
+                  <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-white/75 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-saas-green">
+                      <span className="h-2 w-2 rounded-full bg-saas-green" />
+                      {copy.cardLabels.status}
                     </span>
-                    <Link href={project.demo} className="motion-card inline-flex items-center justify-center rounded-md bg-blue-700 px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800">
+                    <Link
+                      href={project.demo}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-saas-green px-5 py-3 text-sm font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong focus-visible:shadow-saas-focus"
+                    >
                       {copy.open}
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
-                </article>
+                </SaasCard>
               )
             })}
           </section>
         </div>
+      </SaasSection>
 
-        <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <div className="mb-3 flex items-center gap-3">
-                <Sparkles className="h-5 w-5 text-blue-700" />
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">{copy.footerLabel}</p>
-              </div>
-              <h2 className="max-w-3xl text-2xl font-black leading-tight text-slate-950">{copy.footerTitle}</h2>
-            </div>
-            <Link href="/work-with-me" className="inline-flex items-center justify-center rounded-md bg-blue-700 px-5 py-3 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800">
-              {copy.brief}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+      <SaasSection className="pt-4" wide>
+        <SaasCard tone="dark" className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-coral">{copy.footerLabel}</p>
+            <h2 className="mt-3 max-w-3xl text-3xl font-black leading-tight text-white">{copy.footerTitle}</h2>
+            <p className="mt-4 max-w-2xl text-base leading-8 text-white/72">{copy.footerIntro}</p>
           </div>
-        </section>
-      </div>
+          <SaasButton href="/work-with-me" variant="primary" icon={<ArrowRight className="h-4 w-4" />} className="bg-white text-saas-ink hover:bg-saas-cream">
+            {copy.brief}
+          </SaasButton>
+        </SaasCard>
+      </SaasSection>
     </main>
+  )
+}
+
+function ProofBlock({ label, value, featured = false }: { label: string; value: string; featured?: boolean }) {
+  return (
+    <div className={`rounded-[12px] border border-white/70 bg-white/70 p-4 ${featured ? '' : 'min-h-[132px]'}`}>
+      <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-muted">{label}</p>
+      <p className={`mt-2 font-semibold leading-6 text-saas-ink ${featured ? 'text-sm' : 'line-clamp-4 text-xs'}`}>{value}</p>
+    </div>
   )
 }
