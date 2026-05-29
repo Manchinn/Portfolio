@@ -31,7 +31,9 @@ export function SaasHeader({ eyebrow, title, subtitle, align = 'left', rightSlot
   if (align === 'split') {
     return (
       <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <HeaderText eyebrow={eyebrow} title={title} subtitle={subtitle} />
+        <div className="min-w-0">
+          <HeaderText eyebrow={eyebrow} title={title} subtitle={subtitle} />
+        </div>
         {rightSlot && <div className="lg:pb-2">{rightSlot}</div>}
       </div>
     )
