@@ -1,11 +1,10 @@
 'use client'
 
-import { FormEvent, useMemo, useState } from 'react'
+import { FormEvent, ReactNode, useMemo, useState } from 'react'
 import Link from 'next/link'
 import {
   AlertCircle,
   ArrowRight,
-  BriefcaseBusiness,
   CalendarClock,
   CheckCircle2,
   ClipboardList,
@@ -19,21 +18,23 @@ import {
 import { profileCommon } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import type { Language } from '@/data/types'
+import { SaasCard, SaasHeader, SaasSection } from '@/components/portfolio-saas/_shared'
 
 const workCopy = {
   en: {
-    eyebrow: 'Intake Console',
-    title: 'Start with the problem, then scope the system.',
+    eyebrow: 'Workflow intake',
+    title: 'Scope one messy workflow into a clear build path.',
     intro:
       'Use this short brief to describe the workflow you want to improve. It opens a prepared email draft, so no project details are stored on this site.',
-    back: 'Back to system profile',
+    back: 'Back to portfolio',
     send: 'Create email draft',
-    preview: 'Email preview',
+    preview: 'Email draft preview',
     ready: 'Brief ready',
     incomplete: 'Add a little more detail before creating the draft',
-    briefTitle: 'Project Brief',
-    safetyTitle: 'Safety Rules',
-    intakeTitle: 'Intake Status',
+    briefTitle: 'Project brief',
+    safetyTitle: 'Safe intake model',
+    processTitle: 'How the scoping flow works',
+    intakeTitle: 'Brief status',
     name: 'Name',
     email: 'Email',
     projectType: 'Project type',
@@ -50,28 +51,46 @@ const workCopy = {
     projectTypes: ['AI Assistant', 'Internal Tool', 'Full-stack App', 'DevOps Automation'],
     budgets: ['Under $500', '$500 - $1,500', '$1,500 - $3,000', '$3,000+'],
     timelines: ['This week', '2-4 weeks', '1-2 months', 'Exploring'],
-    notes: ['No secrets in the form', 'No backend storage', 'Email draft opens locally'],
+    notes: [
+      'Do not submit secrets, credentials, private URLs, or internal operational details.',
+      'No backend storage is used for this brief.',
+      'A prepared email draft opens locally on your device.',
+    ],
     validation: {
       name: 'Add your name.',
       email: 'Use a valid email address.',
       problem: 'Describe the current problem in at least 30 characters.',
       goal: 'Describe the desired result in at least 30 characters.',
     },
-    steps: ['Describe current friction', 'Select scope and timing', 'Send prepared email draft'],
+    steps: [
+      {
+        title: 'Describe current friction',
+        body: 'Share the repeated task, bottleneck, or handoff that should become easier to run.',
+      },
+      {
+        title: 'Choose scope and timing',
+        body: 'Pick a rough project shape so the first reply can focus on an achievable slice.',
+      },
+      {
+        title: 'Send a prepared draft',
+        body: 'The browser opens your local mail client with a readable brief. Nothing is stored here.',
+      },
+    ],
   },
   th: {
-    eyebrow: 'Intake Console',
-    title: 'เริ่มจากปัญหา แล้วค่อย scope ระบบให้ชัด',
+    eyebrow: 'Workflow intake',
+    title: 'เปลี่ยน workflow ที่ยุ่งให้เป็น scope งานที่ชัด',
     intro:
       'กรอก brief สั้นๆ เพื่อบอก workflow ที่อยากปรับปรุง หน้านี้จะเปิด email draft ให้ส่งเอง จึงไม่มีการเก็บรายละเอียดโปรเจกต์บนเว็บ',
-    back: 'กลับหน้า System Profile',
+    back: 'กลับหน้า portfolio',
     send: 'สร้าง Email Draft',
-    preview: 'ตัวอย่าง Email',
+    preview: 'ตัวอย่าง Email Draft',
     ready: 'Brief พร้อมส่ง',
     incomplete: 'เพิ่มรายละเอียดอีกนิดก่อนสร้าง draft',
-    briefTitle: 'Project Brief',
-    safetyTitle: 'Safety Rules',
-    intakeTitle: 'Intake Status',
+    briefTitle: 'Project brief',
+    safetyTitle: 'Safe intake model',
+    processTitle: 'ขั้นตอนการ scope งาน',
+    intakeTitle: 'สถานะ brief',
     name: 'ชื่อ',
     email: 'อีเมล',
     projectType: 'ประเภทงาน',
@@ -88,14 +107,31 @@ const workCopy = {
     projectTypes: ['AI Assistant', 'Internal Tool', 'Full-stack App', 'DevOps Automation'],
     budgets: ['ต่ำกว่า $500', '$500 - $1,500', '$1,500 - $3,000', '$3,000+'],
     timelines: ['ภายในสัปดาห์นี้', '2-4 สัปดาห์', '1-2 เดือน', 'กำลังสำรวจ'],
-    notes: ['ไม่ใส่ secret ในฟอร์ม', 'ไม่มี backend storage', 'เปิด email draft ในเครื่องคุณ'],
+    notes: [
+      'ไม่ใส่ secret, credential, private URL หรือรายละเอียด operation ภายใน',
+      'หน้านี้ไม่มี backend storage สำหรับเก็บ brief',
+      'ระบบจะเปิด email draft ในเครื่องคุณเพื่อให้ตรวจแล้วส่งเอง',
+    ],
     validation: {
       name: 'กรอกชื่อก่อน',
       email: 'ใช้อีเมลที่ถูกต้อง',
       problem: 'อธิบายปัญหาปัจจุบันอย่างน้อย 30 ตัวอักษร',
       goal: 'อธิบายผลลัพธ์ที่ต้องการอย่างน้อย 30 ตัวอักษร',
     },
-    steps: ['อธิบาย friction ปัจจุบัน', 'เลือก scope และ timing', 'ส่ง email draft ที่เตรียมไว้'],
+    steps: [
+      {
+        title: 'เล่า friction ปัจจุบัน',
+        body: 'บอกงานซ้ำ bottleneck หรือ handoff ที่ควรทำให้ง่ายขึ้น',
+      },
+      {
+        title: 'เลือก scope และ timing',
+        body: 'เลือกประเภทงานคร่าวๆ เพื่อให้คำตอบแรกโฟกัส slice ที่ทำได้จริง',
+      },
+      {
+        title: 'ส่ง draft ที่เตรียมไว้',
+        body: 'Browser จะเปิด mail client พร้อม brief ที่อ่านง่าย และเว็บนี้ไม่เก็บข้อมูลไว้',
+      },
+    ],
   },
 }
 
@@ -105,21 +141,12 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-function PanelHeader({ title, badge }: { title: string; badge?: string }) {
-  return (
-    <div className="mb-5 flex items-center justify-between gap-3">
-      <div className="flex min-w-0 items-center gap-3">
-        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-blue-600"></span>
-        <h2 className="truncate text-[11px] font-black uppercase tracking-[0.18em] text-slate-900">{title}</h2>
-      </div>
-      {badge && (
-        <span className="rounded-sm border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-blue-700">
-          {badge}
-        </span>
-      )}
-    </div>
-  )
+function FieldLabel({ children }: { children: ReactNode }) {
+  return <span className="mb-2 flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-saas-muted">{children}</span>
 }
+
+const inputClass =
+  'w-full rounded-[14px] border border-saas-line bg-saas-surface-soft p-3.5 text-sm font-bold text-saas-ink outline-none transition placeholder:text-saas-muted/65 focus:border-saas-green focus:bg-white focus:shadow-saas-focus'
 
 export default function WorkWithMePage() {
   const { language } = useTranslation()
@@ -180,138 +207,132 @@ export default function WorkWithMePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
-      <div className="mx-auto grid max-w-[1800px] gap-5 px-4 py-5 lg:px-6">
-        <section className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8">
-          <div className="grid gap-8 xl:grid-cols-[1.35fr_0.85fr] xl:items-end">
-            <div>
-              <Link href="/#home" className="inline-flex items-center rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700">
-                {copy.back}
-              </Link>
-              <div className="mt-8">
-                <PanelHeader title={copy.eyebrow} badge={copy.projectType} />
-                <h1 className="max-w-5xl text-4xl font-black leading-none tracking-tight text-slate-950 sm:text-6xl">
-                  {copy.title}
-                </h1>
-                <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-600 sm:text-lg">
-                  {copy.intro}
-                </p>
-              </div>
-            </div>
-
-            <aside className="rounded-md border border-slate-200 bg-slate-50 p-5">
-              <PanelHeader title={copy.safetyTitle} />
-              <div className="grid gap-3">
-                {copy.notes.map((note, index) => (
-                  <div key={note} className="flex items-center gap-3 rounded-md border border-slate-200 bg-white px-4 py-3 text-sm font-black text-slate-700">
-                    {index === 0 ? <LockKeyhole className="h-5 w-5 text-blue-700" /> : index === 1 ? <ShieldCheck className="h-5 w-5 text-blue-700" /> : <Mail className="h-5 w-5 text-blue-700" />}
-                    {note}
-                  </div>
-                ))}
-              </div>
-            </aside>
+    <main className="min-h-screen overflow-x-hidden bg-saas-bg text-saas-ink">
+      <section className="relative overflow-hidden pt-16 sm:pt-20">
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-saas-mint/70 to-transparent" aria-hidden />
+        <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:px-8 lg:py-20">
+          <div className="relative">
+            <Link
+              href="/#home"
+              className="inline-flex items-center gap-2 rounded-full border border-saas-line bg-white px-4 py-2 text-sm font-black text-saas-ink shadow-saas-sm transition hover:border-saas-green hover:text-saas-green"
+            >
+              {copy.back}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <p className="mt-9 text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.eyebrow}</p>
+            <h1 className="mt-5 max-w-5xl text-balance text-5xl font-black leading-[0.96] text-saas-ink sm:text-6xl lg:text-7xl">
+              {copy.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-saas-muted">{copy.intro}</p>
           </div>
-        </section>
 
-        <section className="grid gap-5 xl:grid-cols-[0.72fr_1.15fr_0.82fr]">
-          <aside className="grid gap-5">
-            <div className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-              <PanelHeader title={copy.intakeTitle} />
-              <div className={`rounded-md border p-4 ${isReady ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-                <div className="flex items-center gap-3">
-                  {isReady ? <CheckCircle2 className="text-emerald-700" size={22} /> : <AlertCircle className="text-amber-700" size={22} />}
-                  <p className="text-sm font-black uppercase tracking-[0.12em] text-slate-800">{isReady ? copy.ready : copy.incomplete}</p>
-                </div>
-                {submitted && !isReady && (
-                  <ul className="mt-4 grid gap-2 text-sm font-semibold text-slate-700">
-                    {validationErrors.map((error) => (
-                      <li key={error}>- {error}</li>
-                    ))}
-                  </ul>
-                )}
+          <SaasCard tone="dark" className="relative self-end rounded-[24px] p-6 sm:p-8">
+            <div className="flex items-start justify-between gap-5">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{copy.safetyTitle}</p>
+                <h2 className="mt-4 text-3xl font-black leading-tight text-white">No storage, local draft first.</h2>
               </div>
-
-              <div className="mt-5 grid gap-3">
-                {copy.steps.map((step, index) => (
-                  <div key={step} className="flex gap-3 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-slate-600">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-700 text-[10px] font-black text-white">
-                      {index + 1}
-                    </span>
-                    {step}
-                  </div>
-                ))}
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-saas-mint">
+                <ShieldCheck className="h-7 w-7" />
               </div>
             </div>
-          </aside>
+            <div className="mt-7 grid gap-3">
+              {copy.notes.map((note, index) => {
+                const Icon = index === 0 ? LockKeyhole : index === 1 ? ShieldCheck : Mail
+                return (
+                  <div key={note} className="flex gap-3 rounded-[14px] border border-white/12 bg-white/7 p-4 text-sm font-bold leading-6 text-white/82">
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-saas-mint" />
+                    <span>{note}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </SaasCard>
+        </div>
+      </section>
 
-          <form onSubmit={handleSubmit} className="rounded-md border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-            <PanelHeader title={copy.briefTitle} badge={isReady ? copy.ready : undefined} />
+      <SaasSection className="pt-0" wide>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {copy.steps.map((step, index) => (
+            <SaasCard key={step.title} tone={index === 1 ? 'cream' : index === 2 ? 'lilac' : 'mint'}>
+              <div className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-white text-saas-green shadow-saas-sm">
+                {index === 0 ? <Workflow className="h-5 w-5" /> : index === 1 ? <WalletCards className="h-5 w-5" /> : <Mail className="h-5 w-5" />}
+              </div>
+              <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-saas-green">0{index + 1}</p>
+              <h2 className="mt-2 text-xl font-black text-saas-ink">{step.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-saas-muted">{step.body}</p>
+            </SaasCard>
+          ))}
+        </div>
+      </SaasSection>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
-                {copy.name}
+      <SaasSection className="pt-0">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(330px,0.92fr)]">
+          <form onSubmit={handleSubmit} className="rounded-[24px] border border-saas-line bg-white p-5 shadow-saas-md sm:p-8">
+            <SaasHeader eyebrow={copy.eyebrow} title={copy.briefTitle} subtitle={copy.intro} />
+
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              <label className="block">
+                <FieldLabel>{copy.name}</FieldLabel>
                 <input
                   required
                   value={form.name}
                   onChange={(event) => updateForm('name', event.target.value)}
                   placeholder={copy.placeholders.name}
-                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                  className={inputClass}
                 />
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
-                {copy.email}
+              <label className="block">
+                <FieldLabel>{copy.email}</FieldLabel>
                 <input
                   required
                   type="email"
                   value={form.email}
                   onChange={(event) => updateForm('email', event.target.value)}
                   placeholder={copy.placeholders.email}
-                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                  className={inputClass}
                 />
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
-                <span className="inline-flex items-center gap-2"><MessageSquareText size={16} /> {copy.projectType}</span>
-                <select
-                  value={form.projectType}
-                  onChange={(event) => updateForm('projectType', event.target.value)}
-                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
-                >
+              <label className="block">
+                <FieldLabel>
+                  <MessageSquareText className="h-4 w-4" />
+                  {copy.projectType}
+                </FieldLabel>
+                <select value={form.projectType} onChange={(event) => updateForm('projectType', event.target.value)} className={inputClass}>
                   {copy.projectTypes.map((item) => (
                     <option key={item}>{item}</option>
                   ))}
                 </select>
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500">
-                <span className="inline-flex items-center gap-2"><WalletCards size={16} /> {copy.budget}</span>
-                <select
-                  value={form.budget}
-                  onChange={(event) => updateForm('budget', event.target.value)}
-                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
-                >
+              <label className="block">
+                <FieldLabel>
+                  <WalletCards className="h-4 w-4" />
+                  {copy.budget}
+                </FieldLabel>
+                <select value={form.budget} onChange={(event) => updateForm('budget', event.target.value)} className={inputClass}>
                   {copy.budgets.map((item) => (
                     <option key={item}>{item}</option>
                   ))}
                 </select>
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
-                <span className="inline-flex items-center gap-2"><CalendarClock size={16} /> {copy.timeline}</span>
-                <select
-                  value={form.timeline}
-                  onChange={(event) => updateForm('timeline', event.target.value)}
-                  className="mt-2 w-full rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
-                >
+              <label className="block sm:col-span-2">
+                <FieldLabel>
+                  <CalendarClock className="h-4 w-4" />
+                  {copy.timeline}
+                </FieldLabel>
+                <select value={form.timeline} onChange={(event) => updateForm('timeline', event.target.value)} className={inputClass}>
                   {copy.timelines.map((item) => (
                     <option key={item}>{item}</option>
                   ))}
                 </select>
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
-                {copy.problem}
+              <label className="block sm:col-span-2">
+                <FieldLabel>{copy.problem}</FieldLabel>
                 <textarea
                   required
                   minLength={minDetailLength}
@@ -319,15 +340,15 @@ export default function WorkWithMePage() {
                   onChange={(event) => updateForm('problem', event.target.value)}
                   placeholder={copy.placeholders.problem}
                   rows={5}
-                  className="mt-2 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                  className={`${inputClass} resize-none leading-7`}
                 />
-                <span className="mt-2 block font-mono text-xs normal-case text-slate-500">
+                <span className="mt-2 block text-xs font-bold text-saas-muted">
                   {form.problem.trim().length}/{minDetailLength}
                 </span>
               </label>
 
-              <label className="block text-xs font-black uppercase tracking-[0.12em] text-slate-500 sm:col-span-2">
-                {copy.goal}
+              <label className="block sm:col-span-2">
+                <FieldLabel>{copy.goal}</FieldLabel>
                 <textarea
                   required
                   minLength={minDetailLength}
@@ -335,9 +356,9 @@ export default function WorkWithMePage() {
                   onChange={(event) => updateForm('goal', event.target.value)}
                   placeholder={copy.placeholders.goal}
                   rows={4}
-                  className="mt-2 w-full resize-none rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm font-semibold normal-case text-slate-900 outline-none transition focus:border-blue-300 focus:bg-white"
+                  className={`${inputClass} resize-none leading-7`}
                 />
-                <span className="mt-2 block font-mono text-xs normal-case text-slate-500">
+                <span className="mt-2 block text-xs font-bold text-saas-muted">
                   {form.goal.trim().length}/{minDetailLength}
                 </span>
               </label>
@@ -345,27 +366,53 @@ export default function WorkWithMePage() {
               <button
                 type="submit"
                 disabled={!isReady}
-                className="inline-flex items-center justify-center rounded-md bg-blue-700 px-6 py-4 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-400 disabled:text-slate-100 sm:col-span-2"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-saas-green px-6 py-4 text-sm font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong focus-visible:shadow-saas-focus disabled:cursor-not-allowed disabled:bg-saas-line disabled:text-saas-muted sm:col-span-2"
               >
-                <Mail className="mr-2 h-5 w-5" />
+                <Mail className="h-5 w-5" />
                 {copy.send}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="h-5 w-5" />
               </button>
             </div>
           </form>
 
-          <aside className="rounded-md border border-slate-200 bg-[#0f172a] p-6 text-white shadow-[0_18px_50px_rgba(15,23,42,0.12)]">
-            <PanelHeader title={copy.preview} badge="mailto" />
-            <div className="mb-4 flex items-center gap-3 rounded-md border border-white/10 bg-white/5 p-3 text-sm font-semibold text-slate-200">
-              <ClipboardList className="h-5 w-5 text-blue-300" />
-              <span>{form.projectType}</span>
-            </div>
-            <pre className="max-h-[720px] overflow-auto whitespace-pre-wrap rounded-md border border-white/10 bg-black/20 p-4 font-mono text-sm leading-7 text-slate-200">
-              {emailBody}
-            </pre>
-          </aside>
-        </section>
-      </div>
+          <div className="grid gap-5 content-start">
+            <SaasCard tone={isReady ? 'mint' : 'cream'} className="rounded-[24px] p-6">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.intakeTitle}</p>
+              <div className="mt-5 flex items-start gap-3">
+                {isReady ? <CheckCircle2 className="mt-1 h-6 w-6 shrink-0 text-saas-green" /> : <AlertCircle className="mt-1 h-6 w-6 shrink-0 text-amber-700" />}
+                <div>
+                  <p className="text-xl font-black leading-tight text-saas-ink">{isReady ? copy.ready : copy.incomplete}</p>
+                  {submitted && !isReady && (
+                    <ul className="mt-4 grid gap-2 text-sm font-bold leading-6 text-saas-muted">
+                      {validationErrors.map((error) => (
+                        <li key={error}>- {error}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </SaasCard>
+
+            <aside className="rounded-[24px] border border-saas-ink bg-saas-ink p-5 text-white shadow-saas-md sm:p-6">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{copy.preview}</p>
+                  <p className="mt-2 text-sm font-bold text-white/70">mailto:{profileCommon.email}</p>
+                </div>
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-saas-mint">
+                  <ClipboardList className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="mt-5 rounded-[14px] border border-white/12 bg-white/7 p-3 text-sm font-bold text-white/78">
+                {form.projectType} · {form.timeline}
+              </div>
+              <pre className="mt-4 max-h-[580px] overflow-auto whitespace-pre-wrap rounded-[14px] border border-white/12 bg-black/20 p-4 font-mono text-sm leading-7 text-white/82">
+                {emailBody}
+              </pre>
+            </aside>
+          </div>
+        </div>
+      </SaasSection>
     </main>
   )
 }
