@@ -4,13 +4,17 @@ import {
   ArrowRight,
   Bot,
   Boxes,
+  CheckCircle2,
   Code2,
+  Command,
   ExternalLink,
+  Globe2,
   Layers3,
   Mail,
   MapPin,
   Search,
   ShieldCheck,
+  Sparkles,
   Store,
 } from 'lucide-react'
 import { profile, profileCommon, projects, skills } from '@/data/portfolio'
@@ -25,9 +29,19 @@ type LocalCopy = {
   heroBody: string
   primaryCta: string
   secondaryCta: string
-  profileEyebrow: string
-  profileTags: string[]
-  noteCards: Array<{ title: string; body: string; icon: typeof Code2 }>
+  heroTrust: Array<{ label: string; value: string; icon: typeof Code2 }>
+  workflowPanel: {
+    eyebrow: string
+    title: string
+    subtitle: string
+    command: string
+    activeLabel: string
+    pathLabel: string
+    statusLabel: string
+    steps: Array<{ title: string; body: string; icon: typeof Code2; tone: 'green' | 'blue' | 'violet' | 'coral' }>
+    outputs: Array<{ label: string; value: string }>
+    footer: string
+  }
   selectedEyebrow: string
   selectedTitle: string
   selectedSubtitle: string
@@ -52,26 +66,59 @@ type LocalCopy = {
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
-    heroEyebrow: 'Developer portfolio',
-    heroTitle: 'Full-stack developer building useful web apps and AI-assisted tools.',
+    heroEyebrow: 'AI automation systems builder',
+    heroTitle: 'Build public-safe demos and internal tools that feel product-ready.',
     heroBody:
-      'I design and ship practical interfaces, internal systems, and public-safe demos with Next.js, TypeScript, and AI-assisted workflows as a supporting edge.',
-    primaryCta: 'View work',
+      'I turn rough workflows into clean SaaS-style interfaces, typed Next.js systems, and AI-assisted operating tools that are easy to review, demo, and hand off.',
+    primaryCta: 'View selected work',
     secondaryCta: 'Explore demos',
-    profileEyebrow: 'Builder profile',
-    profileTags: ['Full-stack apps', 'Interactive demos', 'Internal tools', 'AI-assisted systems'],
-    noteCards: [
-      {
-        title: 'Product-minded UI',
-        body: 'Clean SaaS-style sections, responsive cards, and routes that are easy to scan.',
-        icon: Layers3,
-      },
-      {
-        title: 'Build-ready systems',
-        body: 'Typed frontends, API-aware composition, stateful demos, and verification before handoff.',
-        icon: Code2,
-      },
+    heroTrust: [
+      { label: 'Demos', value: 'Public-safe surfaces', icon: ShieldCheck },
+      { label: 'Locale', value: 'English + Thai', icon: Globe2 },
+      { label: 'Stack', value: 'Next.js + TypeScript', icon: Code2 },
+      { label: 'Workflow', value: 'AI-assisted delivery', icon: Sparkles },
     ],
+    workflowPanel: {
+      eyebrow: 'Mock product workflow',
+      title: 'Assistant Ops Studio',
+      subtitle: 'Fictional panel showing how briefs become demo-ready systems.',
+      command: 'Prepare a public demo from a sanitized workflow brief',
+      activeLabel: 'Demo build plan',
+      pathLabel: '4-step delivery path',
+      statusLabel: 'Ready for review',
+      steps: [
+        {
+          title: 'Capture the brief',
+          body: 'Goal, audience, constraints, and public-safe boundaries.',
+          icon: Command,
+          tone: 'green',
+        },
+        {
+          title: 'Shape the interface',
+          body: 'Product section, typed state, responsive review path.',
+          icon: Layers3,
+          tone: 'blue',
+        },
+        {
+          title: 'Assist the workflow',
+          body: 'Draft, compare, and refine with AI as a supporting layer.',
+          icon: Bot,
+          tone: 'violet',
+        },
+        {
+          title: 'Verify the handoff',
+          body: 'Build checks, safe copy review, and concise delivery notes.',
+          icon: CheckCircle2,
+          tone: 'coral',
+        },
+      ],
+      outputs: [
+        { label: 'Data mode', value: 'Fictional or sanitized' },
+        { label: 'Surface', value: 'Demo route + workflow panel' },
+        { label: 'Review', value: 'Build, lint, typecheck' },
+      ],
+      footer: 'No private routes, secrets, or operational internals shown.',
+    },
     selectedEyebrow: 'Selected work',
     selectedTitle: 'Projects that show the range.',
     selectedSubtitle:
@@ -111,26 +158,59 @@ const localCopy: Record<Language, LocalCopy> = {
     result: 'Result',
   },
   th: {
-    heroEyebrow: 'Developer portfolio',
-    heroTitle: 'Full-stack developer ที่สร้างเว็บแอปและเครื่องมือ AI-assisted ที่ใช้งานได้จริง',
+    heroEyebrow: 'AI automation systems builder',
+    heroTitle: 'สร้าง demo และ internal tools ที่ public-safe และดูพร้อมใช้แบบ product',
     heroBody:
-      'ผมออกแบบและพัฒนา interface, internal system และ demo ที่เปิด public ได้ ด้วย Next.js, TypeScript และใช้ AI-assisted workflow เป็นจุดเสริมของงาน',
-    primaryCta: 'ดูผลงาน',
+      'ผมเปลี่ยน workflow ที่ยังดิบให้เป็น interface สไตล์ SaaS, ระบบ Next.js ที่ typed ชัดเจน และเครื่องมือ AI-assisted ที่รีวิว demo และส่งต่อได้ง่าย',
+    primaryCta: 'ดูผลงานที่เลือกไว้',
     secondaryCta: 'ดู demos',
-    profileEyebrow: 'Builder profile',
-    profileTags: ['Full-stack apps', 'Interactive demos', 'Internal tools', 'AI-assisted systems'],
-    noteCards: [
-      {
-        title: 'UI แบบ product',
-        body: 'Section สไตล์ SaaS ที่อ่านง่าย card responsive และ route ที่ scan ได้เร็ว',
-        icon: Layers3,
-      },
-      {
-        title: 'ระบบที่พร้อม build ต่อ',
-        body: 'Typed frontend, การจัดวางที่คิดถึง API, demo ที่มี state และตรวจ build ก่อนส่งต่อ',
-        icon: Code2,
-      },
+    heroTrust: [
+      { label: 'Demos', value: 'Public-safe', icon: ShieldCheck },
+      { label: 'ภาษา', value: 'อังกฤษ + ไทย', icon: Globe2 },
+      { label: 'Stack', value: 'Next.js + TypeScript', icon: Code2 },
+      { label: 'Workflow', value: 'AI-assisted delivery', icon: Sparkles },
     ],
+    workflowPanel: {
+      eyebrow: 'Mock product workflow',
+      title: 'Assistant Ops Studio',
+      subtitle: 'Panel สมมติที่โชว์วิธีเปลี่ยน brief ให้เป็นระบบ demo-ready',
+      command: 'เตรียม public demo จาก workflow brief ที่ sanitize แล้ว',
+      activeLabel: 'Demo build plan',
+      pathLabel: 'เส้นทางส่งมอบ 4 ขั้น',
+      statusLabel: 'พร้อม review',
+      steps: [
+        {
+          title: 'เก็บ brief',
+          body: 'เป้าหมาย ผู้ใช้ constraints และขอบเขต public-safe',
+          icon: Command,
+          tone: 'green',
+        },
+        {
+          title: 'วาง interface',
+          body: 'Product section, typed state และ responsive review path',
+          icon: Layers3,
+          tone: 'blue',
+        },
+        {
+          title: 'เสริม workflow ด้วย AI',
+          body: 'Draft, compare และ refine โดยใช้ AI เป็นตัวช่วย',
+          icon: Bot,
+          tone: 'violet',
+        },
+        {
+          title: 'ตรวจ handoff',
+          body: 'Build checks, safe copy review และ delivery notes ที่กระชับ',
+          icon: CheckCircle2,
+          tone: 'coral',
+        },
+      ],
+      outputs: [
+        { label: 'Data mode', value: 'Fictional or sanitized' },
+        { label: 'Surface', value: 'Demo route + workflow panel' },
+        { label: 'Review', value: 'Build, lint, typecheck' },
+      ],
+      footer: 'ไม่โชว์ private routes, secrets หรือ operational internals',
+    },
     selectedEyebrow: 'Selected work',
     selectedTitle: 'โปรเจกต์ที่โชว์ range ของงาน',
     selectedSubtitle:
@@ -196,67 +276,153 @@ export function SaasHome() {
 function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof profileCommon }) {
   return (
     <section id="home" className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24">
-      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-saas-mint/60 to-transparent" aria-hidden />
-      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:px-8 lg:py-24">
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-saas-mint/55 via-white/45 to-transparent" aria-hidden />
+      <div className="absolute inset-y-16 right-0 hidden w-1/3 bg-gradient-to-l from-saas-lilac/40 to-transparent lg:block" aria-hidden />
+      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:items-center lg:gap-12 lg:px-8 lg:py-24">
         <StaggerContainer className="relative min-w-0" delayChildren={0.05} staggerChildren={0.07}>
           <MotionCard>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{c.heroEyebrow}</p>
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-saas-line bg-white/80 px-3 py-2 text-xs font-black text-saas-green shadow-saas-sm backdrop-blur">
+              <Sparkles className="h-4 w-4 shrink-0 text-saas-green" />
+              <span className="break-words">{c.heroEyebrow}</span>
+            </div>
           </MotionCard>
           <MotionCard>
-            <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.95] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-full text-balance break-words text-4xl font-black leading-[0.98] text-saas-ink sm:max-w-4xl sm:text-6xl lg:text-7xl">
               {c.heroTitle}
             </h1>
           </MotionCard>
           <MotionCard>
-            <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{c.heroBody}</p>
+            <p className="mt-6 max-w-full break-words text-base font-semibold leading-8 text-saas-muted sm:max-w-2xl sm:text-lg">{c.heroBody}</p>
           </MotionCard>
           <MotionCard>
             <div className="mt-9 flex flex-wrap gap-3">
-              <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />}>
+              <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />} className="min-h-12 px-6">
                 {c.primaryCta}
               </SaasButton>
-              <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
+              <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />} className="min-h-12 px-6">
                 {c.secondaryCta}
               </SaasButton>
             </div>
           </MotionCard>
+          <MotionCard>
+            <div className="mt-9 grid max-w-2xl gap-3 sm:grid-cols-2">
+              {c.heroTrust.map((item) => {
+                const Icon = item.icon
+                return (
+                  <div key={item.label} className="flex min-w-0 items-start gap-3 rounded-[14px] border border-saas-line bg-white/78 p-3 shadow-saas-sm backdrop-blur">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-saas-mint text-saas-green">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[11px] font-black uppercase text-saas-muted">{item.label}</span>
+                      <span className="mt-0.5 block break-words text-sm font-black leading-5 text-saas-ink">{item.value}</span>
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          </MotionCard>
         </StaggerContainer>
 
-        <div className="relative grid min-w-0 gap-4 self-end">
-          <SaasCard tone="dark" className="rounded-[24px] p-6 sm:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.profileEyebrow}</p>
-                <h2 className="mt-4 break-words text-3xl font-black leading-tight">{data.name}</h2>
-              </div>
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-white/10">
-                <Code2 className="h-7 w-7 text-saas-mint" />
-              </div>
-            </div>
-            <p className="mt-5 text-base leading-7 text-white/72">{data.title}</p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              {[...c.profileTags, data.location].map((item) => (
-                <div key={item} className="rounded-[10px] border border-white/12 bg-white/7 px-3 py-2 text-sm font-bold text-white/82">
-                  {item}
-                </div>
-              ))}
-            </div>
-          </SaasCard>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {c.noteCards.map((item) => {
-              const Icon = item.icon
-              return (
-                <SaasCard key={item.title} tone="mint">
-                  <Icon className="h-5 w-5 text-saas-green" />
-                  <p className="mt-3 text-sm font-black">{item.title}</p>
-                  <p className="mt-1 text-sm leading-6 text-saas-muted">{item.body}</p>
-                </SaasCard>
-              )
-            })}
+        <FadeUp className="relative min-w-0">
+          <MockWorkflowPanel c={c} title={data.title} />
+        </FadeUp>
+      </div>
+    </section>
+  )
+}
+
+const workflowToneClass = {
+  green: 'bg-saas-mint text-saas-green',
+  blue: 'bg-blue-50 text-saas-blue',
+  violet: 'bg-saas-lilac/70 text-violet-700',
+  coral: 'bg-saas-coral/55 text-rose-700',
+}
+
+function MockWorkflowPanel({ c, title }: { c: LocalCopy; title: string }) {
+  return (
+    <SaasCard className="rounded-[24px] border-saas-ink/10 bg-white/90 p-0 shadow-saas-md backdrop-blur">
+      <div className="border-b border-saas-line bg-saas-surface-soft/80 px-4 py-3 sm:px-5">
+        <div className="flex min-w-0 items-center justify-between gap-3">
+          <div className="flex shrink-0 items-center gap-1.5" aria-hidden>
+            <span className="h-3 w-3 rounded-full bg-saas-coral" />
+            <span className="h-3 w-3 rounded-full bg-saas-cream" />
+            <span className="h-3 w-3 rounded-full bg-saas-mint" />
+          </div>
+          <div className="min-w-0 rounded-full border border-saas-line bg-white px-3 py-1.5 text-center text-xs font-black text-saas-muted shadow-saas-sm">
+            <span className="block truncate">{c.workflowPanel.title}</span>
           </div>
         </div>
       </div>
-    </section>
+
+      <div className="grid gap-0 lg:grid-cols-[0.78fr_1.22fr]">
+        <aside className="border-b border-saas-line bg-saas-ink p-5 text-white lg:border-b-0 lg:border-r">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.workflowPanel.eyebrow}</p>
+          <h2 className="mt-4 break-words text-2xl font-black leading-tight sm:text-3xl">{c.workflowPanel.title}</h2>
+          <p className="mt-4 text-sm font-semibold leading-7 text-white/70">{c.workflowPanel.subtitle}</p>
+
+          <div className="mt-6 rounded-[16px] border border-white/12 bg-white/8 p-4">
+            <div className="flex items-start gap-3">
+              <Command className="mt-0.5 h-5 w-5 shrink-0 text-saas-mint" />
+              <p className="text-sm font-bold leading-6 text-white/82">{c.workflowPanel.command}</p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-2">
+            {[title, c.workflowPanel.footer].map((item) => (
+              <div key={item} className="flex items-start gap-2 text-xs font-bold leading-5 text-white/62">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-saas-mint" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        <div className="p-4 sm:p-5">
+          <div className="rounded-[18px] border border-saas-line bg-saas-bg p-3 shadow-saas-sm sm:p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-black uppercase text-saas-muted">{c.workflowPanel.activeLabel}</p>
+                <p className="mt-1 text-sm font-black text-saas-ink">{c.workflowPanel.pathLabel}</p>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-black text-saas-green shadow-saas-sm">
+                <span className="h-2 w-2 rounded-full bg-saas-green" />
+                {c.workflowPanel.statusLabel}
+              </span>
+            </div>
+
+            <div className="mt-4 grid gap-3">
+              {c.workflowPanel.steps.map((step, index) => {
+                const Icon = step.icon
+                return (
+                  <div key={step.title} className="grid gap-3 rounded-[14px] border border-saas-line bg-white p-3 sm:grid-cols-[auto_1fr]">
+                    <span className={`flex h-10 w-10 items-center justify-center rounded-[12px] ${workflowToneClass[step.tone]}`}>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-saas-surface-soft px-2 py-1 text-[11px] font-black text-saas-muted">0{index + 1}</span>
+                        <h3 className="break-words text-sm font-black text-saas-ink">{step.title}</h3>
+                      </div>
+                      <p className="mt-1 break-words text-sm font-semibold leading-6 text-saas-muted">{step.body}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {c.workflowPanel.outputs.map((item) => (
+              <div key={item.label} className="rounded-[14px] border border-saas-line bg-white p-3 shadow-saas-sm">
+                <p className="text-[11px] font-black uppercase text-saas-muted">{item.label}</p>
+                <p className="mt-2 break-words text-sm font-black leading-5 text-saas-ink">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </SaasCard>
   )
 }
 
