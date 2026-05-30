@@ -45,6 +45,9 @@ type LocalCopy = {
   selectedEyebrow: string
   selectedTitle: string
   selectedSubtitle: string
+  featuredLabel: string
+  supportingLabel: string
+  safeDemoLabel: string
   demosEyebrow: string
   demosTitle: string
   demosSubtitle: string
@@ -120,9 +123,12 @@ const localCopy: Record<Language, LocalCopy> = {
       footer: 'No private routes, secrets, or operational internals shown.',
     },
     selectedEyebrow: 'Selected work',
-    selectedTitle: 'Projects that show the range.',
+    selectedTitle: 'Three public-safe case studies, shaped like product proof.',
     selectedSubtitle:
-      'A short scan of shipped systems, assistant tools, internal dashboards, and product-style demos using the existing portfolio data.',
+      'A curated view of assistant systems, operational workflows, and knowledge tooling. Each card keeps the story clear: problem, build, and result.',
+    featuredLabel: 'Featured system',
+    supportingLabel: 'Case study',
+    safeDemoLabel: 'Public-safe demo',
     demosEyebrow: 'Interactive demos',
     demosTitle: 'Public-safe demos you can open and inspect.',
     demosSubtitle:
@@ -212,9 +218,12 @@ const localCopy: Record<Language, LocalCopy> = {
       footer: 'ไม่โชว์ private routes, secrets หรือ operational internals',
     },
     selectedEyebrow: 'Selected work',
-    selectedTitle: 'โปรเจกต์ที่โชว์ range ของงาน',
+    selectedTitle: 'สาม case study แบบ public-safe ที่อ่านเหมือน product proof',
     selectedSubtitle:
-      'สรุปสั้นๆ จากข้อมูล portfolio เดิม ทั้งระบบที่ ship แล้ว assistant tools, internal dashboards และ demo แบบ product-style',
+      'คัดงาน assistant systems, operational workflows และ knowledge tooling ให้เห็นเรื่องหลักชัดเจน: ปัญหา สิ่งที่สร้าง และผลลัพธ์',
+    featuredLabel: 'Featured system',
+    supportingLabel: 'Case study',
+    safeDemoLabel: 'Public-safe demo',
     demosEyebrow: 'Interactive demos',
     demosTitle: 'Demo แบบ public-safe ที่เปิดดูและ inspect ได้',
     demosSubtitle:
@@ -245,9 +254,9 @@ const localCopy: Record<Language, LocalCopy> = {
     openDemo: 'เปิด demo',
     viewDemos: 'ดู demos ทั้งหมด',
     viewWork: 'ดูผลงานที่เลือกไว้',
-    problem: 'Problem',
-    built: 'Built',
-    result: 'Result',
+    problem: 'ปัญหา',
+    built: 'สิ่งที่สร้าง',
+    result: 'ผลลัพธ์',
   },
 }
 
@@ -259,7 +268,7 @@ export function SaasHome() {
   const lang = language as Language
   const c = localCopy[lang]
   const data = { ...profile[lang], ...profileCommon }
-  const selectedProjects = projects[lang].slice(0, 4)
+  const selectedProjects = projects[lang].slice(0, 3)
   const demoProjects = projects[lang].filter((project) => project.demo).slice(0, 3)
 
   return (
@@ -427,23 +436,30 @@ function MockWorkflowPanel({ c, title }: { c: LocalCopy; title: string }) {
 }
 
 function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; projects: Project[] }) {
+  const [featuredProject, ...supportingProjects] = selectedProjects
+
   return (
-    <SaasSection id="work" className="bg-white/55">
+    <SaasSection id="work" className="bg-white/60" wide>
       <SaasHeader
         eyebrow={c.selectedEyebrow}
         title={c.selectedTitle}
         subtitle={c.selectedSubtitle}
         align="split"
         rightSlot={
-          <SaasButton href="/#work" variant="secondary">
-            {c.viewWork}
+          <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
+            {c.viewDemos}
           </SaasButton>
         }
       />
-      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-2">
-        {selectedProjects.map((project) => (
-          <MotionCard key={project.id}>
-            <ProjectCard project={project} c={c} />
+      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+        {featuredProject && (
+          <MotionCard className="min-w-0 lg:row-span-2">
+            <ProjectCard project={featuredProject} c={c} variant="featured" />
+          </MotionCard>
+        )}
+        {supportingProjects.map((project) => (
+          <MotionCard key={project.id} className="min-w-0">
+            <ProjectCard project={project} c={c} variant="supporting" />
           </MotionCard>
         ))}
       </StaggerContainer>
@@ -451,40 +467,71 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
   )
 }
 
-function ProjectCard({ project, c }: { project: Project; c: LocalCopy }) {
+function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; variant: 'featured' | 'supporting' }) {
+  const isFeatured = variant === 'featured'
+  const actionHref = project.demo ?? '/demos'
+  const caseStudyRows = project.caseStudy
+    ? [
+        { label: c.problem, value: project.caseStudy.problem },
+        { label: c.built, value: project.caseStudy.built },
+        { label: c.result, value: project.caseStudy.result },
+      ]
+    : []
+
   return (
-    <SaasCard hover className="flex min-h-full flex-col rounded-[24px] p-6 sm:p-7">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
-          <h3 className="mt-3 break-words text-2xl font-black leading-tight text-saas-ink">{project.title}</h3>
-        </div>
-        <span className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">{project.date}</span>
-      </div>
-      <p className="mt-4 text-sm leading-7 text-saas-muted">{project.description}</p>
-      {project.caseStudy && (
-        <div className="mt-5 grid gap-3">
-          {[
-            [c.problem, project.caseStudy.problem],
-            [c.built, project.caseStudy.built],
-            [c.result, project.caseStudy.result],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-[10px] bg-saas-surface-soft p-3">
-              <p className="text-[11px] font-black uppercase tracking-[0.14em] text-saas-green">{label}</p>
-              <p className="mt-1 text-sm leading-6 text-saas-muted">{value}</p>
-            </div>
-          ))}
-        </div>
-      )}
-      <div className="mt-5 flex flex-wrap gap-2">
-        {project.tech.slice(0, 3).map((tech) => (
-          <span key={tech} className="rounded-full border border-saas-line bg-white px-3 py-1 text-xs font-black text-saas-muted">
-            {tech}
+    <SaasCard
+      hover
+      className={`relative flex min-h-full flex-col rounded-[24px] p-0 ${
+        isFeatured ? 'border-saas-ink/10 bg-white shadow-saas-md' : 'bg-white/92'
+      }`}
+    >
+      <div className={`${isFeatured ? 'p-6 sm:p-8 lg:p-9' : 'p-6 sm:p-7'}`}>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-1.5 text-[11px] font-black text-saas-green">
+            <span className="h-1.5 w-1.5 rounded-full bg-saas-green" />
+            {isFeatured ? c.featuredLabel : c.supportingLabel}
           </span>
-        ))}
+          <span className="rounded-full border border-saas-line bg-white px-3 py-1.5 text-xs font-black text-saas-muted">{project.date}</span>
+        </div>
+
+        <div className={isFeatured ? 'mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(260px,0.7fr)]' : 'mt-6'}>
+          <div className="min-w-0">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+            <h3 className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'} mt-3 break-words font-black leading-tight text-saas-ink`}>
+              {project.title}
+            </h3>
+            <p className={`${isFeatured ? 'text-base leading-8' : 'text-sm leading-7'} mt-4 text-saas-muted`}>{project.description}</p>
+          </div>
+
+          <div className={`${isFeatured ? 'lg:border-l lg:border-saas-line lg:pl-6' : 'mt-5'} min-w-0`}>
+            <p className="text-[11px] font-black uppercase tracking-[0.14em] text-saas-muted">{c.safeDemoLabel}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {project.tech.slice(0, isFeatured ? 4 : 3).map((tech) => (
+                <span key={tech} className="rounded-full border border-saas-line bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {caseStudyRows.length > 0 && (
+          <dl className={`${isFeatured ? 'mt-8 grid gap-5 lg:grid-cols-3' : 'mt-6 divide-y divide-saas-line border-y border-saas-line'}`}>
+            {caseStudyRows.map((row, index) => (
+              <div key={row.label} className={isFeatured ? 'min-w-0' : 'py-4 first:pt-0 last:pb-0'}>
+                <dt className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-saas-green">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-saas-mint text-[10px]">{index + 1}</span>
+                  {row.label}
+                </dt>
+                <dd className="mt-2 break-words text-sm font-semibold leading-6 text-saas-muted">{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
-      <div className="mt-auto pt-6">
-        <SaasButton href={project.demo} variant="ghost" icon={<ArrowRight className="h-4 w-4" />}>
+
+      <div className="mt-auto border-t border-saas-line px-6 py-5 sm:px-7 lg:px-9">
+        <SaasButton href={actionHref} variant={isFeatured ? 'primary' : 'ghost'} icon={<ArrowRight className="h-4 w-4" />}>
           {c.openDemo}
         </SaasButton>
       </div>
