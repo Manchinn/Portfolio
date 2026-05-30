@@ -19,7 +19,7 @@ The parent folder contains project-level docs. Work from this `frontend` folder 
 - Stack: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
 - Production: Vercel auto-deploys from `master`
 - Public site: portfolio, bilingual EN/TH content, public demo pages, prompt redirect surface, lead-capture page
-- Legacy admin/CMS surface was removed (see history). Only the `/api/prompts/*` feed remains as legacy.
+- Legacy admin/CMS and prompts API surfaces were removed (see history).
 
 ## Hard Rules
 
@@ -39,10 +39,6 @@ src/i18n/locales/th.json           Thai UI copy
 src/app/(portfolio)/page.tsx       Main portfolio page
 src/app/(portfolio)/demos/         Public demo pages
 src/app/(portfolio)/work-with-me/  Lead capture page
-src/app/api/prompts/*              Prompts feed for external prompts site
-src/lib/prompt-store.ts            Vercel Blob backing store for prompts feed
-src/lib/github.ts                  GitHub API helper (repo cards)
-src/middleware.ts                  ADMIN_TOKEN gate for /api/prompts/* writes
 next.config.ts                     /prompts and /prompts/* redirect to prompts.chinnakrit.dev
 ```
 
@@ -87,24 +83,19 @@ Recently completed cleanup (May 2026):
 - Removed orphan content pipeline: `src/app/api/content/*`, `src/lib/content-store.ts`, `src/lib/social.ts`, `src/lib/claude.ts`.
 - Removed `src/app/api/prompts/generate/` and `src/lib/prompt-generator.ts` (no UI consumer).
 - Removed hidden `/admin/prompts` link from `src/components/layout/Footer.tsx`.
-- `src/middleware.ts` simplified — matcher only on `/api/prompts/:path*`, still requires `ADMIN_TOKEN` for non-GET.
+- Removed `src/app/api/prompts/*`, `src/lib/prompt-store.ts`, and `src/middleware.ts` after confirming `prompts.chinnakrit.dev` no longer reads `/api/prompts/*`.
+- Removed `ADMIN_TOKEN` and `BLOB_READ_WRITE_TOKEN` from the local env example; no runtime env vars are required right now.
 
-Remaining legacy surface (kept intentionally):
-
-- `src/app/api/prompts/` GET/POST/DELETE — external `prompts.chinnakrit.dev` likely consumes the GET feed; POST/DELETE are protected by middleware. Do not delete without confirming the external site's coupling.
-- `src/lib/prompt-store.ts` — backing store for the prompts feed above.
-- `ADMIN_TOKEN` env var on Vercel — still required by middleware.
-
-Likely-unused env vars on Vercel (safe to remove after confirming nothing else uses them):
+Removed from repo config after confirming no source references:
 
 - `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `DASHSCOPE_API_KEY`, `GOOGLE_AI_API_KEY` — no AI gen code remains in this repo.
 - `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_USERNAME` — Threads publisher removed.
+- `GITHUB_TOKEN` — old GitHub prompt helper removed.
+- `ADMIN_TOKEN`, `BLOB_READ_WRITE_TOKEN` — prompts API and Vercel Blob store removed.
 
 Next recommended tasks (pick based on user intent):
 
-1. Confirm whether `prompts.chinnakrit.dev` actually reads `/api/prompts/*`. If not, delete `src/app/api/prompts/`, `src/lib/prompt-store.ts`, and `src/middleware.ts` (and drop `ADMIN_TOKEN`).
-2. Prune unused env vars listed above from Vercel project settings.
-3. Update `.env.example` to match the trimmed env surface.
+1. Prune unused env vars listed above from Vercel project settings.
 
 Verification gate after any code change:
 
