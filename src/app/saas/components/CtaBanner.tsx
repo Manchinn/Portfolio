@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function CtaBanner() {
   return (
@@ -11,19 +12,19 @@ export default function CtaBanner() {
           หน้านี้เป็น demo สำหรับโชว์วิธีเปลี่ยน pain point ของทีมให้กลายเป็น product page ที่เข้าใจง่าย
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+          <Link
             href="/work-with-me"
             className="inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-indigo-50 transition-colors shadow-lg"
           >
             คุยเรื่อง workflow
             <ArrowRight className="w-5 h-5" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#projects"
             className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/10 transition-colors"
           >
             กลับไปดู Projects
-          </a>
+          </Link>
         </div>
         <p className="mt-6 text-indigo-200 text-sm">
           Public-safe prototype. No private systems, credentials, or customer data are exposed.

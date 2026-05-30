@@ -16,6 +16,7 @@ import {
 import { profile, profileCommon, projects, skills } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
+import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasCard, SaasHeader, SaasSection } from './_shared'
 
 type LocalCopy = {
@@ -197,21 +198,29 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
     <section id="home" className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24">
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-saas-mint/60 to-transparent" aria-hidden />
       <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)] lg:px-8 lg:py-24">
-        <div className="relative min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{c.heroEyebrow}</p>
-          <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.95] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
-            {c.heroTitle}
-          </h1>
-          <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{c.heroBody}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />}>
-              {c.primaryCta}
-            </SaasButton>
-            <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
-              {c.secondaryCta}
-            </SaasButton>
-          </div>
-        </div>
+        <StaggerContainer className="relative min-w-0" delayChildren={0.05} staggerChildren={0.07}>
+          <MotionCard>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{c.heroEyebrow}</p>
+          </MotionCard>
+          <MotionCard>
+            <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.95] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
+              {c.heroTitle}
+            </h1>
+          </MotionCard>
+          <MotionCard>
+            <p className="mt-6 max-w-full break-words text-lg leading-8 text-saas-muted sm:max-w-2xl">{c.heroBody}</p>
+          </MotionCard>
+          <MotionCard>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />}>
+                {c.primaryCta}
+              </SaasButton>
+              <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
+                {c.secondaryCta}
+              </SaasButton>
+            </div>
+          </MotionCard>
+        </StaggerContainer>
 
         <div className="relative grid min-w-0 gap-4 self-end">
           <SaasCard tone="dark" className="rounded-[24px] p-6 sm:p-8">
@@ -265,11 +274,13 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
           </SaasButton>
         }
       />
-      <div className="mt-12 grid gap-5 lg:grid-cols-2">
+      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-2">
         {selectedProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} c={c} />
+          <MotionCard key={project.id}>
+            <ProjectCard project={project} c={c} />
+          </MotionCard>
         ))}
-      </div>
+      </StaggerContainer>
     </SaasSection>
   )
 }
@@ -368,42 +379,46 @@ function StackSection({
   return (
     <SaasSection id="stack">
       <SaasHeader eyebrow={c.stackEyebrow} title={c.stackTitle} subtitle={c.stackSubtitle} align="center" />
-      <div className="mt-12 grid gap-5 lg:grid-cols-3">
+      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-3">
         {visibleGroups.map((group) => (
-          <SaasCard key={group.heading} className="rounded-[24px] p-6">
-            <h3 className="text-lg font-black">{group.heading}</h3>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {group.items.slice(0, 6).map((item) => (
-                <span key={item} className="rounded-full border border-saas-line bg-white px-3 py-1.5 text-xs font-black text-saas-muted">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </SaasCard>
-        ))}
-      </div>
-      <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {compactSkills.map((group, index) => {
-          const Icon = stackIcons[index] ?? Boxes
-          return (
-            <SaasCard key={group.category} hover className="p-5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-saas-mint text-saas-green">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-base font-black">{group.category}</h3>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {group.items.slice(0, 3).map((item) => (
-                  <span key={item.name} className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
-                    {item.name}
+          <MotionCard key={group.heading}>
+            <SaasCard className="rounded-[24px] p-6">
+              <h3 className="text-lg font-black">{group.heading}</h3>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {group.items.slice(0, 6).map((item) => (
+                  <span key={item} className="rounded-full border border-saas-line bg-white px-3 py-1.5 text-xs font-black text-saas-muted">
+                    {item}
                   </span>
                 ))}
               </div>
             </SaasCard>
+          </MotionCard>
+        ))}
+      </StaggerContainer>
+      <StaggerContainer className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4" delayChildren={0.05}>
+        {compactSkills.map((group, index) => {
+          const Icon = stackIcons[index] ?? Boxes
+          return (
+            <MotionCard key={group.category}>
+              <SaasCard hover className="p-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-saas-mint text-saas-green">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-base font-black">{group.category}</h3>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.items.slice(0, 3).map((item) => (
+                    <span key={item.name} className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
+                      {item.name}
+                    </span>
+                  ))}
+                </div>
+              </SaasCard>
+            </MotionCard>
           )
         })}
-      </div>
+      </StaggerContainer>
     </SaasSection>
   )
 }
@@ -411,7 +426,7 @@ function StackSection({
 function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
   return (
     <SaasSection id="contact" className="pb-24">
-      <div className="rounded-[24px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
+      <FadeUp className="rounded-[24px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.contactEyebrow}</p>
         <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div className="min-w-0">
@@ -432,7 +447,7 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
             {c.contactCta}
           </SaasButton>
         </div>
-      </div>
+      </FadeUp>
     </SaasSection>
   )
 }

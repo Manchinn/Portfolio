@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { Menu, X, Globe, ChevronDown, ArrowRight } from 'lucide-react'
 import { navItems } from '../../../data/portfolio'
 import { useTranslation } from '../../../i18n/useTranslation'
@@ -31,7 +32,7 @@ const Navbar = () => {
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="flex h-18 items-center justify-between gap-4">
           {/* Logo */}
-          <a href="/#home" className="flex min-w-0 items-center gap-3">
+          <Link href="/#home" className="flex min-w-0 items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-saas-ink bg-saas-ink shadow-saas-sm">
               <span className="text-sm font-black text-white">C/</span>
             </div>
@@ -41,7 +42,7 @@ const Navbar = () => {
                 {t('nav.tagline')}
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden items-center gap-2 lg:flex">
