@@ -57,6 +57,10 @@ type LocalCopy = {
   stackEyebrow: string
   stackTitle: string
   stackSubtitle: string
+  builderProfile: {
+    eyebrow: string
+    title: string
+  }
   stackGroups: Array<{ heading: string; items: string[] }>
   contactEyebrow: string
   contactTitle: string
@@ -80,7 +84,7 @@ const localCopy: Record<Language, LocalCopy> = {
     secondaryCta: 'Explore demos',
     reviewerLinks: [
       { label: 'Best demo', value: 'Hermes LINE AI', href: '/demos/hermes-line-assistant', icon: Bot },
-      { label: 'Resume', value: 'Open PDF', href: profileCommon.resume, icon: FileText },
+      { label: 'Resume', value: 'Open resume', href: profileCommon.resume, icon: FileText },
       { label: 'GitHub', value: 'Manchinn', href: 'https://github.com/Manchinn', icon: Github },
       { label: 'Contact', value: 'Email me', href: `mailto:${profileCommon.email}`, icon: Mail },
     ],
@@ -91,45 +95,45 @@ const localCopy: Record<Language, LocalCopy> = {
       { label: 'Workflow', value: 'AI-assisted delivery', icon: Sparkles },
     ],
     workflowPanel: {
-      eyebrow: 'Mock product workflow',
-      title: 'Assistant Ops Studio',
-      subtitle: 'Fictional panel showing how briefs become demo-ready systems.',
-      command: 'Prepare a public demo from a sanitized workflow brief',
-      activeLabel: 'Demo build plan',
-      pathLabel: '4-step delivery path',
-      statusLabel: 'Ready for review',
+      eyebrow: 'Builder dossier',
+      title: 'Chinnakrit Sripan',
+      subtitle: 'Practical AI automation and full-stack systems builder.',
+      command: 'I turn rough workflows into reviewable product surfaces without exposing private systems.',
+      activeLabel: 'Review packet',
+      pathLabel: 'How I approach a build',
+      statusLabel: 'Ready to inspect',
       steps: [
         {
-          title: 'Capture the brief',
-          body: 'Goal, audience, constraints, and public-safe boundaries.',
+          title: 'Find the working edge',
+          body: 'Goal, audience, constraints, and the smallest proof that can be tested.',
           icon: Command,
           tone: 'green',
         },
         {
-          title: 'Shape the interface',
-          body: 'Product section, typed state, responsive review path.',
+          title: 'Shape the surface',
+          body: 'Typed Next.js UI, clear states, and a route reviewers can inspect.',
           icon: Layers3,
           tone: 'blue',
         },
         {
-          title: 'Assist the workflow',
-          body: 'Draft, compare, and refine with AI as a supporting layer.',
+          title: 'Use AI as leverage',
+          body: 'Draft, compare, and refine the workflow while keeping human judgement visible.',
           icon: Bot,
           tone: 'violet',
         },
         {
-          title: 'Verify the handoff',
-          body: 'Build checks, safe copy review, and concise delivery notes.',
+          title: 'Leave proof behind',
+          body: 'Build checks, sanitized copy, and notes that make the work easy to review.',
           icon: CheckCircle2,
           tone: 'coral',
         },
       ],
       outputs: [
-        { label: 'Data mode', value: 'Fictional or sanitized' },
-        { label: 'Surface', value: 'Demo route + workflow panel' },
-        { label: 'Review', value: 'Build, lint, typecheck' },
+        { label: 'Based in', value: 'Thailand' },
+        { label: 'Best fit', value: 'AI automation + full-stack' },
+        { label: 'Proof style', value: 'Sanitized demos' },
       ],
-      footer: 'No private routes, secrets, or operational internals shown.',
+      footer: 'Public work shows the shape of the system, not private routes, secrets, or operational internals.',
     },
     selectedEyebrow: 'Selected work',
     selectedTitle: 'Three public-safe case studies, shaped like product proof.',
@@ -146,6 +150,10 @@ const localCopy: Record<Language, LocalCopy> = {
     stackTitle: 'Tools I use to ship practical products.',
     stackSubtitle:
       'A compact view of the web, app, AI, and operations tools behind the selected work.',
+    builderProfile: {
+      eyebrow: 'Builder profile',
+      title: 'Practical systems, public proof, calm handoff.',
+    },
     stackGroups: [
       {
         heading: 'AI & Models',
@@ -181,7 +189,7 @@ const localCopy: Record<Language, LocalCopy> = {
     secondaryCta: 'ดู demos',
     reviewerLinks: [
       { label: 'Demo หลัก', value: 'Hermes LINE AI', href: '/demos/hermes-line-assistant', icon: Bot },
-      { label: 'Resume', value: 'เปิด PDF', href: profileCommon.resume, icon: FileText },
+      { label: 'Resume', value: 'เปิด resume', href: profileCommon.resume, icon: FileText },
       { label: 'GitHub', value: 'Manchinn', href: 'https://github.com/Manchinn', icon: Github },
       { label: 'Contact', value: 'ส่งอีเมล', href: `mailto:${profileCommon.email}`, icon: Mail },
     ],
@@ -192,45 +200,45 @@ const localCopy: Record<Language, LocalCopy> = {
       { label: 'Workflow', value: 'AI-assisted delivery', icon: Sparkles },
     ],
     workflowPanel: {
-      eyebrow: 'Mock product workflow',
-      title: 'Assistant Ops Studio',
-      subtitle: 'Panel สมมติที่โชว์วิธีเปลี่ยน brief ให้เป็นระบบ demo-ready',
-      command: 'เตรียม public demo จาก workflow brief ที่ sanitize แล้ว',
-      activeLabel: 'Demo build plan',
-      pathLabel: 'เส้นทางส่งมอบ 4 ขั้น',
-      statusLabel: 'พร้อม review',
+      eyebrow: 'Builder dossier',
+      title: 'ชินกฤต ศรีพันธุ์',
+      subtitle: 'AI Automation / Full-stack / Internal Tools builder',
+      command: 'ผมเปลี่ยน workflow ที่ยังดิบให้เป็น product surface ที่ตรวจได้ โดยไม่เปิดระบบ private',
+      activeLabel: 'Review packet',
+      pathLabel: 'วิธีคิดเวลาสร้างงาน',
+      statusLabel: 'พร้อม inspect',
       steps: [
         {
-          title: 'เก็บ brief',
-          body: 'เป้าหมาย ผู้ใช้ constraints และขอบเขต public-safe',
+          title: 'หาแกนงานที่ต้องพิสูจน์',
+          body: 'เป้าหมาย ผู้ใช้ constraints และ proof ที่เล็กพอให้ทดสอบได้',
           icon: Command,
           tone: 'green',
         },
         {
-          title: 'วาง interface',
-          body: 'Product section, typed state และ responsive review path',
+          title: 'วาง surface ให้ตรวจง่าย',
+          body: 'Next.js UI, typed state และ route ที่ reviewer เปิดดูได้',
           icon: Layers3,
           tone: 'blue',
         },
         {
-          title: 'เสริม workflow ด้วย AI',
-          body: 'Draft, compare และ refine โดยใช้ AI เป็นตัวช่วย',
+          title: 'ใช้ AI เป็นแรงเสริม',
+          body: 'Draft, compare และ refine workflow โดยยังเห็น judgement ของคนทำ',
           icon: Bot,
           tone: 'violet',
         },
         {
-          title: 'ตรวจ handoff',
-          body: 'Build checks, safe copy review และ delivery notes ที่กระชับ',
+          title: 'ทิ้ง proof ที่ส่งต่อได้',
+          body: 'Build checks, sanitized copy และ notes ที่ช่วยให้ review ง่าย',
           icon: CheckCircle2,
           tone: 'coral',
         },
       ],
       outputs: [
-        { label: 'Data mode', value: 'Fictional or sanitized' },
-        { label: 'Surface', value: 'Demo route + workflow panel' },
-        { label: 'Review', value: 'Build, lint, typecheck' },
+        { label: 'Based in', value: 'Thailand' },
+        { label: 'Best fit', value: 'AI automation + full-stack' },
+        { label: 'Proof style', value: 'Sanitized demos' },
       ],
-      footer: 'ไม่โชว์ private routes, secrets หรือ operational internals',
+      footer: 'งาน public โชว์รูปทรงของระบบ ไม่โชว์ private routes, secrets หรือ operational internals',
     },
     selectedEyebrow: 'Selected work',
     selectedTitle: 'สาม case study แบบ public-safe ที่อ่านเหมือน product proof',
@@ -247,6 +255,10 @@ const localCopy: Record<Language, LocalCopy> = {
     stackTitle: 'เครื่องมือที่ใช้ ship งานจริง',
     stackSubtitle:
       'สรุป stack ฝั่ง web, app, AI และ operations ที่อยู่เบื้องหลัง selected work',
+    builderProfile: {
+      eyebrow: 'Builder profile',
+      title: 'ระบบที่ใช้ได้จริง, proof ที่เปิดดูได้, handoff ที่ส่งต่อได้',
+    },
     stackGroups: [
       {
         heading: 'AI & Models',
@@ -350,28 +362,10 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
               })}
             </div>
           </MotionCard>
-          <MotionCard>
-            <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-2">
-              {c.heroTrust.map((item) => {
-                const Icon = item.icon
-                return (
-                  <div key={item.label} className="flex min-w-0 items-start gap-3 rounded-[14px] border border-saas-line bg-white/78 p-3 shadow-saas-sm backdrop-blur">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-saas-mint text-saas-green">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-[11px] font-black uppercase text-saas-muted">{item.label}</span>
-                      <span className="mt-0.5 block break-words text-sm font-black leading-5 text-saas-ink">{item.value}</span>
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-          </MotionCard>
         </StaggerContainer>
 
         <FadeUp className="relative min-w-0">
-          <MockWorkflowPanel c={c} title={data.title} />
+          <BuilderDossierPanel c={c} title={data.title} />
         </FadeUp>
       </div>
     </section>
@@ -385,87 +379,67 @@ const workflowToneClass = {
   coral: 'bg-saas-coral/55 text-rose-700',
 }
 
-function MockWorkflowPanel({ c, title }: { c: LocalCopy; title: string }) {
+function BuilderDossierPanel({ c, title }: { c: LocalCopy; title: string }) {
   return (
-    <SaasCard className="rounded-[24px] border-saas-ink/10 bg-white/90 p-0 shadow-saas-md backdrop-blur">
-      <div className="border-b border-saas-line bg-saas-surface-soft/80 px-4 py-3 sm:px-5">
-        <div className="flex min-w-0 items-center justify-between gap-3">
-          <div className="flex shrink-0 items-center gap-1.5" aria-hidden>
-            <span className="h-3 w-3 rounded-full bg-saas-coral" />
-            <span className="h-3 w-3 rounded-full bg-saas-cream" />
-            <span className="h-3 w-3 rounded-full bg-saas-mint" />
+    <SaasCard className="rounded-[24px] border-saas-ink/10 bg-white/92 p-0 shadow-saas-md backdrop-blur">
+      <div className="bg-saas-ink p-5 text-white sm:p-6">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.workflowPanel.eyebrow}</p>
+        <div className="mt-5 flex items-start gap-4">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] border border-white/14 bg-white text-lg font-black text-saas-ink">
+            C/
           </div>
-          <div className="min-w-0 rounded-full border border-saas-line bg-white px-3 py-1.5 text-center text-xs font-black text-saas-muted shadow-saas-sm">
-            <span className="block truncate">{c.workflowPanel.title}</span>
+          <div className="min-w-0">
+            <h2 className="break-words text-2xl font-black leading-tight sm:text-3xl">{c.workflowPanel.title}</h2>
+            <p className="mt-2 break-words text-sm font-semibold leading-6 text-white/72">{title}</p>
           </div>
         </div>
+        <p className="mt-6 text-base font-bold leading-8 text-white/86">{c.workflowPanel.command}</p>
       </div>
 
-      <div className="grid gap-0 lg:grid-cols-[0.78fr_1.22fr]">
-        <aside className="border-b border-saas-line bg-saas-ink p-5 text-white lg:border-b-0 lg:border-r">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.workflowPanel.eyebrow}</p>
-          <h2 className="mt-4 break-words text-2xl font-black leading-tight sm:text-3xl">{c.workflowPanel.title}</h2>
-          <p className="mt-4 text-sm font-semibold leading-7 text-white/70">{c.workflowPanel.subtitle}</p>
-
-          <div className="mt-6 rounded-[16px] border border-white/12 bg-white/8 p-4">
-            <div className="flex items-start gap-3">
-              <Command className="mt-0.5 h-5 w-5 shrink-0 text-saas-mint" />
-              <p className="text-sm font-bold leading-6 text-white/82">{c.workflowPanel.command}</p>
-            </div>
+      <div className="p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-saas-line pb-4">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.12em] text-saas-muted">{c.workflowPanel.activeLabel}</p>
+            <p className="mt-1 text-sm font-black text-saas-ink">{c.workflowPanel.pathLabel}</p>
           </div>
+          <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-2 text-xs font-black text-saas-green">
+            <span className="h-2 w-2 rounded-full bg-saas-green" />
+            {c.workflowPanel.statusLabel}
+          </span>
+        </div>
 
-          <div className="mt-6 grid gap-2">
-            {[title, c.workflowPanel.footer].map((item) => (
-              <div key={item} className="flex items-start gap-2 text-xs font-bold leading-5 text-white/62">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-saas-mint" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        <div className="p-4 sm:p-5">
-          <div className="rounded-[18px] border border-saas-line bg-saas-bg p-3 shadow-saas-sm sm:p-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-[11px] font-black uppercase text-saas-muted">{c.workflowPanel.activeLabel}</p>
-                <p className="mt-1 text-sm font-black text-saas-ink">{c.workflowPanel.pathLabel}</p>
-              </div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-black text-saas-green shadow-saas-sm">
-                <span className="h-2 w-2 rounded-full bg-saas-green" />
-                {c.workflowPanel.statusLabel}
-              </span>
-            </div>
-
-            <div className="mt-4 grid gap-3">
-              {c.workflowPanel.steps.map((step, index) => {
-                const Icon = step.icon
-                return (
-                  <div key={step.title} className="grid gap-3 rounded-[14px] border border-saas-line bg-white p-3 sm:grid-cols-[auto_1fr]">
-                    <span className={`flex h-10 w-10 items-center justify-center rounded-[12px] ${workflowToneClass[step.tone]}`}>
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-saas-surface-soft px-2 py-1 text-[11px] font-black text-saas-muted">0{index + 1}</span>
-                        <h3 className="break-words text-sm font-black text-saas-ink">{step.title}</h3>
-                      </div>
-                      <p className="mt-1 break-words text-sm font-semibold leading-6 text-saas-muted">{step.body}</p>
-                    </div>
+        <div className="divide-y divide-saas-line">
+          {c.workflowPanel.steps.map((step, index) => {
+            const Icon = step.icon
+            return (
+              <div key={step.title} className="grid gap-3 py-4 sm:grid-cols-[auto_1fr]">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-[12px] ${workflowToneClass[step.tone]}`}>
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-black text-saas-green">0{index + 1}</span>
+                    <h3 className="break-words text-sm font-black text-saas-ink">{step.title}</h3>
                   </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="mt-4 grid gap-3 sm:grid-cols-3">
-            {c.workflowPanel.outputs.map((item) => (
-              <div key={item.label} className="rounded-[14px] border border-saas-line bg-white p-3 shadow-saas-sm">
-                <p className="text-[11px] font-black uppercase text-saas-muted">{item.label}</p>
-                <p className="mt-2 break-words text-sm font-black leading-5 text-saas-ink">{item.value}</p>
+                  <p className="mt-1 break-words text-sm font-semibold leading-6 text-saas-muted">{step.body}</p>
+                </div>
               </div>
-            ))}
-          </div>
+            )
+          })}
+        </div>
+
+        <div className="grid gap-2 border-t border-saas-line pt-4 sm:grid-cols-3">
+          {c.workflowPanel.outputs.map((item) => (
+            <div key={item.label} className="min-w-0">
+              <p className="text-[11px] font-black uppercase tracking-[0.08em] text-saas-muted">{item.label}</p>
+              <p className="mt-1 break-words text-sm font-black leading-5 text-saas-ink">{item.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 flex items-start gap-2 rounded-[14px] bg-saas-surface-soft p-3 text-xs font-bold leading-5 text-saas-muted">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-saas-green" />
+          <span>{c.workflowPanel.footer}</span>
         </div>
       </div>
     </SaasCard>
@@ -590,23 +564,30 @@ function InteractiveDemos({ c, projects: demoProjects }: { c: LocalCopy; project
           </SaasButton>
         }
       />
-      <div className="mt-12 grid gap-5 lg:grid-cols-3">
+      <div className="mt-12 overflow-hidden rounded-[24px] border border-saas-line bg-white shadow-saas-md">
         {demoProjects.map((project, index) => {
           const Icon = demoIcons[index] ?? Store
           return (
-            <SaasCard key={project.id} hover className="rounded-[24px] p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-white text-saas-green shadow-saas-sm">
+            <div key={project.id} className="grid gap-4 border-b border-saas-line p-5 last:border-b-0 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-saas-mint text-saas-green">
                 <Icon className="h-6 w-6" />
               </div>
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
-              <h3 className="mt-3 break-words text-xl font-black leading-tight">{project.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-saas-muted">{project.description}</p>
-              <div className="mt-5">
-                <SaasButton href={project.demo} variant="ghost" icon={<ArrowRight className="h-4 w-4" />}>
-                  {c.openDemo}
-                </SaasButton>
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+                <h3 className="mt-2 break-words text-xl font-black leading-tight text-saas-ink">{project.title}</h3>
+                <p className="mt-2 max-w-3xl text-sm font-semibold leading-7 text-saas-muted">{project.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {project.tech.slice(0, 3).map((tech) => (
+                    <span key={tech} className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </SaasCard>
+              <SaasButton href={project.demo} variant="ghost" icon={<ArrowRight className="h-4 w-4" />}>
+                {c.openDemo}
+              </SaasButton>
+            </div>
           )
         })}
       </div>
@@ -629,46 +610,45 @@ function StackSection({
   return (
     <SaasSection id="stack">
       <SaasHeader eyebrow={c.stackEyebrow} title={c.stackTitle} subtitle={c.stackSubtitle} align="center" />
-      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-3">
-        {visibleGroups.map((group) => (
-          <MotionCard key={group.heading}>
-            <SaasCard className="rounded-[24px] p-6">
-              <h3 className="text-lg font-black">{group.heading}</h3>
-              <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <SaasCard tone="dark" className="rounded-[24px] p-6 shadow-saas-md sm:p-7">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-mint">{c.builderProfile.eyebrow}</p>
+          <h3 className="mt-4 text-2xl font-black leading-tight">{c.builderProfile.title}</h3>
+          <div className="mt-6 grid gap-4">
+            {compactSkills.map((group, index) => {
+              const Icon = stackIcons[index] ?? Boxes
+              return (
+                <div key={group.category} className="flex items-start gap-3 border-t border-white/12 pt-4 first:border-t-0 first:pt-0">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/10 text-saas-mint">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-black text-white">{group.category}</span>
+                    <span className="mt-1 block break-words text-xs font-semibold leading-5 text-white/66">
+                      {group.items.slice(0, 3).map((item) => item.name).join(' / ')}
+                    </span>
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </SaasCard>
+
+        <div className="overflow-hidden rounded-[24px] border border-saas-line bg-white shadow-saas-sm">
+          {visibleGroups.map((group) => (
+            <div key={group.heading} className="grid gap-3 border-b border-saas-line p-5 last:border-b-0 sm:grid-cols-[160px_minmax(0,1fr)] sm:p-6">
+              <h3 className="text-sm font-black text-saas-ink">{group.heading}</h3>
+              <div className="flex flex-wrap gap-2">
                 {group.items.slice(0, 6).map((item) => (
-                  <span key={item} className="rounded-full border border-saas-line bg-white px-3 py-1.5 text-xs font-black text-saas-muted">
+                  <span key={item} className="rounded-full bg-saas-surface-soft px-3 py-1.5 text-xs font-black text-saas-muted">
                     {item}
                   </span>
                 ))}
               </div>
-            </SaasCard>
-          </MotionCard>
-        ))}
-      </StaggerContainer>
-      <StaggerContainer className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4" delayChildren={0.05}>
-        {compactSkills.map((group, index) => {
-          const Icon = stackIcons[index] ?? Boxes
-          return (
-            <MotionCard key={group.category}>
-              <SaasCard hover className="p-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-saas-mint text-saas-green">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="text-base font-black">{group.category}</h3>
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {group.items.slice(0, 3).map((item) => (
-                    <span key={item.name} className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
-                      {item.name}
-                    </span>
-                  ))}
-                </div>
-              </SaasCard>
-            </MotionCard>
-          )
-        })}
-      </StaggerContainer>
+            </div>
+          ))}
+        </div>
+      </div>
     </SaasSection>
   )
 }
