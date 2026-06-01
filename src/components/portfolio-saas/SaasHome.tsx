@@ -8,6 +8,8 @@ import {
   Code2,
   Command,
   ExternalLink,
+  FileText,
+  Github,
   Globe2,
   Layers3,
   Mail,
@@ -29,6 +31,7 @@ type LocalCopy = {
   heroBody: string
   primaryCta: string
   secondaryCta: string
+  reviewerLinks: Array<{ label: string; value: string; href: string; icon: typeof Code2 }>
   heroTrust: Array<{ label: string; value: string; icon: typeof Code2 }>
   workflowPanel: {
     eyebrow: string
@@ -69,12 +72,18 @@ type LocalCopy = {
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
-    heroEyebrow: 'AI automation systems builder',
-    heroTitle: 'Build public-safe demos and internal tools that feel product-ready.',
+    heroEyebrow: 'Chinnakrit Sripan · AI automation systems builder',
+    heroTitle: 'I build AI automation, full-stack systems, and public-safe demos for real review.',
     heroBody:
-      'I turn rough workflows into clean SaaS-style interfaces, typed Next.js systems, and AI-assisted operating tools that are easy to review, demo, and hand off.',
+      'I turn rough workflows into typed Next.js surfaces, assistant operations, and internal tools that reviewers can inspect without exposing private systems.',
     primaryCta: 'View selected work',
     secondaryCta: 'Explore demos',
+    reviewerLinks: [
+      { label: 'Best demo', value: 'Hermes LINE AI', href: '/demos/hermes-line-assistant', icon: Bot },
+      { label: 'Resume', value: 'Open PDF', href: profileCommon.resume, icon: FileText },
+      { label: 'GitHub', value: 'Manchinn', href: 'https://github.com/Manchinn', icon: Github },
+      { label: 'Contact', value: 'Email me', href: `mailto:${profileCommon.email}`, icon: Mail },
+    ],
     heroTrust: [
       { label: 'Demos', value: 'Public-safe surfaces', icon: ShieldCheck },
       { label: 'Locale', value: 'English + Thai', icon: Globe2 },
@@ -164,12 +173,18 @@ const localCopy: Record<Language, LocalCopy> = {
     result: 'Result',
   },
   th: {
-    heroEyebrow: 'AI automation systems builder',
-    heroTitle: 'สร้าง demo และ internal tools ที่ public-safe และดูพร้อมใช้แบบ product',
+    heroEyebrow: 'ชินกฤต ศรีพันธุ์ · AI Automation / Full-stack / Internal Tools',
+    heroTitle: 'ผมสร้าง AI automation, full-stack systems และ public-safe demos ที่รีวิวได้จริง',
     heroBody:
-      'ผมเปลี่ยน workflow ที่ยังดิบให้เป็น interface สไตล์ SaaS, ระบบ Next.js ที่ typed ชัดเจน และเครื่องมือ AI-assisted ที่รีวิว demo และส่งต่อได้ง่าย',
+      'ผมเปลี่ยน workflow ที่ยังดิบให้เป็น Next.js surfaces, assistant operations และ internal tools ที่ inspect ได้ โดยไม่เปิดระบบ private',
     primaryCta: 'ดูผลงานที่เลือกไว้',
     secondaryCta: 'ดู demos',
+    reviewerLinks: [
+      { label: 'Demo หลัก', value: 'Hermes LINE AI', href: '/demos/hermes-line-assistant', icon: Bot },
+      { label: 'Resume', value: 'เปิด PDF', href: profileCommon.resume, icon: FileText },
+      { label: 'GitHub', value: 'Manchinn', href: 'https://github.com/Manchinn', icon: Github },
+      { label: 'Contact', value: 'ส่งอีเมล', href: `mailto:${profileCommon.email}`, icon: Mail },
+    ],
     heroTrust: [
       { label: 'Demos', value: 'Public-safe', icon: ShieldCheck },
       { label: 'ภาษา', value: 'อังกฤษ + ไทย', icon: Globe2 },
@@ -287,7 +302,7 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
     <section id="home" className="relative overflow-hidden pt-16 sm:pt-20 lg:pt-24">
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-saas-mint/55 via-white/45 to-transparent" aria-hidden />
       <div className="absolute inset-y-16 right-0 hidden w-1/3 bg-gradient-to-l from-saas-lilac/40 to-transparent lg:block" aria-hidden />
-      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:items-center lg:gap-12 lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:items-center lg:gap-12 lg:px-8 lg:py-20">
         <StaggerContainer className="relative min-w-0" delayChildren={0.05} staggerChildren={0.07}>
           <MotionCard>
             <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-saas-line bg-white/80 px-3 py-2 text-xs font-black text-saas-green shadow-saas-sm backdrop-blur">
@@ -314,7 +329,29 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
             </div>
           </MotionCard>
           <MotionCard>
-            <div className="mt-9 grid max-w-2xl gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid max-w-3xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {c.reviewerLinks.map((item) => {
+                const Icon = item.icon
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="group flex min-h-14 min-w-0 items-center gap-3 rounded-[14px] border border-saas-line bg-white/86 px-3 py-2.5 text-left shadow-saas-sm transition hover:-translate-y-0.5 hover:border-saas-green hover:bg-saas-mint focus-visible:outline-none focus-visible:shadow-saas-focus"
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] bg-saas-surface-soft text-saas-green transition group-hover:bg-white">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[11px] font-black uppercase tracking-[0.08em] text-saas-muted">{item.label}</span>
+                      <span className="mt-0.5 block truncate text-sm font-black text-saas-ink">{item.value}</span>
+                    </span>
+                  </a>
+                )
+              })}
+            </div>
+          </MotionCard>
+          <MotionCard>
+            <div className="mt-7 grid max-w-2xl gap-3 sm:grid-cols-2">
               {c.heroTrust.map((item) => {
                 const Icon = item.icon
                 return (
@@ -656,7 +693,7 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
               </span>
             </div>
           </div>
-          <SaasButton href={`mailto:${email}`} icon={<ArrowRight className="h-4 w-4" />} className="bg-white text-saas-ink hover:bg-saas-mint">
+          <SaasButton href={`mailto:${email}`} variant="secondary" icon={<ArrowRight className="h-4 w-4" />} className="border-white bg-white hover:bg-saas-mint">
             {c.contactCta}
           </SaasButton>
         </div>

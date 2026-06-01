@@ -30,7 +30,7 @@ export function FadeUp({ children, delay = 0, transition, viewport, ...props }: 
 
   return (
     <motion.div
-      initial="hidden"
+      initial={false}
       variants={fadeUpVariants}
       viewport={{ once: true, amount: 0.3, ...viewport }}
       whileInView="visible"
@@ -64,7 +64,7 @@ export function StaggerContainer({
 
   return (
     <motion.div
-      initial="hidden"
+      initial={false}
       variants={{
         hidden: {},
         visible: {
