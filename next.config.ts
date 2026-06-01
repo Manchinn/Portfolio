@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
         destination: 'https://prompts.chinnakrit.dev/:path*',
         permanent: true,
       },
+      {
+        source: '/Chinnakrit-Sripan_CV.pdf',
+        destination: 'https://manchinn.github.io/resume/',
+        permanent: true,
+      },
     ]
   },
   async headers() {

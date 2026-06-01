@@ -29,7 +29,7 @@ export const profileCommon: ProfileCommon = {
   image: "/profile/profile2.jpeg",
   email: "chinnakrit.srp@gmail.com",
   phone: "+66 94 665 0259",
-  resume: "/Chinnakrit-Sripan_CV.pdf",
+  resume: "https://manchinn.github.io/resume/",
 }
 
 export const skills: LocalizedData<SkillGroup[]> = {
