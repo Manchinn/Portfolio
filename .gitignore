@@ -30,3 +30,9 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Build cache
+tsconfig.tsbuildinfo
+
+# Claude Code session files
+.claude/
