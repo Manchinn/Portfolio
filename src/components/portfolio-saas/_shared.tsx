@@ -59,12 +59,12 @@ function HeaderText({
 }) {
   return (
     <>
-      <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-saas-green">{eyebrow}</p>
-      <h2 className="mt-3 max-w-full text-balance break-words text-3xl font-black leading-[1.04] text-saas-ink sm:text-4xl lg:text-5xl">
+      <p className="text-xs font-medium uppercase tracking-[0.18em] text-saas-muted">{eyebrow}</p>
+      <h2 className="mt-4 max-w-full text-balance break-words text-3xl font-bold leading-[1.08] tracking-tight text-saas-ink sm:text-4xl lg:text-[2.75rem]">
         {title}
       </h2>
       {subtitle && (
-        <p className={`mt-4 max-w-full break-words text-base leading-7 text-saas-muted ${centered ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}>
+        <p className={`mt-4 max-w-full break-words text-base font-light leading-8 text-saas-muted ${centered ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
           {subtitle}
         </p>
       )}
@@ -80,19 +80,19 @@ type SaasCardProps = {
 }
 
 const toneClass = {
-  default: 'border-saas-line bg-saas-surface text-saas-ink',
-  mint: 'border-emerald-100 bg-saas-mint text-saas-ink',
-  cream: 'border-amber-100 bg-saas-cream text-saas-ink',
-  lilac: 'border-violet-100 bg-saas-lilac text-saas-ink',
-  coral: 'border-rose-100 bg-saas-coral text-saas-ink',
-  dark: 'border-saas-ink bg-saas-ink text-white',
+  default: 'bg-transparent text-saas-ink',
+  mint: 'bg-saas-mint text-saas-ink',
+  cream: 'bg-saas-cream text-saas-ink',
+  lilac: 'bg-saas-lilac text-saas-ink',
+  coral: 'bg-saas-coral text-saas-ink',
+  dark: 'bg-saas-ink text-white',
 }
 
 export function SaasCard({ children, className = '', tone = 'default', hover = false }: SaasCardProps) {
   return (
     <div
-      className={`min-w-0 max-w-full overflow-hidden rounded-[20px] border p-5 shadow-saas-sm ${toneClass[tone]} ${
-        hover ? 'transition duration-200 hover:-translate-y-0.5 hover:shadow-saas-md' : ''
+      className={`min-w-0 max-w-full ${toneClass[tone]} ${
+        hover ? 'transition duration-200 hover:-translate-y-0.5' : ''
       } ${className}`}
     >
       {children}
@@ -110,17 +110,17 @@ type SaasButtonProps = {
 
 const buttonClass = {
   primary:
-    'bg-saas-green text-white shadow-saas-sm hover:bg-saas-green-strong focus-visible:shadow-saas-focus',
+    'bg-saas-ink text-white hover:bg-saas-green focus-visible:shadow-saas-focus',
   secondary:
-    'border border-saas-line bg-white text-saas-ink hover:border-saas-green hover:text-saas-green focus-visible:shadow-saas-focus',
+    'text-saas-ink hover:text-saas-green focus-visible:shadow-saas-focus',
   ghost: 'text-saas-green hover:text-saas-green-strong',
 }
 
 export function SaasButton({ href, children, variant = 'primary', icon, className = '' }: SaasButtonProps) {
   const shape =
-    variant === 'ghost'
-      ? 'inline-flex items-center gap-2 text-sm font-black transition'
-      : 'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-black transition outline-none'
+    variant === 'primary'
+      ? 'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition outline-none'
+      : 'inline-flex items-center gap-2 text-sm font-semibold transition outline-none'
 
   return (
     <a href={href} className={`${shape} ${buttonClass[variant]} ${className}`}>
