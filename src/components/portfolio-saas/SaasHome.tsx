@@ -19,7 +19,7 @@ import {
   Sparkles,
   Store,
 } from 'lucide-react'
-import { profile, profileCommon, projects, skills } from '@/data/portfolio'
+import { profile, profileCommon, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
 import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
@@ -54,18 +54,15 @@ type LocalCopy = {
   demosEyebrow: string
   demosTitle: string
   demosSubtitle: string
-  stackEyebrow: string
-  stackTitle: string
-  stackSubtitle: string
-  builderProfile: {
-    eyebrow: string
-    title: string
-  }
-  stackGroups: Array<{ heading: string; items: string[] }>
+  capabilitiesEyebrow: string
+  capabilitiesTitle: string
+  capabilitiesSubtitle: string
+  capabilityCards: Array<{ title: string; statement: string; chips: string[] }>
   contactEyebrow: string
   contactTitle: string
   contactSubtitle: string
   contactCta: string
+  contactTrust: string[]
   openDemo: string
   viewDemos: string
   viewWork: string
@@ -146,26 +143,30 @@ const localCopy: Record<Language, LocalCopy> = {
     demosTitle: 'Public-safe demos you can open and inspect.',
     demosSubtitle:
       'Each demo uses fictional or sanitized data so the interaction model is visible without exposing private records.',
-    stackEyebrow: 'Stack',
-    stackTitle: 'Tools I use to ship practical products.',
-    stackSubtitle:
-      'A compact view of the web, app, AI, and operations tools behind the selected work.',
-    builderProfile: {
-      eyebrow: 'Builder profile',
-      title: 'Practical systems, public proof, calm handoff.',
-    },
-    stackGroups: [
+    capabilitiesEyebrow: 'Capabilities',
+    capabilitiesTitle: 'What I can build for you.',
+    capabilitiesSubtitle:
+      'Four outcome areas behind the selected work, each backed by tools I use in production.',
+    capabilityCards: [
       {
-        heading: 'AI & Models',
-        items: ['ChatGPT', 'OpenAI API', 'Claude', 'OpenRouter', 'Prompt patterns', 'RAG-style retrieval'],
+        title: 'AI Workflow Systems',
+        statement: 'I connect AI models to real messaging channels, production workflows, and assistant patterns.',
+        chips: ['LINE API', 'OpenRouter', 'RAG', 'Hermes', 'Codex CLI', 'Prompt patterns'],
       },
       {
-        heading: 'Web & App',
-        items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Vercel Blob'],
+        title: 'Internal Tools & Dashboards',
+        statement: 'I build database-backed tools and admin workflows that teams can actually use.',
+        chips: ['React', 'Node.js', 'TypeScript', 'REST APIs', 'Auth', 'Tailwind CSS'],
       },
       {
-        heading: 'Ops & Channels',
-        items: ['LINE Messaging API', 'PowerShell', 'Codex CLI', 'VPS reverse proxy', 'Health checks', 'Docker'],
+        title: 'SaaS & Product UI',
+        statement: 'I compose product-quality interfaces with clear states, bilingual support, and public-safe demos.',
+        chips: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'SSG', 'Responsive'],
+      },
+      {
+        title: 'Automation & Operations',
+        statement: 'I automate deployment checks, notifications, and operational workflows from local commands.',
+        chips: ['VPS', 'PowerShell', 'Docker', 'LINE Alerts', 'Health checks', 'Reverse proxy'],
       },
     ],
     contactEyebrow: 'Contact',
@@ -173,6 +174,7 @@ const localCopy: Record<Language, LocalCopy> = {
     contactSubtitle:
       'Send a short note about the app, demo, internal tool, or full-stack role you want to discuss.',
     contactCta: 'Get in touch',
+    contactTrust: ['Public-safe demos', 'English + Thai', 'AI-assisted delivery'],
     openDemo: 'Open demo',
     viewDemos: 'View all demos',
     viewWork: 'View selected work',
@@ -251,26 +253,30 @@ const localCopy: Record<Language, LocalCopy> = {
     demosTitle: 'Demo แบบ public-safe ที่เปิดดูและ inspect ได้',
     demosSubtitle:
       'แต่ละ demo ใช้ข้อมูลสมมติหรือข้อมูลที่ sanitize แล้ว เพื่อให้เห็น interaction model โดยไม่เปิด private records',
-    stackEyebrow: 'Stack',
-    stackTitle: 'เครื่องมือที่ใช้ ship งานจริง',
-    stackSubtitle:
-      'สรุป stack ฝั่ง web, app, AI และ operations ที่อยู่เบื้องหลัง selected work',
-    builderProfile: {
-      eyebrow: 'Builder profile',
-      title: 'ระบบที่ใช้ได้จริง, proof ที่เปิดดูได้, handoff ที่ส่งต่อได้',
-    },
-    stackGroups: [
+    capabilitiesEyebrow: 'Capabilities',
+    capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
+    capabilitiesSubtitle:
+      'สี่ area ที่อยู่เบื้องหลัง selected work แต่ละ area มีเครื่องมือ production รองรับ',
+    capabilityCards: [
       {
-        heading: 'AI & Models',
-        items: ['ChatGPT', 'OpenAI API', 'Claude', 'OpenRouter', 'Prompt patterns', 'RAG-style retrieval'],
+        title: 'AI Workflow Systems',
+        statement: 'ผมเชื่อม AI models กับ messaging channels, production workflows และ assistant patterns ที่ใช้ได้จริง',
+        chips: ['LINE API', 'OpenRouter', 'RAG', 'Hermes', 'Codex CLI', 'Prompt patterns'],
       },
       {
-        heading: 'Web & App',
-        items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel', 'Vercel Blob'],
+        title: 'Internal Tools & Dashboards',
+        statement: 'ผมสร้าง tools และ admin workflows ที่มี database รองรับและทีมใช้งานได้จริง',
+        chips: ['React', 'Node.js', 'TypeScript', 'REST APIs', 'Auth', 'Tailwind CSS'],
       },
       {
-        heading: 'Ops & Channels',
-        items: ['LINE Messaging API', 'PowerShell', 'Codex CLI', 'VPS reverse proxy', 'Health checks', 'Docker'],
+        title: 'SaaS & Product UI',
+        statement: 'ผมสร้าง interface คุณภาพ product มี clear states, bilingual support และ public-safe demos',
+        chips: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'SSG', 'Responsive'],
+      },
+      {
+        title: 'Automation & Operations',
+        statement: 'ผมทำ deployment checks, notifications และ operational workflows ให้เรียกซ้ำได้จาก local command',
+        chips: ['VPS', 'PowerShell', 'Docker', 'LINE Alerts', 'Health checks', 'Reverse proxy'],
       },
     ],
     contactEyebrow: 'Contact',
@@ -278,6 +284,7 @@ const localCopy: Record<Language, LocalCopy> = {
     contactSubtitle:
       'ส่ง note สั้นๆ เกี่ยวกับ app, demo, internal tool หรือ full-stack role ที่อยากคุยได้เลย',
     contactCta: 'ติดต่อ',
+    contactTrust: ['Public-safe demos', 'ไทย + อังกฤษ', 'AI-assisted delivery'],
     openDemo: 'เปิด demo',
     viewDemos: 'ดู demos ทั้งหมด',
     viewWork: 'ดูผลงานที่เลือกไว้',
@@ -288,7 +295,8 @@ const localCopy: Record<Language, LocalCopy> = {
 }
 
 const demoIcons = [Store, Bot, Search]
-const stackIcons = [Bot, Code2, ShieldCheck, Boxes]
+const capabilityIcons = [Bot, Boxes, Code2, ShieldCheck]
+const capabilityTones = ['mint', 'cream', 'lilac', 'coral'] as const
 
 export function SaasHome() {
   const { language } = useTranslation()
@@ -303,7 +311,7 @@ export function SaasHome() {
       <SaasHero c={c} data={data} />
       <SelectedWork c={c} projects={selectedProjects} />
       <InteractiveDemos c={c} projects={demoProjects} />
-      <StackSection c={c} groups={c.stackGroups} skillGroups={skills[lang]} />
+      <CapabilitiesSection c={c} />
       <ContactSection c={c} email={data.email} location={data.location} />
     </main>
   )
@@ -496,6 +504,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         isFeatured ? 'border-saas-ink/10 bg-white shadow-saas-md' : 'bg-white/92'
       }`}
     >
+      {isFeatured && <span className="absolute inset-x-0 top-0 h-1 rounded-t-[24px] bg-saas-green" aria-hidden />}
       <div className={`${isFeatured ? 'p-6 sm:p-8 lg:p-9' : 'p-6 sm:p-7'}`}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-1.5 text-[11px] font-black text-saas-green">
@@ -508,7 +517,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         <div className={isFeatured ? 'mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(260px,0.7fr)]' : 'mt-6'}>
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
-            <h3 className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'} mt-3 break-words font-black leading-tight text-saas-ink`}>
+            <h3 className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-xl'} mt-3 break-words font-black leading-tight text-saas-ink`}>
               {project.title}
             </h3>
             <p className={`${isFeatured ? 'text-base leading-8' : 'text-sm leading-7'} mt-4 text-saas-muted`}>{project.description}</p>
@@ -517,7 +526,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
           <div className={`${isFeatured ? 'lg:border-l lg:border-saas-line lg:pl-6' : 'mt-5'} min-w-0`}>
             <p className="text-[11px] font-black uppercase tracking-[0.14em] text-saas-muted">{c.safeDemoLabel}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {project.tech.slice(0, isFeatured ? 4 : 3).map((tech) => (
+              {(isFeatured ? project.tech : project.tech.slice(0, 4)).map((tech) => (
                 <span key={tech} className="rounded-full border border-saas-line bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
                   {tech}
                 </span>
@@ -595,60 +604,42 @@ function InteractiveDemos({ c, projects: demoProjects }: { c: LocalCopy; project
   )
 }
 
-function StackSection({
-  c,
-  groups,
-  skillGroups,
-}: {
-  c: LocalCopy
-  groups: Array<{ heading: string; items: string[] }>
-  skillGroups: typeof skills.en
-}) {
-  const visibleGroups = groups.slice(0, 3)
-  const compactSkills = skillGroups.slice(0, 4)
-
+function CapabilitiesSection({ c }: { c: LocalCopy }) {
   return (
     <SaasSection id="stack">
-      <SaasHeader eyebrow={c.stackEyebrow} title={c.stackTitle} subtitle={c.stackSubtitle} align="center" />
-      <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <SaasCard tone="dark" className="rounded-[24px] p-6 shadow-saas-md sm:p-7">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-mint">{c.builderProfile.eyebrow}</p>
-          <h3 className="mt-4 text-2xl font-black leading-tight">{c.builderProfile.title}</h3>
-          <div className="mt-6 grid gap-4">
-            {compactSkills.map((group, index) => {
-              const Icon = stackIcons[index] ?? Boxes
-              return (
-                <div key={group.category} className="flex items-start gap-3 border-t border-white/12 pt-4 first:border-t-0 first:pt-0">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/10 text-saas-mint">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm font-black text-white">{group.category}</span>
-                    <span className="mt-1 block break-words text-xs font-semibold leading-5 text-white/66">
-                      {group.items.slice(0, 3).map((item) => item.name).join(' / ')}
+      <SaasHeader
+        eyebrow={c.capabilitiesEyebrow}
+        title={c.capabilitiesTitle}
+        subtitle={c.capabilitiesSubtitle}
+        align="center"
+      />
+      <StaggerContainer className="mt-12 grid gap-5 sm:grid-cols-2">
+        {c.capabilityCards.map((card, index) => {
+          const Icon = capabilityIcons[index] ?? Boxes
+          const tone = capabilityTones[index] ?? 'mint'
+          return (
+            <MotionCard key={card.title} className="min-w-0">
+              <SaasCard hover tone={tone} className="flex min-h-full flex-col rounded-[24px] p-6 sm:p-7">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/70 text-saas-green shadow-saas-sm">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-5 break-words text-lg font-black leading-tight text-saas-ink sm:text-xl">{card.title}</h3>
+                <p className="mt-3 break-words text-sm font-semibold leading-7 text-saas-muted">{card.statement}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {card.chips.map((chip) => (
+                    <span
+                      key={chip}
+                      className="rounded-full border border-white/60 bg-white/55 px-3 py-1 text-xs font-black text-saas-muted"
+                    >
+                      {chip}
                     </span>
-                  </span>
+                  ))}
                 </div>
-              )
-            })}
-          </div>
-        </SaasCard>
-
-        <div className="overflow-hidden rounded-[24px] border border-saas-line bg-white shadow-saas-sm">
-          {visibleGroups.map((group) => (
-            <div key={group.heading} className="grid gap-3 border-b border-saas-line p-5 last:border-b-0 sm:grid-cols-[160px_minmax(0,1fr)] sm:p-6">
-              <h3 className="text-sm font-black text-saas-ink">{group.heading}</h3>
-              <div className="flex flex-wrap gap-2">
-                {group.items.slice(0, 6).map((item) => (
-                  <span key={item} className="rounded-full bg-saas-surface-soft px-3 py-1.5 text-xs font-black text-saas-muted">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+              </SaasCard>
+            </MotionCard>
+          )
+        })}
+      </StaggerContainer>
     </SaasSection>
   )
 }
@@ -656,26 +647,49 @@ function StackSection({
 function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
   return (
     <SaasSection id="contact" className="pb-24">
-      <FadeUp className="rounded-[24px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.contactEyebrow}</p>
-        <div className="mt-5 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-          <div className="min-w-0">
-            <h2 className="max-w-3xl text-balance break-words text-3xl font-black leading-[1.04] sm:text-5xl">{c.contactTitle}</h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">{c.contactSubtitle}</p>
-            <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-white/70">
-              <span className="inline-flex items-center gap-2">
-                <Mail className="h-4 w-4 text-saas-mint" />
-                {email}
+      <FadeUp className="relative overflow-hidden rounded-[24px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              'linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+          }}
+          aria-hidden
+        />
+        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-saas-green/20 blur-3xl" aria-hidden />
+        <div className="relative">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.contactEyebrow}</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {c.contactTrust.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/10 px-3 py-1.5 text-xs font-black text-saas-mint backdrop-blur"
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                {item}
               </span>
-              <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-saas-mint" />
-                {location}
-              </span>
-            </div>
+            ))}
           </div>
-          <SaasButton href={`mailto:${email}`} variant="secondary" icon={<ArrowRight className="h-4 w-4" />} className="border-white bg-white hover:bg-saas-mint">
-            {c.contactCta}
-          </SaasButton>
+          <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div className="min-w-0">
+              <h2 className="max-w-3xl text-balance break-words text-3xl font-black leading-[1.04] sm:text-5xl">{c.contactTitle}</h2>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">{c.contactSubtitle}</p>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-white/70">
+                <span className="inline-flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-saas-mint" />
+                  {email}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-saas-mint" />
+                  {location}
+                </span>
+              </div>
+            </div>
+            <SaasButton href={`mailto:${email}`} variant="secondary" icon={<ArrowRight className="h-4 w-4" />} className="min-h-12 border-white bg-white px-6 hover:bg-saas-mint">
+              {c.contactCta}
+            </SaasButton>
+          </div>
         </div>
       </FadeUp>
     </SaasSection>
