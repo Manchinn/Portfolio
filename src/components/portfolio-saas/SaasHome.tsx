@@ -2,9 +2,6 @@
 
 import {
   ArrowRight,
-  Bot,
-  Boxes,
-  Code2,
   Mail,
   MapPin,
   ShieldCheck,
@@ -13,7 +10,7 @@ import { profile, profileCommon, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
 import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
-import { SaasButton, SaasCard, SaasHeader, SaasSection } from './_shared'
+import { SaasButton, SaasHeader, SaasSection } from './_shared'
 
 type LocalCopy = {
   heroEyebrow: string
@@ -30,7 +27,7 @@ type LocalCopy = {
   capabilitiesEyebrow: string
   capabilitiesTitle: string
   capabilitiesSubtitle: string
-  capabilityCards: Array<{ title: string; statement: string; chips: string[] }>
+  capabilityCards: Array<{ title: string; statement: string }>
   contactEyebrow: string
   contactTitle: string
   contactSubtitle: string
@@ -68,22 +65,18 @@ const localCopy: Record<Language, LocalCopy> = {
       {
         title: 'AI Workflow Systems',
         statement: 'I connect AI models to real messaging channels, production workflows, and assistant patterns.',
-        chips: ['LINE API', 'OpenRouter', 'RAG', 'Hermes', 'Codex CLI', 'Prompt patterns'],
       },
       {
         title: 'Internal Tools & Dashboards',
         statement: 'I build database-backed tools and admin workflows that teams can actually use.',
-        chips: ['React', 'Node.js', 'TypeScript', 'REST APIs', 'Auth', 'Tailwind CSS'],
       },
       {
         title: 'SaaS & Product UI',
         statement: 'I compose product-quality interfaces with clear states, bilingual support, and public-safe demos.',
-        chips: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'SSG', 'Responsive'],
       },
       {
         title: 'Automation & Operations',
         statement: 'I automate deployment checks, notifications, and operational workflows from local commands.',
-        chips: ['VPS', 'PowerShell', 'Docker', 'LINE Alerts', 'Health checks', 'Reverse proxy'],
       },
     ],
     contactEyebrow: 'Contact',
@@ -122,22 +115,18 @@ const localCopy: Record<Language, LocalCopy> = {
       {
         title: 'AI Workflow Systems',
         statement: 'ผมเชื่อม AI models กับ messaging channels, production workflows และ assistant patterns ที่ใช้ได้จริง',
-        chips: ['LINE API', 'OpenRouter', 'RAG', 'Hermes', 'Codex CLI', 'Prompt patterns'],
       },
       {
         title: 'Internal Tools & Dashboards',
         statement: 'ผมสร้าง tools และ admin workflows ที่มี database รองรับและทีมใช้งานได้จริง',
-        chips: ['React', 'Node.js', 'TypeScript', 'REST APIs', 'Auth', 'Tailwind CSS'],
       },
       {
         title: 'SaaS & Product UI',
         statement: 'ผมสร้าง interface คุณภาพ product มี clear states, bilingual support และ public-safe demos',
-        chips: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Vercel', 'SSG', 'Responsive'],
       },
       {
         title: 'Automation & Operations',
         statement: 'ผมทำ deployment checks, notifications และ operational workflows ให้เรียกซ้ำได้จาก local command',
-        chips: ['VPS', 'PowerShell', 'Docker', 'LINE Alerts', 'Health checks', 'Reverse proxy'],
       },
     ],
     contactEyebrow: 'Contact',
@@ -154,9 +143,6 @@ const localCopy: Record<Language, LocalCopy> = {
     result: 'ผลลัพธ์',
   },
 }
-
-const capabilityIcons = [Bot, Boxes, Code2, ShieldCheck]
-const capabilityTones = ['mint', 'cream', 'lilac', 'coral'] as const
 
 export function SaasHome() {
   const { language } = useTranslation()
@@ -345,35 +331,16 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
         eyebrow={c.capabilitiesEyebrow}
         title={c.capabilitiesTitle}
         subtitle={c.capabilitiesSubtitle}
-        align="center"
+        align="left"
       />
-      <StaggerContainer className="mt-12 grid gap-5 sm:grid-cols-2">
-        {c.capabilityCards.map((card, index) => {
-          const Icon = capabilityIcons[index] ?? Boxes
-          const tone = capabilityTones[index] ?? 'mint'
-          return (
-            <MotionCard key={card.title} className="min-w-0">
-              <SaasCard hover tone={tone} className="flex min-h-full flex-col rounded-[20px] p-6 sm:p-7">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/70 text-saas-green shadow-saas-sm">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-5 break-words text-lg font-black leading-tight text-saas-ink sm:text-xl">{card.title}</h3>
-                <p className="mt-3 break-words text-sm font-semibold leading-7 text-saas-muted">{card.statement}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {card.chips.map((chip) => (
-                    <span
-                      key={chip}
-                      className="rounded-full border border-white/60 bg-white/55 px-3 py-1 text-xs font-black text-saas-muted"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </SaasCard>
-            </MotionCard>
-          )
-        })}
-      </StaggerContainer>
+      <dl className="mt-14 grid gap-x-12 gap-y-12 border-t border-saas-line pt-12 sm:grid-cols-2">
+        {c.capabilityCards.map((card) => (
+          <div key={card.title} className="min-w-0">
+            <dt className="text-xl font-semibold tracking-tight text-saas-ink">{card.title}</dt>
+            <dd className="mt-3 max-w-md text-base font-light leading-8 text-saas-muted">{card.statement}</dd>
+          </div>
+        ))}
+      </dl>
     </SaasSection>
   )
 }
