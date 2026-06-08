@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Portfolio for Chinnakrit Sripan — Next.js 15 App Router with TypeScript. Public site is static-first with bilingual portfolio content, public demos, a lead-capture surface, and a prompt-library redirect surface. Deployed on Vercel (`chinnakrit.dev`, `www.chinnakrit.dev`).
+Portfolio for Chinnakrit Sripan — Next.js 15 App Router with TypeScript. Public site is static-first with bilingual portfolio content, public demos, a lead-capture surface. Deployed on Vercel (`chinnakrit.dev`, `www.chinnakrit.dev`).
 
-There is no longer a separate backend — the legacy Express app was retired and all server logic now lives in `src/app/api/*`. The admin/CMS surface (admin UI, login, content pipeline) was also removed in May 2026.
+No separate backend — the legacy Express app was retired. Admin/CMS surface removed May 2026. Prompts API and middleware removed June 2026.
 
 ## Architecture
 
@@ -18,8 +18,6 @@ src/
       article/[slug]/             SSG blog from data/portfolio.ts
       demos/                      Public demo detail pages
       work-with-me/               Lead capture page
-    api/
-      prompts/                    Feed for external prompts site (GET public, POST/DELETE token-gated)
     saas/                         SaaS landing experiment (separate surface)
     favicon.ico/route.ts          Site icon route handler
     layout.tsx, globals.css, not-found.tsx
@@ -36,14 +34,11 @@ src/
     locales/en.json, th.json
   lib/
     github.ts                     GitHub API (repo cards)
-    prompt-store.ts               Vercel Blob backing store for the prompts feed
-  middleware.ts                   ADMIN_TOKEN gate for /api/prompts/* writes
 ```
 
 ### Data Flow
 
 - **Public site**: Components import from `@/data/portfolio.ts`. `useTranslation()` picks en/th. No fetch hooks.
-- **Prompts feed**: `/api/prompts/*` reads from Vercel Blob via `prompt-store.ts`. GET is public; POST/DELETE require `ADMIN_TOKEN` via cookie or `x-admin-token` header. External `prompts.chinnakrit.dev` is the assumed consumer.
 
 ### Rendering
 
@@ -51,7 +46,6 @@ src/
 - `/article/[slug]` — SSG via `generateStaticParams`
 - `/demos`, `/demos/*` — Static demo pages
 - `/work-with-me` — Static lead-capture page
-- `/prompts`, `/prompts/:path*` — Redirect (308) to `https://prompts.chinnakrit.dev` via `next.config.ts`
 
 ## Commands
 
@@ -60,11 +54,6 @@ npm run dev       # Next.js dev server (localhost:3000)
 npm run build     # Production build
 npm run start     # Start production server
 npm run lint      # Next.js ESLint
-```
-
-For local dev that touches the prompts feed, pull env from Vercel:
-```bash
-vercel env pull .env.local
 ```
 
 ## AI Workflow Files
@@ -93,49 +82,20 @@ Use the default mattpocock/skills triage label vocabulary. See `docs/agents/tria
 
 This is a single-context repo. See `docs/agents/domain.md`.
 
-## Current Handoff (May 2026)
-
-Recently completed cleanup commits on `master`:
-
-1. `chore: remove legacy admin/login surface` — deleted admin UI (`src/app/(portfolio)/admin/*`), `src/app/api/admin/login/`, hidden footer link to `/admin/prompts`, simplified middleware matcher.
-2. `chore: remove orphan content pipeline and prompts UI` — deleted `src/app/(portfolio)/prompts/*`, `src/app/api/content/*`, `src/app/api/prompts/generate/`, and unused libs `claude.ts`, `prompt-generator.ts`, `content-store.ts`, `social.ts`.
-
-Remaining legacy surface (kept intentionally — verify before removing):
-
-- `src/app/api/prompts/` (GET/POST/DELETE) + `src/lib/prompt-store.ts` — assumed external consumer is `prompts.chinnakrit.dev`.
-- `src/middleware.ts` and `ADMIN_TOKEN` env var — required for the prompts POST/DELETE protection above.
-
-Next recommended tasks:
-
-1. Confirm the external prompts site's actual coupling to `/api/prompts/*`. If unused, remove the prompts API + `prompt-store.ts` + middleware + `ADMIN_TOKEN`.
-2. Prune unused Vercel env vars: `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `DASHSCOPE_API_KEY`, `GOOGLE_AI_API_KEY`, `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_USERNAME`.
-3. Update `.env.example` after env pruning.
-
-After any code change, run:
-
-```bash
-npm run build
-```
-
 ## Environment Variables
 
 Active:
 
 | Var | Purpose |
 |-----|---------|
-| `ADMIN_TOKEN` | Cookie/header gate for `/api/prompts/*` writes |
 | `GITHUB_TOKEN` | Optional, raises GitHub API rate limit for repo cards |
-| `BLOB_READ_WRITE_TOKEN` | Vercel Blob (auto-injected when linked) |
-
-Likely-unused on Vercel (safe to remove after auditing): `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `DASHSCOPE_API_KEY`, `GOOGLE_AI_API_KEY`, `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_USERNAME`.
 
 ## Key Libraries
 
 - next 15, react 19, typescript
 - tailwindcss 4 + @tailwindcss/postcss
 - lucide-react (icons)
-- @vercel/blob
 
 ## Deployment
 
-Vercel auto-deploys. Production domains: `chinnakrit.dev`, `www.chinnakrit.dev`. The standalone `portfolio-backend` Vercel project has been retired.
+Vercel auto-deploys. Production domains: `chinnakrit.dev`, `www.chinnakrit.dev`.
