@@ -9,7 +9,7 @@ type SaasSectionProps = {
 
 export function SaasSection({ id, children, className = '', wide = false }: SaasSectionProps) {
   return (
-    <section id={id} className={`relative py-20 sm:py-24 lg:py-28 ${className}`}>
+    <section id={id} className={`relative py-24 sm:py-28 lg:py-32 ${className}`}>
       <div className={`mx-auto min-w-0 max-w-full px-4 sm:px-6 lg:px-8 ${wide ? 'max-w-[1280px]' : 'max-w-[1180px]'}`}>
         {children}
       </div>
@@ -59,12 +59,12 @@ function HeaderText({
 }) {
   return (
     <>
-      <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{eyebrow}</p>
-      <h2 className="mt-4 max-w-full text-balance break-words text-3xl font-black leading-[1.04] text-saas-ink sm:text-4xl lg:text-5xl">
+      <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-saas-green">{eyebrow}</p>
+      <h2 className="mt-3 max-w-full text-balance break-words text-3xl font-black leading-[1.04] text-saas-ink sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {subtitle && (
-        <p className={`mt-5 max-w-full break-words text-base leading-8 text-saas-muted sm:text-lg ${centered ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}>
+        <p className={`mt-4 max-w-full break-words text-base leading-7 text-saas-muted ${centered ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}>
           {subtitle}
         </p>
       )}
@@ -91,8 +91,8 @@ const toneClass = {
 export function SaasCard({ children, className = '', tone = 'default', hover = false }: SaasCardProps) {
   return (
     <div
-      className={`min-w-0 max-w-full overflow-hidden rounded-[14px] border p-5 shadow-saas-sm ${toneClass[tone]} ${
-        hover ? 'transition duration-200 hover:-translate-y-1 hover:shadow-saas-md' : ''
+      className={`min-w-0 max-w-full overflow-hidden rounded-[20px] border p-5 shadow-saas-sm ${toneClass[tone]} ${
+        hover ? 'transition duration-200 hover:-translate-y-0.5 hover:shadow-saas-md' : ''
       } ${className}`}
     >
       {children}

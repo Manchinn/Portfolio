@@ -325,7 +325,7 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
       <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.92fr)] lg:items-center lg:gap-12 lg:px-8 lg:py-20">
         <StaggerContainer className="relative min-w-0" delayChildren={0.05} staggerChildren={0.07}>
           <MotionCard>
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-saas-line bg-white/80 px-3 py-2 text-xs font-black text-saas-green shadow-saas-sm backdrop-blur">
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-saas-line bg-white/80 px-3 py-2 text-xs font-semibold text-saas-muted shadow-saas-sm backdrop-blur">
               <Sparkles className="h-4 w-4 shrink-0 text-saas-green" />
               <span className="break-words">{c.heroEyebrow}</span>
             </div>
@@ -362,8 +362,8 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
                       <Icon className="h-4 w-4" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[11px] font-black uppercase tracking-[0.08em] text-saas-muted">{item.label}</span>
-                      <span className="mt-0.5 block truncate text-sm font-black text-saas-ink">{item.value}</span>
+                      <span className="block text-[11px] font-semibold text-saas-muted">{item.label}</span>
+                      <span className="mt-0.5 block truncate text-sm font-bold text-saas-ink">{item.value}</span>
                     </span>
                   </a>
                 )
@@ -389,16 +389,16 @@ const workflowToneClass = {
 
 function BuilderDossierPanel({ c, title }: { c: LocalCopy; title: string }) {
   return (
-    <SaasCard className="rounded-[24px] border-saas-ink/10 bg-white/92 p-0 shadow-saas-md backdrop-blur">
+    <SaasCard className="rounded-[20px] border-saas-ink/10 bg-white/92 p-0 shadow-saas-md backdrop-blur">
       <div className="bg-saas-ink p-5 text-white sm:p-6">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.workflowPanel.eyebrow}</p>
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-saas-mint">{c.workflowPanel.eyebrow}</p>
         <div className="mt-5 flex items-start gap-4">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] border border-white/14 bg-white text-lg font-black text-saas-ink">
             C/
           </div>
           <div className="min-w-0">
             <h2 className="break-words text-2xl font-black leading-tight sm:text-3xl">{c.workflowPanel.title}</h2>
-            <p className="mt-2 break-words text-sm font-semibold leading-6 text-white/72">{title}</p>
+            <p className="mt-2 break-words text-sm font-semibold leading-7 text-white/72">{title}</p>
           </div>
         </div>
         <p className="mt-6 text-base font-bold leading-8 text-white/86">{c.workflowPanel.command}</p>
@@ -407,8 +407,8 @@ function BuilderDossierPanel({ c, title }: { c: LocalCopy; title: string }) {
       <div className="p-4 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-saas-line pb-4">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.12em] text-saas-muted">{c.workflowPanel.activeLabel}</p>
-            <p className="mt-1 text-sm font-black text-saas-ink">{c.workflowPanel.pathLabel}</p>
+            <p className="text-[11px] font-semibold text-saas-muted">{c.workflowPanel.activeLabel}</p>
+            <p className="mt-1 text-sm font-bold text-saas-ink">{c.workflowPanel.pathLabel}</p>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-2 text-xs font-black text-saas-green">
             <span className="h-2 w-2 rounded-full bg-saas-green" />
@@ -429,7 +429,7 @@ function BuilderDossierPanel({ c, title }: { c: LocalCopy; title: string }) {
                     <span className="text-[11px] font-black text-saas-green">0{index + 1}</span>
                     <h3 className="break-words text-sm font-black text-saas-ink">{step.title}</h3>
                   </div>
-                  <p className="mt-1 break-words text-sm font-semibold leading-6 text-saas-muted">{step.body}</p>
+                  <p className="mt-1 break-words text-sm font-semibold leading-7 text-saas-muted">{step.body}</p>
                 </div>
               </div>
             )
@@ -439,8 +439,8 @@ function BuilderDossierPanel({ c, title }: { c: LocalCopy; title: string }) {
         <div className="grid gap-2 border-t border-saas-line pt-4 sm:grid-cols-3">
           {c.workflowPanel.outputs.map((item) => (
             <div key={item.label} className="min-w-0">
-              <p className="text-[11px] font-black uppercase tracking-[0.08em] text-saas-muted">{item.label}</p>
-              <p className="mt-1 break-words text-sm font-black leading-5 text-saas-ink">{item.value}</p>
+              <p className="text-[11px] font-semibold text-saas-muted">{item.label}</p>
+              <p className="mt-1 break-words text-sm font-bold leading-5 text-saas-ink">{item.value}</p>
             </div>
           ))}
         </div>
@@ -458,7 +458,7 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
   const [featuredProject, ...supportingProjects] = selectedProjects
 
   return (
-    <SaasSection id="work" className="bg-white/60" wide>
+    <SaasSection id="work" className="bg-white/60 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-12 before:bg-gradient-to-b before:from-saas-bg before:to-transparent" wide>
       <SaasHeader
         eyebrow={c.selectedEyebrow}
         title={c.selectedTitle}
@@ -500,11 +500,11 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
   return (
     <SaasCard
       hover
-      className={`relative flex min-h-full flex-col rounded-[24px] p-0 ${
+      className={`relative flex min-h-full flex-col rounded-[20px] p-0 ${
         isFeatured ? 'border-saas-ink/10 bg-white shadow-saas-md' : 'bg-white/92'
       }`}
     >
-      {isFeatured && <span className="absolute inset-x-0 top-0 h-1 rounded-t-[24px] bg-saas-green" aria-hidden />}
+      {isFeatured && <span className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-saas-green" aria-hidden />}
       <div className={`${isFeatured ? 'p-6 sm:p-8 lg:p-9' : 'p-6 sm:p-7'}`}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-1.5 text-[11px] font-black text-saas-green">
@@ -516,7 +516,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
 
         <div className={isFeatured ? 'mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(260px,0.7fr)]' : 'mt-6'}>
           <div className="min-w-0">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">{project.category}</p>
             <h3 className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-xl'} mt-3 break-words font-black leading-tight text-saas-ink`}>
               {project.title}
             </h3>
@@ -524,7 +524,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
           </div>
 
           <div className={`${isFeatured ? 'lg:border-l lg:border-saas-line lg:pl-6' : 'mt-5'} min-w-0`}>
-            <p className="text-[11px] font-black uppercase tracking-[0.14em] text-saas-muted">{c.safeDemoLabel}</p>
+            <p className="text-[11px] font-semibold text-saas-muted">{c.safeDemoLabel}</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {(isFeatured ? project.tech : project.tech.slice(0, 4)).map((tech) => (
                 <span key={tech} className="rounded-full border border-saas-line bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
@@ -539,11 +539,11 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
           <dl className={`${isFeatured ? 'mt-8 grid gap-5 lg:grid-cols-3' : 'mt-6 divide-y divide-saas-line border-y border-saas-line'}`}>
             {caseStudyRows.map((row, index) => (
               <div key={row.label} className={isFeatured ? 'min-w-0' : 'py-4 first:pt-0 last:pb-0'}>
-                <dt className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.14em] text-saas-green">
+                <dt className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-saas-mint text-[10px]">{index + 1}</span>
                   {row.label}
                 </dt>
-                <dd className="mt-2 break-words text-sm font-semibold leading-6 text-saas-muted">{row.value}</dd>
+                <dd className="mt-2 break-words text-sm font-semibold leading-7 text-saas-muted">{row.value}</dd>
               </div>
             ))}
           </dl>
@@ -573,7 +573,7 @@ function InteractiveDemos({ c, projects: demoProjects }: { c: LocalCopy; project
           </SaasButton>
         }
       />
-      <div className="mt-12 overflow-hidden rounded-[24px] border border-saas-line bg-white shadow-saas-md">
+      <div className="mt-12 overflow-hidden rounded-[20px] border border-saas-line bg-white shadow-saas-md">
         {demoProjects.map((project, index) => {
           const Icon = demoIcons[index] ?? Store
           return (
@@ -582,7 +582,7 @@ function InteractiveDemos({ c, projects: demoProjects }: { c: LocalCopy; project
                 <Icon className="h-6 w-6" />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">{project.category}</p>
                 <h3 className="mt-2 break-words text-xl font-black leading-tight text-saas-ink">{project.title}</h3>
                 <p className="mt-2 max-w-3xl text-sm font-semibold leading-7 text-saas-muted">{project.description}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -619,7 +619,7 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
           const tone = capabilityTones[index] ?? 'mint'
           return (
             <MotionCard key={card.title} className="min-w-0">
-              <SaasCard hover tone={tone} className="flex min-h-full flex-col rounded-[24px] p-6 sm:p-7">
+              <SaasCard hover tone={tone} className="flex min-h-full flex-col rounded-[20px] p-6 sm:p-7">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/70 text-saas-green shadow-saas-sm">
                   <Icon className="h-6 w-6" />
                 </span>
@@ -647,7 +647,7 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
 function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
   return (
     <SaasSection id="contact" className="pb-24">
-      <FadeUp className="relative overflow-hidden rounded-[24px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
+      <FadeUp className="relative overflow-hidden rounded-[20px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{
@@ -659,7 +659,7 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
         />
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-saas-green/20 blur-3xl" aria-hidden />
         <div className="relative">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{c.contactEyebrow}</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-saas-mint">{c.contactEyebrow}</p>
           <div className="mt-5 flex flex-wrap gap-2">
             {c.contactTrust.map((item) => (
               <span
