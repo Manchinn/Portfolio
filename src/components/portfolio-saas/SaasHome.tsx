@@ -5,12 +5,9 @@ import {
   Bot,
   Boxes,
   Code2,
-  ExternalLink,
   Mail,
   MapPin,
-  Search,
   ShieldCheck,
-  Store,
 } from 'lucide-react'
 import { profile, profileCommon, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
@@ -158,7 +155,6 @@ const localCopy: Record<Language, LocalCopy> = {
   },
 }
 
-const demoIcons = [Store, Bot, Search]
 const capabilityIcons = [Bot, Boxes, Code2, ShieldCheck]
 const capabilityTones = ['mint', 'cream', 'lilac', 'coral'] as const
 
@@ -302,44 +298,41 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
 
 function InteractiveDemos({ c, projects: demoProjects }: { c: LocalCopy; projects: Project[] }) {
   return (
-    <SaasSection id="demos" className="bg-saas-surface-soft">
+    <SaasSection id="demos">
       <SaasHeader
         eyebrow={c.demosEyebrow}
         title={c.demosTitle}
         subtitle={c.demosSubtitle}
         align="split"
         rightSlot={
-          <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
+          <SaasButton href="/demos" variant="secondary" icon={<ArrowRight className="h-4 w-4" />}>
             {c.viewDemos}
           </SaasButton>
         }
       />
-      <div className="mt-12 overflow-hidden rounded-[20px] border border-saas-line bg-white shadow-saas-md">
-        {demoProjects.map((project, index) => {
-          const Icon = demoIcons[index] ?? Store
-          return (
-            <div key={project.id} className="grid gap-4 border-b border-saas-line p-5 last:border-b-0 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-saas-mint text-saas-green">
-                <Icon className="h-6 w-6" />
+      <div className="mt-14 divide-y divide-saas-line border-t border-saas-line">
+        {demoProjects.map((project) => (
+          <a
+            key={project.id}
+            href={project.demo}
+            className="group grid gap-3 py-7 transition lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
+          >
+            <div className="min-w-0">
+              <div className="flex items-baseline gap-3">
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-saas-green">{project.category}</p>
+                <span className="text-xs font-light text-saas-muted">{project.tech.slice(0, 3).join(' · ')}</span>
               </div>
-              <div className="min-w-0">
-                <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">{project.category}</p>
-                <h3 className="mt-2 break-words text-xl font-black leading-tight text-saas-ink">{project.title}</h3>
-                <p className="mt-2 max-w-3xl text-sm font-semibold leading-7 text-saas-muted">{project.description}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {project.tech.slice(0, 3).map((tech) => (
-                    <span key={tech} className="rounded-full bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <SaasButton href={project.demo} variant="ghost" icon={<ArrowRight className="h-4 w-4" />}>
-                {c.openDemo}
-              </SaasButton>
+              <h3 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-saas-ink transition group-hover:text-saas-green">
+                {project.title}
+              </h3>
+              <p className="mt-2 max-w-2xl text-base font-light leading-8 text-saas-muted">{project.description}</p>
             </div>
-          )
-        })}
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-green">
+              {c.openDemo}
+              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </span>
+          </a>
+        ))}
       </div>
     </SaasSection>
   )
