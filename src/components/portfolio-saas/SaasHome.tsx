@@ -27,9 +27,6 @@ type LocalCopy = {
   selectedEyebrow: string
   selectedTitle: string
   selectedSubtitle: string
-  featuredLabel: string
-  supportingLabel: string
-  safeDemoLabel: string
   demosEyebrow: string
   demosTitle: string
   demosSubtitle: string
@@ -62,9 +59,6 @@ const localCopy: Record<Language, LocalCopy> = {
     selectedTitle: 'Three public-safe case studies, shaped like product proof.',
     selectedSubtitle:
       'A curated view of assistant systems, operational workflows, and knowledge tooling. Each card keeps the story clear: problem, build, and result.',
-    featuredLabel: 'Featured system',
-    supportingLabel: 'Case study',
-    safeDemoLabel: 'Public-safe demo',
     demosEyebrow: 'Interactive demos',
     demosTitle: 'Public-safe demos you can open and inspect.',
     demosSubtitle:
@@ -119,9 +113,6 @@ const localCopy: Record<Language, LocalCopy> = {
     selectedTitle: 'สาม case study แบบ public-safe ที่อ่านเหมือน product proof',
     selectedSubtitle:
       'คัดงาน assistant systems, operational workflows และ knowledge tooling ให้เห็นเรื่องหลักชัดเจน: ปัญหา สิ่งที่สร้าง และผลลัพธ์',
-    featuredLabel: 'Featured system',
-    supportingLabel: 'Case study',
-    safeDemoLabel: 'Public-safe demo',
     demosEyebrow: 'Interactive demos',
     demosTitle: 'Demo แบบ public-safe ที่เปิดดูและ inspect ได้',
     demosSubtitle:
@@ -226,21 +217,21 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
   const [featuredProject, ...supportingProjects] = selectedProjects
 
   return (
-    <SaasSection id="work" className="bg-white/60 before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:h-12 before:bg-gradient-to-b before:from-saas-bg before:to-transparent" wide>
+    <SaasSection id="work" wide>
       <SaasHeader
         eyebrow={c.selectedEyebrow}
         title={c.selectedTitle}
         subtitle={c.selectedSubtitle}
         align="split"
         rightSlot={
-          <SaasButton href="/demos" variant="secondary" icon={<ExternalLink className="h-4 w-4" />}>
+          <SaasButton href="/demos" variant="secondary" icon={<ArrowRight className="h-4 w-4" />}>
             {c.viewDemos}
           </SaasButton>
         }
       />
-      <StaggerContainer className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+      <StaggerContainer className="mt-16 grid gap-x-12 gap-y-14 lg:grid-cols-2">
         {featuredProject && (
-          <MotionCard className="min-w-0 lg:row-span-2">
+          <MotionCard className="min-w-0 lg:col-span-2">
             <ProjectCard project={featuredProject} c={c} variant="featured" />
           </MotionCard>
         )}
@@ -266,64 +257,46 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
     : []
 
   return (
-    <SaasCard
-      hover
-      className={`relative flex min-h-full flex-col rounded-[20px] p-0 ${
-        isFeatured ? 'border-saas-ink/10 bg-white shadow-saas-md' : 'bg-white/92'
-      }`}
-    >
-      {isFeatured && <span className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-saas-green" aria-hidden />}
-      <div className={`${isFeatured ? 'p-6 sm:p-8 lg:p-9' : 'p-6 sm:p-7'}`}>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full bg-saas-mint px-3 py-1.5 text-[11px] font-black text-saas-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-saas-green" />
-            {isFeatured ? c.featuredLabel : c.supportingLabel}
-          </span>
-          <span className="rounded-full border border-saas-line bg-white px-3 py-1.5 text-xs font-black text-saas-muted">{project.date}</span>
-        </div>
-
-        <div className={isFeatured ? 'mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(260px,0.7fr)]' : 'mt-6'}>
-          <div className="min-w-0">
-            <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">{project.category}</p>
-            <h3 className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-xl'} mt-3 break-words font-black leading-tight text-saas-ink`}>
-              {project.title}
-            </h3>
-            <p className={`${isFeatured ? 'text-base leading-8' : 'text-sm leading-7'} mt-4 text-saas-muted`}>{project.description}</p>
-          </div>
-
-          <div className={`${isFeatured ? 'lg:border-l lg:border-saas-line lg:pl-6' : 'mt-5'} min-w-0`}>
-            <p className="text-[11px] font-semibold text-saas-muted">{c.safeDemoLabel}</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {(isFeatured ? project.tech : project.tech.slice(0, 4)).map((tech) => (
-                <span key={tech} className="rounded-full border border-saas-line bg-saas-surface-soft px-3 py-1 text-xs font-black text-saas-muted">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {caseStudyRows.length > 0 && (
-          <dl className={`${isFeatured ? 'mt-8 grid gap-5 lg:grid-cols-3' : 'mt-6 divide-y divide-saas-line border-y border-saas-line'}`}>
-            {caseStudyRows.map((row, index) => (
-              <div key={row.label} className={isFeatured ? 'min-w-0' : 'py-4 first:pt-0 last:pb-0'}>
-                <dt className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-saas-green">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-saas-mint text-[10px]">{index + 1}</span>
-                  {row.label}
-                </dt>
-                <dd className="mt-2 break-words text-sm font-semibold leading-7 text-saas-muted">{row.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
+    <article className="group flex min-h-full flex-col border-t border-saas-line pt-8">
+      <div className="flex items-baseline justify-between gap-4">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-saas-green">{project.category}</p>
+        <span className="text-xs font-medium text-saas-muted">{project.date}</span>
       </div>
 
-      <div className="mt-auto border-t border-saas-line px-6 py-5 sm:px-7 lg:px-9">
-        <SaasButton href={actionHref} variant={isFeatured ? 'primary' : 'ghost'} icon={<ArrowRight className="h-4 w-4" />}>
+      <h3
+        className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'} mt-4 break-words font-bold leading-tight tracking-tight text-saas-ink`}
+      >
+        {project.title}
+      </h3>
+      <p className={`${isFeatured ? 'max-w-2xl text-lg leading-9' : 'text-base leading-8'} mt-4 font-light text-saas-muted`}>
+        {project.description}
+      </p>
+
+      {caseStudyRows.length > 0 && (
+        <dl className={`mt-8 grid gap-6 ${isFeatured ? 'sm:grid-cols-3' : ''}`}>
+          {caseStudyRows.map((row) => (
+            <div key={row.label} className="min-w-0">
+              <dt className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{row.label}</dt>
+              <dd className="mt-2 break-words text-sm font-light leading-7 text-saas-ink">{row.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
+        {(isFeatured ? project.tech : project.tech.slice(0, 4)).map((tech) => (
+          <span key={tech} className="text-xs font-medium text-saas-muted">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <SaasButton href={actionHref} variant="secondary" icon={<ArrowRight className="h-4 w-4" />}>
           {c.openDemo}
         </SaasButton>
       </div>
-    </SaasCard>
+    </article>
   )
 }
 
