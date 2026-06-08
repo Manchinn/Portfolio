@@ -33,8 +33,8 @@ const Navbar = () => {
         <div className="flex h-18 items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/#home" className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-saas-ink bg-saas-ink shadow-saas-sm">
-              <span className="text-sm font-black text-white">C/</span>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-saas-line bg-saas-surface shadow-saas-sm">
+              <span className="text-sm font-black text-saas-ink">C/</span>
             </div>
             <div className="hidden min-w-0 sm:block">
               <p className="text-sm font-black leading-none text-saas-ink">Chinnakrit.dev</p>
@@ -46,12 +46,12 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden items-center gap-2 lg:flex">
-            <div className="flex items-center gap-1 rounded-full border border-saas-line bg-white/80 p-1 shadow-saas-sm">
+            <div className="flex items-center gap-1 rounded-full border border-saas-line bg-saas-surface/80 p-1 shadow-saas-sm">
               {primaryNavItems.map((item, idx) => (
                 <a
                   key={idx}
                   href={item.href}
-                  className="rounded-full px-3 py-2 text-xs font-black text-saas-muted transition hover:bg-saas-mint hover:text-saas-green-strong"
+                  className="rounded-full px-3 py-2 text-xs font-black text-saas-muted transition hover:bg-saas-line hover:text-saas-ink"
                 >
                   {t(`nav.${item.label.toLowerCase()}`)}
                 </a>
@@ -59,7 +59,7 @@ const Navbar = () => {
             </div>
             <a
               href="/work-with-me"
-              className="inline-flex items-center gap-2 rounded-full bg-saas-green px-4 py-3 text-xs font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong focus-visible:shadow-saas-focus"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}
               <ArrowRight size={15} strokeWidth={3} />
@@ -69,7 +69,7 @@ const Navbar = () => {
             <div className="relative" ref={langRef}>
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 rounded-full border border-saas-line bg-white px-3 py-2.5 text-xs font-black text-saas-muted shadow-saas-sm transition hover:border-saas-green hover:text-saas-green-strong focus-visible:shadow-saas-focus"
+                className="flex items-center gap-2 rounded-full border border-saas-line bg-saas-surface px-3 py-2.5 text-xs font-black text-saas-muted shadow-saas-sm transition hover:border-saas-ink hover:text-saas-ink focus-visible:shadow-saas-focus"
                 aria-expanded={isLangOpen}
                 aria-label="Change language"
               >
@@ -80,7 +80,7 @@ const Navbar = () => {
 
               {/* Dropdown */}
               {isLangOpen && (
-                <div className="absolute right-0 z-50 mt-2 min-w-[132px] overflow-hidden rounded-[14px] border border-saas-line bg-white shadow-saas-md">
+                <div className="absolute right-0 z-50 mt-2 min-w-[132px] overflow-hidden rounded-[14px] border border-saas-line bg-saas-surface shadow-saas-md">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -88,8 +88,8 @@ const Navbar = () => {
                         changeLanguage(lang.code)
                         setIsLangOpen(false)
                       }}
-                      className={`w-full px-4 py-3 text-left text-sm font-bold transition-colors hover:bg-saas-mint ${
-                        language === lang.code ? 'bg-saas-mint text-saas-green-strong' : 'text-saas-muted'
+                      className={`w-full px-4 py-3 text-left text-sm font-bold transition-colors hover:bg-saas-line ${
+                        language === lang.code ? 'bg-saas-line text-saas-ink' : 'text-saas-muted hover:text-saas-ink'
                       }`}
                     >
                       {lang.name}
@@ -104,14 +104,14 @@ const Navbar = () => {
           <div className="hidden items-center gap-2 md:flex lg:hidden">
             <a
               href="/work-with-me"
-              className="inline-flex items-center gap-2 rounded-full bg-saas-green px-4 py-3 text-xs font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}
               <ArrowRight size={15} strokeWidth={3} />
             </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="rounded-full border border-saas-line bg-white p-3 text-saas-ink shadow-saas-sm"
+              className="rounded-full border border-saas-line bg-saas-surface p-3 text-saas-ink shadow-saas-sm"
               aria-expanded={isMenuOpen}
               aria-label="Toggle navigation"
             >
@@ -123,7 +123,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="rounded-full border border-saas-line bg-white p-3 text-saas-ink shadow-saas-sm"
+              className="rounded-full border border-saas-line bg-saas-surface p-3 text-saas-ink shadow-saas-sm"
               aria-expanded={isMenuOpen}
               aria-label="Toggle navigation"
             >
@@ -143,8 +143,8 @@ const Navbar = () => {
                 href={item.href}
                 className={`rounded-[14px] border px-4 py-3 text-sm font-black transition ${
                   item.label === 'Contact'
-                    ? 'border-saas-green bg-saas-green text-white'
-                    : 'border-saas-line bg-white text-saas-ink hover:border-saas-green hover:bg-saas-mint'
+                    ? 'border-white bg-white text-black'
+                    : 'border-saas-line bg-saas-surface text-saas-ink hover:bg-saas-line'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -163,8 +163,8 @@ const Navbar = () => {
                   onClick={() => changeLanguage(lang.code)}
                   className={`flex-1 rounded-full border px-4 py-3 text-sm font-black transition-all ${
                     language === lang.code
-                      ? 'border-saas-green bg-saas-green text-white'
-                      : 'border-saas-line bg-white text-saas-ink hover:bg-saas-mint'
+                      ? 'border-white bg-white text-black'
+                      : 'border-saas-line bg-saas-surface text-saas-ink hover:bg-saas-line'
                   }`}
                 >
                   {lang.name}

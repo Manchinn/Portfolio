@@ -164,7 +164,7 @@ function FieldLabel({ children }: { children: ReactNode }) {
 }
 
 const inputClass =
-  'w-full rounded-[14px] border border-saas-line bg-saas-surface-soft p-3.5 text-sm font-bold text-saas-ink outline-none transition placeholder:text-saas-muted/65 focus:border-saas-green focus:bg-white focus:shadow-saas-focus'
+  'w-full rounded-[14px] border border-saas-line bg-saas-surface-soft p-3.5 text-sm font-bold text-saas-ink outline-none transition placeholder:text-saas-muted/65 focus:border-white focus:bg-saas-surface focus:shadow-saas-focus'
 
 export default function WorkWithMePage() {
   const { language } = useTranslation()
@@ -225,19 +225,19 @@ export default function WorkWithMePage() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-saas-bg text-saas-ink">
+    <main className="min-h-screen overflow-x-hidden bg-transparent text-saas-ink">
       <section className="relative overflow-hidden pt-16 sm:pt-20">
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-saas-mint/70 to-transparent" aria-hidden />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-saas-line/10 to-transparent" aria-hidden />
         <div className="mx-auto grid max-w-[1280px] gap-10 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:px-8 lg:py-20">
           <div className="relative min-w-0">
             <Link
               href="/#home"
-              className="inline-flex items-center gap-2 rounded-full border border-saas-line bg-white px-4 py-2 text-sm font-black text-saas-ink shadow-saas-sm transition hover:border-saas-green hover:text-saas-green"
+              className="inline-flex items-center gap-2 rounded-full border border-saas-line bg-saas-surface-soft px-4 py-2 text-sm font-black text-saas-ink shadow-saas-sm transition hover:border-white hover:text-white"
             >
               {copy.back}
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <p className="mt-9 text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.eyebrow}</p>
+            <p className="mt-9 text-xs font-black uppercase tracking-[0.16em] text-saas-muted">{copy.eyebrow}</p>
             <h1 className="mt-5 max-w-full text-balance break-words text-5xl font-black leading-[0.96] text-saas-ink sm:max-w-5xl sm:text-6xl lg:text-7xl">
               {copy.title}
             </h1>
@@ -247,10 +247,10 @@ export default function WorkWithMePage() {
           <SaasCard tone="dark" className="relative self-end rounded-[24px] p-6 sm:p-8">
             <div className="flex items-start justify-between gap-5">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{copy.safetyTitle}</p>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-muted">{copy.safetyTitle}</p>
                 <h2 className="mt-4 text-3xl font-black leading-tight text-white">{copy.safetyHeadline}</h2>
               </div>
-              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-saas-mint">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] bg-white/5 text-saas-muted">
                 <ShieldCheck className="h-7 w-7" />
               </div>
             </div>
@@ -258,8 +258,8 @@ export default function WorkWithMePage() {
               {copy.notes.map((note, index) => {
                 const Icon = index === 0 ? LockKeyhole : index === 1 ? ShieldCheck : Mail
                 return (
-                  <div key={note} className="flex min-w-0 gap-3 rounded-[14px] border border-white/12 bg-white/7 p-4 text-sm font-bold leading-6 text-white/82">
-                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-saas-mint" />
+                  <div key={note} className="flex min-w-0 gap-3 rounded-[14px] border border-saas-line bg-saas-surface p-4 text-sm font-bold leading-6 text-white/80">
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-saas-muted" />
                     <span className="min-w-0 break-words">{note}</span>
                   </div>
                 )
@@ -273,10 +273,10 @@ export default function WorkWithMePage() {
         <div className="grid gap-5 lg:grid-cols-3">
           {copy.steps.map((step, index) => (
             <SaasCard key={step.title} tone={index === 1 ? 'cream' : index === 2 ? 'lilac' : 'mint'}>
-              <div className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-white text-saas-green shadow-saas-sm">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-saas-surface text-saas-ink border border-saas-line shadow-saas-sm">
                 {index === 0 ? <MessageSquareText className="h-5 w-5" /> : index === 1 ? <WalletCards className="h-5 w-5" /> : <Send className="h-5 w-5" />}
               </div>
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-saas-green">0{index + 1}</p>
+              <p className="mt-5 text-xs font-black uppercase tracking-[0.14em] text-saas-muted">0{index + 1}</p>
               <h2 className="mt-2 text-xl font-black text-saas-ink">{step.title}</h2>
               <p className="mt-3 text-sm leading-7 text-saas-muted">{step.body}</p>
             </SaasCard>
@@ -286,7 +286,7 @@ export default function WorkWithMePage() {
 
       <SaasSection className="pt-0">
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(330px,0.92fr)]">
-          <form onSubmit={handleSubmit} className="rounded-[24px] border border-saas-line bg-white p-5 shadow-saas-md sm:p-8">
+          <form onSubmit={handleSubmit} className="rounded-[24px] border border-saas-line bg-saas-surface-soft p-5 shadow-saas-md sm:p-8">
             <SaasHeader eyebrow={copy.eyebrow} title={copy.briefTitle} subtitle={copy.intro} />
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -384,7 +384,7 @@ export default function WorkWithMePage() {
               <button
                 type="submit"
                 disabled={!isReady}
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-saas-green px-6 py-4 text-sm font-black text-white shadow-saas-sm transition hover:bg-saas-green-strong focus-visible:shadow-saas-focus disabled:cursor-not-allowed disabled:bg-saas-line disabled:text-saas-muted sm:col-span-2"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-black text-black shadow-saas-sm transition hover:bg-neutral-200 focus-visible:shadow-saas-focus disabled:cursor-not-allowed disabled:bg-saas-line disabled:text-saas-muted sm:col-span-2"
               >
                 <Mail className="h-5 w-5" />
                 {copy.send}
@@ -394,10 +394,10 @@ export default function WorkWithMePage() {
           </form>
 
           <div className="grid gap-5 content-start">
-            <SaasCard tone={isReady ? 'mint' : 'cream'} className="rounded-[24px] p-6">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-green">{copy.intakeTitle}</p>
+            <SaasCard tone={isReady ? 'mint' : 'cream'} className="rounded-[24px]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-muted">{copy.intakeTitle}</p>
               <div className="mt-5 flex items-start gap-3">
-                {isReady ? <CheckCircle2 className="mt-1 h-6 w-6 shrink-0 text-saas-green" /> : <AlertCircle className="mt-1 h-6 w-6 shrink-0 text-amber-700" />}
+                {isReady ? <CheckCircle2 className="mt-1 h-6 w-6 shrink-0 text-white" /> : <AlertCircle className="mt-1 h-6 w-6 shrink-0 text-amber-500" />}
                 <div>
                   <p className="text-xl font-black leading-tight text-saas-ink">{isReady ? copy.ready : copy.incomplete}</p>
                   {submitted && !isReady && (
@@ -411,20 +411,20 @@ export default function WorkWithMePage() {
               </div>
             </SaasCard>
 
-            <aside className="rounded-[24px] border border-saas-ink bg-saas-ink p-5 text-white shadow-saas-md sm:p-6">
+            <aside className="rounded-[24px] border border-saas-line bg-saas-surface-soft p-5 text-white shadow-saas-md sm:p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-mint">{copy.preview}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-saas-muted">{copy.preview}</p>
                   <p className="mt-2 text-sm font-bold text-white/70">mailto:{profileCommon.email}</p>
                 </div>
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/10 text-saas-mint">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[14px] bg-white/5 text-saas-muted">
                   <ClipboardList className="h-6 w-6" />
                 </div>
               </div>
-              <div className="mt-5 rounded-[14px] border border-white/12 bg-white/7 p-3 text-sm font-bold text-white/78">
+              <div className="mt-5 rounded-[14px] border border-saas-line bg-saas-surface p-3 text-sm font-bold text-white/80">
                 {form.projectType} · {form.timeline}
               </div>
-              <pre className="mt-4 max-h-[580px] overflow-auto whitespace-pre-wrap rounded-[14px] border border-white/12 bg-black/20 p-4 font-mono text-sm leading-7 text-white/82">
+              <pre className="mt-4 max-h-[580px] overflow-auto whitespace-pre-wrap rounded-[14px] border border-saas-line bg-black/40 p-4 font-mono text-sm leading-7 text-white/80">
                 {emailBody}
               </pre>
             </aside>

@@ -7,23 +7,23 @@
   ============================================ */
 @theme {
   /* === Modern SaaS Theme (portfolio redesign) === */
-  --color-saas-bg: #fbfbf7;
-  --color-saas-surface: #ffffff;
-  --color-saas-surface-soft: #f3f7f2;
-  --color-saas-ink: #17211b;
-  --color-saas-muted: #647066;
-  --color-saas-line: #dfe7dd;
-  --color-saas-green: #1f8f5f;
-  --color-saas-green-strong: #106b45;
-  --color-saas-blue: #4169e1;
-  --color-saas-lilac: #d9d2ff;
-  --color-saas-mint: #dff7e8;
-  --color-saas-cream: #fff4d6;
-  --color-saas-coral: #ffb8a9;
+  --color-saas-bg: #09090b;
+  --color-saas-surface: #09090b;
+  --color-saas-surface-soft: #18181b;
+  --color-saas-ink: #fafafa;
+  --color-saas-muted: #a1a1aa;
+  --color-saas-line: #27272a;
+  --color-saas-green: #fafafa;
+  --color-saas-green-strong: #fafafa;
+  --color-saas-blue: #3f3f46;
+  --color-saas-lilac: #27272a;
+  --color-saas-mint: #27272a;
+  --color-saas-cream: #27272a;
+  --color-saas-coral: #27272a;
 
-  --shadow-saas-sm: 0 8px 24px rgba(23, 33, 27, 0.06);
-  --shadow-saas-md: 0 18px 48px rgba(23, 33, 27, 0.08);
-  --shadow-saas-focus: 0 0 0 4px rgba(31, 143, 95, 0.16);
+  --shadow-saas-sm: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-saas-md: 0 18px 48px rgba(0, 0, 0, 0.4);
+  --shadow-saas-focus: 0 0 0 4px rgba(255, 255, 255, 0.16);
 
   --radius-saas-sm: 8px;
   --radius-saas-md: 14px;
@@ -473,15 +473,56 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #000;
-  border: 2px solid #f1f1f1;
+  background: #27272a;
+  border: 2px solid #09090b;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #3f3f46;
+}
+
+/* ============================================
+   Minimalist Dark Mode Background (Grid + Shifting Glow)
+   ============================================ */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-saas-bg);
+  color: var(--color-saas-ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(9, 9, 11, 0.85), var(--color-saas-bg) 68%),
+    repeating-linear-gradient(90deg, rgba(250, 250, 250, 0.015) 0 1px, transparent 1px 84px),
+    var(--color-saas-bg);
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(250, 250, 250, 0.02) 48%, transparent 58%),
+    linear-gradient(35deg, transparent 0 45%, rgba(161, 161, 170, 0.02) 54%, transparent 64%);
+  background-size: 220% 220%;
+  content: "";
+  opacity: 0.8;
+  animation: slow-shift 18s ease-in-out infinite alternate;
+}
+
+@keyframes slow-shift {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
 }
 
