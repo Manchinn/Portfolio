@@ -353,8 +353,9 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <SaasButton
             href={`mailto:${email}`}
+            variant="secondary"
             icon={<ArrowRight className="h-4 w-4" />}
-            className="bg-white text-saas-ink hover:bg-saas-mint"
+            className="justify-center rounded-full bg-white px-6 py-3 text-saas-ink hover:bg-saas-mint hover:text-saas-ink"
           >
             {c.contactCta}
           </SaasButton>
