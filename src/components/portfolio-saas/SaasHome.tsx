@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Mail,
   MapPin,
-  ShieldCheck,
 } from 'lucide-react'
 import { profile, profileCommon, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
@@ -32,7 +31,6 @@ type LocalCopy = {
   contactTitle: string
   contactSubtitle: string
   contactCta: string
-  contactTrust: string[]
   openDemo: string
   viewDemos: string
   viewWork: string
@@ -84,7 +82,6 @@ const localCopy: Record<Language, LocalCopy> = {
     contactSubtitle:
       'Send a short note about the app, demo, internal tool, or full-stack role you want to discuss.',
     contactCta: 'Get in touch',
-    contactTrust: ['Public-safe demos', 'English + Thai', 'AI-assisted delivery'],
     openDemo: 'Open demo',
     viewDemos: 'View all demos',
     viewWork: 'View selected work',
@@ -134,7 +131,6 @@ const localCopy: Record<Language, LocalCopy> = {
     contactSubtitle:
       'ส่ง note สั้นๆ เกี่ยวกับ app, demo, internal tool หรือ full-stack role ที่อยากคุยได้เลย',
     contactCta: 'ติดต่อ',
-    contactTrust: ['Public-safe demos', 'ไทย + อังกฤษ', 'AI-assisted delivery'],
     openDemo: 'เปิด demo',
     viewDemos: 'ดู demos ทั้งหมด',
     viewWork: 'ดูผลงานที่เลือกไว้',
@@ -347,50 +343,29 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
 
 function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
   return (
-    <SaasSection id="contact" className="pb-24">
-      <FadeUp className="relative overflow-hidden rounded-[20px] border border-saas-ink bg-saas-ink p-6 text-white shadow-saas-md sm:p-10 lg:p-12">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-          aria-hidden
-        />
-        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-saas-green/20 blur-3xl" aria-hidden />
-        <div className="relative">
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-saas-mint">{c.contactEyebrow}</p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {c.contactTrust.map((item) => (
-              <span
-                key={item}
-                className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/10 px-3 py-1.5 text-xs font-black text-saas-mint backdrop-blur"
-              >
-                <ShieldCheck className="h-3.5 w-3.5" />
-                {item}
-              </span>
-            ))}
-          </div>
-          <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-            <div className="min-w-0">
-              <h2 className="max-w-3xl text-balance break-words text-3xl font-black leading-[1.04] sm:text-5xl">{c.contactTitle}</h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">{c.contactSubtitle}</p>
-              <div className="mt-6 flex flex-wrap gap-3 text-sm font-bold text-white/70">
-                <span className="inline-flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-saas-mint" />
-                  {email}
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-saas-mint" />
-                  {location}
-                </span>
-              </div>
-            </div>
-            <SaasButton href={`mailto:${email}`} variant="secondary" icon={<ArrowRight className="h-4 w-4" />} className="min-h-12 border-white bg-white px-6 hover:bg-saas-mint">
-              {c.contactCta}
-            </SaasButton>
-          </div>
+    <SaasSection id="contact" className="pb-28">
+      <FadeUp className="rounded-[28px] bg-saas-ink px-6 py-14 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-saas-mint">{c.contactEyebrow}</p>
+        <h2 className="mt-5 max-w-3xl text-balance break-words text-3xl font-bold leading-[1.06] tracking-tight sm:text-5xl">
+          {c.contactTitle}
+        </h2>
+        <p className="mt-5 max-w-2xl text-lg font-light leading-9 text-white/70">{c.contactSubtitle}</p>
+        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <SaasButton
+            href={`mailto:${email}`}
+            icon={<ArrowRight className="h-4 w-4" />}
+            className="bg-white text-saas-ink hover:bg-saas-mint"
+          >
+            {c.contactCta}
+          </SaasButton>
+          <span className="inline-flex items-center gap-2 text-sm font-light text-white/70">
+            <Mail className="h-4 w-4 text-saas-mint" />
+            {email}
+          </span>
+          <span className="inline-flex items-center gap-2 text-sm font-light text-white/70">
+            <MapPin className="h-4 w-4 text-saas-mint" />
+            {location}
+          </span>
         </div>
       </FadeUp>
     </SaasSection>
