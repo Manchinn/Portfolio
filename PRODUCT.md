@@ -6,11 +6,11 @@ brand
 
 ## Users
 
-Hiring managers, collaborators, founders, and technical reviewers who need to understand Chinnakrit Sripan's practical AI automation and full-stack systems work quickly. They are usually scanning for credibility, proof of execution, public-safe demos, and enough technical specificity to decide whether to start a conversation.
+Hiring managers, collaborators, founders, and technical reviewers who need to understand Chinnakrit Sripan's practical AI automation and full-stack systems work quickly. They are usually scanning for credibility, proof of execution, source-of-truth project evidence, and enough technical specificity to decide whether to start a conversation.
 
 ## Product Purpose
 
-This portfolio presents Chinnakrit as an AI Automation and Full-stack Systems Builder through bilingual English and Thai content, public-safe case studies, interactive demo pages, and a direct contact path. Success means visitors can see the type of systems he builds, inspect credible demos without private operational exposure, and understand how his AI-assisted delivery workflow translates messy real-world work into reviewable product surfaces.
+This portfolio presents Chinnakrit as an AI Automation and Full-stack Systems Builder through bilingual English and Thai content, public-safe case studies, workflow proof, and a direct contact path. Success means visitors can see the type of systems he builds without private operational exposure, and understand how his AI-assisted delivery workflow translates messy real-world work into reviewable product surfaces.
 
 ## Brand Personality
 
@@ -22,15 +22,15 @@ Avoid generic AI SaaS templates, purple-gradient startup pages, over-brutalist t
 
 ## Design Principles
 
-Show proof before polish: prioritize concrete systems, demos, workflows, and outcomes over abstract claims.
+Show proof before polish: prioritize concrete systems, workflows, and outcomes over abstract claims.
 
 Keep the public surface safe: reveal enough structure to be credible without exposing credentials, private URLs, hidden route behavior, or operational hardening details.
 
 Respect both languages: English and Thai content should feel native to the same brand, not like one locale is an afterthought.
 
-Make technical work scannable: let reviewers move quickly from headline to case study to demo to contact without needing to decode the architecture.
+Make technical work scannable: let reviewers move quickly from headline to case study to contact without needing to decode the architecture.
 
-Use product-readiness as the signal: each page should feel like it could be shipped, reviewed, and handed off, even when the underlying demo data is fictional or sanitized.
+Use product-readiness as the signal: each page should feel like it could be shipped, reviewed, and handed off, even when public details are intentionally sanitized.
 
 ## Accessibility & Inclusion
 

@@ -1,6 +1,6 @@
 # Chinnakrit Portfolio Frontend
 
-Next.js portfolio for Chinnakrit Sripan, focused on AI automation, full-stack systems, public demo pages, and bilingual EN/TH content.
+Next.js portfolio for Chinnakrit Sripan, focused on AI automation, full-stack systems, source-of-truth project proof, and bilingual EN/TH content.
 
 ## Stack
 
@@ -13,10 +13,8 @@ Next.js portfolio for Chinnakrit Sripan, focused on AI automation, full-stack sy
 ## Key Paths
 
 - `src/data/portfolio.ts` - bilingual portfolio content source of truth
-- `src/app/(portfolio)/` - main portfolio, demos, articles, and lead-capture pages
+- `src/app/(portfolio)/` - main portfolio, articles, and lead-capture pages
 - `src/app/saas/` - standalone FlowSync SaaS landing page demo
-- `src/app/api/prompts/` - read-only feed (and protected writes) for the external prompts site
-- `src/middleware.ts` - ADMIN_TOKEN gate for `/api/prompts/*` writes
 
 ## Local Commands
 
@@ -30,6 +28,6 @@ Use `npm run build` before considering implementation work complete.
 ## Content Rules
 
 - Keep English and Thai content in sync in `src/data/portfolio.ts`.
-- Keep public demo copy sanitized.
+- Keep public copy sanitized.
 - Do not expose credentials, private URLs, internal route behavior, or nonpublic network details.
 - Add API logic under `src/app/api/*`; do not recreate a separate `backend/` folder.

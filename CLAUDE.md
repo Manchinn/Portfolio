@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Portfolio for Chinnakrit Sripan — Next.js 15 App Router with TypeScript. Public site is static-first with bilingual portfolio content, public demos, a lead-capture surface. Deployed on Vercel (`chinnakrit.dev`, `www.chinnakrit.dev`).
+Portfolio for Chinnakrit Sripan — Next.js 15 App Router with TypeScript. Public site is static-first with bilingual portfolio content and a lead-capture surface. Deployed on Vercel (`chinnakrit.dev`, `www.chinnakrit.dev`).
 
 No separate backend — the legacy Express app was retired. Admin/CMS surface removed May 2026. Prompts API and middleware removed June 2026.
 
@@ -16,7 +16,6 @@ src/
     (portfolio)/                  Public site route group
       page.tsx                    Home (Hero + sections)
       article/[slug]/             SSG blog from data/portfolio.ts
-      demos/                      Public demo detail pages
       work-with-me/               Lead capture page
     saas/                         SaaS landing experiment (separate surface)
     favicon.ico/route.ts          Site icon route handler
@@ -24,7 +23,6 @@ src/
   components/
     layout/Navbar/, layout/Footer.tsx
     sections/                     Hero, About, Skills, Experience, Projects, Articles, Contact
-    demos/DemoDetailShell.tsx     Shared shell for public demo pages
     ui/                           Shared primitives
   data/
     portfolio.ts                  Static portfolio data (en/th), single source of truth
@@ -44,7 +42,6 @@ src/
 
 - `/` — Static (SSG)
 - `/article/[slug]` — SSG via `generateStaticParams`
-- `/demos`, `/demos/*` — Static demo pages
 - `/work-with-me` — Static lead-capture page
 
 ## Commands

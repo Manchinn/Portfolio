@@ -40,7 +40,7 @@ export interface Project {
   tech: string[]
   image: string
   github?: string
-  demo: string
+  demo?: string
   date: string
   category: string
   highlights: string[]

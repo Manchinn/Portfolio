@@ -18,7 +18,7 @@ The parent folder contains project-level docs. Work from this `frontend` folder 
 
 - Stack: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
 - Production: Vercel auto-deploys from `master`
-- Public site: portfolio, bilingual EN/TH content, public demo pages, prompt redirect surface, lead-capture page
+- Public site: portfolio, bilingual EN/TH content, prompt redirect surface, lead-capture page
 - Legacy admin/CMS and prompts API surfaces were removed (see history).
 
 ## Hard Rules
@@ -26,7 +26,7 @@ The parent folder contains project-level docs. Work from this `frontend` folder 
 1. Do not recreate `backend/`.
 2. Put all API logic in `src/app/api/*`.
 3. Preserve bilingual English and Thai content in `src/data/portfolio.ts`.
-4. Keep public demo copy sanitized. Do not expose credentials, private URLs, nonpublic network details, route behavior, or operational hardening details.
+4. Keep public copy sanitized. Do not expose credentials, private URLs, nonpublic network details, route behavior, or operational hardening details.
 5. Use `npm run build` as the verification gate before marking implementation work complete.
 6. Do not overwrite existing config files. Add missing workflow files or make small project-specific additions only.
 
@@ -37,7 +37,6 @@ src/data/portfolio.ts              Bilingual portfolio source of truth
 src/i18n/locales/en.json           English UI copy
 src/i18n/locales/th.json           Thai UI copy
 src/app/(portfolio)/page.tsx       Main portfolio page
-src/app/(portfolio)/demos/         Public demo pages
 src/app/(portfolio)/work-with-me/  Lead capture page
 next.config.ts                     /prompts and /prompts/* redirect to prompts.chinnakrit.dev
 ```

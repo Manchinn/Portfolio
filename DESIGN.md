@@ -94,7 +94,7 @@ components:
 
 This system presents a builder who can make messy technical work feel reviewable, safe, and product-ready. The page should feel like a focused workbench: clean surfaces, firm labels, practical proof, and just enough color to help the eye move from claim to evidence.
 
-The design is a brand landing surface, not a generic software product shell. It borrows SaaS clarity for scanning, but the content stays personal and proof-led: case studies, public-safe demos, bilingual copy, and a contact path. It explicitly rejects generic AI SaaS templates, purple-gradient startup pages, over-brutalist toy styling, vague automation hype, and public copy that exposes private operations.
+The design is a brand landing surface, not a generic software product shell. It borrows SaaS clarity for scanning, but the content stays personal and proof-led: case studies, workflow proof, bilingual copy, and a contact path. It explicitly rejects generic AI SaaS templates, purple-gradient startup pages, over-brutalist toy styling, vague automation hype, and public copy that exposes private operations.
 
 **Key Characteristics:**
 - Soft neutral surfaces with a decisive green signal color.
