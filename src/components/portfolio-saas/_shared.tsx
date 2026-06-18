@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { cn } from '@/lib/utils'
 
 type SaasSectionProps = {
   id?: string
@@ -7,10 +8,10 @@ type SaasSectionProps = {
   wide?: boolean
 }
 
-export function SaasSection({ id, children, className = '', wide = false }: SaasSectionProps) {
+export function SaasSection({ id, children, className, wide = false }: SaasSectionProps) {
   return (
-    <section id={id} className={`relative py-24 sm:py-28 lg:py-32 ${className}`}>
-      <div className={`mx-auto min-w-0 max-w-full px-4 sm:px-6 lg:px-8 ${wide ? 'max-w-[1280px]' : 'max-w-[1180px]'}`}>
+    <section id={id} className={cn('relative py-24 sm:py-28 lg:py-32', className)}>
+      <div className={cn('mx-auto min-w-0 max-w-full px-4 sm:px-6 lg:px-8', wide ? 'max-w-[1280px]' : 'max-w-[1180px]')}>
         {children}
       </div>
     </section>
@@ -40,7 +41,7 @@ export function SaasHeader({ eyebrow, title, subtitle, align = 'left', rightSlot
   }
 
   return (
-    <div className={centered ? 'mx-auto min-w-0 max-w-3xl text-center' : 'min-w-0 max-w-3xl'}>
+    <div className={cn('min-w-0 max-w-3xl', centered && 'mx-auto text-center')}>
       <HeaderText eyebrow={eyebrow} title={title} subtitle={subtitle} centered={centered} />
     </div>
   )
@@ -64,7 +65,10 @@ function HeaderText({
         {title}
       </h2>
       {subtitle && (
-        <p className={`mt-4 max-w-full break-words text-base font-light leading-8 text-saas-muted ${centered ? 'mx-auto max-w-2xl' : 'max-w-xl'}`}>
+        <p className={cn(
+          'mt-4 max-w-full break-words text-base font-light leading-8 text-saas-muted text-pretty',
+          centered ? 'mx-auto max-w-2xl' : 'max-w-xl'
+        )}>
           {subtitle}
         </p>
       )}
@@ -88,7 +92,7 @@ const toneClass = {
   dark: 'bg-saas-surface-soft text-white',
 }
 
-export function SaasCard({ children, className = '', tone = 'default', hover = false }: SaasCardProps) {
+export function SaasCard({ children, className, tone = 'default', hover = false }: SaasCardProps) {
   const isDefault = tone === 'default'
   const baseClass = isDefault
     ? 'min-w-0 max-w-full'
@@ -96,9 +100,12 @@ export function SaasCard({ children, className = '', tone = 'default', hover = f
 
   return (
     <div
-      className={`${baseClass} ${toneClass[tone]} ${
-        hover ? 'transition duration-200 hover:-translate-y-0.5 hover:shadow-saas-md' : ''
-      } ${className}`}
+      className={cn(
+        baseClass,
+        toneClass[tone],
+        hover && 'transition duration-200 hover:-translate-y-0.5 hover:shadow-saas-md',
+        className
+      )}
     >
       {children}
     </div>
@@ -121,14 +128,14 @@ const buttonClass = {
   ghost: 'text-white hover:text-neutral-300',
 }
 
-export function SaasButton({ href, children, variant = 'primary', icon, className = '' }: SaasButtonProps) {
+export function SaasButton({ href, children, variant = 'primary', icon, className }: SaasButtonProps) {
   const shape =
     variant === 'primary'
       ? 'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition outline-none'
       : 'inline-flex items-center gap-2 text-sm font-semibold transition outline-none'
 
   return (
-    <a href={href} className={`${shape} ${buttonClass[variant]} ${className}`}>
+    <a href={href} className={cn(shape, buttonClass[variant], className)}>
       <span>{children}</span>
       {icon}
     </a>

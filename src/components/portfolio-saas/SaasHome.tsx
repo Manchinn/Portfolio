@@ -10,6 +10,7 @@ import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
 import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
+import { cn } from '@/lib/utils'
 
 type LocalCopy = {
   heroEyebrow: string
@@ -128,7 +129,7 @@ export function SaasHome() {
   const selectedProjects = projects[lang].slice(0, 3)
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-transparent text-saas-ink">
+    <main className="min-h-dvh overflow-x-hidden bg-transparent text-saas-ink">
       <SaasHero c={c} data={data} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
@@ -151,11 +152,11 @@ function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof 
             </h1>
           </MotionCard>
           <MotionCard>
-            <p className="mt-7 max-w-2xl break-words text-lg font-light leading-9 text-saas-muted">{c.heroBody}</p>
+            <p className="mt-7 max-w-2xl break-words text-lg font-light leading-9 text-saas-muted text-pretty">{c.heroBody}</p>
           </MotionCard>
           <MotionCard>
             <div className="mt-10 flex flex-wrap items-center gap-6">
-              <SaasButton href="/#work" icon={<ArrowRight className="h-4 w-4" />}>
+              <SaasButton href="/#work" icon={<ArrowRight className="size-4" />}>
                 {c.primaryCta}
               </SaasButton>
             </div>
@@ -215,16 +216,19 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
       >
         {project.title}
       </h3>
-      <p className={`${isFeatured ? 'max-w-2xl text-lg leading-9' : 'text-base leading-8'} mt-4 font-light text-saas-muted`}>
+      <p className={cn(
+        isFeatured ? 'max-w-2xl text-lg leading-9' : 'text-base leading-8',
+        'mt-4 font-light text-saas-muted text-pretty'
+      )}>
         {project.description}
       </p>
 
       {caseStudyRows.length > 0 && (
-        <dl className={`mt-8 grid gap-6 ${isFeatured ? 'sm:grid-cols-3' : ''}`}>
+        <dl className={cn('mt-8 grid gap-6', isFeatured && 'sm:grid-cols-3')}>
           {caseStudyRows.map((row) => (
             <div key={row.label} className="min-w-0">
               <dt className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{row.label}</dt>
-              <dd className="mt-2 break-words text-sm font-light leading-7 text-saas-ink">{row.value}</dd>
+              <dd className="mt-2 break-words text-sm font-light leading-7 text-saas-ink text-pretty">{row.value}</dd>
             </div>
           ))}
         </dl>
@@ -256,7 +260,7 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
         {c.capabilityCards.map((card) => (
           <div key={card.title} className="min-w-0">
             <dt className="text-xl font-semibold tracking-tight text-saas-ink">{card.title}</dt>
-            <dd className="mt-3 max-w-md text-base font-light leading-8 text-saas-muted">{card.statement}</dd>
+            <dd className="mt-3 max-w-md text-base font-light leading-8 text-saas-muted text-pretty">{card.statement}</dd>
           </div>
         ))}
       </dl>
@@ -272,22 +276,22 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
         <h2 className="mt-5 max-w-3xl text-balance break-words text-3xl font-bold leading-[1.06] tracking-tight sm:text-5xl">
           {c.contactTitle}
         </h2>
-        <p className="mt-5 max-w-2xl text-lg font-light leading-9 text-saas-muted">{c.contactSubtitle}</p>
+        <p className="mt-5 max-w-2xl text-lg font-light leading-9 text-saas-muted text-pretty">{c.contactSubtitle}</p>
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <SaasButton
             href={`mailto:${email}`}
             variant="primary"
-            icon={<ArrowRight className="h-4 w-4" />}
+            icon={<ArrowRight className="size-4" />}
             className="justify-center rounded-full bg-white px-6 py-3 text-black hover:bg-neutral-200"
           >
             {c.contactCta}
           </SaasButton>
           <span className="inline-flex items-center gap-2 text-sm font-light text-saas-muted">
-            <Mail className="h-4 w-4 text-saas-muted" />
+            <Mail className="size-4 text-saas-muted" />
             {email}
           </span>
           <span className="inline-flex items-center gap-2 text-sm font-light text-saas-muted">
-            <MapPin className="h-4 w-4 text-saas-muted" />
+            <MapPin className="size-4 text-saas-muted" />
             {location}
           </span>
         </div>
