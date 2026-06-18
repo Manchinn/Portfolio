@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Menu, X, Globe, ChevronDown, ArrowRight } from 'lucide-react'
 import { navItems } from '../../../data/portfolio'
 import { useTranslation } from '../../../i18n/useTranslation'
+import { cn } from '@/lib/utils'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -48,22 +49,22 @@ const Navbar = () => {
           <div className="hidden items-center gap-2 lg:flex">
             <div className="flex items-center gap-1 rounded-full border border-saas-line bg-saas-surface/80 p-1 shadow-saas-sm">
               {primaryNavItems.map((item, idx) => (
-                <a
+                <Link
                   key={idx}
                   href={item.href}
                   className="rounded-full px-3 py-2 text-xs font-black text-saas-muted transition hover:bg-saas-line hover:text-saas-ink"
                 >
                   {t(`nav.${item.label.toLowerCase()}`)}
-                </a>
+                </Link>
               ))}
             </div>
-            <a
+            <Link
               href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}
               <ArrowRight size={15} strokeWidth={3} />
-            </a>
+            </Link>
 
             {/* Language Switcher */}
             <div className="relative" ref={langRef}>
@@ -102,13 +103,13 @@ const Navbar = () => {
 
           {/* Tablet Menu */}
           <div className="hidden items-center gap-2 md:flex lg:hidden">
-            <a
+            <Link
               href="/work-with-me"
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}
               <ArrowRight size={15} strokeWidth={3} />
-            </a>
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="rounded-full border border-saas-line bg-saas-surface p-3 text-saas-ink shadow-saas-sm"
@@ -138,18 +139,19 @@ const Navbar = () => {
         <div className="border-t border-saas-line bg-saas-bg/95 p-4 shadow-saas-md lg:hidden">
           <div className="mx-auto grid max-w-[1280px] gap-2 sm:grid-cols-2 md:grid-cols-4">
             {navItems.map((item, idx) => (
-              <a
+              <Link
                 key={idx}
                 href={item.href}
-                className={`rounded-[14px] border px-4 py-3 text-sm font-black transition ${
+                className={cn(
+                  'rounded-[14px] border px-4 py-3 text-sm font-black transition',
                   item.label === 'Contact'
                     ? 'border-white bg-white text-black'
                     : 'border-saas-line bg-saas-surface text-saas-ink hover:bg-saas-line'
-                }`}
+                )}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
-              </a>
+              </Link>
             ))}
           </div>
 

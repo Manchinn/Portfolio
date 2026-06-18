@@ -11,6 +11,8 @@ import { useTranslation } from '@/i18n/useTranslation'
 import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
 import { cn } from '@/lib/utils'
+import { articles } from '@/data/portfolio'
+import Link from 'next/link'
 
 type LocalCopy = {
   heroEyebrow: string
@@ -32,6 +34,12 @@ type LocalCopy = {
   problem: string
   built: string
   result: string
+  viewCode: string
+  openDemo: string
+  articlesEyebrow: string
+  articlesTitle: string
+  articlesSubtitle: string
+  readArticle: string
 }
 
 const localCopy: Record<Language, LocalCopy> = {
@@ -76,6 +84,12 @@ const localCopy: Record<Language, LocalCopy> = {
     problem: 'Problem',
     built: 'Built',
     result: 'Result',
+    viewCode: 'View Code',
+    openDemo: 'Live Demo',
+    articlesEyebrow: 'Blog & Insights',
+    articlesTitle: 'Writing on AI automation & code.',
+    articlesSubtitle: 'Technical guides, architecture walkthroughs, and development stories.',
+    readArticle: 'Read article',
   },
   th: {
     heroEyebrow: 'ชินกฤต ศรีพันธุ์ · AI Automation / Full-stack / Internal Tools',
@@ -118,6 +132,12 @@ const localCopy: Record<Language, LocalCopy> = {
     problem: 'ปัญหา',
     built: 'สิ่งที่สร้าง',
     result: 'ผลลัพธ์',
+    viewCode: 'ดูโค้ดบน GitHub',
+    openDemo: 'ดูเดโมสด',
+    articlesEyebrow: 'บทความและสาระ',
+    articlesTitle: 'บันทึกเรื่อง AI Automation และการเขียนโค้ด',
+    articlesSubtitle: 'คู่มือเชิงเทคนิค สถาปัตยกรรมระบบ และเรื่องราวการพัฒนาซอฟต์แวร์',
+    readArticle: 'อ่านบทความ',
   },
 }
 
@@ -126,13 +146,14 @@ export function SaasHome() {
   const lang = language as Language
   const c = localCopy[lang]
   const data = { ...profile[lang], ...profileCommon }
-  const selectedProjects = projects[lang].slice(0, 3)
+  const selectedProjects = projects[lang].slice(0, 4)
 
   return (
     <main className="min-h-dvh overflow-x-hidden bg-transparent text-saas-ink">
       <SaasHero c={c} data={data} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
+      <ArticlesSection c={c} />
       <ContactSection c={c} email={data.email} location={data.location} />
     </main>
   )
@@ -242,6 +263,21 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         ))}
       </div>
 
+      {(project.github || project.demo) && (
+        <div className="mt-6 flex flex-wrap items-center gap-4">
+          {project.github && (
+            <SaasButton href={project.github} variant="secondary" icon={<ArrowRight className="size-4" />} className="px-4 py-2 text-xs">
+              {c.viewCode}
+            </SaasButton>
+          )}
+          {project.demo && (
+            <SaasButton href={project.demo} variant="primary" icon={<ArrowRight className="size-4" />} className="px-4 py-2 text-xs">
+              {c.openDemo}
+            </SaasButton>
+          )}
+        </div>
+      )}
+
       <p className="mt-8 text-sm font-semibold text-saas-muted">{c.proofLabel}</p>
     </article>
   )
@@ -296,6 +332,49 @@ function ContactSection({ c, email, location }: { c: LocalCopy; email: string; l
           </span>
         </div>
       </FadeUp>
+    </SaasSection>
+  )
+}
+
+function ArticlesSection({ c }: { c: LocalCopy }) {
+  const { language } = useTranslation()
+  const lang = language as Language
+  const langArticles = articles[lang] ?? []
+
+  if (langArticles.length === 0) return null
+
+  return (
+    <SaasSection id="articles">
+      <SaasHeader
+        eyebrow={c.articlesEyebrow}
+        title={c.articlesTitle}
+        subtitle={c.articlesSubtitle}
+        align="left"
+      />
+      <div className="mt-14 divide-y divide-saas-line border-t border-saas-line">
+        {langArticles.map((article) => (
+          <Link
+            key={article.id}
+            href={`/article/${article.slug}`}
+            className="group grid gap-3 py-7 transition lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center block"
+          >
+            <div className="min-w-0">
+              <div className="flex items-baseline gap-3">
+                <span className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{article.category}</span>
+                <span className="text-xs font-light text-saas-muted">{article.readTime}</span>
+              </div>
+              <h3 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-saas-ink transition group-hover:text-white">
+                {article.title}
+              </h3>
+              <p className="mt-2 max-w-2xl text-base font-light leading-8 text-saas-muted text-pretty">{article.excerpt}</p>
+            </div>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-muted group-hover:text-white transition-colors">
+              {c.readArticle}
+              <ArrowRight className="size-4 transition group-hover:translate-x-1" />
+            </span>
+          </Link>
+        ))}
+      </div>
     </SaasSection>
   )
 }
