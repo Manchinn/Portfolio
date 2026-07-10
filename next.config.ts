@@ -4,25 +4,6 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const nextConfig: NextConfig = {
   ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
-  async redirects() {
-    return [
-      {
-        source: '/prompts',
-        destination: 'https://prompts.chinnakrit.dev',
-        permanent: true,
-      },
-      {
-        source: '/prompts/:path*',
-        destination: 'https://prompts.chinnakrit.dev/:path*',
-        permanent: true,
-      },
-      {
-        source: '/Chinnakrit-Sripan_CV.pdf',
-        destination: 'https://manchinn.github.io/resume/',
-        permanent: true,
-      },
-    ]
-  },
   async headers() {
     return [
       {
@@ -38,7 +19,7 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ''}`,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https://placehold.co",
+              "img-src 'self' data:",
               "font-src 'self'",
               `connect-src 'self'${isDevelopment ? ' ws://localhost:* http://localhost:*' : ''}`,
               "frame-ancestors 'none'",
