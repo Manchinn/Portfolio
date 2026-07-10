@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Check, ChevronDown, Globe, Menu, X } from 'lucide-react'
+import { Check, ChevronDown, Code2, Globe, Menu, X } from 'lucide-react'
 import { navItems } from '@/data/portfolio'
 import { useTranslation } from '@/i18n/useTranslation'
 import { cn } from '@/lib/utils'
@@ -13,7 +13,6 @@ const Navbar = () => {
   const { t, language, changeLanguage, languages } = useTranslation()
   const langRef = useRef<HTMLDivElement>(null)
   const currentLang = languages.find((item) => item.code === language)
-  const primaryNavItems = navItems.filter((item) => item.label !== 'Contact')
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -29,12 +28,12 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 border-b border-saas-line bg-saas-bg/95 font-display backdrop-blur-lg">
       <div className="mx-auto flex h-17 max-w-[1180px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
-        <Link href="/#home" className="flex min-w-0 items-center gap-3 text-saas-ink">
+        <Link href="/#home" className="flex min-w-0 items-center gap-3 text-saas-ink" aria-label="Portfolio home">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-[6px] bg-saas-accent text-xs font-bold text-white">
-            C/
+            <Code2 size={17} />
           </span>
           <span className="hidden min-w-0 sm:block">
-            <span className="block text-sm font-semibold leading-none">Chinnakrit.dev</span>
+            <span className="block text-sm font-semibold leading-none">Software Portfolio</span>
             <span className="mt-1 block text-[10px] font-medium uppercase text-saas-muted">
               {t('nav.tagline')}
             </span>
@@ -43,7 +42,7 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-6 lg:flex">
           <div className="flex items-center gap-5">
-            {primaryNavItems.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
@@ -94,13 +93,6 @@ const Navbar = () => {
             )}
           </div>
 
-          <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 rounded-[6px] bg-saas-accent px-4 py-2.5 text-xs font-semibold text-white transition-colors hover:bg-saas-accent-strong"
-          >
-            {t('nav.contact')}
-            <ArrowRight size={15} />
-          </Link>
         </div>
 
         <button
@@ -124,9 +116,7 @@ const Navbar = () => {
                   href={item.href}
                   className={cn(
                     'rounded-[6px] px-3 py-3 text-sm font-semibold transition-colors',
-                    item.label === 'Contact'
-                      ? 'bg-saas-accent text-white'
-                      : 'text-saas-muted hover:bg-saas-surface-soft hover:text-saas-ink'
+                    'text-saas-muted hover:bg-saas-surface-soft hover:text-saas-ink'
                   )}
                   onClick={() => setIsMenuOpen(false)}
                 >

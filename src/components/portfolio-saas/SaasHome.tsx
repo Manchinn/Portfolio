@@ -2,13 +2,11 @@
 
 import {
   ArrowRight,
-  Mail,
-  MapPin,
 } from 'lucide-react'
-import { articles, profile, profileCommon, projects } from '@/data/portfolio'
+import { articles, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
-import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
+import { MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
 import { cn } from '@/lib/utils'
 
@@ -24,16 +22,10 @@ type LocalCopy = {
   capabilitiesTitle: string
   capabilitiesSubtitle: string
   capabilityCards: Array<{ title: string; statement: string }>
-  contactEyebrow: string
-  contactTitle: string
-  contactSubtitle: string
-  contactCta: string
   proofLabel: string
   problem: string
   built: string
   result: string
-  viewCode: string
-  openDemo: string
   articlesEyebrow: string
   articlesTitle: string
   articlesSubtitle: string
@@ -42,99 +34,85 @@ type LocalCopy = {
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
-    heroEyebrow: 'Chinnakrit Sripan · AI automation systems builder',
-    heroTitle: 'I build AI automation and full-stack systems for real review.',
+    heroEyebrow: 'Software engineering · Full-stack systems',
+    heroTitle: 'I build clear, maintainable software for real workflows.',
     heroBody:
-      'I turn rough workflows into typed Next.js surfaces, assistant operations, and internal tools that reviewers can inspect without exposing private systems.',
+      'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
     primaryCta: 'View selected work',
     selectedEyebrow: 'Selected work',
     selectedTitle: 'Verified work, shaped like product proof.',
     selectedSubtitle:
-      'A cleaner view of the work that is currently safe to treat as source of truth. Each entry keeps the story clear: problem, build, and result.',
+      'A focused view of application work with the story kept clear: problem, implementation, and result.',
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'What I can build for you.',
     capabilitiesSubtitle:
-      'Four outcome areas behind the selected work, each backed by tools I use in production.',
+      'Four software delivery areas behind the selected work.',
     capabilityCards: [
       {
-        title: 'AI Workflow Systems',
-        statement: 'I connect AI models to real messaging channels, production workflows, and assistant patterns.',
+        title: 'Full-stack Applications',
+        statement: 'I build typed web applications with clear data flows, validation, and maintainable boundaries.',
       },
       {
         title: 'Internal Tools & Dashboards',
         statement: 'I build database-backed tools and admin workflows that teams can actually use.',
       },
       {
-        title: 'SaaS & Product UI',
-        statement: 'I compose product-quality interfaces with clear states, bilingual support, and reviewable workflow proof.',
+        title: 'Product Interfaces',
+        statement: 'I compose responsive interfaces with clear states, bilingual support, and accessible controls.',
       },
       {
-        title: 'Automation & Operations',
-        statement: 'I automate deployment checks, notifications, and operational workflows from local commands.',
+        title: 'Delivery & Operations',
+        statement: 'I make builds, deployment checks, and operational workflows repeatable and reviewable.',
       },
     ],
-    contactEyebrow: 'Contact',
-    contactTitle: 'Have a project or role that fits this work?',
-    contactSubtitle:
-      'Send a short note about the app, demo, internal tool, or full-stack role you want to discuss.',
-    contactCta: 'Get in touch',
     proofLabel: 'Proof summary',
     problem: 'Problem',
     built: 'Built',
     result: 'Result',
-    viewCode: 'View Code',
-    openDemo: 'Live Demo',
     articlesEyebrow: 'Blog & Insights',
-    articlesTitle: 'Writing on AI automation & code.',
-    articlesSubtitle: 'Technical guides, architecture walkthroughs, and development stories.',
+    articlesTitle: 'Writing on frontend and software architecture.',
+    articlesSubtitle: 'Technical notes, implementation patterns, and development stories.',
     readArticle: 'Read article',
   },
   th: {
-    heroEyebrow: 'ชินกฤต ศรีพันธุ์ · AI Automation / Full-stack / Internal Tools',
-    heroTitle: 'ผมสร้าง AI automation และ full-stack systems ที่รีวิวได้จริง',
+    heroEyebrow: 'Software engineering · Full-stack systems',
+    heroTitle: 'สร้างซอฟต์แวร์ที่ชัดเจน ดูแลต่อได้ และรองรับ workflow จริง',
     heroBody:
-      'ผมเปลี่ยน workflow ที่ยังดิบให้เป็น Next.js surfaces, assistant operations และ internal tools ที่ inspect ได้ โดยไม่เปิดระบบ private',
+      'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
     primaryCta: 'ดูผลงานที่เลือกไว้',
     selectedEyebrow: 'Selected work',
     selectedTitle: 'งานที่ยืนยันได้ และอ่านเหมือน product proof',
     selectedSubtitle:
-      'คัดเฉพาะงานที่ตอนนี้ใช้เป็น source of truth ได้ ให้เห็นเรื่องหลักชัดเจน: ปัญหา สิ่งที่สร้าง และผลลัพธ์',
+      'นำเสนองาน application แบบโฟกัส ให้เห็นเรื่องหลักชัดเจน: ปัญหา การพัฒนา และผลลัพธ์',
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
     capabilitiesSubtitle:
-      'สี่ area ที่อยู่เบื้องหลัง selected work แต่ละ area มีเครื่องมือ production รองรับ',
+      'สี่ด้านของการพัฒนาซอฟต์แวร์ที่อยู่เบื้องหลัง selected work',
     capabilityCards: [
       {
-        title: 'AI Workflow Systems',
-        statement: 'ผมเชื่อม AI models กับ messaging channels, production workflows และ assistant patterns ที่ใช้ได้จริง',
+        title: 'Full-stack Applications',
+        statement: 'สร้าง web applications แบบ typed มี data flow, validation และ boundaries ที่ดูแลต่อได้',
       },
       {
         title: 'Internal Tools & Dashboards',
         statement: 'ผมสร้าง tools และ admin workflows ที่มี database รองรับและทีมใช้งานได้จริง',
       },
       {
-        title: 'SaaS & Product UI',
-        statement: 'ผมสร้าง interface คุณภาพ product มี clear states, bilingual support และ workflow proof ที่รีวิวได้',
+        title: 'Product Interfaces',
+        statement: 'สร้าง responsive interface ที่มี clear states, bilingual support และ controls ที่เข้าถึงได้',
       },
       {
-        title: 'Automation & Operations',
-        statement: 'ผมทำ deployment checks, notifications และ operational workflows ให้เรียกซ้ำได้จาก local command',
+        title: 'Delivery & Operations',
+        statement: 'ทำ build, deployment checks และ operational workflows ให้เรียกซ้ำและตรวจสอบได้',
       },
     ],
-    contactEyebrow: 'Contact',
-    contactTitle: 'มีโปรเจกต์หรือ role ที่เข้ากับงานแนวนี้ไหม?',
-    contactSubtitle:
-      'ส่ง note สั้นๆ เกี่ยวกับ app, demo, internal tool หรือ full-stack role ที่อยากคุยได้เลย',
-    contactCta: 'ติดต่อ',
     proofLabel: 'สรุปหลักฐาน',
     problem: 'ปัญหา',
     built: 'สิ่งที่สร้าง',
     result: 'ผลลัพธ์',
-    viewCode: 'ดูโค้ดบน GitHub',
-    openDemo: 'ดูเดโมสด',
     articlesEyebrow: 'บทความและสาระ',
-    articlesTitle: 'บันทึกเรื่อง AI Automation และการเขียนโค้ด',
-    articlesSubtitle: 'คู่มือเชิงเทคนิค สถาปัตยกรรมระบบ และเรื่องราวการพัฒนาซอฟต์แวร์',
+    articlesTitle: 'บันทึกเรื่อง Frontend และสถาปัตยกรรมซอฟต์แวร์',
+    articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนาซอฟต์แวร์',
     readArticle: 'อ่านบทความ',
   },
 }
@@ -143,21 +121,19 @@ export function SaasHome() {
   const { language } = useTranslation()
   const lang = language as Language
   const c = localCopy[lang]
-  const data = { ...profile[lang], ...profileCommon }
-  const selectedProjects = projects[lang].slice(0, 4)
+  const selectedProjects = projects[lang]
 
   return (
     <main className="min-h-dvh overflow-x-hidden bg-saas-bg text-saas-ink">
-      <SaasHero c={c} data={data} />
+      <SaasHero c={c} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
       <ArticlesSection c={c} />
-      <ContactSection c={c} email={data.email} location={data.location} />
     </main>
   )
 }
 
-function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof profileCommon }) {
+function SaasHero({ c }: { c: LocalCopy }) {
   return (
     <section id="home" className="relative">
       <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
@@ -261,21 +237,6 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         ))}
       </div>
 
-      {(project.github || project.demo) && (
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          {project.github && (
-            <SaasButton href={project.github} variant="secondary" icon={<ArrowRight className="size-4" />} className="px-4 py-2 text-xs">
-              {c.viewCode}
-            </SaasButton>
-          )}
-          {project.demo && (
-            <SaasButton href={project.demo} variant="primary" icon={<ArrowRight className="size-4" />} className="px-4 py-2 text-xs">
-              {c.openDemo}
-            </SaasButton>
-          )}
-        </div>
-      )}
-
       <p className="mt-7 text-sm font-medium text-saas-muted">{c.proofLabel}</p>
     </article>
   )
@@ -299,38 +260,6 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
         ))}
       </dl>
     </SaasSection>
-  )
-}
-
-function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
-  return (
-    <section id="contact" className="border-y border-saas-accent-strong bg-saas-accent py-18 text-white sm:py-22 lg:py-24">
-      <FadeUp className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8">
-        <p className="text-xs font-semibold uppercase text-white/75">{c.contactEyebrow}</p>
-        <h2 className="mt-4 max-w-3xl text-balance break-words text-3xl font-semibold leading-[1.1] sm:text-5xl">
-          {c.contactTitle}
-        </h2>
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80 text-pretty">{c.contactSubtitle}</p>
-        <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-4">
-          <SaasButton
-            href={`mailto:${email}`}
-            variant="primary"
-            icon={<ArrowRight className="size-4" />}
-            className="bg-white px-5 py-2.5 text-saas-accent-strong hover:bg-saas-surface-soft"
-          >
-            {c.contactCta}
-          </SaasButton>
-          <span className="inline-flex max-w-full items-center gap-2 break-all text-sm text-white/80 sm:break-normal">
-            <Mail className="size-4 shrink-0" />
-            {email}
-          </span>
-          <span className="inline-flex items-center gap-2 text-sm text-white/80">
-            <MapPin className="size-4 shrink-0" />
-            {location}
-          </span>
-        </div>
-      </FadeUp>
-    </section>
   )
 }
 

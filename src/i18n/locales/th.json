@@ -1,75 +1,9 @@
 {
   "nav": {
-    "tagline": "Portfolio นักพัฒนา",
+    "tagline": "พอร์ตโฟลิโอซอฟต์แวร์",
     "home": "หน้าหลัก",
-    "timeline": "ไทม์ไลน์",
-    "workflow": "Workflow",
-    "systems": "ระบบ",
-    "about": "เกี่ยวกับ",
-    "skills": "ทักษะ",
-    "experience": "ประสบการณ์",
-    "projects": "ผลงาน",
-    "stack": "Stack",
     "work": "ผลงาน",
-    "articles": "บทความ",
-    "prompts": "Prompts",
-    "contact": "ติดต่อ"
-  },
-  "hero": {
-    "openToWork": "พร้อมรับงาน Freelance และ Contract",
-    "subtitle": "ผมสร้าง AI automation และ full-stack systems ที่เชื่อมแอป เซิร์ฟเวอร์ และ workflow จริง",
-    "viewProjects": "ดูผลงาน",
-    "aboutMe": "เกี่ยวกับผม"
-  },
-  "about": {
-    "title": "เกี่ยวกับผม",
-    "description": "ผมสร้าง AI automation และ full-stack systems ที่ใช้งานได้จริง โดยคิดเรื่อง deployment, monitoring และ security ตั้งแต่แรก",
-    "highlights": "สิ่งที่ผมสร้าง",
-    "highlight1": "AI assistant workflows",
-    "highlight2": "Internal APIs และ automation tools",
-    "highlight3": "Web systems ที่พร้อมใช้จริง",
-    "contactInfo": "ข้อมูลติดต่อ",
-    "location": "กรุงเทพมหานคร ประเทศไทย",
-    "downloadCV": "ดาวน์โหลดประวัติ"
-  },
-  "skills": {
-    "title": "ทักษะและเครื่องมือ",
-    "subtitle": "เทคโนโลยีที่ผมใช้งาน"
-  },
-  "experience": {
-    "title": "ประสบการณ์การทำงาน",
-    "present": "ปัจจุบัน"
-  },
-  "projects": {
-    "title": "ผลงานของผม",
-    "subtitle": "AI automation และ full-stack systems ล่าสุด",
-    "viewDemo": "ดู Demo",
-    "viewCode": "ดู Code"
-  },
-  "articles": {
-    "title": "บทความ",
-    "subtitle": "บทความล่าสุด",
-    "readMore": "อ่านเพิ่มเติม",
-    "viewAll": "ดูบทความทั้งหมด"
-  },
-  "contact": {
-    "title": "ติดต่อผม",
-    "subtitle": "มีโปรเจกต์ในใจ? มาคุยกันเลย!",
-    "name": "ชื่อ",
-    "email": "อีเมล",
-    "message": "ข้อความ",
-    "send": "ส่งข้อความ",
-    "sending": "กำลังส่ง...",
-    "success": "ส่งข้อความสำเร็จ!",
-    "error": "ส่งข้อความไม่สำเร็จ กรุณาลองอีกครั้ง"
-  },
-  "notFound": {
-    "title": "ไม่พบหน้าที่ค้นหา",
-    "description": "หน้าที่คุณกำลังค้นหาไม่มีอยู่หรือถูกย้ายแล้ว",
-    "backToHome": "กลับหน้าหลัก"
-  },
-  "footer": {
-    "copyright": "สงวนลิขสิทธิ์",
-    "builtWith": "สร้างด้วย"
+    "stack": "เทคโนโลยี",
+    "articles": "บทความ"
   }
 }

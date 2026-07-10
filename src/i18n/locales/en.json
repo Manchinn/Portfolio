@@ -1,75 +1,9 @@
 {
   "nav": {
-    "tagline": "Developer portfolio",
+    "tagline": "Software portfolio",
     "home": "Home",
-    "timeline": "Timeline",
-    "workflow": "Workflow",
-    "systems": "Systems",
-    "about": "About",
-    "skills": "Skills",
-    "experience": "Experience",
-    "projects": "Projects",
-    "stack": "Stack",
     "work": "Work",
-    "articles": "Articles",
-    "prompts": "Prompts",
-    "contact": "Contact"
-  },
-  "hero": {
-    "openToWork": "Open to work: Freelance & Contract",
-    "subtitle": "I build AI automation and full-stack systems that connect apps, servers, and real workflows.",
-    "viewProjects": "View Projects",
-    "aboutMe": "About me"
-  },
-  "about": {
-    "title": "About Me",
-    "description": "I build practical AI automation and full-stack systems with production-minded deployment, monitoring, and security habits.",
-    "highlights": "What I Build",
-    "highlight1": "AI assistant workflows",
-    "highlight2": "Internal APIs and automation tools",
-    "highlight3": "Production-ready web systems",
-    "contactInfo": "Contact Info",
-    "location": "Bangkok, Thailand",
-    "downloadCV": "Download CV"
-  },
-  "skills": {
-    "title": "Skills & Tools",
-    "subtitle": "Technologies I work with"
-  },
-  "experience": {
-    "title": "Work Experience",
-    "present": "Present"
-  },
-  "projects": {
-    "title": "My Projects",
-    "subtitle": "Recent AI automation and full-stack systems",
-    "viewDemo": "View Demo",
-    "viewCode": "View Code"
-  },
-  "articles": {
-    "title": "Blog",
-    "subtitle": "Latest Articles",
-    "readMore": "Read More",
-    "viewAll": "View All Articles"
-  },
-  "contact": {
-    "title": "Get In Touch",
-    "subtitle": "Have a project in mind? Let's talk!",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "send": "Send Message",
-    "sending": "Sending...",
-    "success": "Message sent successfully!",
-    "error": "Failed to send message. Please try again."
-  },
-  "notFound": {
-    "title": "Page Not Found",
-    "description": "The page you are looking for does not exist or has been moved.",
-    "backToHome": "Back to Home"
-  },
-  "footer": {
-    "copyright": "All rights reserved.",
-    "builtWith": "Built with"
+    "stack": "Stack",
+    "articles": "Articles"
   }
 }

@@ -79,24 +79,15 @@ function HeaderText({
 type SaasButtonProps = {
   href: string
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'ghost'
   icon?: ReactNode
   className?: string
 }
 
-const buttonClass = {
-  primary:
-    'bg-saas-accent text-white hover:bg-saas-accent-strong',
-  secondary:
-    'border border-saas-line bg-saas-surface text-saas-ink hover:border-saas-accent hover:text-saas-accent-strong',
-  ghost: 'text-saas-accent-strong hover:text-saas-ink',
-}
-
-export function SaasButton({ href, children, variant = 'primary', icon, className }: SaasButtonProps) {
+export function SaasButton({ href, children, icon, className }: SaasButtonProps) {
   const shape = 'inline-flex items-center justify-center gap-2 rounded-[6px] px-5 py-2.5 text-sm font-semibold transition-colors outline-none'
 
   return (
-    <a href={href} className={cn(shape, buttonClass[variant], className)}>
+    <a href={href} className={cn(shape, 'bg-saas-accent text-white hover:bg-saas-accent-strong', className)}>
       <span className="min-w-0">{children}</span>
       {icon}
     </a>

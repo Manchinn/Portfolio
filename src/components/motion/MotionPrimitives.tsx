@@ -6,40 +6,9 @@ import { motion, useReducedMotion } from 'motion/react'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
-const fadeUpVariants: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0 },
-}
-
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0 },
-}
-
-type FadeUpProps = Omit<HTMLMotionProps<'div'>, 'children' | 'initial' | 'variants' | 'whileInView'> & {
-  children: ReactNode
-  delay?: number
-}
-
-export function FadeUp({ children, delay = 0, transition, viewport, ...props }: FadeUpProps) {
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) {
-    return <motion.div {...props}>{children}</motion.div>
-  }
-
-  return (
-    <motion.div
-      initial={false}
-      variants={fadeUpVariants}
-      viewport={{ once: true, amount: 0.3, ...viewport }}
-      whileInView="visible"
-      transition={{ duration: 0.45, ease: easeOut, delay, ...transition }}
-      {...props}
-    >
-      {children}
-    </motion.div>
-  )
 }
 
 type StaggerContainerProps = Omit<HTMLMotionProps<'div'>, 'children' | 'initial' | 'variants' | 'whileInView'> & {

@@ -18,8 +18,8 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Chinnakrit Sripan — AI Automation & Full-stack Systems Builder',
-  description: 'Portfolio of AI automation, full-stack systems, DevOps workflows, and production assistant projects by Chinnakrit Sripan.',
+  title: 'Software Engineering Portfolio',
+  description: 'Selected full-stack application work, implementation notes, and software engineering capabilities.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
