@@ -54,14 +54,22 @@ if ($trackedEnv) {
   Ok "no env files tracked"
 }
 
-git grep -nE "(password|secret|api[_-]?key|token)\s*[:=]\s*['""][^'""]{8,}" -- "*.ts" "*.tsx" "*.js" "*.jsx" | Out-Null
+git grep -nE "(password|secret|api[_-]?key|token)\s*[:=]\s*['""][^'""]{8,}" -- src next.config.ts | Out-Null
 if ($LASTEXITCODE -eq 0) {
   Fail "possible hardcoded secret in source"
 } else {
   Ok "no obvious hardcoded secrets in source"
 }
 
-rg -n "localhost|127\.0\.0\.1|0\.0\.0\.0|bearer|private endpoint|internal port|fail2ban|systemd|nginx|ssl" src/data/portfolio.ts 'src/app/(portfolio)' | Out-Null
+$publicCopyPaths = @(
+  'src/data/portfolio.ts',
+  'src/app/(portfolio)',
+  'src/components/portfolio-saas',
+  'src/components/layout',
+  'src/i18n/locales'
+)
+
+rg -n "localhost|127\.0\.0\.1|0\.0\.0\.0|bearer|private endpoint|internal port|fail2ban|systemd|nginx|ssl" $publicCopyPaths | Out-Null
 if ($LASTEXITCODE -eq 0) {
   Warn "public copy may contain internal/security implementation details"
 } else {

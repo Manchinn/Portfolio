@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 type SaasSectionProps = {
@@ -81,15 +82,19 @@ type SaasButtonProps = {
   children: ReactNode
   icon?: ReactNode
   className?: string
+  variant?: 'primary' | 'secondary'
 }
 
-export function SaasButton({ href, children, icon, className }: SaasButtonProps) {
-  const shape = 'inline-flex items-center justify-center gap-2 rounded-[6px] px-5 py-2.5 text-sm font-semibold transition-colors outline-none'
+export function SaasButton({ href, children, icon, className, variant = 'primary' }: SaasButtonProps) {
+  const shape = 'inline-flex items-center justify-center gap-2 rounded-[6px] px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-saas-accent'
+  const appearance = variant === 'primary'
+    ? 'bg-saas-accent text-white hover:bg-saas-accent-strong'
+    : 'border border-saas-line bg-saas-surface text-saas-ink hover:border-saas-accent hover:text-saas-accent-strong'
 
   return (
-    <a href={href} className={cn(shape, 'bg-saas-accent text-white hover:bg-saas-accent-strong', className)}>
+    <Link href={href} className={cn(shape, appearance, className)}>
       <span className="min-w-0">{children}</span>
       {icon}
-    </a>
+    </Link>
   )
 }

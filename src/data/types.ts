@@ -1,5 +1,6 @@
 export interface Project {
   id: number
+  slug: string
   title: string
   description: string
   tech: string[]
@@ -10,14 +11,23 @@ export interface Project {
     built: string
     result: string
   }
+  highlights: string[]
+}
+
+export interface ArticleSection {
+  heading: string
+  paragraphs: string[]
+  bullets?: string[]
 }
 
 export interface Article {
   id: number
+  slug: string
   title: string
   excerpt: string
   category: string
   readTime: string
+  sections: ArticleSection[]
 }
 
 export type Language = 'en' | 'th'

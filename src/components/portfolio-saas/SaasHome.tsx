@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import {
   ArrowRight,
 } from 'lucide-react'
@@ -15,6 +16,8 @@ type LocalCopy = {
   heroTitle: string
   heroBody: string
   primaryCta: string
+  secondaryCta: string
+  proofItems: Array<{ label: string; value: string }>
   selectedEyebrow: string
   selectedTitle: string
   selectedSubtitle: string
@@ -26,10 +29,15 @@ type LocalCopy = {
   problem: string
   built: string
   result: string
+  viewProof: string
   articlesEyebrow: string
   articlesTitle: string
   articlesSubtitle: string
   readArticle: string
+  contactEyebrow: string
+  contactTitle: string
+  contactBody: string
+  contactAction: string
 }
 
 const localCopy: Record<Language, LocalCopy> = {
@@ -38,7 +46,13 @@ const localCopy: Record<Language, LocalCopy> = {
     heroTitle: 'I build clear, maintainable software for real workflows.',
     heroBody:
       'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
-    primaryCta: 'View selected work',
+    primaryCta: 'Start a project',
+    secondaryCta: 'Open proof demo',
+    proofItems: [
+      { label: 'Static proof routes', value: 'Typed project and article pages' },
+      { label: 'Bilingual interface', value: 'One shared EN/TH content contract' },
+      { label: 'Local-first intake', value: 'No submission API or stored brief' },
+    ],
     selectedEyebrow: 'Selected work',
     selectedTitle: 'Verified work, shaped like product proof.',
     selectedSubtitle:
@@ -69,17 +83,28 @@ const localCopy: Record<Language, LocalCopy> = {
     problem: 'Problem',
     built: 'Built',
     result: 'Result',
+    viewProof: 'Open proof demo',
     articlesEyebrow: 'Blog & Insights',
     articlesTitle: 'Writing on frontend and software architecture.',
     articlesSubtitle: 'Technical notes, implementation patterns, and development stories.',
     readArticle: 'Read article',
+    contactEyebrow: 'Project inquiry',
+    contactTitle: 'Have a workflow that needs a clearer software path?',
+    contactBody: 'Shape the context, desired result, and constraints into a concise brief before starting the conversation.',
+    contactAction: 'Create a project brief',
   },
   th: {
     heroEyebrow: 'Software engineering · Full-stack systems',
     heroTitle: 'สร้างซอฟต์แวร์ที่ชัดเจน ดูแลต่อได้ และรองรับ workflow จริง',
     heroBody:
       'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
-    primaryCta: 'ดูผลงานที่เลือกไว้',
+    primaryCta: 'เริ่มคุยโปรเจกต์',
+    secondaryCta: 'เปิด Proof Demo',
+    proofItems: [
+      { label: 'Static proof routes', value: 'Project และ article pages แบบ typed' },
+      { label: 'Bilingual interface', value: 'ใช้ content contract ร่วมกันใน EN/TH' },
+      { label: 'Local-first intake', value: 'ไม่มี submission API หรือการเก็บ brief' },
+    ],
     selectedEyebrow: 'Selected work',
     selectedTitle: 'งานที่ยืนยันได้ และอ่านเหมือน product proof',
     selectedSubtitle:
@@ -110,10 +135,15 @@ const localCopy: Record<Language, LocalCopy> = {
     problem: 'ปัญหา',
     built: 'สิ่งที่สร้าง',
     result: 'ผลลัพธ์',
+    viewProof: 'เปิด Proof Demo',
     articlesEyebrow: 'บทความและสาระ',
     articlesTitle: 'บันทึกเรื่อง Frontend และสถาปัตยกรรมซอฟต์แวร์',
     articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนาซอฟต์แวร์',
     readArticle: 'อ่านบทความ',
+    contactEyebrow: 'Project inquiry',
+    contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',
+    contactBody: 'จัดบริบท ผลลัพธ์ที่ต้องการ และข้อจำกัดให้เป็น brief ที่กระชับก่อนเริ่มพูดคุย',
+    contactAction: 'สร้าง Project Brief',
   },
 }
 
@@ -122,18 +152,20 @@ export function SaasHome() {
   const lang = language as Language
   const c = localCopy[lang]
   const selectedProjects = projects[lang]
+  const proofHref = selectedProjects[0] ? `/work/${selectedProjects[0].slug}#demo` : '/#work'
 
   return (
     <main className="min-h-dvh overflow-x-hidden bg-saas-bg text-saas-ink">
-      <SaasHero c={c} />
+      <SaasHero c={c} proofHref={proofHref} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
       <ArticlesSection c={c} />
+      <ContactSection c={c} />
     </main>
   )
 }
 
-function SaasHero({ c }: { c: LocalCopy }) {
+function SaasHero({ c, proofHref }: { c: LocalCopy; proofHref: string }) {
   return (
     <section id="home" className="relative">
       <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
@@ -151,10 +183,23 @@ function SaasHero({ c }: { c: LocalCopy }) {
           </MotionCard>
           <MotionCard>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <SaasButton href="/#work" icon={<ArrowRight className="size-4" />}>
+              <SaasButton href="/work-with-me" icon={<ArrowRight className="size-4" />}>
                 {c.primaryCta}
               </SaasButton>
+              <SaasButton href={proofHref} variant="secondary">
+                {c.secondaryCta}
+              </SaasButton>
             </div>
+          </MotionCard>
+          <MotionCard>
+            <dl className="mt-14 grid border-y border-saas-line sm:grid-cols-3">
+              {c.proofItems.map((item) => (
+                <div key={item.label} className="min-w-0 border-b border-saas-line py-5 last:border-b-0 sm:border-r sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:border-r-0">
+                  <dt className="text-xs font-semibold uppercase text-saas-accent">{item.label}</dt>
+                  <dd className="mt-2 text-sm leading-6 text-saas-muted">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
           </MotionCard>
         </StaggerContainer>
       </div>
@@ -237,7 +282,16 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         ))}
       </div>
 
-      <p className="mt-7 text-sm font-medium text-saas-muted">{c.proofLabel}</p>
+      <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-saas-line pt-5">
+        <p className="text-sm font-medium text-saas-muted">{c.proofLabel}</p>
+        <Link
+          href={`/work/${project.slug}#demo`}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-saas-accent-strong hover:text-saas-accent"
+        >
+          {c.viewProof}
+          <ArrowRight className="size-4" />
+        </Link>
+      </div>
     </article>
   )
 }
@@ -294,12 +348,34 @@ function ArticlesSection({ c }: { c: LocalCopy }) {
               </h3>
               <p className="mt-2 max-w-2xl text-base leading-7 text-saas-muted text-pretty">{article.excerpt}</p>
             </div>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-accent-strong">
+            <Link
+              href={`/article/${article.slug}`}
+              className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-saas-accent-strong hover:text-saas-accent"
+            >
               {c.readArticle}
               <ArrowRight className="size-4" />
-            </span>
+            </Link>
           </article>
         ))}
+      </div>
+    </SaasSection>
+  )
+}
+
+function ContactSection({ c }: { c: LocalCopy }) {
+  return (
+    <SaasSection id="contact">
+      <div className="grid gap-8 border-y border-saas-line py-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase text-saas-accent">{c.contactEyebrow}</p>
+          <h2 className="mt-3 max-w-3xl break-words text-3xl font-semibold leading-tight text-saas-ink sm:text-4xl">
+            {c.contactTitle}
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-saas-muted">{c.contactBody}</p>
+        </div>
+        <SaasButton href="/work-with-me" icon={<ArrowRight className="size-4" />}>
+          {c.contactAction}
+        </SaasButton>
       </div>
     </SaasSection>
   )

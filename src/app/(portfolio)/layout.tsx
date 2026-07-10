@@ -1,12 +1,12 @@
+import type { ReactNode } from 'react'
 import Navbar from '@/components/layout/Navbar/Navbar'
 import Footer from '@/components/layout/Footer'
-import { SaasHome } from '@/components/portfolio-saas/SaasHome'
 
-export default function Home() {
+export default function PortfolioLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <SaasHome />
+      {children}
       <Footer />
     </>
   )

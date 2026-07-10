@@ -21,7 +21,7 @@ The shared portfolio frame that gives every portfolio route the same navigation 
 _Avoid_: Per-page navbar theme, mixed portfolio shell
 
 **Workflow Intake Page**:
-The portfolio route that turns visitor interest into a scoped project brief. It should feel like a SaaS conversion page with safe intake notes, a clear form, and a local email preview rather than an internal console.
+The portfolio route that turns visitor interest into a scoped project brief. It should feel like a SaaS conversion page with safe intake notes, a clear form, a local brief preview, and an explicit public-contact handoff rather than an internal console. The brief stays in the browser until the visitor chooses to copy or open the contact channel.
 _Avoid_: Intake console, admin form, backend lead capture
 
 **Portfolio Journey Navigation**:
@@ -34,9 +34,9 @@ Dev: "Should the standalone SaaS demo use the same navbar?"
 
 Domain expert: "No. A standalone product demo may keep a separate shell. Portfolio routes use the Global SaaS Shell."
 
-Dev: "Should `/work-with-me` stay as an intake console?"
+Dev: "Should `/work-with-me` keep an email preview?"
 
-Domain expert: "No. It is a Workflow Intake Page. Keep the brief form and email preview, but use the Modern SaaS Product Portfolio design system."
+Domain expert: "No. It is a Workflow Intake Page. Keep the brief form, local preview, and explicit public-contact handoff, but use the Modern SaaS Product Portfolio design system."
 
 Dev: "Should the navbar keep Workflow, Systems, Work, Timeline, Projects, or Prompts?"
 
