@@ -5,13 +5,12 @@ import {
   Mail,
   MapPin,
 } from 'lucide-react'
-import { profile, profileCommon, projects } from '@/data/portfolio'
+import { articles, profile, profileCommon, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { useTranslation } from '@/i18n/useTranslation'
 import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
 import { cn } from '@/lib/utils'
-import { articles } from '@/data/portfolio'
 
 type LocalCopy = {
   heroEyebrow: string
@@ -148,7 +147,7 @@ export function SaasHome() {
   const selectedProjects = projects[lang].slice(0, 4)
 
   return (
-    <main className="min-h-dvh overflow-x-hidden bg-transparent text-saas-ink">
+    <main className="min-h-dvh overflow-x-hidden bg-saas-bg text-saas-ink">
       <SaasHero c={c} data={data} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
@@ -161,21 +160,21 @@ export function SaasHome() {
 function SaasHero({ c, data }: { c: LocalCopy; data: typeof profile.en & typeof profileCommon }) {
   return (
     <section id="home" className="relative">
-      <div className="mx-auto max-w-[1080px] px-4 pt-20 pb-16 sm:px-6 sm:pt-28 sm:pb-24 lg:px-8 lg:pt-36 lg:pb-28">
+      <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
         <StaggerContainer delayChildren={0.05} staggerChildren={0.08}>
           <MotionCard>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-saas-muted">{c.heroEyebrow}</p>
+            <p className="text-xs font-semibold uppercase text-saas-accent">{c.heroEyebrow}</p>
           </MotionCard>
           <MotionCard>
-            <h1 className="mt-6 max-w-[18ch] text-balance break-words text-4xl font-bold leading-[1.02] tracking-tight text-saas-ink sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-[19ch] text-balance break-words text-4xl font-semibold leading-[1.06] text-saas-ink sm:text-6xl lg:text-[4.25rem]">
               {c.heroTitle}
             </h1>
           </MotionCard>
           <MotionCard>
-            <p className="mt-7 max-w-2xl break-words text-lg font-light leading-9 text-saas-muted text-pretty">{c.heroBody}</p>
+            <p className="mt-6 max-w-2xl break-words text-lg leading-8 text-saas-muted text-pretty">{c.heroBody}</p>
           </MotionCard>
           <MotionCard>
-            <div className="mt-10 flex flex-wrap items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <SaasButton href="/#work" icon={<ArrowRight className="size-4" />}>
                 {c.primaryCta}
               </SaasButton>
@@ -198,7 +197,7 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
         subtitle={c.selectedSubtitle}
         align="split"
       />
-      <StaggerContainer className="mt-16 grid gap-x-12 gap-y-14 lg:grid-cols-2">
+      <StaggerContainer className="mt-12 grid gap-x-10 gap-y-12 lg:grid-cols-2">
         {featuredProject && (
           <MotionCard className="min-w-0 lg:col-span-2">
             <ProjectCard project={featuredProject} c={c} variant="featured" />
@@ -225,30 +224,30 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
     : []
 
   return (
-    <article className="group flex min-h-full flex-col border-t border-saas-line pt-8">
+    <article className="group flex min-h-full flex-col border-t border-saas-line pt-7">
       <div className="flex items-baseline justify-between gap-4">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-saas-muted">{project.category}</p>
+        <p className="text-xs font-semibold uppercase text-saas-accent">{project.category}</p>
         <span className="text-xs font-medium text-saas-muted">{project.date}</span>
       </div>
 
       <h3
-        className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'} mt-4 break-words font-bold leading-tight tracking-tight text-saas-ink`}
+        className={`${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'} mt-3 break-words font-semibold leading-tight text-saas-ink`}
       >
         {project.title}
       </h3>
       <p className={cn(
-        isFeatured ? 'max-w-2xl text-lg leading-9' : 'text-base leading-8',
-        'mt-4 font-light text-saas-muted text-pretty'
+        isFeatured ? 'max-w-2xl text-lg leading-8' : 'text-base leading-7',
+        'mt-3 text-saas-muted text-pretty'
       )}>
         {project.description}
       </p>
 
       {caseStudyRows.length > 0 && (
-        <dl className={cn('mt-8 grid gap-6', isFeatured && 'sm:grid-cols-3')}>
+        <dl className={cn('mt-7 grid gap-6', isFeatured && 'sm:grid-cols-3')}>
           {caseStudyRows.map((row) => (
             <div key={row.label} className="min-w-0">
-              <dt className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{row.label}</dt>
-              <dd className="mt-2 break-words text-sm font-light leading-7 text-saas-ink text-pretty">{row.value}</dd>
+              <dt className="text-xs font-semibold uppercase text-saas-accent">{row.label}</dt>
+              <dd className="mt-2 break-words text-sm leading-6 text-saas-ink text-pretty">{row.value}</dd>
             </div>
           ))}
         </dl>
@@ -263,7 +262,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
       </div>
 
       {(project.github || project.demo) && (
-        <div className="mt-6 flex flex-wrap items-center gap-4">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           {project.github && (
             <SaasButton href={project.github} variant="secondary" icon={<ArrowRight className="size-4" />} className="px-4 py-2 text-xs">
               {c.viewCode}
@@ -277,7 +276,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
         </div>
       )}
 
-      <p className="mt-8 text-sm font-semibold text-saas-muted">{c.proofLabel}</p>
+      <p className="mt-7 text-sm font-medium text-saas-muted">{c.proofLabel}</p>
     </article>
   )
 }
@@ -291,11 +290,11 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
         subtitle={c.capabilitiesSubtitle}
         align="left"
       />
-      <dl className="mt-14 grid gap-x-12 gap-y-12 border-t border-saas-line pt-12 sm:grid-cols-2">
+      <dl className="mt-12 grid gap-x-12 gap-y-10 border-t border-saas-line pt-10 sm:grid-cols-2">
         {c.capabilityCards.map((card) => (
           <div key={card.title} className="min-w-0">
-            <dt className="text-xl font-semibold tracking-tight text-saas-ink">{card.title}</dt>
-            <dd className="mt-3 max-w-md text-base font-light leading-8 text-saas-muted text-pretty">{card.statement}</dd>
+            <dt className="text-xl font-semibold text-saas-ink">{card.title}</dt>
+            <dd className="mt-3 max-w-md text-base leading-7 text-saas-muted text-pretty">{card.statement}</dd>
           </div>
         ))}
       </dl>
@@ -305,33 +304,33 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
 
 function ContactSection({ c, email, location }: { c: LocalCopy; email: string; location: string }) {
   return (
-    <SaasSection id="contact" className="pb-28">
-      <FadeUp className="rounded-[28px] border border-saas-line bg-saas-surface px-6 py-14 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-saas-muted">{c.contactEyebrow}</p>
-        <h2 className="mt-5 max-w-3xl text-balance break-words text-3xl font-bold leading-[1.06] tracking-tight sm:text-5xl">
+    <section id="contact" className="border-y border-saas-accent-strong bg-saas-accent py-18 text-white sm:py-22 lg:py-24">
+      <FadeUp className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8">
+        <p className="text-xs font-semibold uppercase text-white/75">{c.contactEyebrow}</p>
+        <h2 className="mt-4 max-w-3xl text-balance break-words text-3xl font-semibold leading-[1.1] sm:text-5xl">
           {c.contactTitle}
         </h2>
-        <p className="mt-5 max-w-2xl text-lg font-light leading-9 text-saas-muted text-pretty">{c.contactSubtitle}</p>
-        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80 text-pretty">{c.contactSubtitle}</p>
+        <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8 sm:gap-y-4">
           <SaasButton
             href={`mailto:${email}`}
             variant="primary"
             icon={<ArrowRight className="size-4" />}
-            className="justify-center rounded-full bg-white px-6 py-3 text-black hover:bg-neutral-200"
+            className="bg-white px-5 py-2.5 text-saas-accent-strong hover:bg-saas-surface-soft"
           >
             {c.contactCta}
           </SaasButton>
-          <span className="inline-flex items-center gap-2 text-sm font-light text-saas-muted">
-            <Mail className="size-4 text-saas-muted" />
+          <span className="inline-flex max-w-full items-center gap-2 break-all text-sm text-white/80 sm:break-normal">
+            <Mail className="size-4 shrink-0" />
             {email}
           </span>
-          <span className="inline-flex items-center gap-2 text-sm font-light text-saas-muted">
-            <MapPin className="size-4 text-saas-muted" />
+          <span className="inline-flex items-center gap-2 text-sm text-white/80">
+            <MapPin className="size-4 shrink-0" />
             {location}
           </span>
         </div>
       </FadeUp>
-    </SaasSection>
+    </section>
   )
 }
 
@@ -350,23 +349,23 @@ function ArticlesSection({ c }: { c: LocalCopy }) {
         subtitle={c.articlesSubtitle}
         align="left"
       />
-      <div className="mt-14 divide-y divide-saas-line border-t border-saas-line">
+      <div className="mt-12 divide-y divide-saas-line border-t border-saas-line">
         {langArticles.map((article) => (
           <article
             key={article.id}
-            className="grid gap-3 py-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
+            className="grid gap-4 py-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
           >
             <div className="min-w-0">
-              <div className="flex items-baseline gap-3">
-                <span className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{article.category}</span>
-                <span className="text-xs font-light text-saas-muted">{article.readTime}</span>
+              <div className="flex flex-wrap items-baseline gap-3">
+                <span className="text-xs font-semibold uppercase text-saas-accent">{article.category}</span>
+                <span className="text-xs text-saas-muted">{article.readTime}</span>
               </div>
-              <h3 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-saas-ink">
+              <h3 className="mt-2 break-words text-2xl font-semibold leading-tight text-saas-ink">
                 {article.title}
               </h3>
-              <p className="mt-2 max-w-2xl text-base font-light leading-8 text-saas-muted text-pretty">{article.excerpt}</p>
+              <p className="mt-2 max-w-2xl text-base leading-7 text-saas-muted text-pretty">{article.excerpt}</p>
             </div>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-muted">
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-accent-strong">
               {c.readArticle}
               <ArrowRight className="size-4" />
             </span>

@@ -1,249 +1,83 @@
 @import "tailwindcss";
 @source not "../../.continues-handoff.md";
 
-/* ============================================
-  Design Tokens (Tailwind v4 @theme)
-  Generates utility classes automatically e.g. bg-neo-yellow, shadow-neo
-  ============================================ */
 @theme {
-  /* === Modern SaaS Theme (portfolio redesign) === */
-  --color-saas-bg: #09090b;
-  --color-saas-surface: #09090b;
-  --color-saas-surface-soft: #18181b;
-  --color-saas-ink: #fafafa;
-  --color-saas-muted: #a1a1aa;
-  --color-saas-line: #27272a;
-  --color-saas-green: #fafafa;
-  --color-saas-green-strong: #fafafa;
-  --color-saas-blue: #3f3f46;
-  --color-saas-lilac: #27272a;
-  --color-saas-mint: #27272a;
-  --color-saas-cream: #27272a;
-  --color-saas-coral: #27272a;
+  --color-saas-bg: #f6f8f7;
+  --color-saas-surface: #ffffff;
+  --color-saas-surface-soft: #edf3f0;
+  --color-saas-ink: #17211e;
+  --color-saas-muted: #5f6e68;
+  --color-saas-line: #d7e0dc;
+  --color-saas-accent: #0f766e;
+  --color-saas-accent-strong: #0b5f59;
+  --color-saas-accent-soft: #dcefeb;
 
-  --shadow-saas-sm: 0 8px 24px rgba(0, 0, 0, 0.2);
-  --shadow-saas-md: 0 18px 48px rgba(0, 0, 0, 0.4);
-  --shadow-saas-focus: 0 0 0 4px rgba(255, 255, 255, 0.16);
+  --shadow-saas-sm: 0 1px 2px rgba(23, 33, 30, 0.08);
+  --shadow-saas-md: 0 12px 28px rgba(23, 33, 30, 0.12);
+  --shadow-saas-focus: 0 0 0 3px rgba(15, 118, 110, 0.2);
 
-  --radius-saas-sm: 8px;
-  --radius-saas-md: 14px;
-  --radius-saas-lg: 24px;
+  --radius-saas-sm: 6px;
+  --radius-saas-md: 8px;
 
   --font-display: var(--font-plex-sans, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-jetbrains, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
-
-  /* Brand Colors → bg-neo-*, text-neo-*, border-neo-* */
-  --color-neo-yellow: #FFDE00;
-  --color-neo-pink: #FF90E8;
-  --color-neo-blue: #5471FF;
-  --color-neo-green: #90EE90;
-  --color-neo-cream: #FFFAEB;
-  --color-neo-coral: #FF6B6B;
-  --color-neo-orange: #FF9642;
-  --color-neo-red-light: #FFADAD;
-  --color-neo-peach: #FFD6A5;
-  --color-neo-lemon: #FDFFB6;
-  --color-neo-mint: #CAFFBF;
-  --color-neo-cyan: #9BF6FF;
-  --color-neo-sky: #A0C4FF;
-  --color-neo-lavender: #BDB2FF;
-
-  /* Neo-Brutalism Shadows → shadow-neo, shadow-neo-sm, shadow-neo-lg */
-  --shadow-neo: 4px 4px 0 #000;
-  --shadow-neo-sm: 2px 2px 0 #000;
-  --shadow-neo-lg: 8px 8px 0 #000;
-  --shadow-neo-soft: 4px 4px 0 rgba(0, 0, 0, 0.3);
-
-  /* Border Radius → rounded-neo-none */
-  --radius-neo-none: 0;
-
-  /* Custom Easing → ease-neo */
-  --ease-neo: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Custom Animations */
-  --animate-fade-in: fade-in 0.6s ease-out forwards;
-  --animate-slide-in-left: slide-in-left 0.6s ease-out forwards;
-  --animate-slide-in-right: slide-in-right 0.6s ease-out forwards;
-  --animate-scale-up: scale-up 0.6s ease-out forwards;
-  --animate-bounce-slow: bounce-slow 2s infinite;
-  --animate-shimmer: shimmer 2s infinite;
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slide-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes scale-up {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes bounce-slow {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
 }
 
-/* ============================================
-  Additional CSS Variables (non-utility)
-  For custom CSS that does not use utility classes
-  ============================================ */
 :root {
-  /* Spacing Scale (for custom CSS) */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
+  color-scheme: light;
+}
 
-  /* Border Widths (for custom CSS) */
-  --border-width-default: 2px;
-  --border-width-thick: 4px;
-
-  /* Transitions */
-  --transition-fast: 200ms;
-  --transition-normal: 300ms;
-  --transition-slow: 500ms;
-
-  /* Interactive States */
-  --press-offset: 2px;
-  --hover-lift: -5px;
+* {
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 68px;
 }
 
-/* ============================================
-   Portfolio Motion Utilities
-   Lightweight CSS-only animation with reduced-motion support.
-   ============================================ */
-
-@keyframes portfolio-enter {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes portfolio-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.motion-enter {
-  animation: portfolio-enter 520ms ease-out both;
-}
-
-.motion-scale {
-  animation: portfolio-scale 220ms ease-out both;
-}
-
-.motion-stagger > * {
-  animation: portfolio-enter 520ms ease-out both;
-}
-
-.motion-stagger > *:nth-child(1) { animation-delay: 40ms; }
-.motion-stagger > *:nth-child(2) { animation-delay: 90ms; }
-.motion-stagger > *:nth-child(3) { animation-delay: 140ms; }
-.motion-stagger > *:nth-child(4) { animation-delay: 190ms; }
-.motion-stagger > *:nth-child(5) { animation-delay: 240ms; }
-.motion-stagger > *:nth-child(6) { animation-delay: 290ms; }
-.motion-stagger > *:nth-child(7) { animation-delay: 340ms; }
-.motion-stagger > *:nth-child(8) { animation-delay: 390ms; }
-
-.motion-card {
-  transition:
-    transform 220ms ease-out,
-    border-color 220ms ease-out,
-    background-color 220ms ease-out,
-    box-shadow 220ms ease-out,
-    color 220ms ease-out;
-}
-
-.motion-icon {
-  transition: transform 220ms ease-out;
-}
-
-.mobile-page {
-  max-width: 100vw;
+body {
+  min-height: 100vh;
+  margin: 0;
   overflow-x: hidden;
+  background: var(--color-saas-bg);
+  color: var(--color-saas-ink);
+  font-family: var(--font-display);
+  letter-spacing: 0;
 }
 
-.mobile-safe-text {
-  max-width: calc(100vw - 2rem);
-  overflow-wrap: break-word;
-  word-break: normal;
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (hover: hover) {
-  .motion-card:hover {
-    transform: translateY(-3px);
-  }
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-saas-accent);
+  outline-offset: 3px;
+}
 
-  .motion-card:hover .motion-icon {
-    transform: translateY(-1px) scale(1.04);
-  }
+::selection {
+  background: var(--color-saas-accent-soft);
+  color: var(--color-saas-ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-saas-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-saas-bg);
+  background: #a7b5af;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-saas-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -258,274 +92,5 @@ html {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
-  }
-
-  .motion-enter,
-  .motion-scale,
-  .motion-stagger > * {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .motion-card:hover,
-  .motion-card:hover .motion-icon {
-    transform: none !important;
-  }
-}
-
-/* ============================================
-   Animation & Transitions
-   ใช้ @theme keyframes (kebab-case) เท่านั้น — ลบ camelCase duplicates แล้ว
-   ============================================ */
-
-/* Stagger Animation */
-.animate-stagger > * {
-  animation: fade-in 0.6s ease-out forwards;
-}
-
-.animate-stagger > *:nth-child(1) { animation-delay: 0s; }
-.animate-stagger > *:nth-child(2) { animation-delay: 0.1s; }
-.animate-stagger > *:nth-child(3) { animation-delay: 0.2s; }
-.animate-stagger > *:nth-child(4) { animation-delay: 0.3s; }
-.animate-stagger > *:nth-child(5) { animation-delay: 0.4s; }
-.animate-stagger > *:nth-child(6) { animation-delay: 0.5s; }
-
-/* Smooth Transitions */
-.transition-all-smooth {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.transition-transform-smooth {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Hover Effects */
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-.hover-glow:hover {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-}
-
-/* Loading Animation — ใช้ shimmer keyframe จาก @theme */
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.2) 50%,
-    transparent 75%
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Underline Animation */
-@keyframes underline {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-.underline-animate {
-  position: relative;
-}
-
-.underline-animate::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 3px;
-  background-color: currentColor;
-  animation: underline 0.3s ease-out forwards;
-}
-
-/* ============================================
-  Neo-Brutalism Component Utilities
-  Uses @theme variables: shadow-neo, bg-neo-yellow, etc.
-  ============================================ */
-
-/* Shadow utilities — .shadow-neo-soft ใช้ soft shadow, ไม่ชนกับ Tailwind utility shadow-neo จาก @theme */
-.shadow-neo-soft {
-  box-shadow: var(--shadow-neo-soft);
-}
-
-/* Interactive Press Effect */
-.neo-press {
-  transition: transform var(--transition-fast) ease-out,
-              box-shadow var(--transition-fast) ease-out;
-}
-
-.neo-press:hover {
-  transform: translate(var(--press-offset), var(--press-offset));
-  box-shadow: none;
-}
-
-.neo-press:active {
-  transform: translate(var(--press-offset), var(--press-offset));
-  box-shadow: none;
-}
-
-/* Neo Card Base */
-.neo-card {
-  border: var(--border-width-default) solid black;
-  box-shadow: var(--shadow-neo-soft);
-  background: white;
-  border-radius: 0;
-}
-
-.neo-card-thick {
-  border-width: var(--border-width-thick);
-}
-
-/* Neo Button Base */
-.neo-btn {
-  display: inline-block;
-  padding: var(--space-2) var(--space-4);
-  font-weight: 700;
-  text-transform: uppercase;
-  border: var(--border-width-default) solid black;
-  box-shadow: var(--shadow-neo-soft);
-  transition: transform var(--transition-fast) ease-out,
-              box-shadow var(--transition-fast) ease-out;
-}
-
-.neo-btn:hover {
-  transform: translate(var(--press-offset), var(--press-offset));
-  box-shadow: none;
-}
-
-/* Neo Input Base */
-.neo-input {
-  width: 100%;
-  padding: var(--space-3);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  border: var(--border-width-default) solid black;
-  border-radius: 0;
-}
-
-.neo-input:focus {
-  outline: none;
-  box-shadow: var(--shadow-neo-sm);
-}
-
-/* Neo Section Base */
-.neo-section {
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
-  border-bottom: var(--border-width-thick) solid black;
-}
-
-@media (min-width: 768px) {
-  .neo-section {
-    padding-top: var(--space-12);
-    padding-bottom: var(--space-12);
-  }
-}
-
-/* Neo Heading */
-.neo-heading {
-  font-weight: 900;
-  text-transform: uppercase;
-  border-bottom: var(--border-width-thick) solid black;
-  display: inline-block;
-  padding-bottom: var(--space-2);
-}
-
-/* Hover Shadow Lift */
-.hover-shadow-lift:hover {
-  box-shadow: var(--shadow-neo-lg);
-}
-
-/* Border Animation */
-@keyframes borderPulse {
-  0%, 100% {
-    border-color: currentColor;
-  }
-  50% {
-    border-color: rgba(0, 0, 0, 0.5);
-  }
-}
-
-.border-pulse {
-  animation: borderPulse 2s infinite;
-}
-
-/* Text Highlight */
-.highlight-text {
-  background: linear-gradient(120deg, #fbbf24, #ec4899, #3b82f6);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #09090b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border: 2px solid #09090b;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
-}
-
-/* ============================================
-   Minimalist Dark Mode Background (Grid + Shifting Glow)
-   ============================================ */
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--color-saas-bg);
-  color: var(--color-saas-ink);
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-  background:
-    linear-gradient(180deg, rgba(9, 9, 11, 0.85), var(--color-saas-bg) 68%),
-    repeating-linear-gradient(90deg, rgba(250, 250, 250, 0.015) 0 1px, transparent 1px 84px),
-    var(--color-saas-bg);
-}
-
-body::before {
-  position: fixed;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 0 38%, rgba(250, 250, 250, 0.02) 48%, transparent 58%),
-    linear-gradient(35deg, transparent 0 45%, rgba(161, 161, 170, 0.02) 54%, transparent 64%);
-  background-size: 100% 100%;
-  content: "";
-  opacity: 0.8;
-  will-change: transform;
-  animation: slow-shift 24s ease-in-out infinite alternate;
-}
-
-@keyframes slow-shift {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(3%, 3%, 0);
   }
 }
