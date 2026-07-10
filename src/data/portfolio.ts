@@ -5,7 +5,7 @@ export const navItems = [
   { label: "Work", href: "/#work" },
   { label: "Stack", href: "/#stack" },
   { label: "Articles", href: "/#articles" },
-  { label: "Contact", href: "/work-with-me" },
+  { label: "Contact", href: "/#contact" },
 ]
 
 export const profile: LocalizedData<Profile> = {
@@ -425,90 +425,68 @@ export const articles: LocalizedData<Article[]> = {
     {
       id: 1,
       slug: "portfolio-techniques-overview",
-      title: "Portfolio Website Techniques Overview",
-      excerpt: "A comprehensive guide to the techniques used in building this portfolio website - React, Tailwind CSS, i18n, and more.",
+      title: "How This Portfolio Works in 2026",
+      excerpt: "A current architecture tour of this portfolio: Next.js App Router, static TypeScript data, bilingual EN/TH rendering, and a no-backend work intake flow.",
       content: `## Introduction
 
-This portfolio website is built using modern web development techniques. Here's a detailed breakdown of each technology and approach used.
+This article documents the current portfolio architecture as of July 2026. The site is no longer a Vite app backed by an Express API. It is a static-first Next.js App Router portfolio with bilingual content and a lightweight contact workflow.
 
-## 1. React + Vite
+## 1. Next.js App Router
 
-The frontend is built with React, a popular JavaScript library for building user interfaces. We use Vite as the build tool because it's extremely fast and provides instant server start.
+The app is organized around the Next.js App Router:
 
-### Key Benefits:
-- Fast HMR (Hot Module Replacement)
-- Optimized production builds
-- Simple configuration
+- src/app/layout.tsx defines global metadata, fonts, and the language provider
+- src/app/(portfolio)/layout.tsx provides the shared portfolio Navbar and Footer
+- src/app/(portfolio)/page.tsx renders the main portfolio home page
+- src/app/(portfolio)/article/[slug]/page.tsx statically generates article routes
+- src/app/(portfolio)/work-with-me/page.tsx handles the work intake flow
 
-## 2. Tailwind CSS
+This keeps routing, metadata, and layout ownership in the framework instead of a client-only router.
 
-We use Tailwind CSS for styling - a utility-first CSS framework that allows rapid UI development.
+## 2. Static TypeScript Data
 
-### Why Tailwind?
-- No need to write custom CSS files
-- Consistent design system
-- Easy responsive design
-- Small bundle size (purges unused styles)
+Core portfolio content lives in src/data/portfolio.ts. The home page, article pages, navigation, footer, and work-intake mail target read from that module directly.
 
-## 3. Custom Hooks
+There is no runtime fetch layer for portfolio content. Updating profile copy, projects, or articles is a source change followed by a build.
 
-We created a custom hook called \`usePortfolioData\` to handle data fetching across the application.
+## 3. Bilingual Rendering
 
-\`\`\`javascript
-export const usePortfolioData = (fetchFunction) => {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  // ... fetch logic
-}
-\`\`\`
+The site supports English and Thai. Language state is managed by a custom LanguageProvider in src/i18n. The provider stores the selected language in localStorage and updates the document language on the client.
 
-This pattern allows reusable data fetching logic across all components.
+This approach is intentionally small: it avoids a larger i18n dependency while keeping the portfolio easy to maintain.
 
-## 4. Internationalization (i18n)
+## 4. Portfolio Shell
 
-The website supports 3 languages: English, Thai, and Chinese. We implemented a custom i18n solution using context and localStorage.
+The main portfolio routes share a Global SaaS Shell: sticky navigation, language controls, footer, and conversion paths. The homepage uses a Modern SaaS Product Portfolio direction to present workflow proof, selected work, capabilities, articles, and contact paths.
 
-### Features:
-- Language switcher in navbar
-- Persists language preference
-- All text translatable
+The standalone /saas route is a separate product landing demo. It should not be treated as the source of truth for the portfolio shell.
 
-## 5. Service Layer Pattern
+## 5. Article Routes
 
-We separated API calls from components using a service layer:
+Article routes are generated from articles.en slugs at build time. The client article renderer then selects the matching localized article based on the active language.
 
-- \`api.js\` - Low-level API functions
-- \`portfolioService.js\` - Business logic layer
+That means English and Thai article slugs should stay aligned unless the app later introduces a canonical slug model.
 
-This makes the code more maintainable and testable.
+## 6. Work Intake Page
 
-## 6. Neo-Brutalism Design
+The /work-with-me page uses local React state, client-side validation, and a mailto draft. It does not store visitor briefs on a backend.
 
-The UI follows Neo-Brutalism style with:
-- Bold black borders (4px)
-- Hard shadows (no blur)
-- Vibrant colors
-- Comic/sans-serif fonts
+This keeps the flow simple and privacy-preserving while still giving visitors a structured way to describe their problem and goal.
 
-## 7. Component Architecture
+## 7. Design System Direction
 
-We organized components into:
-- \`components/Sections\` - Page sections (About, Skills, Projects, etc.)
-- \`components/ui\` - Reusable UI components
-- \`components/layout\` - Layout components (Navbar, Footer)
-- \`hooks\` - Custom React hooks
-- \`services\` - API and business logic
-- \`i18n\` - Internationalization
+The current public surface follows a modern SaaS product portfolio direction: clear hierarchy, proof-led sections, restrained motion, and conversion-focused calls to action.
+
+Some legacy utility classes still exist in globals.css, but they are compatibility debt rather than the main visual direction.
 
 ## Conclusion
 
-These techniques combine to create a fast, maintainable, and visually distinctive portfolio website.`,
-      coverImage: "https://placehold.co/800x400/FF6B6B/ffffff?text=Portfolio+Techniques",
-      tags: ["React", "Vite", "Tailwind CSS", "i18n", "Tutorial"],
+The portfolio is now a static-first Next.js application with direct module data, a small bilingual layer, and no active backend API. Future updates should keep docs, article content, navigation anchors, and sitemap entries aligned with that architecture.`,
+      coverImage: "https://placehold.co/800x400/111827/ffffff?text=Portfolio+Architecture",
+      tags: ["Next.js", "React", "Tailwind CSS", "i18n", "Architecture"],
       category: "Development",
       readTime: "8 min read",
-      date: "2026-03-02",
+      date: "2026-07-10",
       featured: true,
     },
     {
@@ -544,7 +522,7 @@ These techniques combine to create a fast, maintainable, and visually distinctiv
       excerpt: "How I built this portfolio website from scratch.",
       content: "Full article content here...",
       coverImage: "https://placehold.co/800x400/8b5cf6/ffffff?text=Portfolio+Journey",
-      tags: ["Portfolio", "React", "Vite"],
+      tags: ["Portfolio", "Next.js", "Static Site"],
       category: "Story",
       readTime: "7 min read",
       date: "2024-10-10",
@@ -555,90 +533,68 @@ These techniques combine to create a fast, maintainable, and visually distinctiv
     {
       id: 1,
       slug: "portfolio-techniques-overview",
-      title: "ภาพรวมเทคนิคการสร้างเว็บ Portfolio",
-      excerpt: "คู่มือที่ครอบคลุมเกี่ยวกับเทคนิคที่ใช้ในการสร้างเว็บ Portfolio นี้ - React, Tailwind CSS, i18n และอื่นๆ",
+      title: "พอร์ตโฟลิโอนี้ทำงานอย่างไรในปี 2026",
+      excerpt: "ภาพรวมสถาปัตยกรรมปัจจุบันของพอร์ตโฟลิโอ: Next.js App Router, static TypeScript data, EN/TH bilingual rendering และ work intake แบบไม่ใช้ backend storage",
       content: `## บทนำ
 
-เว็บ Portfolio นี้สร้างขึ้นโดยใช้เทคนิคการพัฒนาเว็บสมัยใหม่ ต่อไปนี้คือรายละเอียดของแต่ละเทคโนโลยีและวิธีการที่ใช้
+บทความนี้อธิบายสถาปัตยกรรมปัจจุบันของเว็บพอร์ตโฟลิโอ ณ กรกฎาคม 2026 เว็บนี้ไม่ใช่ Vite app ที่ต่อ Express API แล้ว แต่เป็น Next.js App Router แบบ static-first พร้อมคอนเทนต์สองภาษาและ workflow ติดต่อที่เบาและตรงไปตรงมา
 
-## 1. React + Vite
+## 1. Next.js App Router
 
-Frontend สร้างด้วย React ซึ่งเป็นไลบรารี JavaScript ยอดนิยมสำหรับสร้างส่วนติดต่อผู้ใช้ เราใช้ Vite เป็นเครื่องมือ build เพราะมันเร็วมากและให้การเริ่มต้น server ทันที
+แอปจัดโครงสร้างด้วย Next.js App Router:
 
-### ข้อดีหลัก:
-- HMR (Hot Module Replacement) ที่รวดเร็ว
-- Build production ที่ได้รับการ optimize
-- การตั้งค่าที่ง่าย
+- src/app/layout.tsx กำหนด metadata, fonts และ language provider ระดับ global
+- src/app/(portfolio)/layout.tsx เป็น shell ร่วมของ portfolio routes พร้อม Navbar และ Footer
+- src/app/(portfolio)/page.tsx render หน้า portfolio หลัก
+- src/app/(portfolio)/article/[slug]/page.tsx สร้าง article routes แบบ static
+- src/app/(portfolio)/work-with-me/page.tsx ดูแล workflow การรับ brief งาน
 
-## 2. Tailwind CSS
+โครงสร้างนี้ทำให้ routing, metadata และ layout อยู่กับ framework แทนการพึ่ง client router อย่างเดียว
 
-เราใช้ Tailwind CSS สำหรับ styling - framework CSS ที่เน้น utility-first ช่วยให้พัฒนา UI ได้รวดเร็ว
+## 2. Static TypeScript Data
 
-### ทำไมต้อง Tailwind?
-- ไม่ต้องเขียนไฟล์ CSS เอง
-- ระบบ design ที่สม่ำเสมอ
-- ทำ responsive design ได้ง่าย
-- ขนาด bundle เล็ก (ลบ styles ที่ไม่ได้ใช้ออก)
+คอนเทนต์หลักของพอร์ตโฟลิโออยู่ใน src/data/portfolio.ts หน้า home, article, navigation, footer และ mail target ของ work intake อ่านข้อมูลจาก module นี้โดยตรง
 
-## 3. Custom Hooks
+ไม่มี runtime fetch layer สำหรับคอนเทนต์พอร์ตโฟลิโอ การแก้ profile, projects หรือ articles จึงเป็นการแก้ source แล้ว build ใหม่
 
-เราสร้าง custom hook ชื่อ \`usePortfolioData\` สำหรับจัดการดึงข้อมูลทั่วทั้งแอป
+## 3. การแสดงผลสองภาษา
 
-\`\`\`javascript
-export const usePortfolioData = (fetchFunction) => {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  // ... fetch logic
-}
-\`\`\`
+เว็บรองรับภาษาอังกฤษและภาษาไทย สถานะภาษาถูกจัดการโดย LanguageProvider ใน src/i18n โดย provider จะเก็บภาษาที่เลือกไว้ใน localStorage และอัปเดต document language ฝั่ง client
 
-รูปแบบนี้ทำให้ logic การดึงข้อมูลสามารถ reuse ได้ในทุก components
+แนวทางนี้ตั้งใจให้เล็กและดูแลง่าย โดยไม่ต้องเพิ่ม dependency i18n ขนาดใหญ่
 
-## 4. Internationalization (i18n)
+## 4. Portfolio Shell
 
-เว็บรองรับ 3 ภาษา: อังกฤษ, ไทย และจีน เราใช้ i18n แบบกำหนดเองโดยใช้ context และ localStorage
+portfolio routes หลักใช้ Global SaaS Shell ร่วมกัน ได้แก่ sticky navigation, language controls, footer และเส้นทางติดต่อที่ชัดเจน หน้า home ใช้แนวทาง Modern SaaS Product Portfolio เพื่อนำเสนอ workflow proof, selected work, capabilities, articles และ contact paths
 
-### คุณสมบัติ:
-- ปุ่มเปลี่ยนภาษาใน navbar
-- บันทึกการตั้งค่าภาษา
-- แปลได้ทุกข้อความ
+ส่วน /saas เป็น product landing demo แยกต่างหาก จึงไม่ควรถูกใช้เป็น source of truth ของ portfolio shell
 
-## 5. Service Layer Pattern
+## 5. Article Routes
 
-เราแยก API calls ออกจาก components โดยใช้ service layer:
+article routes ถูกสร้างจาก slugs ใน articles.en ตอน build จากนั้น client article renderer จะเลือกบทความภาษาเดียวกันกับ active language
 
-- \`api.js\` - ฟังก์ชัน API ระดับต่ำ
-- \`portfolioService.js\` - layer สำหรับ business logic
+ดังนั้น slug ของบทความภาษาอังกฤษและไทยควรตรงกัน จนกว่าจะมี canonical slug model ในอนาคต
 
-ทำให้โค้ดมีความสามารถในการดูแลรักษาและทดสอบได้ดีขึ้น
+## 6. Work Intake Page
 
-## 6. Neo-Brutalism Design
+หน้า /work-with-me ใช้ local React state, client-side validation และสร้าง mailto draft โดยไม่เก็บ brief ของผู้ใช้ใน backend
 
-UI ใช้สไตล์ Neo-Brutalism มี:
-- ขอบดำหนา (4px)
-- เงาแข็ง (ไม่มี blur)
-- สีสดใส
-- ฟอนต์ sans-serif
+แนวทางนี้ทำให้ flow เรียบง่ายและลดความเสี่ยงด้าน privacy แต่ยังให้ visitor อธิบายปัญหาและเป้าหมายได้เป็นระบบ
 
-## 7. สถาปัตยกรรม Component
+## 7. ทิศทาง Design System
 
-เราจัดระเบียบ components เป็น:
-- \`components/Sections\` - ส่วนต่างๆ ของหน้า (About, Skills, Projects และอื่นๆ)
-- \`components/ui\` - UI components ที่ใช้ซ้ำได้
-- \`components/layout\` - components สำหรับ layout (Navbar, Footer)
-- \`hooks\` - React hooks ที่กำหนดเอง
-- \`services\` - API และ business logic
-- \`i18n\` - การแปลภาษา
+public surface ปัจจุบันใช้ทิศทาง modern SaaS product portfolio: hierarchy ชัด, proof-led sections, motion แบบพอดี และ CTA ที่พาผู้ใช้ไปสู่การติดต่อ
+
+utility class เก่าบางส่วนยังอยู่ใน globals.css แต่ควรมองเป็น compatibility debt ไม่ใช่ visual direction หลักของระบบ
 
 ## สรุป
 
-เทคนิคเหล่านี้รวมกันเพื่อสร้างเว็บ Portfolio ที่เร็ว ดูแลรักษาได้ และมีดีไซน์ที่โดดเด่น`,
-      coverImage: "https://placehold.co/800x400/FF6B6B/ffffff?text=Portfolio+Techniques",
-      tags: ["React", "Vite", "Tailwind CSS", "i18n", "Tutorial"],
+พอร์ตโฟลิโอนี้เป็น Next.js application แบบ static-first ใช้ข้อมูลจาก module โดยตรง มี bilingual layer ขนาดเล็ก และไม่มี active backend API การอัปเดตรอบต่อไปควรรักษา docs, article content, navigation anchors และ sitemap ให้ตรงกับสถาปัตยกรรมนี้เสมอ`,
+      coverImage: "https://placehold.co/800x400/111827/ffffff?text=Portfolio+Architecture",
+      tags: ["Next.js", "React", "Tailwind CSS", "i18n", "Architecture"],
       category: "Development",
       readTime: "8 นาที",
-      date: "2026-03-02",
+      date: "2026-07-10",
       featured: true,
     },
     {
@@ -674,7 +630,7 @@ UI ใช้สไตล์ Neo-Brutalism มี:
       excerpt: "วิธีที่ผมสร้างเว็บ Portfolio นี้ตั้งแต่เริ่มต้น",
       content: "Full article content here...",
       coverImage: "https://placehold.co/800x400/8b5cf6/ffffff?text=Portfolio+Journey",
-      tags: ["Portfolio", "React", "Vite"],
+      tags: ["Portfolio", "Next.js", "Static Site"],
       category: "Story",
       readTime: "7 นาที",
       date: "2024-10-10",

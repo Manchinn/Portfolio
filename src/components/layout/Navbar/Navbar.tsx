@@ -59,7 +59,7 @@ const Navbar = () => {
               ))}
             </div>
             <Link
-              href="/work-with-me"
+              href="/#contact"
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}
@@ -104,7 +104,7 @@ const Navbar = () => {
           {/* Tablet Menu */}
           <div className="hidden items-center gap-2 md:flex lg:hidden">
             <Link
-              href="/work-with-me"
+              href="/#contact"
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-xs font-black text-black shadow-saas-sm transition hover:bg-neutral-200"
             >
               {t('nav.contact')}

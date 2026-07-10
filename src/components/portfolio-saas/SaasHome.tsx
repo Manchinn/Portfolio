@@ -12,7 +12,6 @@ import { FadeUp, MotionCard, StaggerContainer } from '@/components/motion/Motion
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
 import { cn } from '@/lib/utils'
 import { articles } from '@/data/portfolio'
-import Link from 'next/link'
 
 type LocalCopy = {
   heroEyebrow: string
@@ -353,26 +352,25 @@ function ArticlesSection({ c }: { c: LocalCopy }) {
       />
       <div className="mt-14 divide-y divide-saas-line border-t border-saas-line">
         {langArticles.map((article) => (
-          <Link
+          <article
             key={article.id}
-            href={`/article/${article.slug}`}
-            className="group grid gap-3 py-7 transition lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center block"
+            className="grid gap-3 py-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
           >
             <div className="min-w-0">
               <div className="flex items-baseline gap-3">
                 <span className="text-xs font-medium uppercase tracking-[0.14em] text-saas-muted">{article.category}</span>
                 <span className="text-xs font-light text-saas-muted">{article.readTime}</span>
               </div>
-              <h3 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-saas-ink transition group-hover:text-white">
+              <h3 className="mt-2 break-words text-2xl font-bold leading-tight tracking-tight text-saas-ink">
                 {article.title}
               </h3>
               <p className="mt-2 max-w-2xl text-base font-light leading-8 text-saas-muted text-pretty">{article.excerpt}</p>
             </div>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-muted group-hover:text-white transition-colors">
+            <span className="inline-flex items-center gap-2 text-sm font-semibold text-saas-muted">
               {c.readArticle}
-              <ArrowRight className="size-4 transition group-hover:translate-x-1" />
+              <ArrowRight className="size-4" />
             </span>
-          </Link>
+          </article>
         ))}
       </div>
     </SaasSection>
