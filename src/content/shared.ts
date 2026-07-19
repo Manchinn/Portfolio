@@ -9,6 +9,7 @@ export type SharedChromeCopy = {
   built: string
   result: string
   contactAction: string
+  contactNotice: string
   viewSelectedWork: string
   portfolioLabel: string
 }
@@ -18,7 +19,8 @@ export const sharedChrome: LocalizedData<SharedChromeCopy> = {
     problem: 'Problem',
     built: 'Built',
     result: 'Result',
-    contactAction: 'Open public GitHub inquiry',
+    contactAction: 'Open GitHub inquiry',
+    contactNotice: 'Opens a public GitHub issue. Do not include private credentials or personal data you would not post publicly.',
     viewSelectedWork: 'View selected work',
     portfolioLabel: 'Software engineering portfolio',
   },
@@ -26,7 +28,8 @@ export const sharedChrome: LocalizedData<SharedChromeCopy> = {
     problem: 'ปัญหา',
     built: 'สิ่งที่สร้าง',
     result: 'ผลลัพธ์',
-    contactAction: 'เปิด GitHub inquiry สาธารณะ',
+    contactAction: 'เปิด GitHub inquiry',
+    contactNotice: 'จะเปิด GitHub issue แบบสาธารณะ อย่าใส่ credentials หรือข้อมูลส่วนตัวที่ไม่ควรโพสต์สาธารณะ',
     viewSelectedWork: 'ดู selected work',
     portfolioLabel: 'พอร์ตโฟลิโอวิศวกรรมซอฟต์แวร์',
   },

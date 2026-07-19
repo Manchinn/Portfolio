@@ -2,7 +2,10 @@
 
 import Link from 'next/link'
 import {
+  ArrowDown,
   ArrowRight,
+  ArrowUpRight,
+  Globe2,
 } from 'lucide-react'
 import { articles, projects, publicContactUrl } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
@@ -16,7 +19,6 @@ type LocalCopy = {
   heroEyebrow: string
   heroTitle: string
   heroBody: string
-  primaryCta: string
   proofItems: Array<{ label: string; value: string }>
   selectedEyebrow: string
   selectedTitle: string
@@ -35,7 +37,8 @@ type LocalCopy = {
   contactBody: string
 }
 
-type HomeCopy = LocalCopy & Pick<SharedChromeCopy, 'problem' | 'built' | 'result' | 'contactAction' | 'viewSelectedWork'>
+type HomeCopy = LocalCopy &
+  Pick<SharedChromeCopy, 'problem' | 'built' | 'result' | 'contactAction' | 'contactNotice' | 'viewSelectedWork'>
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
@@ -43,7 +46,6 @@ const localCopy: Record<Language, LocalCopy> = {
     heroTitle: 'I build clear, maintainable software for real workflows.',
     heroBody:
       'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
-    primaryCta: 'Start a project',
     proofItems: [
       { label: 'Selected work on one page', value: 'Problem, build, and result in place' },
       { label: 'Bilingual interface', value: 'One shared EN/TH content contract' },
@@ -55,8 +57,7 @@ const localCopy: Record<Language, LocalCopy> = {
       'A focused view of application work with the story kept clear: problem, implementation, and result.',
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'What I can build for you.',
-    capabilitiesSubtitle:
-      'Four software delivery areas behind the selected work.',
+    capabilitiesSubtitle: 'Four software delivery areas behind the selected work.',
     capabilityCards: [
       {
         title: 'Full-stack Applications',
@@ -82,14 +83,14 @@ const localCopy: Record<Language, LocalCopy> = {
     readArticle: 'Read article',
     contactEyebrow: 'Project inquiry',
     contactTitle: 'Have a workflow that needs a clearer software path?',
-    contactBody: 'Open a public GitHub issue with the context, desired result, and constraints. This portfolio does not collect form data.',
+    contactBody:
+      'Share the context, desired result, and constraints in a public GitHub issue. This site does not collect or store a project brief.',
   },
   th: {
     heroEyebrow: 'Software engineering · Full-stack systems',
     heroTitle: 'สร้างซอฟต์แวร์ที่ชัดเจน ดูแลต่อได้ และรองรับ workflow จริง',
     heroBody:
       'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
-    primaryCta: 'เริ่มคุยโปรเจกต์',
     proofItems: [
       { label: 'Selected work บนหน้าเดียว', value: 'ปัญหา การสร้าง และผลลัพธ์ในที่เดียว' },
       { label: 'Bilingual interface', value: 'ใช้ content contract ร่วมกันใน EN/TH' },
@@ -101,8 +102,7 @@ const localCopy: Record<Language, LocalCopy> = {
       'นำเสนองาน application แบบโฟกัส ให้เห็นเรื่องหลักชัดเจน: ปัญหา การพัฒนา และผลลัพธ์',
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
-    capabilitiesSubtitle:
-      'สี่ด้านของการพัฒนาซอฟต์แวร์ที่อยู่เบื้องหลัง selected work',
+    capabilitiesSubtitle: 'สี่ด้านของการพัฒนาซอฟต์แวร์ที่อยู่เบื้องหลัง selected work',
     capabilityCards: [
       {
         title: 'Full-stack Applications',
@@ -128,7 +128,8 @@ const localCopy: Record<Language, LocalCopy> = {
     readArticle: 'อ่านบทความ',
     contactEyebrow: 'Project inquiry',
     contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',
-    contactBody: 'เปิด GitHub issue สาธารณะพร้อมบริบท ผลลัพธ์ที่ต้องการ และข้อจำกัด พอร์ตโฟลิโอนี้ไม่เก็บข้อมูลจากฟอร์ม',
+    contactBody:
+      'แชร์บริบท ผลลัพธ์ที่ต้องการ และข้อจำกัดผ่าน GitHub issue แบบสาธารณะ เว็บนี้ไม่เก็บหรือบันทึก project brief',
   },
 }
 
@@ -142,6 +143,7 @@ export function HomePage() {
     built: shared.built,
     result: shared.result,
     contactAction: shared.contactAction,
+    contactNotice: shared.contactNotice,
     viewSelectedWork: shared.viewSelectedWork,
   }
   const selectedProjects = projects[lang]
@@ -174,19 +176,28 @@ function PortfolioHero({ c }: { c: HomeCopy }) {
             <p className="mt-6 max-w-2xl break-words text-lg leading-8 text-portfolio-muted text-pretty">{c.heroBody}</p>
           </MotionCard>
           <MotionCard>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <PortfolioButton href={publicContactUrl} external icon={<ArrowRight className="size-4" />}>
-                {c.primaryCta}
-              </PortfolioButton>
-              <PortfolioButton href="/#work" variant="secondary">
+            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+              <PortfolioButton href="/#work" icon={<ArrowDown className="size-4" aria-hidden />}>
                 {c.viewSelectedWork}
               </PortfolioButton>
+              <PortfolioButton
+                href={publicContactUrl}
+                external
+                variant="secondary"
+                icon={<ArrowUpRight className="size-4" aria-hidden />}
+              >
+                {c.contactAction}
+              </PortfolioButton>
             </div>
+            <p className="mt-4 max-w-xl text-sm leading-6 text-portfolio-muted">{c.contactNotice}</p>
           </MotionCard>
           <MotionCard>
             <dl className="mt-14 grid border-y border-portfolio-line sm:grid-cols-3">
               {c.proofItems.map((item) => (
-                <div key={item.label} className="min-w-0 border-b border-portfolio-line py-5 last:border-b-0 sm:border-r sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:border-r-0">
+                <div
+                  key={item.label}
+                  className="min-w-0 border-b border-portfolio-line py-5 last:border-b-0 sm:border-r sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:border-r-0"
+                >
                   <dt className="text-xs font-semibold uppercase text-portfolio-accent">{item.label}</dt>
                   <dd className="mt-2 text-sm leading-6 text-portfolio-muted">{item.value}</dd>
                 </div>
@@ -248,10 +259,12 @@ function ProjectCard({ project, c, variant }: { project: Project; c: HomeCopy; v
       >
         {project.title}
       </h3>
-      <p className={cn(
-        isFeatured ? 'max-w-2xl text-lg leading-8' : 'text-base leading-7',
-        'mt-3 text-portfolio-muted text-pretty'
-      )}>
+      <p
+        className={cn(
+          isFeatured ? 'max-w-2xl text-lg leading-8' : 'text-base leading-7',
+          'mt-3 text-portfolio-muted text-pretty',
+        )}
+      >
         {project.description}
       </p>
 
@@ -335,10 +348,10 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
             </div>
             <Link
               href={`/article/${article.slug}`}
-              className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
             >
               {c.readArticle}
-              <ArrowRight className="size-4" />
+              <ArrowRight className="size-4" aria-hidden />
             </Link>
           </article>
         ))}
@@ -350,17 +363,28 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
 function ContactSection({ c }: { c: HomeCopy }) {
   return (
     <PortfolioSection id="contact">
-      <div className="grid gap-8 border-y border-portfolio-line py-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase text-portfolio-accent">{c.contactEyebrow}</p>
-          <h2 className="mt-3 max-w-3xl break-words text-3xl font-semibold leading-tight text-portfolio-ink sm:text-4xl">
-            {c.contactTitle}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-portfolio-muted">{c.contactBody}</p>
+      <div className="rounded-[8px] border border-portfolio-line bg-portfolio-surface px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase text-portfolio-accent">{c.contactEyebrow}</p>
+            <h2 className="mt-3 max-w-3xl break-words text-3xl font-semibold leading-tight text-portfolio-ink sm:text-4xl">
+              {c.contactTitle}
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-portfolio-muted">{c.contactBody}</p>
+            <p className="mt-5 flex max-w-2xl gap-2 text-sm leading-6 text-portfolio-muted">
+              <Globe2 className="mt-0.5 size-4 shrink-0 text-portfolio-accent" aria-hidden />
+              <span>{c.contactNotice}</span>
+            </p>
+          </div>
+          <PortfolioButton
+            href={publicContactUrl}
+            external
+            icon={<ArrowUpRight className="size-4" aria-hidden />}
+            className="w-full sm:w-auto"
+          >
+            {c.contactAction}
+          </PortfolioButton>
         </div>
-        <PortfolioButton href={publicContactUrl} external icon={<ArrowRight className="size-4" />}>
-          {c.contactAction}
-        </PortfolioButton>
       </div>
     </PortfolioSection>
   )

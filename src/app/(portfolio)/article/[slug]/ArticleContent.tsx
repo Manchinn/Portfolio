@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Clock } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Clock } from 'lucide-react'
 import { articles, publicContactUrl } from '@/data/portfolio'
 import type { Language } from '@/data/types'
 import { getSharedChrome } from '@/content/shared'
@@ -85,8 +85,11 @@ export default function ArticleContent({ slug }: { slug: string }) {
               className="inline-flex min-h-11 items-center gap-2 rounded-[6px] bg-portfolio-accent px-5 py-3 text-sm font-semibold text-white hover:bg-portfolio-accent-strong"
             >
               {getSharedChrome(lang).contactAction}
-              <ArrowRight className="size-4" />
+              <ArrowUpRight className="size-4" aria-hidden />
             </a>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-portfolio-muted">
+              {getSharedChrome(lang).contactNotice}
+            </p>
           </div>
         </div>
       </article>

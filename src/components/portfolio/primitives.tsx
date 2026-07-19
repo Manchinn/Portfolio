@@ -94,15 +94,22 @@ export function PortfolioButton({
   variant = 'primary',
   external = false,
 }: PortfolioButtonProps) {
-  const shape = 'inline-flex items-center justify-center gap-2 rounded-[6px] px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-portfolio-accent'
-  const appearance = variant === 'primary'
-    ? 'bg-portfolio-accent text-white hover:bg-portfolio-accent-strong'
-    : 'border border-portfolio-line bg-portfolio-surface text-portfolio-ink hover:border-portfolio-accent hover:text-portfolio-accent-strong'
+  const shape =
+    'inline-flex min-h-11 items-center justify-center gap-2 rounded-[6px] px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-portfolio-accent'
+  const appearance =
+    variant === 'primary'
+      ? 'bg-portfolio-accent text-white hover:bg-portfolio-accent-strong'
+      : 'border border-portfolio-line bg-portfolio-surface text-portfolio-ink hover:border-portfolio-accent hover:text-portfolio-accent-strong'
   const classes = cn(shape, appearance, className)
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+      >
         <span className="min-w-0">{children}</span>
         {icon}
       </a>

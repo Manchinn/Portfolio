@@ -67,7 +67,7 @@ There are no active blue, lilac, cream, coral, or decorative gradient tokens in 
 
 ## 4. Typography
 
-IBM Plex Sans is the default display and body face. JetBrains Mono is reserved for the project-brief preview. Both fonts are loaded in `src/app/layout.tsx`.
+IBM Plex Sans is the default display and body face. JetBrains Mono remains available for monospaced UI if needed. Both fonts are loaded in `src/app/layout.tsx`.
 
 Implemented hierarchy:
 
@@ -85,7 +85,7 @@ All global letter spacing is zero. Thai and English content must wrap without cl
 - Section padding: 4.5rem, 5.5rem, then 6rem across breakpoints.
 - Homepage proof, capability, article, and contact regions use borders and whitespace instead of floating section cards.
 - Repeated items are usually divided rows or unframed blocks.
-- The work-intake form and preview are the primary framed surfaces, using 8px corners.
+- The contact inquiry band is the primary framed surface (8px corners, surface fill).
 
 Nested decorative cards are not part of the current layout language.
 
@@ -115,9 +115,9 @@ Motion supports reading order; it must not gate access to content or shift stabl
 
 The homepage presents problem, build, and result summaries for selected projects in place. There is no separate work-detail route.
 
-### Project Inquiry
+### Hero and Project Inquiry
 
-Contact CTAs open the public GitHub Issues URL. The portfolio does not host a local brief form.
+Hero primary CTA scrolls to selected work. Secondary CTA opens the public GitHub Issues URL with an external-link affordance and a short public-data notice. The contact band repeats the same external inquiry pattern inside a framed surface. The portfolio does not host a local brief form.
 
 ## 9. Refactor Guardrails
 
