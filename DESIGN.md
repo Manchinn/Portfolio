@@ -1,7 +1,7 @@
 ---
 name: Software Engineering Portfolio
 description: Soft-pixel SE portfolio design baseline (EN/TH, static-first).
-currentAsOf: "2026-07-19"
+currentAsOf: "2026-07-20"
 colors:
   portfolio-bg: "#f4f1e8"
   portfolio-surface: "#fffdf8"
@@ -44,6 +44,7 @@ There is no `/saas`, `/work/[slug]`, or `/work-with-me` product route.
 | Color, radius, shadow, font tokens | `src/app/globals.css` |
 | Fonts and global metadata | `src/app/layout.tsx` |
 | Shared chrome labels and CTAs | `src/content/shared.ts` |
+| Homepage marketing sections | `src/content/home.ts` |
 | Section and button primitives | `src/components/portfolio/primitives.tsx` |
 | Homepage composition | `src/components/portfolio/HomePage.tsx` |
 | Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
@@ -129,7 +130,7 @@ Primary CTA → `/#work`. Secondary and contact CTAs → public GitHub Issues wi
 
 ## 10. Known Baseline Constraints
 
-- User-facing copy is still split across `portfolio.ts`, locale JSON, and component-local objects; shared chrome lives in `src/content/shared.ts`.
+- User-facing copy ownership: entities in `src/data/portfolio.ts`, shared chrome in `src/content/shared.ts`, homepage marketing in `src/content/home.ts`, nav chrome in `src/i18n/locales/*.json`.
 - Initial language is English; saved language restores after client mount.
 - Static article params come from English slugs; locale arrays must share slugs.
 - Homepage lives under `src/components/portfolio/` with `portfolio-*` tokens.

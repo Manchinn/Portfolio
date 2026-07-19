@@ -49,6 +49,7 @@ src/components/motion/                     Motion primitives
 src/data/portfolio.ts                      Bilingual portfolio source of truth
 src/data/types.ts                          Content contracts
 src/content/shared.ts                      Shared EN/TH chrome labels and CTAs
+src/content/home.ts                        Homepage EN/TH marketing sections
 src/i18n/                                  Language state, helpers, and UI locale files
 docs/agents/MEMORY.md                      Durable agent memory (anti-drift)
 CHANGELOG.md                               Notable repository changes

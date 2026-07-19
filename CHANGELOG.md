@@ -5,6 +5,9 @@ Format follows a lightweight Keep a Changelog style.
 
 ## [Unreleased]
 
+### Added
+- `src/content/home.ts` homepage EN/TH marketing sections (hero, capabilities, articles chrome, contact body).
+
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
 - Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
@@ -20,6 +23,8 @@ Format follows a lightweight Keep a Changelog style.
 - Localized Thai category labels for the project and article records.
 - Hero/contact polish after intake removal: primary CTA points to selected work, inquiry CTAs open public GitHub with notice copy, larger touch targets.
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
+- `HomePage` consumes `getHomeCopy()` instead of component-local marketing strings.
+- Synced `PRODUCT.md`, `CONTEXT.md`, and `DESIGN.md` to the current one-page + article + external inquiry product and soft-pixel baseline.
 
 ## [2026-07-19]
 

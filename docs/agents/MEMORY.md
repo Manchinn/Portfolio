@@ -2,7 +2,7 @@
 
 > Durable facts for AI agents. Prefer this file + root SoT docs over chat history or deleted plans.
 
-**Last updated:** 2026-07-19
+**Last updated:** 2026-07-20
 
 ## Current product (authoritative)
 
@@ -61,9 +61,9 @@ Do **not** rebuild or assume these are active:
 | Content | Owner |
 |---------|--------|
 | Projects, articles, nav hrefs, public GitHub issue URL | `src/data/portfolio.ts` |
-| Shared labels/CTAs (problem/built/result, create brief, open proof) | `src/content/shared.ts` |
-| Homepage marketing sections | still largely `HomePage` local copy (later phases) |
-| Contact CTA labels | `src/content/shared.ts` + home contact section |
+| Shared labels/CTAs (problem/built/result, inquiry, view work) | `src/content/shared.ts` |
+| Homepage marketing sections (hero, capabilities, articles chrome, contact body) | `src/content/home.ts` |
+| Contact CTA labels / public-issue notice | `src/content/shared.ts` (consumed by home + article + footer) |
 | Nav chrome labels | `src/i18n/locales/*.json` |
 
 ## Hard rules (never skip)
@@ -77,6 +77,7 @@ Do **not** rebuild or assume these are active:
 
 ## Recent decisions
 
+- **2026-07-20:** Synced `PRODUCT.md` / `CONTEXT.md` / `DESIGN.md` to post–route-cleanup soft-pixel product; moved homepage marketing copy into `src/content/home.ts`.
 - **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
 - **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
 - **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
