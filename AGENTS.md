@@ -1,7 +1,5 @@
 # AGENTS.md
 
-@C:\Users\chinn\.codex\RTK.md
-
 Guidance for AI agents working in this Next.js portfolio repository.
 
 ## Repository Scope
@@ -12,92 +10,83 @@ This folder is the real git repository:
 C:\Users\chinn\web-projects\portfolio\frontend
 ```
 
-The parent folder contains project-level docs. Work from this `frontend` folder for git, package scripts, and app changes.
+The parent folder contains project-level docs. Run git and package commands from this `frontend` folder.
 
-## Project Context
+## Current Product
 
-- Stack: Next.js 15 App Router, React 19, TypeScript, Tailwind CSS 4
-- Production: Vercel auto-deploys from `master`
-- Public site: portfolio, bilingual EN/TH content, prompt redirect surface, lead-capture page
-- Legacy admin/CMS and prompts API surfaces were removed (see history).
+- Static-first, anonymous software engineering portfolio.
+- Bilingual English and Thai presentation with the selected language remembered in browser storage.
+- `/` renders the portfolio experience from typed local data.
+- `/work/[slug]` and `/article/[slug]` are statically generated proof routes.
+- `/work-with-me` creates a project brief locally, copies it to the clipboard, and opens a public GitHub issue handoff. It does not submit or store form data.
+- `/saas` is a compatibility route that redirects to `/#work`.
+- The `(portfolio)` route-group layout owns the shared navbar and footer.
+
+There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable in the current architecture.
 
 ## Hard Rules
 
-1. Do not recreate `backend/`.
-2. Put all API logic in `src/app/api/*`.
-3. Preserve bilingual English and Thai content in `src/data/portfolio.ts`.
-4. Keep public copy sanitized. Do not expose credentials, private URLs, nonpublic network details, route behavior, or operational hardening details.
-5. Use `npm run build` as the verification gate before marking implementation work complete.
-6. Do not overwrite existing config files. Add missing workflow files or make small project-specific additions only.
+1. Keep the site static-first. Do not add a backend, API route, runtime storage, or runtime secret unless the user explicitly approves an architecture change.
+2. Preserve English and Thai parity. Update both locales when changing user-facing content or typed portfolio records.
+3. Treat `src/data/portfolio.ts` as the source of truth for navigation, projects, articles, and the public contact URL.
+4. Keep project and article slugs aligned across locales because static params are generated from English records and localized content is selected in the client.
+5. Preserve the local-first privacy contract on `/work-with-me`: no silent submission or storage, and clearly warn that the final GitHub issue is public.
+6. Keep public copy sanitized. Do not expose credentials, private URLs, personal data, or internal operational details.
+7. Use `npm run build` as the required implementation gate. It invokes the repository build wrapper, not `next build` directly.
+8. Preserve user changes and keep edits scoped to the requested work.
 
-## Key Files
+## Architecture Map
 
 ```text
-src/data/portfolio.ts              Bilingual portfolio source of truth
-src/i18n/locales/en.json           English UI copy
-src/i18n/locales/th.json           Thai UI copy
-src/app/(portfolio)/page.tsx       Main portfolio page
-src/app/(portfolio)/work-with-me/  Lead capture page
-next.config.ts                     /prompts and /prompts/* redirect to prompts.chinnakrit.dev
+src/app/layout.tsx                         Root fonts, metadata, and LanguageProvider
+src/app/(portfolio)/layout.tsx             Shared Navbar and Footer shell
+src/app/(portfolio)/page.tsx               Portfolio home
+src/app/(portfolio)/work/[slug]/           Static project proof route
+src/app/(portfolio)/article/[slug]/        Static article route
+src/app/(portfolio)/work-with-me/          Local-first project brief workflow
+src/app/saas/page.tsx                      Redirect to /#work
+src/app/sitemap.ts                         Static sitemap entries
+src/components/portfolio-saas/             Main portfolio experience
+src/components/layout/                     Shared navigation and footer
+src/components/motion/                     Motion primitives
+src/data/portfolio.ts                      Bilingual portfolio source of truth
+src/data/types.ts                          Content contracts
+src/i18n/                                  Language state, helpers, and UI locale files
+next.config.ts                             Security headers and build-only distDir override
+scripts/build.mjs                          Dev-server-safe Next.js build wrapper
 ```
 
-## Verification
+`next.config.ts` does not define application redirects. It applies security headers globally and honors the build-only `NEXT_DIST_DIR` override used by `scripts/build.mjs`.
 
-Preferred local checks:
+## Commands and Verification
 
 ```powershell
+npm run dev
 npm run build
 powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
 powershell -ExecutionPolicy Bypass -File scripts/review.ps1
 powershell -ExecutionPolicy Bypass -File scripts/deploy-check.ps1 -Env preview
 ```
 
-Run commands through `rtk` when using the shell from Codex.
+The build wrapper checks local ports `3000` through `3003`. When a dev server is active, it builds into `.next-build-local` and restores Next-generated config files so verification does not disturb the running `.next` instance. CI and Vercel use the normal build directory.
+
+The verification scripts detect available typecheck, lint, and test support, then use the production build as the final gate. The deploy check also inspects git state, tracked environment files, public-copy safety, and obvious secrets.
 
 ## Security Checklist
 
 Before committing public-facing changes:
 
-- No hardcoded secrets or credentials.
-- No real private domains, private IPs, nonpublic network details, or admin route details in public copy.
-- API handlers validate inputs at the boundary.
-- Error responses avoid leaking implementation details.
-- `git diff` reviewed before push.
+- No hardcoded secrets, credentials, private domains, or private network details.
+- No unreviewed personal or operational details in portfolio content.
+- The public-issue warning remains visible in the project inquiry workflow.
+- Security headers remain in `next.config.ts` unless a documented requirement changes them.
+- `git diff` and build output have been reviewed.
 
 ## External Actions
 
 Require explicit user approval before:
 
 - `git push`
-- Creating PRs or releases
-- Calling external services beyond normal package/build tooling
-- Changing infrastructure, credentials, or production env vars
-
-## Current Task Handoff
-
-Recently completed cleanup (May 2026):
-
-- Removed admin UI (`src/app/(portfolio)/admin/*`) and admin login API (`src/app/api/admin/login/`).
-- Removed prompts UI pages under `src/app/(portfolio)/prompts/*` (shadowed by external redirect in `next.config.ts`).
-- Removed orphan content pipeline: `src/app/api/content/*`, `src/lib/content-store.ts`, `src/lib/social.ts`, `src/lib/claude.ts`.
-- Removed `src/app/api/prompts/generate/` and `src/lib/prompt-generator.ts` (no UI consumer).
-- Removed hidden `/admin/prompts` link from `src/components/layout/Footer.tsx`.
-- Removed `src/app/api/prompts/*`, `src/lib/prompt-store.ts`, and `src/middleware.ts` after confirming `prompts.chinnakrit.dev` no longer reads `/api/prompts/*`.
-- Removed `ADMIN_TOKEN` and `BLOB_READ_WRITE_TOKEN` from the local env example; no runtime env vars are required right now.
-
-Removed from repo config after confirming no source references:
-
-- `ANTHROPIC_API_KEY`, `GROQ_API_KEY`, `DASHSCOPE_API_KEY`, `GOOGLE_AI_API_KEY` — no AI gen code remains in this repo.
-- `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, `THREADS_USERNAME` — Threads publisher removed.
-- `GITHUB_TOKEN` — old GitHub prompt helper removed.
-- `ADMIN_TOKEN`, `BLOB_READ_WRITE_TOKEN` — prompts API and Vercel Blob store removed.
-
-Next recommended tasks (pick based on user intent):
-
-1. Prune unused env vars listed above from Vercel project settings.
-
-Verification gate after any code change:
-
-```powershell
-npm run build
-```
+- Creating pull requests or releases
+- Changing infrastructure, credentials, domains, or Vercel settings
+- Calling external services beyond normal package and build tooling

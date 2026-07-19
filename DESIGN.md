@@ -1,221 +1,139 @@
 ---
-name: Chinnakrit Portfolio Frontend
-description: Bilingual brand portfolio for practical AI automation and full-stack systems proof.
+name: Software Engineering Portfolio
+description: Implemented EN/TH portfolio design baseline before the next refactor.
+currentAsOf: "2026-07-11"
 colors:
-  saas-bg: "#fbfbf7"
+  saas-bg: "#f6f8f7"
   saas-surface: "#ffffff"
-  saas-surface-soft: "#f3f7f2"
-  saas-ink: "#17211b"
-  saas-muted: "#647066"
-  saas-line: "#dfe7dd"
-  saas-green: "#1f8f5f"
-  saas-green-strong: "#106b45"
-  saas-blue: "#4169e1"
-  saas-lilac: "#d9d2ff"
-  saas-mint: "#dff7e8"
-  saas-cream: "#fff4d6"
-  saas-coral: "#ffb8a9"
+  saas-surface-soft: "#edf3f0"
+  saas-ink: "#17211e"
+  saas-muted: "#5f6e68"
+  saas-line: "#d7e0dc"
+  saas-accent: "#0f766e"
+  saas-accent-strong: "#0b5f59"
+  saas-accent-soft: "#dcefeb"
+radii:
+  saas-sm: "6px"
+  saas-md: "8px"
+shadows:
+  saas-sm: "0 1px 2px rgba(23, 33, 30, 0.08)"
+  saas-md: "0 12px 28px rgba(23, 33, 30, 0.12)"
+  saas-focus: "0 0 0 3px rgba(15, 118, 110, 0.2)"
 typography:
-  display:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(3.75rem, 6vw, 4.5rem)"
-    fontWeight: 700
-    lineHeight: 0.98
-    letterSpacing: "0"
-  headline:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.25rem, 4vw, 3rem)"
-    fontWeight: 700
-    lineHeight: 1.04
-    letterSpacing: "0"
-  title:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: "0"
-  body:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 600
-    lineHeight: 2
-    letterSpacing: "0"
-  label:
-    fontFamily: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: "0.14em"
-rounded:
-  saas-sm: "8px"
-  saas-md: "14px"
-  saas-lg: "24px"
-  pill: "9999px"
-spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "32px"
-  section-y: "clamp(5rem, 8vw, 7rem)"
-components:
-  button-primary:
-    backgroundColor: "{colors.saas-green}"
-    textColor: "{colors.saas-surface}"
-    rounded: "{rounded.pill}"
-    padding: "12px 20px"
-  button-secondary:
-    backgroundColor: "{colors.saas-surface}"
-    textColor: "{colors.saas-ink}"
-    rounded: "{rounded.pill}"
-    padding: "12px 20px"
-  button-ghost:
-    backgroundColor: "transparent"
-    textColor: "{colors.saas-green}"
-    rounded: "{rounded.pill}"
-    padding: "0"
-  card:
-    backgroundColor: "{colors.saas-surface}"
-    textColor: "{colors.saas-ink}"
-    rounded: "{rounded.saas-md}"
-    padding: "20px"
-  chip:
-    backgroundColor: "{colors.saas-surface-soft}"
-    textColor: "{colors.saas-muted}"
-    rounded: "{rounded.pill}"
-    padding: "4px 12px"
+  display: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
+  mono: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
 ---
 
-# Design System: Chinnakrit Portfolio Frontend
+# Design Baseline: Software Engineering Portfolio
 
-## 1. Overview
+This document records what the current code implements. It is a refactor baseline, not a requirement to preserve every visual choice.
 
-**Creative North Star: "The Operator Showcase"**
+## 1. Current Direction
 
-This system presents a builder who can make messy technical work feel reviewable, safe, and product-ready. The page should feel like a focused workbench: clean surfaces, firm labels, practical proof, and just enough color to help the eye move from claim to evidence.
+The public surface is a quiet, light software portfolio built for scanning proof and reaching a project inquiry. The layout uses broad unframed sections, thin horizontal dividers, compact controls, restrained teal accents, and very limited elevation.
 
-The design is a brand landing surface, not a generic software product shell. It borrows SaaS clarity for scanning, but the content stays personal and proof-led: case studies, workflow proof, bilingual copy, and a contact path. It explicitly rejects generic AI SaaS templates, purple-gradient startup pages, over-brutalist toy styling, vague automation hype, and public copy that exposes private operations.
+The current interface is not the older FlowSync landing page, an operator console, or a card-heavy AI SaaS concept. `/saas` redirects to the selected-work section.
 
-**Key Characteristics:**
-- Soft neutral surfaces with a decisive green signal color.
-- Dense but readable case-study cards built for fast technical review.
-- Rounded, calm controls that feel product-ready without becoming playful.
-- Bilingual-safe spacing, wrapping, and line-height.
-- Motion that supports entry and hover feedback without hiding content.
+## 2. Sources of Truth
 
-## 2. Colors
+| Concern | Implemented source |
+|---------|--------------------|
+| Color, radius, shadow, font tokens | `src/app/globals.css` |
+| Fonts and global metadata | `src/app/layout.tsx` |
+| Section and button primitives | `src/components/portfolio-saas/_shared.tsx` |
+| Homepage composition | `src/components/portfolio-saas/SaasHome.tsx` |
+| Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
+| Work intake fields and states | `src/app/(portfolio)/work-with-me/page.tsx` |
+| Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
 
-The palette uses quiet workbench neutrals, Operator Ink for credibility, and Signal Green for forward motion, proof, and action.
+When this document and source disagree, source is authoritative until the refactor intentionally changes both.
 
-### Primary
-- **Signal Green**: The main action and proof color. Use for primary buttons, status dots, section labels, active states, and icons that mark credible completion.
-- **Deep Signal Green**: The hover and emphasis state for Signal Green. Use when an action needs more weight without introducing a new hue.
+## 3. Color System
 
-### Secondary
-- **Operational Blue**: A sparing supporting accent for technology or workflow contrast.
-- **Proof Lilac**: A soft secondary tint for assistant or system variation.
-- **Mint Evidence**: The primary pale tint behind icons, badges, and trust indicators.
-- **Coral Alert**: A small warm accent for visual punctuation and panel controls.
-- **Cream Note**: A light highlight accent, used rarely so it does not turn the page into a beige theme.
+The active palette has three surface neutrals, three text/line neutrals, and one teal action family:
 
-### Neutral
-- **Clean Workbench**: The page background. It is near-white with a slight green cast, used to keep the portfolio bright and usable.
-- **White Surface**: Cards, panels, buttons, and elevated containers.
-- **Soft Workbench**: Section bands and interior panel surfaces.
-- **Operator Ink**: Primary text, dark panels, and the strongest structural line.
-- **Muted Operator**: Body support text, chip labels, and metadata.
-- **Quiet Line**: Borders, dividers, and low-contrast separation.
+- `saas-bg` (`#f6f8f7`): page background.
+- `saas-surface` (`#ffffff`): menus, form surfaces, and footer.
+- `saas-surface-soft` (`#edf3f0`): subdued controls and preview surfaces.
+- `saas-ink` (`#17211e`): primary text.
+- `saas-muted` (`#5f6e68`): body support text and metadata.
+- `saas-line` (`#d7e0dc`): borders and dividers.
+- `saas-accent` (`#0f766e`): primary actions, labels, and focus outlines.
+- `saas-accent-strong` (`#0b5f59`): hover and emphasized action text.
+- `saas-accent-soft` (`#dcefeb`): selected and highlighted control backgrounds.
 
-### Named Rules
+There are no active blue, lilac, cream, coral, or decorative gradient tokens in the current system.
 
-**The Signal Rarity Rule.** Signal Green should lead actions and proof markers, not flood every surface. If every label is green, no label is important.
+## 4. Typography
 
-**The Public-Safe Palette Rule.** Do not use danger reds, terminal neon, or black-site styling to imply secret infrastructure. The brand is credible because it is controlled, not because it looks hidden.
+IBM Plex Sans is the default display and body face. JetBrains Mono is reserved for the project-brief preview. Both fonts are loaded in `src/app/layout.tsx`.
 
-## 3. Typography
+Implemented hierarchy:
 
-**Display Font:** IBM Plex Sans with ui-sans-serif fallback.
-**Body Font:** IBM Plex Sans with ui-sans-serif fallback.
-**Label/Mono Font:** JetBrains Mono is available for technical snippets, but the current brand UI mostly uses IBM Plex Sans labels.
+- Hero: `text-4xl`, `sm:text-6xl`, `lg:text-[4.25rem]`, weight 600, line-height 1.06.
+- Section heading: `text-3xl`, `sm:text-4xl`, `lg:text-[2.5rem]`, weight 600, line-height 1.12.
+- Card/project title: 1.5rem to 2.25rem depending on emphasis.
+- Body: generally 1rem with 1.75rem line-height; hero support copy uses 1.125rem with 2rem line-height.
+- Labels: 0.75rem, semibold, uppercase, and teal.
 
-**Character:** The type system is direct, compact, and operational. IBM Plex Sans gives the page a technical tone without the costume of a mono-forward interface.
+All global letter spacing is zero. Thai and English content must wrap without clipping at mobile widths.
 
-### Hierarchy
-- **Display** (700, clamp from 3.75rem to 4.5rem, line-height 0.98): Hero headlines only. Use balanced wrapping and never let bilingual text overflow.
-- **Headline** (700, clamp from 2.25rem to 3rem, line-height 1.04): Section headers and major conversion blocks.
-- **Title** (700, 1.5rem, line-height 1.2): Card titles, panel titles, and demo names.
-- **Body** (600, 1rem, line-height 2): Supporting explanation, case-study details, and bilingual paragraphs. Keep body copy at readable measure, roughly 65 to 75 characters when possible.
-- **Label** (700, 0.75rem, letter-spacing 0.14em): Short metadata, category labels, and panel tags. Use uppercase only for labels of a few words.
+## 5. Layout and Surfaces
 
-### Named Rules
+- Standard content width: 1180px; selected work can expand to 1280px.
+- Section padding: 4.5rem, 5.5rem, then 6rem across breakpoints.
+- Homepage proof, capability, article, and contact regions use borders and whitespace instead of floating section cards.
+- Repeated items are usually divided rows or unframed blocks.
+- The work-intake form and preview are the primary framed surfaces, using 8px corners.
 
-**The Bilingual Fit Rule.** Thai and English must both fit the component. Reduce scale, increase wrapping, or rewrite the copy before allowing clipped labels or cramped headings.
+Nested decorative cards are not part of the current layout language.
 
-**The Mono Discipline Rule.** Use JetBrains Mono only when the content is actually command-like or code-like. Do not use monospace as decoration for every technical phrase.
+## 6. Controls
 
-## 4. Elevation
+### Buttons and Links
 
-This system uses a hybrid of tonal layering, borders, and soft structural lift. Shadows are present, but they should feel like hierarchy support rather than decorative glow. Cards sit on white or soft green surfaces with thin Quiet Line borders and low-alpha ink shadows.
-
-### Shadow Vocabulary
-- **Soft Lift** (`box-shadow: 0 8px 24px rgba(23, 33, 27, 0.06)`): Small cards, buttons, chips, and floating labels.
-- **Medium Lift** (`box-shadow: 0 18px 48px rgba(23, 33, 27, 0.08)`): Major panels, featured cards, and contact blocks.
-- **Focus Ring** (`box-shadow: 0 0 0 4px rgba(31, 143, 95, 0.16)`): Keyboard focus and action confirmation.
-
-### Named Rules
-
-**The Structural Lift Rule.** A lifted element must either be actionable, selected, or more important than its surroundings. Do not add shadow to make a weak section look designed.
-
-**The No Ghost-Card Rule.** Do not pair heavy borders with wide decorative shadows. The current system uses one-pixel borders plus soft lift, or dark filled blocks, not both at full force.
-
-## 5. Components
-
-### Buttons
-- **Shape:** Fully rounded pills for primary and secondary actions (9999px radius).
-- **Primary:** Signal Green background with white text, bold label, 12px vertical padding, and optional lucide icon.
-- **Hover / Focus:** Hover darkens to Deep Signal Green. Focus uses the green focus ring.
-- **Secondary / Ghost:** Secondary buttons use white surfaces, Quiet Line borders, and Operator Ink. Ghost buttons use Signal Green text only and should stay lightweight.
-
-### Chips
-- **Style:** Rounded pill labels with Soft Workbench or White Surface backgrounds, Muted Operator text, and optional Quiet Line border.
-- **State:** Chips communicate category, technology, metadata, or safety mode. They are not decorative confetti.
-
-### Cards / Containers
-- **Corner Style:** Cards default to gently curved corners (14px), with major hero and featured containers allowed to use large corners (24px).
-- **Background:** White Surface for main cards, Soft Workbench for section bands, Operator Ink for strong contact or workflow panels.
-- **Shadow Strategy:** Soft Lift for ordinary cards, Medium Lift for featured proof.
-- **Border:** Quiet Line borders are the default separator. Dark borders are reserved for the strongest dark contact block.
-- **Internal Padding:** 20px for compact cards, 24px to 36px for featured cards and panels.
-
-### Inputs / Fields
-- **Style:** There are no prominent form inputs in the current main surface. Future fields should use White Surface, Quiet Line border, 14px radius, 12px to 16px padding, and Operator Ink text.
-- **Focus:** Use the Focus Ring token and keep error messages specific and public-safe.
-- **Error / Disabled:** Error states should use clear text and restrained color. Do not expose implementation details.
+Primary and secondary command buttons use 6px corners, horizontal padding, semibold 0.875rem text, and optional Lucide icons. Primary buttons use teal fill; secondary buttons use a white surface and one-pixel border. Buttons are not pills.
 
 ### Navigation
 
-Navigation should stay quiet, direct, and predictable. Labels are short, high-contrast, and route-focused. Mobile navigation must preserve language switching and contact access without crowding the header.
+The sticky Navbar uses a translucent page background, subtle blur, compact 6px controls, and desktop/mobile variants. The language picker supports EN and TH and displays an 8px menu surface with a medium shadow.
 
-### Signature Component
+### Form Fields
 
-The **Assistant Ops Studio** panel is the signature proof component: a dark Operator Ink sidebar paired with a light workflow grid. It should feel like a fictional but plausible operations interface, making AI-assisted delivery legible without exposing private internals.
+The intake page contains selects and textareas with 6px corners, one-pixel borders, 1rem text, teal focus styles, character counts, and disabled states. Context and outcome each require at least 30 non-whitespace characters and accept at most 1200 characters.
 
-## 6. Do's and Don'ts
+### Focus and Selection
 
-### Do:
-- **Do** use Signal Green for primary actions, credible completion, and selected proof.
-- **Do** keep public-safe demo copy specific while omitting credentials, private URLs, hidden route behavior, and operational hardening details.
-- **Do** preserve English and Thai content parity when changing portfolio copy or components.
-- **Do** use IBM Plex Sans as the default brand face and rely on weight, scale, and spacing for hierarchy.
-- **Do** test long Thai and English labels at mobile widths before shipping.
-- **Do** keep shadows soft and structural, with Soft Lift and Medium Lift as the only default elevation styles.
+Buttons and links receive a two-pixel teal outline with three-pixel offset. Text selection uses the soft accent background. The refactor must retain visible keyboard focus.
 
-### Don't:
-- **Don't** use generic AI SaaS templates.
-- **Don't** use purple-gradient startup pages as the default visual language.
-- **Don't** use over-brutalist toy styling, hard black block shadows, or novelty colors on the primary portfolio surface.
-- **Don't** use vague automation hype when a concrete workflow, demo, or case-study outcome can be shown instead.
-- **Don't** expose private operations or nonpublic infrastructure details in public copy.
-- **Don't** make the portfolio feel like a fictional product company when the main job is to prove an individual builder's credibility.
-- **Don't** use monospace styling as a lazy shorthand for technical competence.
-- **Don't** add repeated tiny uppercase labels above every section unless the label genuinely helps scanning.
+## 7. Motion
+
+Homepage groups use `motion/react` viewport staggering and a 16px vertical fade for child items. Animations run once as content enters the viewport. `useReducedMotion()` removes the reveal variants, and the global reduced-motion media query reduces animation and transition durations.
+
+Motion supports reading order; it must not gate access to content or shift stable layout dimensions.
+
+## 8. Current Signature Experiences
+
+### Selected Work Proof
+
+The homepage presents problem, build, and result summaries with a link to `/work/[slug]#demo`. The proof route adds highlights, delivery signals, implementation stack, and a fictional local status-filter interaction.
+
+### Project Brief Intake
+
+The intake experience pairs a structured form with a monospace live preview. Submission copies the brief locally. A separate action opens the public GitHub issue template without embedding the full brief in the URL.
+
+## 9. Refactor Guardrails
+
+- Preserve the EN/TH content contract and test long Thai labels at mobile widths.
+- Preserve visible focus, semantic controls, reduced-motion behavior, and stable responsive dimensions.
+- Keep project proof clearly fictional where it uses synthetic records.
+- Do not introduce personal contact details, private URLs, secrets, or private operational data.
+- Do not describe `/saas` as an active standalone demo unless the route is intentionally rebuilt.
+- Update this document and `src/app/globals.css` together when design tokens change.
+
+## 10. Known Baseline Constraints
+
+- User-facing copy is split across `portfolio.ts`, locale JSON, component-local objects, and inline translations.
+- The initial language is English and the saved language is restored after client mount.
+- Static route params and metadata are sourced from English entries; locale arrays therefore depend on matching slugs.
+- The design primitives are small and page-specific rather than a complete component library.

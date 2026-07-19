@@ -1,60 +1,101 @@
-# Services & Hooks Architecture
+# Data Paths and Runtime Services
 
-> Scope: `src/services/` and `src/hooks/`
+> Scope: current content flow, browser-only integrations, derived metadata, and the absence of application services. The filename is retained for compatibility with existing documentation links.
 
-## Three-Tier Data Pipeline
+## Runtime Model
 
+The portfolio has no active service layer or runtime API. Components import compiled TypeScript data, select the active language in memory, and render it.
+
+```text
+src/data/portfolio.ts
+  -> server route generation and metadata
+  -> client components select projects[language] or articles[language]
+  -> rendered static content plus local interaction state
 ```
-Component → Named Hook → usePortfolioData → Service → API → fetchWithTimeout → fetch()
+
+## Source-to-Consumer Map
+
+| Source | Consumers | Data used |
+|--------|-----------|-----------|
+| `navItems` | `Navbar.tsx` | Home, Work, Stack, and Contact destinations; labels map to locale JSON keys. |
+| `publicContactUrl` | `work-with-me/page.tsx` | Public GitHub issue base URL for the final handoff. |
+| `projects` | `SaasHome.tsx` | Localized selected-work cards and links to project detail routes. |
+| `projects.en` | `work/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
+| `projects[language]` | `ProjectContent.tsx` | Localized case study, highlights, stack, and project identity. |
+| `articles` | `SaasHome.tsx`, `ArticleContent.tsx` | Localized article listing, detail sections, and related articles. |
+| `articles.en` | `article/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
+| `projects.en`, `articles.en` | `sitemap.ts` | Derived `/work/[slug]` and `/article/[slug]` URLs. |
+| `src/i18n/*` | Shared shell and route client components | Active language, JSON translations, inline bilingual selection, and language changes. |
+| `next.config.ts` | Next.js runtime | Optional build output directory and site-wide security headers. |
+
+## Static Detail Flow
+
+```text
+Build
+  -> generateStaticParams() reads English canonical slugs
+  -> generateMetadata() reads the English record
+  -> dynamicParams = false prevents ungenerated slugs
+
+Client render
+  -> useTranslation() supplies en or th
+  -> detail component finds the same slug in that locale collection
+  -> language changes replace the visible content without changing the URL
 ```
 
-## API Layer (`src/services/api.js`)
+This contract relies on slug parity between locale arrays.
 
-- Base URL: `import.meta.env.VITE_API_URL || 'http://localhost:3000/api'`
-- Timeout: 10s via `AbortController`
-- Headers: `Content-Type: application/json`, `Accept-Language: <from localStorage>`
-- Response envelope: `{ success: true, data }` or `{ success: false, error }`
-- **Never rejects promises** — callers must check `response.success`
+## Work Intake Handoff
 
-### Endpoints
-| Function | Method | Path |
-|----------|--------|------|
-| `fetchProfile` | GET | `/profile` |
-| `fetchSkills` | GET | `/skills` |
-| `fetchExperiences` | GET | `/experiences` |
-| `fetchProjects` | GET | `/projects` |
-| `fetchSocials` | GET | `/socials` |
-| `fetchArticles` | GET | `/articles` |
-| `fetchFeaturedArticles` | GET | `/articles/featured` |
-| `fetchArticleBySlug` | GET | `/articles/:slug` |
-| `submitContactForm` | POST | `/contact` |
-| `fetchAllPortfolioData` | parallel GET | all read endpoints via `Promise.all` |
+```text
+/work-with-me
+  -> visitor selects project type and timeline
+  -> visitor enters current context and desired outcome
+  -> page requires at least 30 trimmed characters in both detail fields
+  -> useMemo builds a plain-text brief and preview
+  -> Clipboard API copies the brief
+  -> public GitHub issue link opens in a new tab
+     with a generated title and instructions to paste the brief
+```
 
-## Service Layer (`src/services/portfolioService.js`)
+The form never posts to this application. It has no database, analytics write, CRM, email service, or server-side persistence. The GitHub issue is a separate public destination, and the brief is not embedded in its URL.
 
-Pure adapter: unwraps `{ success, data }` envelope → returns `data` on success, throws `Error` on failure. No business logic, no payload transformation.
+## Sitemap Flow
 
-## Hook Layer (`src/hooks/usePortfolioData.js`)
+`src/app/sitemap.ts` uses a fixed production base URL and derives content routes from current English data:
 
-Generic hook: `usePortfolioData(fetchFunction) → { data, loading, error, refetch }`
+```text
+https://www.chinnakrit.dev
+https://www.chinnakrit.dev/work-with-me
+projects.en[] -> /work/{slug}
+articles.en[] -> /article/{slug}
+```
 
-- Fetches on mount and on language change
-- Language detection: `window.storage` event (cross-tab) + 500ms polling (same-tab)
-- Named hooks: `useProfile`, `useSkills`, `useExperiences`, `useProjects`, `useSocials`, `useArticles`, `useFeaturedArticles`, `useArticle(slug)`, `useAllPortfolioData`
+Adding or removing a project/article entry updates its sitemap route on the next build.
 
-## Error Handling (3 layers)
+## Route Redirect
 
-| Layer | Strategy |
-|-------|----------|
-| API | Catches all errors → returns `{ success: false }` + `console.error` |
-| Service | Checks `success` flag → throws Error on failure |
-| Hook | `try/catch` → sets `error` state + `console.error` |
+`src/app/saas/page.tsx` calls `redirect('/#work')`. This is an internal compatibility route, not a standalone FlowSync demo and not a redirect configured in `next.config.ts`.
 
-**Issue:** Double `console.error` logging (API + hook layer)
+## Active Server Surfaces
 
-## Known Issues
-1. No request cancellation on unmount (no AbortController in useEffect cleanup)
-2. No caching — every mount fires a fresh request
-3. `ArticlePage.jsx` bypasses service layer with raw `fetch()`
-4. `useArticle(slug)` creates unstable function ref on every render
-5. 500ms localStorage polling is fragile (should use custom event)
+There are no `src/app/api/*/route.ts` files and no runtime data services. The application uses Next.js server components for route generation and metadata, but it does not expose an application API.
+
+If server logic is introduced later, place it under `src/app/api/*` and document its validation, data ownership, and runtime environment requirements. Do not recreate a separate Express backend.
+
+## Retired Architecture
+
+Do not use these historical concepts to guide the refactor:
+
+- Vite entrypoints or React Router pages;
+- `src/services/*` and `src/hooks/*` fetch pipelines;
+- Express endpoints for profile, projects, articles, or contact;
+- runtime profile/social aggregation helpers;
+- prompt, CMS, content-store, blob-storage, or AI-provider services;
+- backend-selected language through request headers.
+
+## Current Data-Path Gaps
+
+1. English and Thai slug parity is required but not validated as a cross-locale invariant.
+2. The intake handoff has two user actions: copy the brief, then open and complete a public issue. Clipboard denial or skipping the copy step leaves no automatic transfer path.
+3. Copy and terminology are distributed across static data, locale JSON, and component-local dictionaries.
+4. The sitemap base URL is a source constant; route entries are derived, but domain changes still require a code update.
