@@ -15,10 +15,8 @@ The app has no backend, application API, runtime database, CMS, or required runt
 ## Routes
 
 - `/` - portfolio home inside the shared navbar/footer shell
-- `/work/[slug]` - statically generated project proof
 - `/article/[slug]` - statically generated technical article
-- `/work-with-me` - local browser workflow that copies a project brief and opens a public GitHub issue handoff
-- `/saas` - compatibility redirect to `/#work`
+- Contact CTAs open a public GitHub Issues URL
 
 ## Source of Truth
 
@@ -55,5 +53,5 @@ powershell -ExecutionPolicy Bypass -File scripts/deploy-check.ps1 -Env preview
 
 - Keep English and Thai user-facing content in sync.
 - Keep public copy free of credentials, private URLs, personal data, and internal operational details.
-- `/work-with-me` does not submit or store form content. Users review and copy the generated brief locally before opening the public issue channel.
+- Contact CTAs open a public GitHub Issues URL. This app does not collect or store inquiry form data.
 - Use `npm run build` as the required completion gate for implementation changes.

@@ -60,9 +60,7 @@ This is presentation-language state, not URL locale routing. The initial server 
 | Navigation labels and global UI translations | `src/i18n/locales/en.json`, `src/i18n/locales/th.json` |
 | Projects and articles | `src/data/portfolio.ts` |
 | Home section messaging | `src/components/portfolio/HomePage.tsx` |
-| Project detail and proof labels | `src/app/(portfolio)/work/[slug]/ProjectContent.tsx` |
 | Article detail actions | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` |
-| Project brief form | `src/app/(portfolio)/work-with-me/page.tsx` |
 | Footer phrasing | `src/components/layout/Footer.tsx` |
 
 The split is functional but should be an explicit design-refactor decision because terminology can drift across these owners.
@@ -102,7 +100,7 @@ The current app has:
 1. Honor `NEXT_DIST_DIR` when the build wrapper supplies an isolated output directory.
 2. Apply site-wide security headers: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, and Content-Security-Policy.
 
-The development CSP additionally permits `unsafe-eval` and localhost WebSocket/HTTP connections required by local tooling. The config defines no redirects; `/saas` redirects inside its route component.
+The development CSP additionally permits `unsafe-eval` and localhost WebSocket/HTTP connections required by local tooling. The config defines no application redirects.
 
 ## Build Wrapper
 

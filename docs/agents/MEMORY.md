@@ -9,9 +9,10 @@
 - Static-first **software engineering portfolio** (Next.js 15 App Router).
 - Bilingual **EN/TH** client language switch; no locale-prefixed routes.
 - Content entities: `src/data/portfolio.ts` + `src/data/types.ts`.
-- Shared chrome copy (Phase 1): `src/content/shared.ts`.
-- Local-only intake: `/work-with-me` (clipboard + public GitHub issue; no app storage).
-- `/saas` → redirect to `/#work` only.
+- Shared chrome copy: `src/content/shared.ts`.
+- Routes in product: `/`, `/article/[slug]`, `/sitemap.xml`.
+- Contact: external `publicContactUrl` (public GitHub Issues). No in-app intake form.
+- **Removed from product (2026-07-19):** `/saas`, `/work/[slug]`, `/work-with-me`.
 
 ## Source of truth (read these first)
 
@@ -40,6 +41,9 @@ Do **not** rebuild or assume these are active:
 | Express backend / Vite SPA architecture | Superseded by Next.js App Router |
 | Lead capture API / database / auth | Explicit non-goals |
 | `mailto:` personal contact pipeline | Do not introduce |
+| `/saas` compatibility redirect | Removed from tree |
+| `/work/[slug]` project proof routes | Removed; selected work stays on homepage |
+| `/work-with-me` local brief intake | Removed; contact uses public GitHub Issues URL |
 
 ## Stale docs (removed from tree)
 
@@ -50,8 +54,7 @@ Do **not** rebuild or assume these are active:
 
 - UI modules live under `src/components/portfolio/` (`HomePage`, `primitives`).
 - Design tokens use the `portfolio-*` prefix in `globals.css`.
-- The route `/saas` remains a **compatibility redirect only** — not a SaaS product page and not FlowSync.
-
+- Do not reintroduce SaaS product surfaces or the deleted routes above.
 
 ## Copy ownership (current)
 
@@ -60,7 +63,7 @@ Do **not** rebuild or assume these are active:
 | Projects, articles, nav hrefs, public GitHub issue URL | `src/data/portfolio.ts` |
 | Shared labels/CTAs (problem/built/result, create brief, open proof) | `src/content/shared.ts` |
 | Homepage marketing sections | still largely `HomePage` local copy (later phases) |
-| Intake form strings | `work-with-me/page.tsx` (later phases) |
+| Contact CTA labels | `src/content/shared.ts` + home contact section |
 | Nav chrome labels | `src/i18n/locales/*.json` |
 
 ## Hard rules (never skip)
@@ -68,7 +71,7 @@ Do **not** rebuild or assume these are active:
 1. Static-first: no backend/API/runtime storage without explicit user approval.
 2. Update **EN and TH** together for user-facing copy.
 3. Keep project/article **slugs aligned** across locales (static params from English).
-4. Preserve `/work-with-me` privacy contract and public-issue warning.
+4. Contact is external-only via `publicContactUrl`; do not add form storage without approval.
 5. Gate implementation with `npm run build`.
 6. No push / no infra changes without explicit user approval.
 
@@ -78,3 +81,4 @@ Do **not** rebuild or assume these are active:
 - **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
 - **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
 - **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Kept `/saas` as compatibility redirect only.
+- **2026-07-19:** Removed product routes `/saas`, `/work/[slug]`, and `/work-with-me`. Portfolio is one-page home + article routes + external GitHub inquiry.

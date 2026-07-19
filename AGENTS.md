@@ -16,18 +16,12 @@ The parent folder contains project-level docs. Run git and package commands from
 
 - Static-first, anonymous software engineering portfolio.
 - Bilingual English and Thai presentation with the selected language remembered in browser storage.
-- `/` renders the portfolio experience from typed local data.
-- `/work/[slug]` and `/article/[slug]` are statically generated proof routes.
-- `/work-with-me` creates a project brief locally, copies it to the clipboard, and opens a public GitHub issue handoff. It does not submit or store form data.
-- `/saas` is a compatibility route that redirects to `/#work`.
+- `/` renders the one-page portfolio experience from typed local data (selected work, capabilities, articles, contact).
+- `/article/[slug]` is a statically generated article route.
+- Contact CTAs open a public GitHub Issues URL (`publicContactUrl`). The app does not collect or store inquiry form data.
 - The `(portfolio)` route-group layout owns the shared navbar and footer.
 
-There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable in the current architecture.
-
-Durable agent memory (retired systems, copy ownership, recent decisions): `docs/agents/MEMORY.md`.  
-Public change log: `CHANGELOG.md`.
-
-If older plans or specs conflict with the files above, treat FlowSync, prompts library, admin CMS, Vercel Blob, and AI provider integrations as **retired** unless the user reopens scope.
+There is no backend, application API, runtime database, CMS, server-side content store, work-detail route, work-with-me intake page, or required runtime environment variable in the current architecture.
 
 ## Hard Rules
 
@@ -35,21 +29,19 @@ If older plans or specs conflict with the files above, treat FlowSync, prompts l
 2. Preserve English and Thai parity. Update both locales when changing user-facing content or typed portfolio records.
 3. Treat `src/data/portfolio.ts` as the source of truth for navigation, projects, articles, and the public contact URL.
 4. Keep project and article slugs aligned across locales because static params are generated from English records and localized content is selected in the client.
-5. Preserve the local-first privacy contract on `/work-with-me`: no silent submission or storage, and clearly warn that the final GitHub issue is public.
+5. Keep inquiry handoff external: contact CTAs may open `publicContactUrl` (public GitHub Issues) but must not add an app form submission/storage path without explicit approval.
 6. Keep public copy sanitized. Do not expose credentials, private URLs, personal data, or internal operational details.
 7. Use `npm run build` as the required implementation gate. It invokes the repository build wrapper, not `next build` directly.
 8. Preserve user changes and keep edits scoped to the requested work.
+9. Do not restore `/saas`, `/work/[slug]`, or `/work-with-me` unless the user explicitly reopens those product surfaces.
 
 ## Architecture Map
 
 ```text
 src/app/layout.tsx                         Root fonts, metadata, and LanguageProvider
 src/app/(portfolio)/layout.tsx             Shared Navbar and Footer shell
-src/app/(portfolio)/page.tsx               Portfolio home
-src/app/(portfolio)/work/[slug]/           Static project proof route
+src/app/(portfolio)/page.tsx               Portfolio home (one-page)
 src/app/(portfolio)/article/[slug]/        Static article route
-src/app/(portfolio)/work-with-me/          Local-first project brief workflow
-src/app/saas/page.tsx                      Redirect to /#work
 src/app/sitemap.ts                         Static sitemap entries
 src/components/portfolio/                 Main portfolio experience
 src/components/layout/                     Shared navigation and footer

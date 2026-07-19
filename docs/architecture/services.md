@@ -18,13 +18,12 @@ src/data/portfolio.ts
 | Source | Consumers | Data used |
 |--------|-----------|-----------|
 | `navItems` | `Navbar.tsx` | Home, Work, Stack, and Contact destinations; labels map to locale JSON keys. |
-| `publicContactUrl` | `work-with-me/page.tsx` | Public GitHub issue base URL for the final handoff. |
+| `publicContactUrl` | Home, Footer, Article CTAs | Public GitHub issue base URL for inquiry handoff. |
 | `projects` | `HomePage.tsx` | Localized selected-work cards and links to project detail routes. |
 | `projects.en` | `work/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
-| `projects[language]` | `ProjectContent.tsx` | Localized case study, highlights, stack, and project identity. |
 | `articles` | `HomePage.tsx`, `ArticleContent.tsx` | Localized article listing, detail sections, and related articles. |
 | `articles.en` | `article/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
-| `projects.en`, `articles.en` | `sitemap.ts` | Derived `/work/[slug]` and `/article/[slug]` URLs. |
+| `articles.en` | `sitemap.ts` | Derived `/article/[slug]` URLs. |
 | `src/i18n/*` | Shared shell and route client components | Active language, JSON translations, inline bilingual selection, and language changes. |
 | `next.config.ts` | Next.js runtime | Optional build output directory and site-wide security headers. |
 
@@ -47,17 +46,6 @@ This contract relies on slug parity between locale arrays.
 ## Work Intake Handoff
 
 ```text
-/work-with-me
-  -> visitor selects project type and timeline
-  -> visitor enters current context and desired outcome
-  -> page requires at least 30 trimmed characters in both detail fields
-  -> useMemo builds a plain-text brief and preview
-  -> Clipboard API copies the brief
-  -> public GitHub issue link opens in a new tab
-     with a generated title and instructions to paste the brief
-```
-
-The form never posts to this application. It has no database, analytics write, CRM, email service, or server-side persistence. The GitHub issue is a separate public destination, and the brief is not embedded in its URL.
 
 ## Sitemap Flow
 
@@ -65,8 +53,6 @@ The form never posts to this application. It has no database, analytics write, C
 
 ```text
 https://www.chinnakrit.dev
-https://www.chinnakrit.dev/work-with-me
-projects.en[] -> /work/{slug}
 articles.en[] -> /article/{slug}
 ```
 
@@ -74,7 +60,6 @@ Adding or removing a project/article entry updates its sitemap route on the next
 
 ## Route Redirect
 
-`src/app/saas/page.tsx` calls `redirect('/#work')`. This is an internal compatibility route, not a standalone FlowSync demo and not a redirect configured in `next.config.ts`.
 
 ## Active Server Surfaces
 

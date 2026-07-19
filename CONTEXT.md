@@ -22,31 +22,31 @@ _Avoid_: Vague claims, private production data, implying that a fictional demo i
 The shared `src/app/(portfolio)/layout.tsx` frame that provides Navbar and Footer to the home, work, article, and work-intake routes.
 _Avoid_: Per-route navigation identity, duplicated global shell, assuming `/saas` has a separate layout
 
-**Localized Proof Route**:
-A statically generated `/work/[slug]` or `/article/[slug]` route whose canonical slug comes from the English data set and whose client content follows the active EN/TH language.
+**Localized Article Route**:
+A statically generated `/article/[slug]` route whose canonical slug comes from the English data set and whose client content follows the active EN/TH language.
 _Avoid_: Locale-specific slugs without a canonical mapping, unmatched EN/TH entries
 
-**Workflow Intake Page**:
-The `/work-with-me` route that turns visitor interest into a scoped project brief. It validates context and outcome locally, previews and copies the brief, then opens a public GitHub issue template containing only a title and safety prompt. The visitor chooses whether to paste the reviewed brief.
-_Avoid_: Backend lead capture, automatic publication of the full brief, `mailto:` assumptions
+**External Inquiry Handoff**:
+Contact CTAs open `publicContactUrl` (public GitHub Issues). The portfolio does not host a local brief builder or store form data.
+_Avoid_: Backend lead capture, in-app form storage, `mailto:` assumptions
 
 **Portfolio Journey Navigation**:
-The current navigation path: Home, Work, Stack, and Contact. Work and Stack target real homepage sections; Contact opens `/work-with-me`.
-_Avoid_: Timeline nav without a timeline section, duplicated Projects and Systems links, Prompts as a primary portfolio nav item
+The current navigation path: Home, Work, Stack, and Contact. Work, Stack, and Contact target homepage sections (`/#work`, `/#stack`, `/#contact`).
+_Avoid_: Timeline nav without a timeline section, restored `/work-with-me` without product approval, Prompts as a primary portfolio nav item
 
-**Legacy SaaS Redirect**:
-The `/saas` compatibility route. It redirects to `/#work` and does not render the retired FlowSync landing page.
-_Avoid_: Documenting `/saas` as an active standalone demo
+**Retired Routes**:
+`/saas`, `/work/[slug]`, and `/work-with-me` were removed from the product surface.
+_Avoid_: Rebuilding them from memory or historical docs without explicit user request
 
 ## Example Dialogue
 
-Dev: "Should the refactor restore the old FlowSync page because `/saas` still exists?"
+Dev: "Should we restore `/saas` or `/work/[slug]` because older docs mention them?"
 
-Domain expert: "Not by default. The current `/saas` route is only a compatibility redirect to selected work. Restoring a demo is a new product decision."
+Domain expert: "No. Those routes were removed. Restoring them is a new product decision."
 
-Dev: "Should `/work-with-me` send or store the brief?"
+Dev: "Should contact use an in-app form again?"
 
-Domain expert: "No. Preserve the local preview and clipboard flow unless the product requirements explicitly add a private submission service."
+Domain expert: "Not by default. Use the public GitHub inquiry URL unless the product requirements explicitly add a private submission service."
 
 Dev: "Should the navbar keep Workflow, Systems, Work, Timeline, Projects, or Prompts?"
 

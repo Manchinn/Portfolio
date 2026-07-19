@@ -18,10 +18,7 @@ src/
     (portfolio)/
       layout.tsx                   Shared Navbar and Footer shell
       page.tsx                     Portfolio home
-      work/[slug]/                 Static project proof route
       article/[slug]/              Static technical article route
-      work-with-me/                Local-first project brief workflow
-    saas/page.tsx                  Compatibility redirect to /#work
     layout.tsx                     Fonts, metadata, and LanguageProvider
     globals.css                    Global tokens and component styling
     sitemap.ts                     Static sitemap
@@ -49,9 +46,9 @@ next.config.ts                     Global security headers and build-only distDi
 ## Route and Data Flow
 
 - `/` imports typed content from `src/data/portfolio.ts` and renders `HomePage` inside the shared `(portfolio)` shell.
-- `/work/[slug]` and `/article/[slug]` generate static params from English records. Their client content selects the matching localized record at render time.
-- `/work-with-me` keeps form state in the browser, creates a plain-text brief, and copies it through the Clipboard API. The external handoff opens a prefilled public GitHub issue; the app has no submission endpoint and stores nothing.
-- `/saas` redirects server-side to `/#work`. It is not a separate demo or design surface.
+- `/article/[slug]` generates static params from English records. Client content selects the matching localized record at render time.
+- Contact CTAs open `publicContactUrl` (public GitHub Issues). There is no in-app brief intake form.
+- `/saas`, `/work/[slug]`, and `/work-with-me` are removed from the product surface.
 - `LanguageProvider` initializes in English, restores `portfolio-language` from `localStorage`, and updates the document language after hydration.
 
 Keep localized project and article slugs synchronized. A slug present only in Thai will not receive a generated route, while a mismatched slug will fail localized lookup.
@@ -91,7 +88,7 @@ Treat `npm run build` as the required completion gate. Use the verification scri
 - Update both English and Thai user-facing content.
 - Keep `src/data/portfolio.ts` as the portfolio content source of truth.
 - Preserve the route-group shell for portfolio pages.
-- Preserve the local-only behavior and public-data warning on `/work-with-me`.
+- Keep contact external via `publicContactUrl`; do not add form storage without approval.
 - Never publish secrets, private URLs, personal data, or internal operational details.
 - Review user changes before editing and do not overwrite unrelated work.
 

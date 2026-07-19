@@ -5,6 +5,10 @@ Format follows a lightweight Keep a Changelog style.
 
 ## [Unreleased]
 
+### Removed
+- Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
+- Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
+
 ### Changed
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
 - Kept `/saas` as a compatibility redirect only.

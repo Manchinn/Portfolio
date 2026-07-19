@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import type { Language } from '@/data/types'
+import { publicContactUrl } from '@/data/portfolio'
 import { getSharedChrome } from '@/content/shared'
 import { useTranslation } from '@/i18n/useTranslation'
 
@@ -17,9 +17,14 @@ const Footer = () => {
           <p>{shared.portfolioLabel}</p>
           <p className="mt-1 text-xs">© {currentYear}</p>
         </div>
-        <Link href="/work-with-me" className="font-semibold text-portfolio-accent-strong hover:text-portfolio-accent">
-          {shared.createBrief}
-        </Link>
+        <a
+          href={publicContactUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+        >
+          {shared.contactAction}
+        </a>
       </div>
     </footer>
   )

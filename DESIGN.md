@@ -32,7 +32,7 @@ This document records what the current code implements. It is a refactor baselin
 
 The public surface is a quiet, light software portfolio built for scanning proof and reaching a project inquiry. The layout uses broad unframed sections, thin horizontal dividers, compact controls, restrained teal accents, and very limited elevation.
 
-The current interface is not the older FlowSync landing page, an operator console, or a card-heavy AI SaaS concept. `/saas` redirects to the selected-work section.
+The current interface is not the older FlowSync landing page, an operator console, or a card-heavy AI SaaS concept. There is no `/saas` product route.
 
 ## 2. Sources of Truth
 
@@ -44,7 +44,7 @@ The current interface is not the older FlowSync landing page, an operator consol
 | Section and button primitives | `src/components/portfolio/primitives.tsx` |
 | Homepage composition | `src/components/portfolio/HomePage.tsx` |
 | Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
-| Work intake fields and states | `src/app/(portfolio)/work-with-me/page.tsx` |
+| Contact CTA (external) | `publicContactUrl` + home contact section |
 | Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
 
 When this document and source disagree, source is authoritative until the refactor intentionally changes both.
@@ -99,10 +99,6 @@ Primary and secondary command buttons use 6px corners, horizontal padding, semib
 
 The sticky Navbar uses a translucent page background, subtle blur, compact 6px controls, and desktop/mobile variants. The language picker supports EN and TH and displays an 8px menu surface with a medium shadow.
 
-### Form Fields
-
-The intake page contains selects and textareas with 6px corners, one-pixel borders, 1rem text, teal focus styles, character counts, and disabled states. Context and outcome each require at least 30 non-whitespace characters and accept at most 1200 characters.
-
 ### Focus and Selection
 
 Buttons and links receive a two-pixel teal outline with three-pixel offset. Text selection uses the soft accent background. The refactor must retain visible keyboard focus.
@@ -115,13 +111,13 @@ Motion supports reading order; it must not gate access to content or shift stabl
 
 ## 8. Current Signature Experiences
 
-### Selected Work Proof
+### Selected Work
 
-The homepage presents problem, build, and result summaries with a link to `/work/[slug]#demo`. The proof route adds highlights, delivery signals, implementation stack, and a fictional local status-filter interaction.
+The homepage presents problem, build, and result summaries for selected projects in place. There is no separate work-detail route.
 
-### Project Brief Intake
+### Project Inquiry
 
-The intake experience pairs a structured form with a monospace live preview. Submission copies the brief locally. A separate action opens the public GitHub issue template without embedding the full brief in the URL.
+Contact CTAs open the public GitHub Issues URL. The portfolio does not host a local brief form.
 
 ## 9. Refactor Guardrails
 
@@ -129,7 +125,7 @@ The intake experience pairs a structured form with a monospace live preview. Sub
 - Preserve visible focus, semantic controls, reduced-motion behavior, and stable responsive dimensions.
 - Keep project proof clearly fictional where it uses synthetic records.
 - Do not introduce personal contact details, private URLs, secrets, or private operational data.
-- Do not describe `/saas` as an active standalone demo unless the route is intentionally rebuilt.
+- Do not restore `/saas`, `/work/[slug]`, or `/work-with-me` unless product scope reopens them.
 - Update this document and `src/app/globals.css` together when design tokens change.
 
 ## 10. Known Baseline Constraints

@@ -17,14 +17,11 @@ A static-first, bilingual software engineering portfolio. It presents selected f
 ```text
 Landing page
   -> review selected work and capabilities
-  -> open a localized project proof route
-  -> inspect the fictional interactive demo
-  -> create a project brief
-  -> copy the brief locally
-  -> open the public GitHub inquiry template and paste the reviewed brief
+  -> open a technical article (optional)
+  -> open the public GitHub inquiry link
 ```
 
-Article routes provide a secondary path into the same project inquiry flow. The legacy `/saas` URL redirects to the selected-work section and is not a separate product surface.
+Article routes provide a secondary path into the same external inquiry handoff. There is no separate work-detail route, local brief builder, or `/saas` product page.
 
 ## Product Purpose
 
@@ -44,15 +41,15 @@ Clear, practical, and trustworthy. The voice is implementation-led and composed,
 ## Design Principles
 
 1. Show evidence before decoration: lead from the problem, implementation, result, and interactive proof.
-2. Keep the route to contact explicit: the visitor should always be able to reach `/work-with-me` from the portfolio journey.
-3. Keep the public surface safe: the full brief stays in the browser and is never placed in the public issue URL automatically.
+2. Keep the path to contact explicit: homepage and shell CTAs should reach the public GitHub inquiry URL or the `#contact` section.
+3. Keep the public surface safe: this app does not store inquiry form data.
 4. Keep both languages equivalent: changes to projects, articles, navigation, and workflow copy must be checked in EN and TH.
 5. Make technical work scannable: use clear hierarchy, restrained motion, short labels, and stable responsive layouts.
 
 ## Non-goals
 
 - No admin panel, CMS, runtime portfolio API, database, analytics write, or server-side lead storage.
-- No standalone FlowSync demo at `/saas`.
+- No `/saas`, `/work/[slug]`, or `/work-with-me` product surfaces unless explicitly restored.
 - No generic AI product claims that are not demonstrated by the current public work.
 - No private contact details or operational internals in source-controlled public copy.
 

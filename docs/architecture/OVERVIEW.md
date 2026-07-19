@@ -24,20 +24,9 @@ Next.js App Router
   +-- src/app/(portfolio)/page.tsx
   |     - HomePage portfolio composition
   |
-  +-- src/app/(portfolio)/work/[slug]/page.tsx
-  |     - static project routes from projects.en
-  |     - localized ProjectContent and fictional interactive proof
-  |
   +-- src/app/(portfolio)/article/[slug]/page.tsx
   |     - static article routes from articles.en
   |     - localized ArticleContent
-  |
-  +-- src/app/(portfolio)/work-with-me/page.tsx
-  |     - browser-only brief builder
-  |     - clipboard copy and public GitHub issue handoff
-  |
-  +-- src/app/saas/page.tsx
-  |     - redirects to /#work
   |
   +-- src/app/sitemap.ts
         - derives work and article URLs from portfolio data
@@ -48,10 +37,7 @@ Next.js App Router
 | Route | Primary files | Runtime role |
 |-------|---------------|--------------|
 | `/` | `src/app/(portfolio)/page.tsx`, `src/components/portfolio/HomePage.tsx` | Static portfolio landing page with client language selection. |
-| `/work/[slug]` | `src/app/(portfolio)/work/[slug]/page.tsx`, `ProjectContent.tsx` | Pre-rendered project detail and public-safe interactive proof. Unknown slugs return 404. |
 | `/article/[slug]` | `src/app/(portfolio)/article/[slug]/page.tsx`, `ArticleContent.tsx` | Pre-rendered article detail. Unknown slugs return 404. |
-| `/work-with-me` | `src/app/(portfolio)/work-with-me/page.tsx` | Browser-only project brief builder; copies a brief and opens a prefilled public GitHub issue form. |
-| `/saas` | `src/app/saas/page.tsx` | Compatibility route that redirects to `/#work`; it is not a separate demo surface. |
 | `/sitemap.xml` | `src/app/sitemap.ts` | Metadata route derived from `projects.en` and `articles.en`. |
 
 Both dynamic content routes set `dynamicParams = false` and generate params from English entries. English and Thai records therefore need matching canonical slugs.
@@ -64,7 +50,7 @@ Both dynamic content routes set `dynamicParams = false` and generate params from
 | Content source | `navItems`, `publicContactUrl`, `projects`, and `articles` in `src/data/portfolio.ts` | No runtime content service; content changes require a rebuild. |
 | Language model | Custom client provider in `src/i18n/*` | Small and controlled; no locale-prefixed routes or server-selected locale. |
 | Shared shell | `(portfolio)` route-group layout | Navbar and Footer stay consistent across home, work, article, and intake routes. |
-| Contact handoff | Local form state, Clipboard API, and a public GitHub issue URL | No visitor data is stored by this app; visitors must understand that the destination is public. |
+| Contact handoff | Public GitHub issue URL (`publicContactUrl`) | No visitor data is stored by this app; the destination is public. |
 | Styling | Tailwind CSS 4 and semantic portfolio design tokens in `globals.css` | Centralized visual vocabulary; some user-facing copy remains component-local. |
 
 ## Data Flow
@@ -78,25 +64,20 @@ Home
 ```
 
 ```text
-Work or article detail
+Article detail
   build -> generateStaticParams() from English canonical slugs
   request -> server page validates slug and generates metadata
-  client content component -> selects the matching item in projects[language]
-                              or articles[language]
+  client content component -> selects the matching item in articles[language]
 ```
 
 ```text
-Work intake
-  local form state -> minimum-length validation -> generated text preview
-    -> Clipboard API copies the full brief
-    -> publicContactUrl opens a new public GitHub issue with a title
-       and instructions to paste the copied brief
+Contact handoff
+  CTA -> publicContactUrl (GitHub Issues, external)
 ```
 
 ```text
 Sitemap
-  fixed home + work-with-me URLs
-    + projects.en mapped to /work/[slug]
+  fixed home URL
     + articles.en mapped to /article/[slug]
 ```
 
@@ -104,7 +85,7 @@ Sitemap
 
 ### Public copy and privacy
 
-Public copy must remain sanitized. Project proof uses fictional records. The intake page keeps form values in browser state and does not submit them to this application, but its GitHub destination is explicitly public.
+Public copy must remain sanitized. Selected work is summarized on the homepage. Contact opens a public GitHub Issues URL and does not store form data in this application.
 
 ### Language support
 
@@ -138,15 +119,10 @@ src/
     (portfolio)/
       layout.tsx                       Shared Navbar/Footer shell
       page.tsx                         Home route
-      work/[slug]/
-        page.tsx                       Static params, metadata, slug validation
-        ProjectContent.tsx             Localized detail and proof demo
       article/[slug]/
         page.tsx                       Static params, metadata, slug validation
         ArticleContent.tsx             Localized article rendering
-      work-with-me/page.tsx            Local brief and public issue handoff
-    saas/page.tsx                      Redirect to /#work
-  components/
+        components/
     layout/Navbar/Navbar.tsx           Navigation and language switcher
     layout/Footer.tsx                  Shared footer
     motion/MotionPrimitives.tsx        Motion wrappers

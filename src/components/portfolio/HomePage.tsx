@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {
   ArrowRight,
 } from 'lucide-react'
-import { articles, projects } from '@/data/portfolio'
+import { articles, projects, publicContactUrl } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
 import { getSharedChrome, type SharedChromeCopy } from '@/content/shared'
 import { useTranslation } from '@/i18n/useTranslation'
@@ -35,7 +35,7 @@ type LocalCopy = {
   contactBody: string
 }
 
-type HomeCopy = LocalCopy & Pick<SharedChromeCopy, 'problem' | 'built' | 'result' | 'createBrief' | 'openProof'>
+type HomeCopy = LocalCopy & Pick<SharedChromeCopy, 'problem' | 'built' | 'result' | 'contactAction' | 'viewSelectedWork'>
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
@@ -45,9 +45,9 @@ const localCopy: Record<Language, LocalCopy> = {
       'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
     primaryCta: 'Start a project',
     proofItems: [
-      { label: 'Static proof routes', value: 'Typed project and article pages' },
+      { label: 'Selected work on one page', value: 'Problem, build, and result in place' },
       { label: 'Bilingual interface', value: 'One shared EN/TH content contract' },
-      { label: 'Local-first intake', value: 'No submission API or stored brief' },
+      { label: 'Static articles', value: 'Typed technical writing routes' },
     ],
     selectedEyebrow: 'Selected work',
     selectedTitle: 'Verified work, shaped like product proof.',
@@ -75,14 +75,14 @@ const localCopy: Record<Language, LocalCopy> = {
         statement: 'I make builds, deployment checks, and operational workflows repeatable and reviewable.',
       },
     ],
-    proofLabel: 'Proof summary',
+    proofLabel: 'Case summary',
     articlesEyebrow: 'Blog & Insights',
     articlesTitle: 'Writing on frontend and software architecture.',
     articlesSubtitle: 'Technical notes, implementation patterns, and development stories.',
     readArticle: 'Read article',
     contactEyebrow: 'Project inquiry',
     contactTitle: 'Have a workflow that needs a clearer software path?',
-    contactBody: 'Shape the context, desired result, and constraints into a concise brief before starting the conversation.',
+    contactBody: 'Open a public GitHub issue with the context, desired result, and constraints. This portfolio does not collect form data.',
   },
   th: {
     heroEyebrow: 'Software engineering · Full-stack systems',
@@ -91,9 +91,9 @@ const localCopy: Record<Language, LocalCopy> = {
       'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
     primaryCta: 'เริ่มคุยโปรเจกต์',
     proofItems: [
-      { label: 'Static proof routes', value: 'Project และ article pages แบบ typed' },
+      { label: 'Selected work บนหน้าเดียว', value: 'ปัญหา การสร้าง และผลลัพธ์ในที่เดียว' },
       { label: 'Bilingual interface', value: 'ใช้ content contract ร่วมกันใน EN/TH' },
-      { label: 'Local-first intake', value: 'ไม่มี submission API หรือการเก็บ brief' },
+      { label: 'Static articles', value: 'บทความเทคนิคแบบ typed routes' },
     ],
     selectedEyebrow: 'Selected work',
     selectedTitle: 'งานที่ยืนยันได้ และอ่านเหมือน product proof',
@@ -121,14 +121,14 @@ const localCopy: Record<Language, LocalCopy> = {
         statement: 'ทำ build, deployment checks และ operational workflows ให้เรียกซ้ำและตรวจสอบได้',
       },
     ],
-    proofLabel: 'สรุปหลักฐาน',
+    proofLabel: 'สรุปเคส',
     articlesEyebrow: 'บทความและสาระ',
     articlesTitle: 'บันทึกเรื่อง Frontend และสถาปัตยกรรมซอฟต์แวร์',
     articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนาซอฟต์แวร์',
     readArticle: 'อ่านบทความ',
     contactEyebrow: 'Project inquiry',
     contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',
-    contactBody: 'จัดบริบท ผลลัพธ์ที่ต้องการ และข้อจำกัดให้เป็น brief ที่กระชับก่อนเริ่มพูดคุย',
+    contactBody: 'เปิด GitHub issue สาธารณะพร้อมบริบท ผลลัพธ์ที่ต้องการ และข้อจำกัด พอร์ตโฟลิโอนี้ไม่เก็บข้อมูลจากฟอร์ม',
   },
 }
 
@@ -141,15 +141,14 @@ export function HomePage() {
     problem: shared.problem,
     built: shared.built,
     result: shared.result,
-    createBrief: shared.createBrief,
-    openProof: shared.openProof,
+    contactAction: shared.contactAction,
+    viewSelectedWork: shared.viewSelectedWork,
   }
   const selectedProjects = projects[lang]
-  const proofHref = selectedProjects[0] ? `/work/${selectedProjects[0].slug}#demo` : '/#work'
 
   return (
     <main className="min-h-dvh overflow-x-hidden bg-portfolio-bg text-portfolio-ink">
-      <PortfolioHero c={c} proofHref={proofHref} />
+      <PortfolioHero c={c} />
       <SelectedWork c={c} projects={selectedProjects} />
       <CapabilitiesSection c={c} />
       <ArticlesSection c={c} />
@@ -158,7 +157,7 @@ export function HomePage() {
   )
 }
 
-function PortfolioHero({ c, proofHref }: { c: HomeCopy; proofHref: string }) {
+function PortfolioHero({ c }: { c: HomeCopy }) {
   return (
     <section id="home" className="relative">
       <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
@@ -176,11 +175,11 @@ function PortfolioHero({ c, proofHref }: { c: HomeCopy; proofHref: string }) {
           </MotionCard>
           <MotionCard>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <PortfolioButton href="/work-with-me" icon={<ArrowRight className="size-4" />}>
+              <PortfolioButton href={publicContactUrl} external icon={<ArrowRight className="size-4" />}>
                 {c.primaryCta}
               </PortfolioButton>
-              <PortfolioButton href={proofHref} variant="secondary">
-                {c.openProof}
+              <PortfolioButton href="/#work" variant="secondary">
+                {c.viewSelectedWork}
               </PortfolioButton>
             </div>
           </MotionCard>
@@ -275,15 +274,8 @@ function ProjectCard({ project, c, variant }: { project: Project; c: HomeCopy; v
         ))}
       </div>
 
-      <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-portfolio-line pt-5">
+      <div className="mt-7 border-t border-portfolio-line pt-5">
         <p className="text-sm font-medium text-portfolio-muted">{c.proofLabel}</p>
-        <Link
-          href={`/work/${project.slug}#demo`}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
-        >
-          {c.openProof}
-          <ArrowRight className="size-4" />
-        </Link>
       </div>
     </article>
   )
@@ -366,8 +358,8 @@ function ContactSection({ c }: { c: HomeCopy }) {
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-portfolio-muted">{c.contactBody}</p>
         </div>
-        <PortfolioButton href="/work-with-me" icon={<ArrowRight className="size-4" />}>
-          {c.createBrief}
+        <PortfolioButton href={publicContactUrl} external icon={<ArrowRight className="size-4" />}>
+          {c.contactAction}
         </PortfolioButton>
       </div>
     </PortfolioSection>

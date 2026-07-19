@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Clock } from 'lucide-react'
-import { articles } from '@/data/portfolio'
+import { articles, publicContactUrl } from '@/data/portfolio'
 import type { Language } from '@/data/types'
+import { getSharedChrome } from '@/content/shared'
 import { useTranslation } from '@/i18n/useTranslation'
 
 const copy = {
@@ -11,13 +12,11 @@ const copy = {
     back: 'Back to articles',
     related: 'Continue reading',
     read: 'Read article',
-    inquiry: 'Discuss a similar workflow',
   },
   th: {
     back: 'กลับไปบทความ',
     related: 'อ่านต่อ',
     read: 'อ่านบทความ',
-    inquiry: 'คุยเรื่อง workflow ที่คล้ายกัน',
   },
 }
 
@@ -79,13 +78,15 @@ export default function ArticleContent({ slug }: { slug: string }) {
           </div>
 
           <div className="mt-14 border-y border-portfolio-line py-8">
-            <Link
-              href="/work-with-me"
+            <a
+              href={publicContactUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center gap-2 rounded-[6px] bg-portfolio-accent px-5 py-3 text-sm font-semibold text-white hover:bg-portfolio-accent-strong"
             >
-              {c.inquiry}
+              {getSharedChrome(lang).contactAction}
               <ArrowRight className="size-4" />
-            </Link>
+            </a>
           </div>
         </div>
       </article>

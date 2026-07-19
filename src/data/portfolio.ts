@@ -4,9 +4,10 @@ export const navItems = [
   { label: 'Home', href: '/#home' },
   { label: 'Work', href: '/#work' },
   { label: 'Stack', href: '/#stack' },
-  { label: 'Contact', href: '/work-with-me' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
+/** Public GitHub Issues URL for project inquiries (opens outside this app). */
 export const publicContactUrl = 'https://github.com/Manchinn/Portfolio/issues/new'
 
 export const projects: LocalizedData<Project[]> = {

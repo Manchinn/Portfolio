@@ -23,12 +23,6 @@ src/app/(portfolio)/page.tsx
      -> ArticlesSection
      -> ContactSection
 
-src/app/(portfolio)/work/[slug]/page.tsx
-  -> generateStaticParams() from projects.en
-  -> generateMetadata() and slug validation
-  -> <ProjectContent slug={slug} />
-     -> localized case study and highlights
-     -> fictional activity-queue filter demo
 
 src/app/(portfolio)/article/[slug]/page.tsx
   -> generateStaticParams() from articles.en
@@ -36,13 +30,11 @@ src/app/(portfolio)/article/[slug]/page.tsx
   -> <ArticleContent slug={slug} />
      -> localized sections and related articles
 
-src/app/(portfolio)/work-with-me/page.tsx
   -> local project-brief form
   -> generated preview
   -> clipboard action
   -> public GitHub issue link
 
-src/app/saas/page.tsx
   -> redirect('/#work')
 ```
 
@@ -51,13 +43,11 @@ src/app/saas/page.tsx
 | Component | File | Role |
 |-----------|------|------|
 | Navbar | `src/components/layout/Navbar/Navbar.tsx` | Sticky navigation from `navItems`, mobile menu, and EN/TH selector. |
-| Footer | `src/components/layout/Footer.tsx` | Localized portfolio label and link to `/work-with-me`. |
+| Footer | `src/components/layout/Footer.tsx` | Localized portfolio label and external inquiry link. |
 | HomePage | `src/components/portfolio/HomePage.tsx` | Main home composition, localized home copy, project cards, article links, and contact CTA. |
 | Shared home primitives | `src/components/portfolio/primitives.tsx` | Section, header, and link-button primitives used by the home surface. |
 | Motion primitives | `src/components/motion/MotionPrimitives.tsx` | Reusable motion wrappers used by the home composition. |
-| ProjectContent | `src/app/(portfolio)/work/[slug]/ProjectContent.tsx` | Localized project detail and client-side demo filtering over fictional records. |
 | ArticleContent | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` | Localized article body and related-article navigation. |
-| WorkWithMePage | `src/app/(portfolio)/work-with-me/page.tsx` | Browser-only brief builder with validation, copy state, and external public issue handoff. |
 
 ## Server and Client Boundaries
 
@@ -68,9 +58,7 @@ Client components are used where language state, interaction state, animation, o
 - `LanguageProvider.tsx`
 - `Navbar.tsx` and `Footer.tsx`
 - `HomePage.tsx` and motion primitives
-- `ProjectContent.tsx`
 - `ArticleContent.tsx`
-- `work-with-me/page.tsx`
 
 ## State Ownership
 
@@ -78,7 +66,6 @@ Client components are used where language state, interaction state, animation, o
 |-------|-------|-----------|
 | Active language | `LanguageProvider` | React context, restored and persisted through `localStorage`. |
 | Desktop language menu and mobile navigation | `Navbar` | Local `useState`; the language menu also installs a click-outside listener while open. |
-| Project proof filter | `ProjectContent` | Local `useState`; filters a bilingual fictional record set. |
 | Work brief fields and copy status | `WorkWithMePage` | Local `useState`; generated brief and issue URL are derived in the browser. |
 | Current project/article content | Detail client components | Lookup by canonical slug in the active language collection. |
 
@@ -87,9 +74,9 @@ There is no Redux, Zustand, React Query, custom fetch-hook state layer, or serve
 ## Content and Navigation Boundaries
 
 - `navItems` defines the Navbar destination structure.
-- `projects` drives home project cards, `/work/[slug]` params, localized work detail, and work sitemap entries.
+- `projects` drives home project cards only.
 - `articles` drives home article links, `/article/[slug]` params, localized article detail, related articles, and article sitemap entries.
-- `publicContactUrl` is consumed only by the work intake handoff.
+- `publicContactUrl` is consumed by homepage/footer/article inquiry CTAs.
 - Home, work detail, article detail, intake, and footer also contain their own bilingual UI copy objects or `tl()` calls.
 
 ## Styling Patterns
@@ -104,4 +91,4 @@ There is no Redux, Zustand, React Query, custom fetch-hook state layer, or serve
 1. `HomePage` and `portfolio-*` tokens are the current portfolio implementation. `/saas` is only a compatibility redirect, not a product page.
 2. Copy ownership is distributed across data, locale JSON, and component-local dictionaries; a design refactor should decide whether to preserve or consolidate those boundaries.
 3. English and Thai project/article entries must retain the same slugs because the server generates only English params while the client switches collections.
-4. The work intake has distinct `idle`, `copied`, and `failed` states and disables both actions until each detail field contains at least 30 trimmed characters.
+4. Contact is external via GitHub Issues; do not reintroduce a local form without product approval.
