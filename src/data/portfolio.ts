@@ -40,7 +40,7 @@ export const projects: LocalizedData<Project[]> = {
       description: 'ระบบ full-stack สำหรับติดตามกิจกรรมนักศึกษาและ workflow ฝั่งผู้ดูแลระบบ',
       tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS'],
       date: '2024',
-      category: 'Full-stack Application',
+      category: 'แอปพลิเคชัน Full-stack',
       caseStudy: {
         problem: 'การติดตามกิจกรรมนักศึกษาและงาน follow-up ฝั่งผู้ดูแลต้องการ workflow ที่เป็นระบบกว่า records ที่กระจัดกระจาย',
         built: 'สร้างระบบ logbook แบบ full-stack พร้อมข้อมูลใน database, authentication workflows, dashboard views และ deployment operations',
@@ -165,7 +165,7 @@ export const articles: LocalizedData<Article[]> = {
       slug: 'react-best-practices-for-maintainable-interfaces',
       title: 'แนวทาง React สำหรับ Interface ที่ดูแลต่อได้',
       excerpt: 'แนวทางจัด component boundaries, state และ rendering behavior ให้เข้าใจและแก้ไขได้ง่าย',
-      category: 'Development',
+      category: 'การพัฒนา',
       readTime: '5 นาที',
       sections: [
         {
@@ -200,7 +200,7 @@ export const articles: LocalizedData<Article[]> = {
       slug: 'tailwind-css-patterns-for-product-ui',
       title: 'รูปแบบ Tailwind CSS สำหรับ Product UI',
       excerpt: 'แนวทางกระชับสำหรับ layout และ styling ของ responsive interface ที่สม่ำเสมอ',
-      category: 'Frontend',
+      category: 'ฟรอนต์เอนด์',
       readTime: '4 นาที',
       sections: [
         {
@@ -233,7 +233,7 @@ export const articles: LocalizedData<Article[]> = {
       slug: 'building-a-static-portfolio-with-nextjs',
       title: 'สร้าง Static Portfolio ด้วย Next.js',
       excerpt: 'บันทึกการจัดโครงสร้างเนื้อหาสองภาษา, static rendering และ route หน้าเดียวที่โฟกัสชัดเจน',
-      category: 'Architecture',
+      category: 'สถาปัตยกรรม',
       readTime: '6 นาที',
       sections: [
         {
