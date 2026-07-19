@@ -244,7 +244,7 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
             </div>
             <Link
               href={`/article/${article.slug}`}
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+              className="inline-flex min-h-11 items-center gap-2 rounded-portfolio-sm text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
             >
               {c.readArticle}
               <ArrowRight className="size-4" aria-hidden />

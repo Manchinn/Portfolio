@@ -63,6 +63,7 @@ Do **not** rebuild or assume these are active:
 | Projects, articles, nav hrefs, public GitHub issue URL | `src/data/portfolio.ts` |
 | Shared labels/CTAs (problem/built/result, inquiry, view work) | `src/content/shared.ts` |
 | Homepage marketing sections (hero, capabilities, articles chrome, contact body) | `src/content/home.ts` |
+| Article route chrome (back / related / read) | `src/content/article.ts` |
 | Contact CTA labels / public-issue notice | `src/content/shared.ts` (consumed by home + article + footer) |
 | Nav chrome labels | `src/i18n/locales/*.json` |
 
@@ -77,6 +78,7 @@ Do **not** rebuild or assume these are active:
 
 ## Recent decisions
 
+- **2026-07-20:** Soft-pixel polish B — article surface cards, motion stagger fix, reduced-motion plain elements, nav/footer touch targets and focus ring.
 - **2026-07-20:** Synced `PRODUCT.md` / `CONTEXT.md` / `DESIGN.md` to post–route-cleanup soft-pixel product; moved homepage marketing copy into `src/content/home.ts`.
 - **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
 - **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.

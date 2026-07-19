@@ -45,10 +45,12 @@ There is no `/saas`, `/work/[slug]`, or `/work-with-me` product route.
 | Fonts and global metadata | `src/app/layout.tsx` |
 | Shared chrome labels and CTAs | `src/content/shared.ts` |
 | Homepage marketing sections | `src/content/home.ts` |
+| Article route chrome | `src/content/article.ts` |
 | Section and button primitives | `src/components/portfolio/primitives.tsx` |
 | Homepage composition | `src/components/portfolio/HomePage.tsx` |
+| Article composition | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` |
 | Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
-| Contact CTA (external) | `publicContactUrl` + home contact section |
+| Contact CTA (external) | `publicContactUrl` + home/article/footer CTAs |
 | Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
 
 When this document and source disagree, source is authoritative until both are updated together.
@@ -103,11 +105,11 @@ Sticky navbar: translucent warm bg, blur, **bottom border 2px** at low-opacity i
 
 ### Focus and Selection
 
-Visible 2px teal focus outline with 2px offset. Selection uses accent-soft. Keyboard focus must remain obvious after any skin change.
+Visible 2px teal focus outline with 2px offset plus soft double-ring shadow on interactive controls. Selection uses accent-soft. Primary interactive targets use min height 44px where practical. Keyboard focus must remain obvious after any skin change.
 
 ## 7. Motion
 
-Homepage stagger reveals via `motion/react` remain. Button press is a short transform. `prefers-reduced-motion` still collapses animation/transition durations globally. Motion must not gate content.
+Homepage stagger reveals via `motion/react` start from `hidden` and animate `whileInView` once. Button press is a short transform. `prefers-reduced-motion` collapses CSS animation/transition durations globally and swaps motion wrappers to plain elements (no opacity gate). Motion must not gate content.
 
 ## 8. Signature Experiences
 
@@ -118,6 +120,10 @@ In-page problem / built / result proof inside a bordered surface card. No separa
 ### Hero and Project Inquiry
 
 Primary CTA → `/#work`. Secondary and contact CTAs → public GitHub Issues with external affordance and public-data notice. No local brief form.
+
+### Article
+
+Calm prose on warm bg; pixel category labels; inquiry CTA in a bordered surface card using `PortfolioButton`; related articles as soft-pixel surface cards (not a plain list only).
 
 ## 9. Refactor Guardrails
 
@@ -130,7 +136,7 @@ Primary CTA → `/#work`. Secondary and contact CTAs → public GitHub Issues wi
 
 ## 10. Known Baseline Constraints
 
-- User-facing copy ownership: entities in `src/data/portfolio.ts`, shared chrome in `src/content/shared.ts`, homepage marketing in `src/content/home.ts`, nav chrome in `src/i18n/locales/*.json`.
+- User-facing copy ownership: entities in `src/data/portfolio.ts`, shared chrome in `src/content/shared.ts`, homepage marketing in `src/content/home.ts`, article chrome in `src/content/article.ts`, nav chrome in `src/i18n/locales/*.json`.
 - Initial language is English; saved language restores after client mount.
 - Static article params come from English slugs; locale arrays must share slugs.
 - Homepage lives under `src/components/portfolio/` with `portfolio-*` tokens.

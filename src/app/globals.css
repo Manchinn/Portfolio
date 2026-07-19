@@ -55,9 +55,12 @@ a {
 }
 
 button:focus-visible,
-a:focus-visible {
+a:focus-visible,
+[role='button']:focus-visible,
+[role='option']:focus-visible {
   outline: 2px solid var(--color-portfolio-accent);
   outline-offset: 2px;
+  box-shadow: var(--shadow-portfolio-focus);
 }
 
 ::selection {

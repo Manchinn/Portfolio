@@ -7,6 +7,7 @@ Format follows a lightweight Keep a Changelog style.
 
 ### Added
 - `src/content/home.ts` homepage EN/TH marketing sections (hero, capabilities, articles chrome, contact body).
+- `src/content/article.ts` article route chrome (back, related, read labels).
 
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
@@ -25,6 +26,7 @@ Format follows a lightweight Keep a Changelog style.
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
 - `HomePage` consumes `getHomeCopy()` instead of component-local marketing strings.
 - Synced `PRODUCT.md`, `CONTEXT.md`, and `DESIGN.md` to the current one-page + article + external inquiry product and soft-pixel baseline.
+- Soft-pixel polish B: article inquiry band and related cards match home primitives; homepage stagger starts from hidden; reduced-motion uses plain elements; larger nav/footer touch targets; Escape closes menus; stronger focus ring on interactive controls.
 
 ## [2026-07-19]
 

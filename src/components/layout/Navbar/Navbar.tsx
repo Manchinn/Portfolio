@@ -25,10 +25,21 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isLangOpen])
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      setIsLangOpen(false)
+      setIsMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   return (
     <nav className="sticky top-0 z-50 border-b-2 border-portfolio-ink/15 bg-portfolio-bg/95 font-display backdrop-blur-lg">
       <div className="mx-auto flex h-17 max-w-[1180px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
-        <Link href="/#home" className="flex min-w-0 items-center gap-3 text-portfolio-ink" aria-label="Portfolio home">
+        <Link href="/#home" className="flex min-h-11 min-w-0 items-center gap-3 text-portfolio-ink" aria-label="Portfolio home">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-portfolio-sm border-2 border-portfolio-ink bg-portfolio-accent text-xs font-bold text-white shadow-portfolio-sm">
             <Code2 size={17} aria-hidden />
           </span>
@@ -41,27 +52,28 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-portfolio-muted transition-colors hover:text-portfolio-ink"
+                className="inline-flex min-h-11 items-center rounded-portfolio-sm px-3 text-sm font-medium text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
               </Link>
             ))}
           </div>
 
-          <div className="h-5 w-0.5 bg-portfolio-ink/20" />
+          <div className="h-5 w-0.5 bg-portfolio-ink/20" aria-hidden />
 
           <div className="relative" ref={langRef}>
             <button
               type="button"
               onClick={() => setIsLangOpen((open) => !open)}
-              className="flex items-center gap-2 rounded-portfolio-sm border-2 border-transparent px-2 py-1.5 text-xs font-semibold text-portfolio-muted transition-colors hover:border-portfolio-ink/20 hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
+              className="inline-flex min-h-11 items-center gap-2 rounded-portfolio-sm border-2 border-transparent px-2.5 text-xs font-semibold text-portfolio-muted transition-colors hover:border-portfolio-ink/20 hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
               aria-expanded={isLangOpen}
-              aria-label="Change language"
+              aria-haspopup="listbox"
+              aria-label={t('nav.language')}
             >
               <Globe size={15} aria-hidden />
               <span className="uppercase">{currentLang?.name || language}</span>
@@ -69,17 +81,23 @@ const Navbar = () => {
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 z-50 mt-2 min-w-[148px] overflow-hidden rounded-portfolio-md border-2 border-portfolio-ink bg-portfolio-surface p-1 shadow-portfolio-md">
+              <div
+                role="listbox"
+                aria-label={t('nav.language')}
+                className="absolute right-0 z-50 mt-2 min-w-[148px] overflow-hidden rounded-portfolio-md border-2 border-portfolio-ink bg-portfolio-surface p-1 shadow-portfolio-md"
+              >
                 {languages.map((item) => (
                   <button
                     type="button"
+                    role="option"
+                    aria-selected={language === item.code}
                     key={item.code}
                     onClick={() => {
                       changeLanguage(item.code)
                       setIsLangOpen(false)
                     }}
                     className={cn(
-                      'flex w-full items-center justify-between rounded-portfolio-sm px-3 py-2.5 text-left text-sm font-medium transition-colors',
+                      'flex min-h-11 w-full items-center justify-between rounded-portfolio-sm px-3 text-left text-sm font-medium transition-colors',
                       language === item.code
                         ? 'bg-portfolio-accent-soft text-portfolio-accent-strong'
                         : 'text-portfolio-muted hover:bg-portfolio-surface-soft hover:text-portfolio-ink',
@@ -97,8 +115,9 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => setIsMenuOpen((open) => !open)}
-          className="rounded-portfolio-sm border-2 border-portfolio-ink bg-portfolio-surface p-2.5 text-portfolio-ink shadow-portfolio-sm lg:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-portfolio-sm border-2 border-portfolio-ink bg-portfolio-surface p-2.5 text-portfolio-ink shadow-portfolio-sm lg:hidden"
           aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav-panel"
           aria-label="Toggle navigation"
         >
           {isMenuOpen ? <X size={20} aria-hidden /> : <Menu size={20} aria-hidden />}
@@ -106,7 +125,10 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="border-t-2 border-portfolio-ink/15 bg-portfolio-surface px-4 py-4 shadow-portfolio-sm lg:hidden">
+        <div
+          id="mobile-nav-panel"
+          className="border-t-2 border-portfolio-ink/15 bg-portfolio-surface px-4 py-4 shadow-portfolio-sm lg:hidden"
+        >
           <div className="mx-auto max-w-[1180px]">
             <div className="grid gap-1 sm:grid-cols-2">
               {navItems.map((item) => (
@@ -114,7 +136,7 @@ const Navbar = () => {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    'rounded-portfolio-sm px-3 py-3 text-sm font-semibold transition-colors',
+                    'inline-flex min-h-11 items-center rounded-portfolio-sm px-3 text-sm font-semibold transition-colors',
                     'text-portfolio-muted hover:bg-portfolio-surface-soft hover:text-portfolio-ink',
                   )}
                   onClick={() => setIsMenuOpen(false)}
@@ -126,16 +148,16 @@ const Navbar = () => {
 
             <div className="mt-4 border-t-2 border-portfolio-ink/10 pt-4">
               <p className="mb-2 font-[family-name:var(--font-pixel)] text-[9px] font-normal uppercase tracking-wide text-portfolio-muted">
-                Select language
+                {t('nav.language')}
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('nav.language')}>
                 {languages.map((item) => (
                   <button
                     type="button"
                     key={item.code}
                     onClick={() => changeLanguage(item.code)}
                     className={cn(
-                      'rounded-portfolio-sm border-2 px-3 py-2.5 text-sm font-semibold transition-colors',
+                      'min-h-11 rounded-portfolio-sm border-2 px-3 text-sm font-semibold transition-colors',
                       language === item.code
                         ? 'border-portfolio-ink bg-portfolio-accent-soft text-portfolio-accent-strong shadow-portfolio-sm'
                         : 'border-portfolio-line text-portfolio-muted hover:bg-portfolio-surface-soft',

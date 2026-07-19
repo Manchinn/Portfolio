@@ -61,6 +61,7 @@ This is presentation-language state, not URL locale routing. The initial server 
 | Projects and articles | `src/data/portfolio.ts` |
 | Shared chrome CTAs / case-study labels / public-issue notice | `src/content/shared.ts` |
 | Home section messaging | `src/content/home.ts` |
+| Article route chrome (back / related / read) | `src/content/article.ts` |
 | Article detail shared inquiry chrome | `getSharedChrome()` from `src/content/shared.ts` |
 | Footer portfolio label / inquiry | `getSharedChrome()` via Footer |
 

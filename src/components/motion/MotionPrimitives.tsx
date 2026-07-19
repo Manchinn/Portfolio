@@ -23,17 +23,19 @@ export function StaggerContainer({
   staggerChildren = 0.08,
   transition,
   viewport,
+  className,
   ...props
 }: StaggerContainerProps) {
   const shouldReduceMotion = useReducedMotion()
 
   if (shouldReduceMotion) {
-    return <motion.div {...props}>{children}</motion.div>
+    return <div className={className}>{children}</div>
   }
 
   return (
     <motion.div
-      initial={false}
+      className={className}
+      initial="hidden"
       variants={{
         hidden: {},
         visible: {
@@ -57,15 +59,16 @@ type MotionCardProps = Omit<HTMLMotionProps<'div'>, 'children' | 'variants'> & {
   children: ReactNode
 }
 
-export function MotionCard({ children, transition, ...props }: MotionCardProps) {
+export function MotionCard({ children, transition, className, ...props }: MotionCardProps) {
   const shouldReduceMotion = useReducedMotion()
 
   if (shouldReduceMotion) {
-    return <motion.div {...props}>{children}</motion.div>
+    return <div className={className}>{children}</div>
   }
 
   return (
     <motion.div
+      className={className}
       variants={cardVariants}
       transition={{ duration: 0.4, ease: easeOut, ...transition }}
       {...props}
