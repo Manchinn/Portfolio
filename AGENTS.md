@@ -51,7 +51,7 @@ src/app/(portfolio)/article/[slug]/        Static article route
 src/app/(portfolio)/work-with-me/          Local-first project brief workflow
 src/app/saas/page.tsx                      Redirect to /#work
 src/app/sitemap.ts                         Static sitemap entries
-src/components/portfolio-saas/             Main portfolio experience
+src/components/portfolio/                 Main portfolio experience
 src/components/layout/                     Shared navigation and footer
 src/components/motion/                     Motion primitives
 src/data/portfolio.ts                      Bilingual portfolio source of truth

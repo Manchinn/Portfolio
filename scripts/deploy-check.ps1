@@ -64,7 +64,7 @@ if ($LASTEXITCODE -eq 0) {
 $publicCopyPaths = @(
   'src/data/portfolio.ts',
   'src/app/(portfolio)',
-  'src/components/portfolio-saas',
+  'src/components/portfolio',
   'src/components/layout',
   'src/i18n/locales'
 )

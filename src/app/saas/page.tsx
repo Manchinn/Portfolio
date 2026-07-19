@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
 
-export default function SaasRedirectPage() {
+export default function LegacySaasRedirectPage() {
   redirect('/#work')
 }

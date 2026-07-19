@@ -16,8 +16,8 @@ src/app/(portfolio)/layout.tsx
   -> <Footer />
 
 src/app/(portfolio)/page.tsx
-  -> <SaasHome />
-     -> SaasHero
+  -> <HomePage />
+     -> PortfolioHero
      -> SelectedWork -> ProjectCard
      -> CapabilitiesSection
      -> ArticlesSection
@@ -52,8 +52,8 @@ src/app/saas/page.tsx
 |-----------|------|------|
 | Navbar | `src/components/layout/Navbar/Navbar.tsx` | Sticky navigation from `navItems`, mobile menu, and EN/TH selector. |
 | Footer | `src/components/layout/Footer.tsx` | Localized portfolio label and link to `/work-with-me`. |
-| SaasHome | `src/components/portfolio-saas/SaasHome.tsx` | Main home composition, localized home copy, project cards, article links, and contact CTA. |
-| Shared home primitives | `src/components/portfolio-saas/_shared.tsx` | Section, header, and link-button primitives used by the home surface. |
+| HomePage | `src/components/portfolio/HomePage.tsx` | Main home composition, localized home copy, project cards, article links, and contact CTA. |
+| Shared home primitives | `src/components/portfolio/primitives.tsx` | Section, header, and link-button primitives used by the home surface. |
 | Motion primitives | `src/components/motion/MotionPrimitives.tsx` | Reusable motion wrappers used by the home composition. |
 | ProjectContent | `src/app/(portfolio)/work/[slug]/ProjectContent.tsx` | Localized project detail and client-side demo filtering over fictional records. |
 | ArticleContent | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` | Localized article body and related-article navigation. |
@@ -67,7 +67,7 @@ Client components are used where language state, interaction state, animation, o
 
 - `LanguageProvider.tsx`
 - `Navbar.tsx` and `Footer.tsx`
-- `SaasHome.tsx` and motion primitives
+- `HomePage.tsx` and motion primitives
 - `ProjectContent.tsx`
 - `ArticleContent.tsx`
 - `work-with-me/page.tsx`
@@ -95,13 +95,13 @@ There is no Redux, Zustand, React Query, custom fetch-hook state layer, or serve
 ## Styling Patterns
 
 - Tailwind CSS 4 utilities are the primary styling mechanism.
-- Semantic `saas-*` colors, shadows, and radii are defined in `src/app/globals.css`.
+- Semantic `portfolio-*` colors, shadows, and radii are defined in `src/app/globals.css`.
 - Shared home layout primitives reduce repeated section and action styling.
 - Detail routes use unframed page sections, bordered content bands, and responsive fixed constraints for controls and tables.
 
 ## Refactor Watchpoints
 
-1. `SaasHome`, `portfolio-saas`, and the `saas-*` token names are implementation names, not evidence of a standalone `/saas` product page.
+1. `HomePage` and `portfolio-*` tokens are the current portfolio implementation. `/saas` is only a compatibility redirect, not a product page.
 2. Copy ownership is distributed across data, locale JSON, and component-local dictionaries; a design refactor should decide whether to preserve or consolidate those boundaries.
 3. English and Thai project/article entries must retain the same slugs because the server generates only English params while the client switches collections.
 4. The work intake has distinct `idle`, `copied`, and `failed` states and disables both actions until each detail field contains at least 30 trimmed characters.

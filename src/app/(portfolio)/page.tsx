@@ -1,5 +1,5 @@
-import { SaasHome } from '@/components/portfolio-saas/SaasHome'
+import { HomePage } from '@/components/portfolio/HomePage'
 
 export default function Home() {
-  return <SaasHome />
+  return <HomePage />
 }

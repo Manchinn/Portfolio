@@ -19,10 +19,10 @@ src/data/portfolio.ts
 |--------|-----------|-----------|
 | `navItems` | `Navbar.tsx` | Home, Work, Stack, and Contact destinations; labels map to locale JSON keys. |
 | `publicContactUrl` | `work-with-me/page.tsx` | Public GitHub issue base URL for the final handoff. |
-| `projects` | `SaasHome.tsx` | Localized selected-work cards and links to project detail routes. |
+| `projects` | `HomePage.tsx` | Localized selected-work cards and links to project detail routes. |
 | `projects.en` | `work/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
 | `projects[language]` | `ProjectContent.tsx` | Localized case study, highlights, stack, and project identity. |
-| `articles` | `SaasHome.tsx`, `ArticleContent.tsx` | Localized article listing, detail sections, and related articles. |
+| `articles` | `HomePage.tsx`, `ArticleContent.tsx` | Localized article listing, detail sections, and related articles. |
 | `articles.en` | `article/[slug]/page.tsx` | Static params, metadata, and valid-slug checks. |
 | `projects.en`, `articles.en` | `sitemap.ts` | Derived `/work/[slug]` and `/article/[slug]` URLs. |
 | `src/i18n/*` | Shared shell and route client components | Active language, JSON translations, inline bilingual selection, and language changes. |

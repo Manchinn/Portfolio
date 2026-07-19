@@ -46,11 +46,12 @@ Do **not** rebuild or assume these are active:
 - `docs/superpowers/**` (plans + specs, including the 2026-05-29 SaaS redesign exploration) was **removed from the working tree** on 2026-07-19. Content remains recoverable from git history only.
 - Do not recreate FlowSync / prompts / multi-demo SaaS specs unless the user reopens product scope.
 
-## Naming debt (do not interpret as product)
+## Naming (current)
 
-- Folder `src/components/portfolio-saas/` and symbols like `SaasHome`, `saas-*` CSS tokens are **legacy implementation names**.
-- They do **not** mean the public product is a SaaS company or FlowSync demo.
-- Rename is planned in later design-refactor phases; do not restore FlowSync content while renaming.
+- UI modules live under `src/components/portfolio/` (`HomePage`, `primitives`).
+- Design tokens use the `portfolio-*` prefix in `globals.css`.
+- The route `/saas` remains a **compatibility redirect only** — not a SaaS product page and not FlowSync.
+
 
 ## Copy ownership (current)
 
@@ -58,7 +59,7 @@ Do **not** rebuild or assume these are active:
 |---------|--------|
 | Projects, articles, nav hrefs, public GitHub issue URL | `src/data/portfolio.ts` |
 | Shared labels/CTAs (problem/built/result, create brief, open proof) | `src/content/shared.ts` |
-| Homepage marketing sections | still largely `SaasHome` local copy (later phases) |
+| Homepage marketing sections | still largely `HomePage` local copy (later phases) |
 | Intake form strings | `work-with-me/page.tsx` (later phases) |
 | Nav chrome labels | `src/i18n/locales/*.json` |
 
@@ -76,3 +77,4 @@ Do **not** rebuild or assume these are active:
 - **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
 - **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
 - **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
+- **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Kept `/saas` as compatibility redirect only.

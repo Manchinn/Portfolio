@@ -59,7 +59,7 @@ This is presentation-language state, not URL locale routing. The initial server 
 |-----------|----------------|
 | Navigation labels and global UI translations | `src/i18n/locales/en.json`, `src/i18n/locales/th.json` |
 | Projects and articles | `src/data/portfolio.ts` |
-| Home section messaging | `src/components/portfolio-saas/SaasHome.tsx` |
+| Home section messaging | `src/components/portfolio/HomePage.tsx` |
 | Project detail and proof labels | `src/app/(portfolio)/work/[slug]/ProjectContent.tsx` |
 | Article detail actions | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` |
 | Project brief form | `src/app/(portfolio)/work-with-me/page.tsx` |
@@ -121,7 +121,7 @@ This prevents a production build from corrupting an active local `.next` dev run
 - The locale context is typed broadly as strings at its boundary, while data selection casts the active value to `Language` in consumers.
 - Canonical slug parity between English and Thai is a data convention, not a compile-time cross-locale invariant.
 - Copy ownership is distributed and needs deliberate consolidation or clear ownership rules during the design refactor.
-- `SaasHome`, `portfolio-saas`, and `saas-*` are legacy naming conventions that can obscure the current portfolio-only route model.
+- Shared chrome lives in `src/content/shared.ts`; homepage marketing copy is still partly local to `HomePage`.
 
 ## Verification
 

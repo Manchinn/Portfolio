@@ -2,22 +2,22 @@
 @source not "../../.continues-handoff.md";
 
 @theme {
-  --color-saas-bg: #f6f8f7;
-  --color-saas-surface: #ffffff;
-  --color-saas-surface-soft: #edf3f0;
-  --color-saas-ink: #17211e;
-  --color-saas-muted: #5f6e68;
-  --color-saas-line: #d7e0dc;
-  --color-saas-accent: #0f766e;
-  --color-saas-accent-strong: #0b5f59;
-  --color-saas-accent-soft: #dcefeb;
+  --color-portfolio-bg: #f6f8f7;
+  --color-portfolio-surface: #ffffff;
+  --color-portfolio-surface-soft: #edf3f0;
+  --color-portfolio-ink: #17211e;
+  --color-portfolio-muted: #5f6e68;
+  --color-portfolio-line: #d7e0dc;
+  --color-portfolio-accent: #0f766e;
+  --color-portfolio-accent-strong: #0b5f59;
+  --color-portfolio-accent-soft: #dcefeb;
 
-  --shadow-saas-sm: 0 1px 2px rgba(23, 33, 30, 0.08);
-  --shadow-saas-md: 0 12px 28px rgba(23, 33, 30, 0.12);
-  --shadow-saas-focus: 0 0 0 3px rgba(15, 118, 110, 0.2);
+  --shadow-portfolio-sm: 0 1px 2px rgba(23, 33, 30, 0.08);
+  --shadow-portfolio-md: 0 12px 28px rgba(23, 33, 30, 0.12);
+  --shadow-portfolio-focus: 0 0 0 3px rgba(15, 118, 110, 0.2);
 
-  --radius-saas-sm: 6px;
-  --radius-saas-md: 8px;
+  --radius-portfolio-sm: 6px;
+  --radius-portfolio-md: 8px;
 
   --font-display: var(--font-plex-sans, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-jetbrains, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
@@ -40,8 +40,8 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: var(--color-saas-bg);
-  color: var(--color-saas-ink);
+  background: var(--color-portfolio-bg);
+  color: var(--color-portfolio-ink);
   font-family: var(--font-display);
   letter-spacing: 0;
 }
@@ -53,13 +53,13 @@ a {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--color-saas-accent);
+  outline: 2px solid var(--color-portfolio-accent);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--color-saas-accent-soft);
-  color: var(--color-saas-ink);
+  background: var(--color-portfolio-accent-soft);
+  color: var(--color-portfolio-ink);
 }
 
 ::-webkit-scrollbar {
@@ -67,17 +67,17 @@ a:focus-visible {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-saas-bg);
+  background: var(--color-portfolio-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 2px solid var(--color-saas-bg);
+  border: 2px solid var(--color-portfolio-bg);
   background: #a7b5af;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-saas-muted);
+  background: var(--color-portfolio-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

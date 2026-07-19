@@ -22,7 +22,7 @@ Next.js App Router
   |     - Footer
   |
   +-- src/app/(portfolio)/page.tsx
-  |     - SaasHome portfolio composition
+  |     - HomePage portfolio composition
   |
   +-- src/app/(portfolio)/work/[slug]/page.tsx
   |     - static project routes from projects.en
@@ -47,7 +47,7 @@ Next.js App Router
 
 | Route | Primary files | Runtime role |
 |-------|---------------|--------------|
-| `/` | `src/app/(portfolio)/page.tsx`, `src/components/portfolio-saas/SaasHome.tsx` | Static portfolio landing page with client language selection. |
+| `/` | `src/app/(portfolio)/page.tsx`, `src/components/portfolio/HomePage.tsx` | Static portfolio landing page with client language selection. |
 | `/work/[slug]` | `src/app/(portfolio)/work/[slug]/page.tsx`, `ProjectContent.tsx` | Pre-rendered project detail and public-safe interactive proof. Unknown slugs return 404. |
 | `/article/[slug]` | `src/app/(portfolio)/article/[slug]/page.tsx`, `ArticleContent.tsx` | Pre-rendered article detail. Unknown slugs return 404. |
 | `/work-with-me` | `src/app/(portfolio)/work-with-me/page.tsx` | Browser-only project brief builder; copies a brief and opens a prefilled public GitHub issue form. |
@@ -65,13 +65,13 @@ Both dynamic content routes set `dynamicParams = false` and generate params from
 | Language model | Custom client provider in `src/i18n/*` | Small and controlled; no locale-prefixed routes or server-selected locale. |
 | Shared shell | `(portfolio)` route-group layout | Navbar and Footer stay consistent across home, work, article, and intake routes. |
 | Contact handoff | Local form state, Clipboard API, and a public GitHub issue URL | No visitor data is stored by this app; visitors must understand that the destination is public. |
-| Styling | Tailwind CSS 4 and semantic SaaS design tokens in `globals.css` | Centralized visual vocabulary; some user-facing copy remains component-local. |
+| Styling | Tailwind CSS 4 and semantic portfolio design tokens in `globals.css` | Centralized visual vocabulary; some user-facing copy remains component-local. |
 
 ## Data Flow
 
 ```text
 Home
-  page.tsx -> SaasHome
+  page.tsx -> HomePage
     -> useTranslation().language
     -> projects[language] + articles[language]
     -> localized component copy
@@ -125,7 +125,7 @@ English and Thai are active. `LanguageProvider` starts with English, restores `l
 | User-facing copy is split between `portfolio.ts`, locale JSON, and localized objects inside components | Messaging and terminology can drift during the design refactor. |
 | Static params use English slugs while client rendering looks up the active locale | A missing or mismatched Thai slug can render an empty detail page after language switching. |
 | The intake workflow depends on Clipboard API support and a separate public GitHub step | Clipboard failure needs user recovery, and the brief is not transferred automatically to the issue body. |
-| `SaasHome` and `saas-*` names describe an earlier design direction | Names can be misleading during refactoring even though `/saas` is only a redirect now. |
+| Homepage marketing copy is still partly component-local | Messaging can drift until later content extraction phases finish. |
 
 ## File Map
 
@@ -150,8 +150,8 @@ src/
     layout/Navbar/Navbar.tsx           Navigation and language switcher
     layout/Footer.tsx                  Shared footer
     motion/MotionPrimitives.tsx        Motion wrappers
-    portfolio-saas/SaasHome.tsx        Home composition
-    portfolio-saas/_shared.tsx         Shared home primitives
+    portfolio/HomePage.tsx             Home composition
+    portfolio/primitives.tsx          Shared home primitives
   data/
     portfolio.ts                       Navigation, contact URL, projects, articles
     types.ts                           Shared content contracts

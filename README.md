@@ -26,7 +26,7 @@ The app has no backend, application API, runtime database, CMS, or required runt
 - `src/data/types.ts` - static content contracts
 - `src/i18n/` - language provider, helpers, and UI locale files
 - `src/app/(portfolio)/` - portfolio routes and shared shell
-- `src/components/portfolio-saas/` - main portfolio experience
+- `src/components/portfolio/` - main portfolio experience
 - `next.config.ts` - global security headers and build-only directory override
 
 Keep English and Thai records synchronized, including project and article slugs.

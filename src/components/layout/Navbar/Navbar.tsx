@@ -26,15 +26,15 @@ const Navbar = () => {
   }, [isLangOpen])
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-saas-line bg-saas-bg/95 font-display backdrop-blur-lg">
+    <nav className="sticky top-0 z-50 border-b border-portfolio-line bg-portfolio-bg/95 font-display backdrop-blur-lg">
       <div className="mx-auto flex h-17 max-w-[1180px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
-        <Link href="/#home" className="flex min-w-0 items-center gap-3 text-saas-ink" aria-label="Portfolio home">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-[6px] bg-saas-accent text-xs font-bold text-white">
+        <Link href="/#home" className="flex min-w-0 items-center gap-3 text-portfolio-ink" aria-label="Portfolio home">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-[6px] bg-portfolio-accent text-xs font-bold text-white">
             <Code2 size={17} />
           </span>
           <span className="hidden min-w-0 sm:block">
             <span className="block text-sm font-semibold leading-none">Software Portfolio</span>
-            <span className="mt-1 block text-[10px] font-medium uppercase text-saas-muted">
+            <span className="mt-1 block text-[10px] font-medium uppercase text-portfolio-muted">
               {t('nav.tagline')}
             </span>
           </span>
@@ -46,20 +46,20 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-saas-muted transition-colors hover:text-saas-ink"
+                className="text-sm font-medium text-portfolio-muted transition-colors hover:text-portfolio-ink"
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
               </Link>
             ))}
           </div>
 
-          <div className="h-5 w-px bg-saas-line" />
+          <div className="h-5 w-px bg-portfolio-line" />
 
           <div className="relative" ref={langRef}>
             <button
               type="button"
               onClick={() => setIsLangOpen((open) => !open)}
-              className="flex items-center gap-2 rounded-[6px] px-2 py-2 text-xs font-semibold text-saas-muted transition-colors hover:bg-saas-surface-soft hover:text-saas-ink"
+              className="flex items-center gap-2 rounded-[6px] px-2 py-2 text-xs font-semibold text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
               aria-expanded={isLangOpen}
               aria-label="Change language"
             >
@@ -69,7 +69,7 @@ const Navbar = () => {
             </button>
 
             {isLangOpen && (
-              <div className="absolute right-0 z-50 mt-2 min-w-[148px] overflow-hidden rounded-[8px] border border-saas-line bg-saas-surface p-1 shadow-saas-md">
+              <div className="absolute right-0 z-50 mt-2 min-w-[148px] overflow-hidden rounded-[8px] border border-portfolio-line bg-portfolio-surface p-1 shadow-portfolio-md">
                 {languages.map((item) => (
                   <button
                     type="button"
@@ -81,8 +81,8 @@ const Navbar = () => {
                     className={cn(
                       'flex w-full items-center justify-between rounded-[6px] px-3 py-2.5 text-left text-sm font-medium transition-colors',
                       language === item.code
-                        ? 'bg-saas-accent-soft text-saas-accent-strong'
-                        : 'text-saas-muted hover:bg-saas-surface-soft hover:text-saas-ink'
+                        ? 'bg-portfolio-accent-soft text-portfolio-accent-strong'
+                        : 'text-portfolio-muted hover:bg-portfolio-surface-soft hover:text-portfolio-ink'
                     )}
                   >
                     {item.name}
@@ -98,7 +98,7 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => setIsMenuOpen((open) => !open)}
-          className="rounded-[6px] border border-saas-line bg-saas-surface p-2.5 text-saas-ink lg:hidden"
+          className="rounded-[6px] border border-portfolio-line bg-portfolio-surface p-2.5 text-portfolio-ink lg:hidden"
           aria-expanded={isMenuOpen}
           aria-label="Toggle navigation"
         >
@@ -107,7 +107,7 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="border-t border-saas-line bg-saas-surface px-4 py-4 shadow-saas-sm lg:hidden">
+        <div className="border-t border-portfolio-line bg-portfolio-surface px-4 py-4 shadow-portfolio-sm lg:hidden">
           <div className="mx-auto max-w-[1180px]">
             <div className="grid gap-1 sm:grid-cols-2">
               {navItems.map((item) => (
@@ -116,7 +116,7 @@ const Navbar = () => {
                   href={item.href}
                   className={cn(
                     'rounded-[6px] px-3 py-3 text-sm font-semibold transition-colors',
-                    'text-saas-muted hover:bg-saas-surface-soft hover:text-saas-ink'
+                    'text-portfolio-muted hover:bg-portfolio-surface-soft hover:text-portfolio-ink'
                   )}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -125,8 +125,8 @@ const Navbar = () => {
               ))}
             </div>
 
-            <div className="mt-4 border-t border-saas-line pt-4">
-              <p className="mb-2 text-xs font-medium uppercase text-saas-muted">Select language</p>
+            <div className="mt-4 border-t border-portfolio-line pt-4">
+              <p className="mb-2 text-xs font-medium uppercase text-portfolio-muted">Select language</p>
               <div className="grid grid-cols-2 gap-2">
                 {languages.map((item) => (
                   <button
@@ -136,8 +136,8 @@ const Navbar = () => {
                     className={cn(
                       'rounded-[6px] border px-3 py-2.5 text-sm font-semibold transition-colors',
                       language === item.code
-                        ? 'border-saas-accent bg-saas-accent-soft text-saas-accent-strong'
-                        : 'border-saas-line text-saas-muted hover:bg-saas-surface-soft'
+                        ? 'border-portfolio-accent bg-portfolio-accent-soft text-portfolio-accent-strong'
+                        : 'border-portfolio-line text-portfolio-muted hover:bg-portfolio-surface-soft'
                     )}
                   >
                     {item.name}

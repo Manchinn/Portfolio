@@ -5,6 +5,10 @@ Format follows a lightweight Keep a Changelog style.
 
 ## [Unreleased]
 
+### Changed
+- Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
+- Kept `/saas` as a compatibility redirect only.
+
 ### Removed
 - Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
 - Personal interview prep note that was never part of the product.

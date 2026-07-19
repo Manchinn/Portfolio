@@ -3,22 +3,22 @@ name: Software Engineering Portfolio
 description: Implemented EN/TH portfolio design baseline before the next refactor.
 currentAsOf: "2026-07-11"
 colors:
-  saas-bg: "#f6f8f7"
-  saas-surface: "#ffffff"
-  saas-surface-soft: "#edf3f0"
-  saas-ink: "#17211e"
-  saas-muted: "#5f6e68"
-  saas-line: "#d7e0dc"
-  saas-accent: "#0f766e"
-  saas-accent-strong: "#0b5f59"
-  saas-accent-soft: "#dcefeb"
+  portfolio-bg: "#f6f8f7"
+  portfolio-surface: "#ffffff"
+  portfolio-surface-soft: "#edf3f0"
+  portfolio-ink: "#17211e"
+  portfolio-muted: "#5f6e68"
+  portfolio-line: "#d7e0dc"
+  portfolio-accent: "#0f766e"
+  portfolio-accent-strong: "#0b5f59"
+  portfolio-accent-soft: "#dcefeb"
 radii:
-  saas-sm: "6px"
-  saas-md: "8px"
+  portfolio-sm: "6px"
+  portfolio-md: "8px"
 shadows:
-  saas-sm: "0 1px 2px rgba(23, 33, 30, 0.08)"
-  saas-md: "0 12px 28px rgba(23, 33, 30, 0.12)"
-  saas-focus: "0 0 0 3px rgba(15, 118, 110, 0.2)"
+  portfolio-sm: "0 1px 2px rgba(23, 33, 30, 0.08)"
+  portfolio-md: "0 12px 28px rgba(23, 33, 30, 0.12)"
+  portfolio-focus: "0 0 0 3px rgba(15, 118, 110, 0.2)"
 typography:
   display: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
   mono: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
@@ -41,8 +41,8 @@ The current interface is not the older FlowSync landing page, an operator consol
 | Color, radius, shadow, font tokens | `src/app/globals.css` |
 | Fonts and global metadata | `src/app/layout.tsx` |
 | Shared chrome labels and CTAs | `src/content/shared.ts` |
-| Section and button primitives | `src/components/portfolio-saas/_shared.tsx` |
-| Homepage composition | `src/components/portfolio-saas/SaasHome.tsx` |
+| Section and button primitives | `src/components/portfolio/primitives.tsx` |
+| Homepage composition | `src/components/portfolio/HomePage.tsx` |
 | Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
 | Work intake fields and states | `src/app/(portfolio)/work-with-me/page.tsx` |
 | Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
@@ -53,15 +53,15 @@ When this document and source disagree, source is authoritative until the refact
 
 The active palette has three surface neutrals, three text/line neutrals, and one teal action family:
 
-- `saas-bg` (`#f6f8f7`): page background.
-- `saas-surface` (`#ffffff`): menus, form surfaces, and footer.
-- `saas-surface-soft` (`#edf3f0`): subdued controls and preview surfaces.
-- `saas-ink` (`#17211e`): primary text.
-- `saas-muted` (`#5f6e68`): body support text and metadata.
-- `saas-line` (`#d7e0dc`): borders and dividers.
-- `saas-accent` (`#0f766e`): primary actions, labels, and focus outlines.
-- `saas-accent-strong` (`#0b5f59`): hover and emphasized action text.
-- `saas-accent-soft` (`#dcefeb`): selected and highlighted control backgrounds.
+- `portfolio-bg` (`#f6f8f7`): page background.
+- `portfolio-surface` (`#ffffff`): menus, form surfaces, and footer.
+- `portfolio-surface-soft` (`#edf3f0`): subdued controls and preview surfaces.
+- `portfolio-ink` (`#17211e`): primary text.
+- `portfolio-muted` (`#5f6e68`): body support text and metadata.
+- `portfolio-line` (`#d7e0dc`): borders and dividers.
+- `portfolio-accent` (`#0f766e`): primary actions, labels, and focus outlines.
+- `portfolio-accent-strong` (`#0b5f59`): hover and emphasized action text.
+- `portfolio-accent-soft` (`#dcefeb`): selected and highlighted control backgrounds.
 
 There are no active blue, lilac, cream, coral, or decorative gradient tokens in the current system.
 
@@ -138,4 +138,4 @@ The intake experience pairs a structured form with a monospace live preview. Sub
 - The initial language is English and the saved language is restored after client mount.
 - Static route params and metadata are sourced from English entries; locale arrays therefore depend on matching slugs.
 - The design primitives are small and page-specific rather than a complete component library.
-- `SaasHome` / `saas-*` names are legacy implementation labels, not a requirement to restore FlowSync.
+- Homepage lives under `src/components/portfolio/` (`HomePage`, design tokens `portfolio-*`). The public URL `/saas` is only a compatibility redirect, not a product surface.

@@ -96,10 +96,10 @@ type Timeline = keyof typeof workCopy.en.timelines
 
 const minimumDetailLength = 30
 const maximumDetailLength = 1200
-const inputClass = 'w-full rounded-[6px] border border-saas-line bg-saas-surface px-3 py-3 text-base text-saas-ink transition-colors placeholder:text-saas-muted/70 focus:border-saas-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-saas-accent'
+const inputClass = 'w-full rounded-[6px] border border-portfolio-line bg-portfolio-surface px-3 py-3 text-base text-portfolio-ink transition-colors placeholder:text-portfolio-muted/70 focus:border-portfolio-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-portfolio-accent'
 
 function FieldLabel({ children }: { children: ReactNode }) {
-  return <span className="mb-2 block text-sm font-semibold text-saas-ink">{children}</span>
+  return <span className="mb-2 block text-sm font-semibold text-portfolio-ink">{children}</span>
 }
 
 export default function WorkWithMePage() {
@@ -158,31 +158,31 @@ export default function WorkWithMePage() {
   }
 
   return (
-    <main className="min-h-dvh bg-saas-bg text-saas-ink">
-      <header className="border-b border-saas-line">
+    <main className="min-h-dvh bg-portfolio-bg text-portfolio-ink">
+      <header className="border-b border-portfolio-line">
         <div className="mx-auto max-w-[1100px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
           <Link
             href="/#home"
-            className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-saas-accent-strong hover:text-saas-accent"
+            className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
           >
             <ArrowLeft className="size-4" />
             {c.back}
           </Link>
-          <p className="mt-10 text-xs font-semibold uppercase text-saas-accent">{c.eyebrow}</p>
+          <p className="mt-10 text-xs font-semibold uppercase text-portfolio-accent">{c.eyebrow}</p>
           <h1 className="mt-5 max-w-[20ch] break-words text-4xl font-semibold leading-tight sm:text-5xl">{c.title}</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-saas-muted">{c.intro}</p>
-          <div className="mt-8 flex max-w-3xl gap-3 border-l-2 border-saas-accent pl-4">
-            <ShieldCheck className="mt-1 size-5 shrink-0 text-saas-accent" />
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-portfolio-muted">{c.intro}</p>
+          <div className="mt-8 flex max-w-3xl gap-3 border-l-2 border-portfolio-accent pl-4">
+            <ShieldCheck className="mt-1 size-5 shrink-0 text-portfolio-accent" />
             <div>
-              <p className="font-semibold text-saas-ink">{c.privacyTitle}</p>
-              <p className="mt-1 text-sm leading-6 text-saas-muted">{c.privacyBody}</p>
+              <p className="font-semibold text-portfolio-ink">{c.privacyTitle}</p>
+              <p className="mt-1 text-sm leading-6 text-portfolio-muted">{c.privacyBody}</p>
             </div>
           </div>
         </div>
       </header>
 
       <section className="mx-auto grid max-w-[1100px] gap-8 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)] lg:px-8">
-        <form onSubmit={handleSubmit} className="rounded-[8px] border border-saas-line bg-saas-surface p-5 shadow-saas-sm sm:p-7">
+        <form onSubmit={handleSubmit} className="rounded-[8px] border border-portfolio-line bg-portfolio-surface p-5 shadow-portfolio-sm sm:p-7">
           <h2 className="text-2xl font-semibold">{c.formTitle}</h2>
           <div className="mt-7 grid gap-6">
             <label>
@@ -221,7 +221,7 @@ export default function WorkWithMePage() {
                 maxLength={maximumDetailLength}
                 className={`${inputClass} resize-y leading-7`}
               />
-              <span className="mt-2 block text-xs text-saas-muted">{form.context.trim().length}/{maximumDetailLength}</span>
+              <span className="mt-2 block text-xs text-portfolio-muted">{form.context.trim().length}/{maximumDetailLength}</span>
             </label>
 
             <label>
@@ -234,15 +234,15 @@ export default function WorkWithMePage() {
                 maxLength={maximumDetailLength}
                 className={`${inputClass} resize-y leading-7`}
               />
-              <span className="mt-2 block text-xs text-saas-muted">{form.outcome.trim().length}/{maximumDetailLength}</span>
+              <span className="mt-2 block text-xs text-portfolio-muted">{form.outcome.trim().length}/{maximumDetailLength}</span>
             </label>
 
-            {!isReady && <p className="text-sm leading-6 text-saas-muted">{c.incomplete}</p>}
+            {!isReady && <p className="text-sm leading-6 text-portfolio-muted">{c.incomplete}</p>}
 
             <button
               type="submit"
               disabled={!isReady}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[6px] bg-saas-accent px-5 py-3 text-sm font-semibold text-white hover:bg-saas-accent-strong disabled:cursor-not-allowed disabled:bg-saas-line disabled:text-saas-muted"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[6px] bg-portfolio-accent px-5 py-3 text-sm font-semibold text-white hover:bg-portfolio-accent-strong disabled:cursor-not-allowed disabled:bg-portfolio-line disabled:text-portfolio-muted"
             >
               {copyState === 'copied' ? <Check className="size-4" /> : <Clipboard className="size-4" />}
               {copyState === 'copied' ? c.copied : c.copy}
@@ -251,11 +251,11 @@ export default function WorkWithMePage() {
           </div>
         </form>
 
-        <aside className="min-w-0 rounded-[8px] border border-saas-line bg-saas-surface-soft p-5 sm:p-7">
-          <p className="text-xs font-semibold uppercase text-saas-accent">{c.preview}</p>
-          <pre className="mt-5 max-h-[520px] overflow-auto whitespace-pre-wrap break-words font-mono text-sm leading-7 text-saas-muted">{brief}</pre>
-          <div className="mt-7 border-t border-saas-line pt-6">
-            <p className="text-sm leading-6 text-saas-muted">{c.publicNote}</p>
+        <aside className="min-w-0 rounded-[8px] border border-portfolio-line bg-portfolio-surface-soft p-5 sm:p-7">
+          <p className="text-xs font-semibold uppercase text-portfolio-accent">{c.preview}</p>
+          <pre className="mt-5 max-h-[520px] overflow-auto whitespace-pre-wrap break-words font-mono text-sm leading-7 text-portfolio-muted">{brief}</pre>
+          <div className="mt-7 border-t border-portfolio-line pt-6">
+            <p className="text-sm leading-6 text-portfolio-muted">{c.publicNote}</p>
             <a
               href={isReady ? issueHref : undefined}
               target="_blank"
@@ -263,8 +263,8 @@ export default function WorkWithMePage() {
               aria-disabled={!isReady}
               className={`mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[6px] px-5 py-3 text-sm font-semibold ${
                 isReady
-                  ? 'border border-saas-accent bg-saas-surface text-saas-accent-strong hover:bg-saas-accent-soft'
-                  : 'cursor-not-allowed border border-saas-line text-saas-muted'
+                  ? 'border border-portfolio-accent bg-portfolio-surface text-portfolio-accent-strong hover:bg-portfolio-accent-soft'
+                  : 'cursor-not-allowed border border-portfolio-line text-portfolio-muted'
               }`}
             >
               {c.open}

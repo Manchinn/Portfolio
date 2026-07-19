@@ -28,7 +28,7 @@ src/
   components/
     layout/                        Navbar and Footer
     motion/                        Motion primitives
-    portfolio-saas/                Main portfolio sections and shared elements
+    portfolio/                Main portfolio sections and shared elements
   data/
     portfolio.ts                   EN/TH navigation, projects, articles, and contact URL
     types.ts                       Static content contracts
@@ -48,7 +48,7 @@ next.config.ts                     Global security headers and build-only distDi
 
 ## Route and Data Flow
 
-- `/` imports typed content from `src/data/portfolio.ts` and renders `SaasHome` inside the shared `(portfolio)` shell.
+- `/` imports typed content from `src/data/portfolio.ts` and renders `HomePage` inside the shared `(portfolio)` shell.
 - `/work/[slug]` and `/article/[slug]` generate static params from English records. Their client content selects the matching localized record at render time.
 - `/work-with-me` keeps form state in the browser, creates a plain-text brief, and copies it through the Clipboard API. The external handoff opens a prefilled public GitHub issue; the app has no submission endpoint and stores nothing.
 - `/saas` redirects server-side to `/#work`. It is not a separate demo or design surface.
