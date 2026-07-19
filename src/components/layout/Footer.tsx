@@ -11,10 +11,12 @@ const Footer = () => {
   const shared = getSharedChrome(language as Language)
 
   return (
-    <footer className="border-t border-portfolio-line bg-portfolio-surface py-9 font-display">
+    <footer className="border-t-2 border-portfolio-ink/15 bg-portfolio-surface py-9 font-display">
       <div className="mx-auto flex max-w-[1180px] flex-col gap-4 px-4 text-sm text-portfolio-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div>
-          <p>{shared.portfolioLabel}</p>
+          <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-ink">
+            {shared.portfolioLabel}
+          </p>
           <p className="mt-1 text-xs">© {currentYear}</p>
         </div>
         <a

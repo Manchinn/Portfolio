@@ -165,7 +165,9 @@ function PortfolioHero({ c }: { c: HomeCopy }) {
       <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
         <StaggerContainer delayChildren={0.05} staggerChildren={0.08}>
           <MotionCard>
-            <p className="text-xs font-semibold uppercase text-portfolio-accent">{c.heroEyebrow}</p>
+            <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent sm:text-[11px]">
+              {c.heroEyebrow}
+            </p>
           </MotionCard>
           <MotionCard>
             <h1 className="mt-5 max-w-[19ch] text-balance break-words text-4xl font-semibold leading-[1.06] text-portfolio-ink sm:text-6xl lg:text-[4.25rem]">
@@ -192,13 +194,15 @@ function PortfolioHero({ c }: { c: HomeCopy }) {
             <p className="mt-4 max-w-xl text-sm leading-6 text-portfolio-muted">{c.contactNotice}</p>
           </MotionCard>
           <MotionCard>
-            <dl className="mt-14 grid border-y border-portfolio-line sm:grid-cols-3">
+            <dl className="mt-14 grid border-y-2 border-portfolio-ink/15 sm:grid-cols-3">
               {c.proofItems.map((item) => (
                 <div
                   key={item.label}
-                  className="min-w-0 border-b border-portfolio-line py-5 last:border-b-0 sm:border-r sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:border-r-0"
+                  className="min-w-0 border-b-2 border-portfolio-ink/10 py-5 last:border-b-0 sm:border-r-2 sm:border-b-0 sm:px-5 sm:first:pl-0 sm:last:border-r-0"
                 >
-                  <dt className="text-xs font-semibold uppercase text-portfolio-accent">{item.label}</dt>
+                  <dt className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent">
+                    {item.label}
+                  </dt>
                   <dd className="mt-2 text-sm leading-6 text-portfolio-muted">{item.value}</dd>
                 </div>
               ))}
@@ -248,10 +252,12 @@ function ProjectCard({ project, c, variant }: { project: Project; c: HomeCopy; v
     : []
 
   return (
-    <article className="group flex min-h-full flex-col border-t border-portfolio-line pt-7">
+    <article className="group flex min-h-full flex-col rounded-portfolio-md border-2 border-portfolio-ink bg-portfolio-surface p-6 shadow-portfolio-sm sm:p-7">
       <div className="flex items-baseline justify-between gap-4">
-        <p className="text-xs font-semibold uppercase text-portfolio-accent">{project.category}</p>
-        <span className="text-xs font-medium text-portfolio-muted">{project.date}</span>
+        <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent">
+          {project.category}
+        </p>
+        <span className="font-mono text-xs font-medium text-portfolio-muted">{project.date}</span>
       </div>
 
       <h3
@@ -269,26 +275,38 @@ function ProjectCard({ project, c, variant }: { project: Project; c: HomeCopy; v
       </p>
 
       {caseStudyRows.length > 0 && (
-        <dl className={cn('mt-7 grid gap-6', isFeatured && 'sm:grid-cols-3')}>
+        <dl
+          className={cn(
+            'mt-7 grid gap-6 border-t-2 border-portfolio-ink/10 pt-6',
+            isFeatured && 'sm:grid-cols-3',
+          )}
+        >
           {caseStudyRows.map((row) => (
             <div key={row.label} className="min-w-0">
-              <dt className="text-xs font-semibold uppercase text-portfolio-accent">{row.label}</dt>
+              <dt className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent">
+                {row.label}
+              </dt>
               <dd className="mt-2 break-words text-sm leading-6 text-portfolio-ink text-pretty">{row.value}</dd>
             </div>
           ))}
         </dl>
       )}
 
-      <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
+      <div className="mt-6 flex flex-wrap gap-2">
         {(isFeatured ? project.tech : project.tech.slice(0, 4)).map((tech) => (
-          <span key={tech} className="text-xs font-medium text-portfolio-muted">
+          <span
+            key={tech}
+            className="rounded-portfolio-sm border-2 border-portfolio-ink/15 bg-portfolio-surface-soft px-2.5 py-1 font-mono text-[11px] font-medium text-portfolio-muted"
+          >
             {tech}
           </span>
         ))}
       </div>
 
-      <div className="mt-7 border-t border-portfolio-line pt-5">
-        <p className="text-sm font-medium text-portfolio-muted">{c.proofLabel}</p>
+      <div className="mt-7 border-t-2 border-portfolio-ink/10 pt-5">
+        <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-muted">
+          {c.proofLabel}
+        </p>
       </div>
     </article>
   )
@@ -303,9 +321,12 @@ function CapabilitiesSection({ c }: { c: HomeCopy }) {
         subtitle={c.capabilitiesSubtitle}
         align="left"
       />
-      <dl className="mt-12 grid gap-x-12 gap-y-10 border-t border-portfolio-line pt-10 sm:grid-cols-2">
+      <dl className="mt-12 grid gap-4 border-t-2 border-portfolio-ink/15 pt-10 sm:grid-cols-2">
         {c.capabilityCards.map((card) => (
-          <div key={card.title} className="min-w-0">
+          <div
+            key={card.title}
+            className="min-w-0 rounded-portfolio-md border-2 border-portfolio-ink/15 bg-portfolio-surface px-5 py-6 shadow-portfolio-sm"
+          >
             <dt className="text-xl font-semibold text-portfolio-ink">{card.title}</dt>
             <dd className="mt-3 max-w-md text-base leading-7 text-portfolio-muted text-pretty">{card.statement}</dd>
           </div>
@@ -330,7 +351,7 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
         subtitle={c.articlesSubtitle}
         align="left"
       />
-      <div className="mt-12 divide-y divide-portfolio-line border-t border-portfolio-line">
+      <div className="mt-12 divide-y-2 divide-portfolio-ink/10 border-y-2 border-portfolio-ink/15">
         {langArticles.map((article) => (
           <article
             key={article.id}
@@ -338,8 +359,10 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
           >
             <div className="min-w-0">
               <div className="flex flex-wrap items-baseline gap-3">
-                <span className="text-xs font-semibold uppercase text-portfolio-accent">{article.category}</span>
-                <span className="text-xs text-portfolio-muted">{article.readTime}</span>
+                <span className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent">
+                  {article.category}
+                </span>
+                <span className="font-mono text-xs text-portfolio-muted">{article.readTime}</span>
               </div>
               <h3 className="mt-2 break-words text-2xl font-semibold leading-tight text-portfolio-ink">
                 {article.title}
@@ -363,10 +386,12 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
 function ContactSection({ c }: { c: HomeCopy }) {
   return (
     <PortfolioSection id="contact">
-      <div className="rounded-[8px] border border-portfolio-line bg-portfolio-surface px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
+      <div className="rounded-portfolio-md border-2 border-portfolio-ink bg-portfolio-surface px-5 py-10 shadow-portfolio-md sm:px-8 sm:py-12 lg:px-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase text-portfolio-accent">{c.contactEyebrow}</p>
+            <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-accent sm:text-[11px]">
+              {c.contactEyebrow}
+            </p>
             <h2 className="mt-3 max-w-3xl break-words text-3xl font-semibold leading-tight text-portfolio-ink sm:text-4xl">
               {c.contactTitle}
             </h2>

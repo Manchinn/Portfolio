@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google'
+import { IBM_Plex_Sans, JetBrains_Mono, Silkscreen } from 'next/font/google'
 import { LanguageProvider } from '@/i18n/useTranslation'
 import './globals.css'
 
@@ -17,6 +17,13 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 })
 
+const silkscreen = Silkscreen({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-silkscreen',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
   title: 'Software Engineering Portfolio',
   description: 'Selected full-stack application work, implementation notes, and software engineering capabilities.',
@@ -24,7 +31,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${plexSans.variable} ${jetbrains.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${plexSans.variable} ${jetbrains.variable} ${silkscreen.variable}`}
+    >
       <body>
         <LanguageProvider>
           {children}

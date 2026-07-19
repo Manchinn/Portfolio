@@ -2,25 +2,26 @@
 @source not "../../.continues-handoff.md";
 
 @theme {
-  --color-portfolio-bg: #f6f8f7;
-  --color-portfolio-surface: #ffffff;
-  --color-portfolio-surface-soft: #edf3f0;
-  --color-portfolio-ink: #17211e;
-  --color-portfolio-muted: #5f6e68;
-  --color-portfolio-line: #d7e0dc;
+  --color-portfolio-bg: #f4f1e8;
+  --color-portfolio-surface: #fffdf8;
+  --color-portfolio-surface-soft: #ebe6d9;
+  --color-portfolio-ink: #1a1a1a;
+  --color-portfolio-muted: #5c5a52;
+  --color-portfolio-line: #cfc8b8;
   --color-portfolio-accent: #0f766e;
   --color-portfolio-accent-strong: #0b5f59;
-  --color-portfolio-accent-soft: #dcefeb;
+  --color-portfolio-accent-soft: #d5ebe7;
 
-  --shadow-portfolio-sm: 0 1px 2px rgba(23, 33, 30, 0.08);
-  --shadow-portfolio-md: 0 12px 28px rgba(23, 33, 30, 0.12);
-  --shadow-portfolio-focus: 0 0 0 3px rgba(15, 118, 110, 0.2);
+  --shadow-portfolio-sm: 2px 2px 0 rgba(26, 26, 26, 0.14);
+  --shadow-portfolio-md: 4px 4px 0 rgba(26, 26, 26, 0.18);
+  --shadow-portfolio-focus: 0 0 0 2px var(--color-portfolio-bg), 0 0 0 4px var(--color-portfolio-accent);
 
-  --radius-portfolio-sm: 6px;
-  --radius-portfolio-md: 8px;
+  --radius-portfolio-sm: 2px;
+  --radius-portfolio-md: 4px;
 
   --font-display: var(--font-plex-sans, ui-sans-serif, system-ui, sans-serif);
   --font-mono: var(--font-jetbrains, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  --font-pixel: var(--font-silkscreen, var(--font-jetbrains), ui-monospace, monospace);
 }
 
 :root {
@@ -40,7 +41,9 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: var(--color-portfolio-bg);
+  background-color: var(--color-portfolio-bg);
+  background-image: radial-gradient(rgba(26, 26, 26, 0.055) 1px, transparent 1px);
+  background-size: 12px 12px;
   color: var(--color-portfolio-ink);
   font-family: var(--font-display);
   letter-spacing: 0;
@@ -54,7 +57,7 @@ a {
 button:focus-visible,
 a:focus-visible {
   outline: 2px solid var(--color-portfolio-accent);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 ::selection {
@@ -72,8 +75,8 @@ a:focus-visible {
 
 ::-webkit-scrollbar-thumb {
   border: 2px solid var(--color-portfolio-bg);
-  background: #a7b5af;
-  border-radius: 8px;
+  background: #a39c8c;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

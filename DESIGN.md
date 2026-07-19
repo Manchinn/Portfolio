@@ -1,38 +1,41 @@
 ---
 name: Software Engineering Portfolio
-description: Implemented EN/TH portfolio design baseline before the next refactor.
-currentAsOf: "2026-07-11"
+description: Soft-pixel SE portfolio design baseline (EN/TH, static-first).
+currentAsOf: "2026-07-19"
 colors:
-  portfolio-bg: "#f6f8f7"
-  portfolio-surface: "#ffffff"
-  portfolio-surface-soft: "#edf3f0"
-  portfolio-ink: "#17211e"
-  portfolio-muted: "#5f6e68"
-  portfolio-line: "#d7e0dc"
+  portfolio-bg: "#f4f1e8"
+  portfolio-surface: "#fffdf8"
+  portfolio-surface-soft: "#ebe6d9"
+  portfolio-ink: "#1a1a1a"
+  portfolio-muted: "#5c5a52"
+  portfolio-line: "#cfc8b8"
   portfolio-accent: "#0f766e"
   portfolio-accent-strong: "#0b5f59"
-  portfolio-accent-soft: "#dcefeb"
+  portfolio-accent-soft: "#d5ebe7"
 radii:
-  portfolio-sm: "6px"
-  portfolio-md: "8px"
+  portfolio-sm: "2px"
+  portfolio-md: "4px"
 shadows:
-  portfolio-sm: "0 1px 2px rgba(23, 33, 30, 0.08)"
-  portfolio-md: "0 12px 28px rgba(23, 33, 30, 0.12)"
-  portfolio-focus: "0 0 0 3px rgba(15, 118, 110, 0.2)"
+  portfolio-sm: "2px 2px 0 rgba(26, 26, 26, 0.14)"
+  portfolio-md: "4px 4px 0 rgba(26, 26, 26, 0.18)"
+  portfolio-focus: "double-ring via outline offset"
 typography:
   display: "IBM Plex Sans, ui-sans-serif, system-ui, sans-serif"
   mono: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+  pixel: "Silkscreen, JetBrains Mono, ui-monospace, monospace"
 ---
 
 # Design Baseline: Software Engineering Portfolio
 
-This document records what the current code implements. It is a refactor baseline, not a requirement to preserve every visual choice.
+This document records what the current code implements. It is a refactor baseline, not a requirement to freeze every visual choice forever.
 
 ## 1. Current Direction
 
-The public surface is a quiet, light software portfolio built for scanning proof and reaching a project inquiry. The layout uses broad unframed sections, thin horizontal dividers, compact controls, restrained teal accents, and very limited elevation.
+The public surface is a **soft-pixel** software engineering portfolio: modern SE one-page structure (hero, selected work, capabilities, articles, contact) with a light retro skin—block borders, offset shadows, warm paper background, and pixel labels—without full NES/game UI.
 
-The current interface is not the older FlowSync landing page, an operator console, or a card-heavy AI SaaS concept. There is no `/saas` product route.
+Reference intent: structure like a clean SE portfolio (e.g. pixel-portfolio-xi style IA); aesthetic level **A / soft pixel**, not walkable game rooms or forced 8-bit body type.
+
+There is no `/saas`, `/work/[slug]`, or `/work-with-me` product route.
 
 ## 2. Sources of Truth
 
@@ -47,91 +50,86 @@ The current interface is not the older FlowSync landing page, an operator consol
 | Contact CTA (external) | `publicContactUrl` + home contact section |
 | Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
 
-When this document and source disagree, source is authoritative until the refactor intentionally changes both.
+When this document and source disagree, source is authoritative until both are updated together.
 
 ## 3. Color System
 
-The active palette has three surface neutrals, three text/line neutrals, and one teal action family:
+Warm paper neutrals, near-black ink, and a teal action family:
 
-- `portfolio-bg` (`#f6f8f7`): page background.
-- `portfolio-surface` (`#ffffff`): menus, form surfaces, and footer.
-- `portfolio-surface-soft` (`#edf3f0`): subdued controls and preview surfaces.
-- `portfolio-ink` (`#17211e`): primary text.
-- `portfolio-muted` (`#5f6e68`): body support text and metadata.
-- `portfolio-line` (`#d7e0dc`): borders and dividers.
-- `portfolio-accent` (`#0f766e`): primary actions, labels, and focus outlines.
+- `portfolio-bg` (`#f4f1e8`): page background with a light 12px dot grid.
+- `portfolio-surface` (`#fffdf8`): cards, menus, footer, framed bands.
+- `portfolio-surface-soft` (`#ebe6d9`): chips and subdued surfaces.
+- `portfolio-ink` (`#1a1a1a`): primary text and hard borders on controls.
+- `portfolio-muted` (`#5c5a52`): body support text and metadata.
+- `portfolio-line` (`#cfc8b8`): softer borders where a full ink edge is too heavy.
+- `portfolio-accent` (`#0f766e`): primary actions and labels.
 - `portfolio-accent-strong` (`#0b5f59`): hover and emphasized action text.
-- `portfolio-accent-soft` (`#dcefeb`): selected and highlighted control backgrounds.
+- `portfolio-accent-soft` (`#d5ebe7`): selected control backgrounds.
 
-There are no active blue, lilac, cream, coral, or decorative gradient tokens in the current system.
+No gradient or neon game palette is in the active token set.
 
 ## 4. Typography
 
-IBM Plex Sans is the default display and body face. JetBrains Mono remains available for monospaced UI if needed. Both fonts are loaded in `src/app/layout.tsx`.
+- **Display/body:** IBM Plex Sans (readable EN/TH).
+- **Mono:** JetBrains Mono for tech chips and compact meta.
+- **Pixel accent:** Silkscreen via `--font-pixel`, only on eyebrows, category labels, nav tagline, and small chrome—not body paragraphs or article prose.
 
-Implemented hierarchy:
+Hierarchy:
 
-- Hero: `text-4xl`, `sm:text-6xl`, `lg:text-[4.25rem]`, weight 600, line-height 1.06.
-- Section heading: `text-3xl`, `sm:text-4xl`, `lg:text-[2.5rem]`, weight 600, line-height 1.12.
-- Card/project title: 1.5rem to 2.25rem depending on emphasis.
-- Body: generally 1rem with 1.75rem line-height; hero support copy uses 1.125rem with 2rem line-height.
-- Labels: 0.75rem, semibold, uppercase, and teal.
+- Hero: `text-4xl` → `sm:text-6xl` → `lg:text-[4.25rem]`, weight 600, line-height 1.06.
+- Section heading: `text-3xl` → `sm:text-4xl` → `lg:text-[2.5rem]`, weight 600.
+- Labels/eyebrows: ~10–11px Silkscreen, uppercase, teal or muted.
+- Body: ~1rem / 1.75rem; hero support ~1.125rem / 2rem.
 
-All global letter spacing is zero. Thai and English content must wrap without clipping at mobile widths.
+Thai and English must wrap without clipping at mobile widths. Do not set body copy in the pixel face.
 
 ## 5. Layout and Surfaces
 
-- Standard content width: 1180px; selected work can expand to 1280px.
-- Section padding: 4.5rem, 5.5rem, then 6rem across breakpoints.
-- Homepage proof, capability, article, and contact regions use borders and whitespace instead of floating section cards.
-- Repeated items are usually divided rows or unframed blocks.
-- The contact inquiry band is the primary framed surface (8px corners, surface fill).
-
-Nested decorative cards are not part of the current layout language.
+- Content width: 1180px standard; selected work may use 1280px.
+- Section padding: 4.5rem → 5.5rem → 6rem across breakpoints.
+- Soft-pixel surfaces use **2px borders**, **2–4px radii**, and **offset block shadows** on buttons, project cards, capability tiles, and the contact band.
+- Article body stays calm: thicker dividers and pixel category labels only; prose remains Plex.
 
 ## 6. Controls
 
 ### Buttons and Links
 
-Primary and secondary command buttons use 6px corners, horizontal padding, semibold 0.875rem text, and optional Lucide icons. Primary buttons use teal fill; secondary buttons use a white surface and one-pixel border. Buttons are not pills.
+Primary/secondary buttons: `rounded-portfolio-sm` (2px), **2px ink border**, teal or surface fill, `shadow-portfolio-sm`, press state via 1px translate and shadow removal. Min height 44px. Optional Lucide icons.
 
 ### Navigation
 
-The sticky Navbar uses a translucent page background, subtle blur, compact 6px controls, and desktop/mobile variants. The language picker supports EN and TH and displays an 8px menu surface with a medium shadow.
+Sticky navbar: translucent warm bg, blur, **bottom border 2px** at low-opacity ink. Brand mark is a square accent tile with ink border and block shadow. Language menu uses ink border + offset shadow.
 
 ### Focus and Selection
 
-Buttons and links receive a two-pixel teal outline with three-pixel offset. Text selection uses the soft accent background. The refactor must retain visible keyboard focus.
+Visible 2px teal focus outline with 2px offset. Selection uses accent-soft. Keyboard focus must remain obvious after any skin change.
 
 ## 7. Motion
 
-Homepage groups use `motion/react` viewport staggering and a 16px vertical fade for child items. Animations run once as content enters the viewport. `useReducedMotion()` removes the reveal variants, and the global reduced-motion media query reduces animation and transition durations.
+Homepage stagger reveals via `motion/react` remain. Button press is a short transform. `prefers-reduced-motion` still collapses animation/transition durations globally. Motion must not gate content.
 
-Motion supports reading order; it must not gate access to content or shift stable layout dimensions.
-
-## 8. Current Signature Experiences
+## 8. Signature Experiences
 
 ### Selected Work
 
-The homepage presents problem, build, and result summaries for selected projects in place. There is no separate work-detail route.
+In-page problem / built / result proof inside a bordered surface card. No separate work-detail route.
 
 ### Hero and Project Inquiry
 
-Hero primary CTA scrolls to selected work. Secondary CTA opens the public GitHub Issues URL with an external-link affordance and a short public-data notice. The contact band repeats the same external inquiry pattern inside a framed surface. The portfolio does not host a local brief form.
+Primary CTA → `/#work`. Secondary and contact CTAs → public GitHub Issues with external affordance and public-data notice. No local brief form.
 
 ## 9. Refactor Guardrails
 
-- Preserve the EN/TH content contract and test long Thai labels at mobile widths.
-- Preserve visible focus, semantic controls, reduced-motion behavior, and stable responsive dimensions.
-- Keep project proof clearly fictional where it uses synthetic records.
-- Do not introduce personal contact details, private URLs, secrets, or private operational data.
-- Do not restore `/saas`, `/work/[slug]`, or `/work-with-me` unless product scope reopens them.
-- Update this document and `src/app/globals.css` together when design tokens change.
+- Preserve EN/TH parity and long Thai labels at mobile widths.
+- Preserve focus, semantics, reduced-motion, and stable layout.
+- Do not introduce secrets, private URLs, or personal contact details.
+- Do not restore retired routes unless product scope reopens them.
+- Update this document and `src/app/globals.css` together when tokens change.
+- Keep soft-pixel at level A unless explicitly approved to go full NES/game.
 
 ## 10. Known Baseline Constraints
 
-- User-facing copy is still split across `portfolio.ts`, locale JSON, and component-local objects. Phase 1 of the design refactor centralizes only shared chrome in `src/content/shared.ts` (problem/built/result, create brief, open proof, portfolio label).
-- The initial language is English and the saved language is restored after client mount.
-- Static route params and metadata are sourced from English entries; locale arrays therefore depend on matching slugs.
-- The design primitives are small and page-specific rather than a complete component library.
-- Homepage lives under `src/components/portfolio/` (`HomePage`, design tokens `portfolio-*`). The public URL `/saas` is only a compatibility redirect, not a product surface.
+- User-facing copy is still split across `portfolio.ts`, locale JSON, and component-local objects; shared chrome lives in `src/content/shared.ts`.
+- Initial language is English; saved language restores after client mount.
+- Static article params come from English slugs; locale arrays must share slugs.
+- Homepage lives under `src/components/portfolio/` with `portfolio-*` tokens.

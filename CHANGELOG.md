@@ -16,6 +16,7 @@ Format follows a lightweight Keep a Changelog style.
 - Thin `.github/copilot-instructions.md` pointer (prefer root `AGENTS.md` / `docs/agents/MEMORY.md`).
 
 ### Changed
+- Soft-pixel visual skin (level A): warm paper palette, 2px block borders, offset shadows, Silkscreen labels, dot-grid background; body type stays IBM Plex Sans.
 - Localized Thai category labels for the project and article records.
 - Hero/contact polish after intake removal: primary CTA points to selected work, inquiry CTAs open public GitHub with notice copy, larger touch targets.
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
