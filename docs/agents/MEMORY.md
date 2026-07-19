@@ -41,10 +41,10 @@ Do **not** rebuild or assume these are active:
 | Lead capture API / database / auth | Explicit non-goals |
 | `mailto:` personal contact pipeline | Do not introduce |
 
-## Stale docs still on disk
+## Stale docs (removed from tree)
 
-- `docs/superpowers/specs/2026-05-29-modern-saas-portfolio-redesign.md` may still exist. Treat as **historical design exploration only**, not current product requirements.
-- Deleted plans/specs under `docs/superpowers/plans` and older migration specs remain recoverable from git history only.
+- `docs/superpowers/**` (plans + specs, including the 2026-05-29 SaaS redesign exploration) was **removed from the working tree** on 2026-07-19. Content remains recoverable from git history only.
+- Do not recreate FlowSync / prompts / multi-demo SaaS specs unless the user reopens product scope.
 
 ## Naming debt (do not interpret as product)
 
@@ -74,4 +74,5 @@ Do **not** rebuild or assume these are active:
 ## Recent decisions
 
 - **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
-- **2026-07-19:** Design refactor Phase 1 started — shared chrome copy only; no token rename, no folder rename yet.
+- **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
+- **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.

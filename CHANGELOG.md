@@ -5,6 +5,12 @@ Format follows a lightweight Keep a Changelog style.
 
 ## [Unreleased]
 
+### Removed
+- Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
+- Personal interview prep note that was never part of the product.
+
+## [2026-07-19]
+
 ### Added
 - `src/content/shared.ts` shared EN/TH chrome copy for case-study labels, proof CTA, project-brief CTA, and portfolio label.
 - `docs/agents/MEMORY.md` durable agent memory against retired product surfaces.
@@ -13,7 +19,6 @@ Format follows a lightweight Keep a Changelog style.
 ### Changed
 - Home, project proof, and footer now consume shared chrome copy instead of duplicating the same strings.
 
-## [2026-07-19]
 
 ### Changed
 - Refreshed root and architecture docs to the static-first Next.js 15 portfolio baseline.

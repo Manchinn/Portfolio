@@ -11,7 +11,7 @@ How the engineering skills should consume this repo's domain documentation when 
 
 If ADRs don't exist, proceed silently. Don't flag their absence; don't suggest creating them upfront. The producer skill (`/grill-with-docs`) creates them lazily when terms or decisions actually get resolved.
 
-Ignore historical `docs/superpowers/*` specs that contradict MEMORY/PRODUCT (especially FlowSync, prompts, CMS).
+Do not revive deleted `docs/superpowers/*` plans/specs or treat FlowSync / prompts / CMS as active product scope.
 
 ## File structure
 
