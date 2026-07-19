@@ -12,6 +12,8 @@ Format follows a lightweight Keep a Changelog style.
 - Personal interview prep note that was never part of the product.
 - Stale agent docs: Vite-era `.github/copilot-instructions.md` and `.github/task-instructions.md` (replaced with a thin Next.js pointer).
 - Tracked Impeccable critique/design artifacts under `.impeccable/`.
+- Duplicate GitHub-hosted Impeccable skill tree under `.github/skills/impeccable/`.
+- Thin `.github/copilot-instructions.md` pointer (prefer root `AGENTS.md` / `docs/agents/MEMORY.md`).
 
 ### Changed
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).

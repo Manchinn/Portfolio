@@ -33,7 +33,7 @@ Do **not** rebuild or assume these are active:
 
 | Topic | Status |
 |-------|--------|
-| FlowSync / standalone SaaS landing at `/saas` | Retired; `/saas` is redirect only |
+| FlowSync / standalone SaaS landing at `/saas` | Removed from product surface |
 | Prompts library / prompt marketplace | Retired |
 | Admin panel / CMS / runtime content API | Not in product |
 | Vercel Blob / remote media store | Not in product |
@@ -80,6 +80,7 @@ Do **not** rebuild or assume these are active:
 - **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
 - **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
 - **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
-- **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Kept `/saas` as compatibility redirect only.
+- **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Later removed `/saas` entirely from the product surface.
 - **2026-07-19:** Removed product routes `/saas`, `/work/[slug]`, and `/work-with-me`. Portfolio is one-page home + article routes + external GitHub inquiry.
 - **2026-07-19:** Cleaned local `.next-build-local` cache; removed stale Vite-era GitHub agent docs and tracked Impeccable artifacts; ignore `.impeccable/` going forward.
+- **2026-07-19:** Removed duplicate `.github/skills/impeccable/**` skill tree from the repo; prefer root SoT docs and optional `.agents/skills` if needed.
