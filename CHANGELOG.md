@@ -8,14 +8,13 @@ Format follows a lightweight Keep a Changelog style.
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
 - Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
+- Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
+- Personal interview prep note that was never part of the product.
+- Stale agent docs: Vite-era `.github/copilot-instructions.md` and `.github/task-instructions.md` (replaced with a thin Next.js pointer).
+- Tracked Impeccable critique/design artifacts under `.impeccable/`.
 
 ### Changed
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).
-- Kept `/saas` as a compatibility redirect only.
-
-### Removed
-- Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
-- Personal interview prep note that was never part of the product.
 
 ## [2026-07-19]
 
@@ -37,4 +36,4 @@ Format follows a lightweight Keep a Changelog style.
 
 ### Notes for agents
 - Treat FlowSync, prompts library, admin CMS, Vercel Blob, and AI provider integrations as **retired** unless the user explicitly reopens product scope.
-- `/saas` remains a compatibility redirect to `/#work`, not a standalone product page.
+- `/saas`, `/work/[slug]`, and `/work-with-me` are removed from the product surface.

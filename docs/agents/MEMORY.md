@@ -82,3 +82,4 @@ Do **not** rebuild or assume these are active:
 - **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
 - **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Kept `/saas` as compatibility redirect only.
 - **2026-07-19:** Removed product routes `/saas`, `/work/[slug]`, and `/work-with-me`. Portfolio is one-page home + article routes + external GitHub inquiry.
+- **2026-07-19:** Cleaned local `.next-build-local` cache; removed stale Vite-era GitHub agent docs and tracked Impeccable artifacts; ignore `.impeccable/` going forward.
