@@ -1,5 +1,9 @@
 # Modern SaaS Portfolio Redesign Spec
 
+> **HISTORICAL ONLY (as of 2026-07-19).** This document is **not** the current product or design source of truth.
+> Do **not** implement FlowSync, prompt workflows, CMS, multi-demo labs, or colorful SaaS token sets from this file.
+> Active sources: `PRODUCT.md`, `CONTEXT.md`, `DESIGN.md`, `docs/architecture/*`, `docs/agents/MEMORY.md`.
+
 Date: 2026-05-29
 Scope: chinnakrit.dev portfolio redesign direction
 Reference: bubble.io as visual inspiration only

@@ -40,6 +40,7 @@ The current interface is not the older FlowSync landing page, an operator consol
 |---------|--------------------|
 | Color, radius, shadow, font tokens | `src/app/globals.css` |
 | Fonts and global metadata | `src/app/layout.tsx` |
+| Shared chrome labels and CTAs | `src/content/shared.ts` |
 | Section and button primitives | `src/components/portfolio-saas/_shared.tsx` |
 | Homepage composition | `src/components/portfolio-saas/SaasHome.tsx` |
 | Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
@@ -133,7 +134,8 @@ The intake experience pairs a structured form with a monospace live preview. Sub
 
 ## 10. Known Baseline Constraints
 
-- User-facing copy is split across `portfolio.ts`, locale JSON, component-local objects, and inline translations.
+- User-facing copy is still split across `portfolio.ts`, locale JSON, and component-local objects. Phase 1 of the design refactor centralizes only shared chrome in `src/content/shared.ts` (problem/built/result, create brief, open proof, portfolio label).
 - The initial language is English and the saved language is restored after client mount.
 - Static route params and metadata are sourced from English entries; locale arrays therefore depend on matching slugs.
 - The design primitives are small and page-specific rather than a complete component library.
+- `SaasHome` / `saas-*` names are legacy implementation labels, not a requirement to restore FlowSync.

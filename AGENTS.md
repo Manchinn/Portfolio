@@ -24,6 +24,11 @@ The parent folder contains project-level docs. Run git and package commands from
 
 There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable in the current architecture.
 
+Durable agent memory (retired systems, copy ownership, recent decisions): `docs/agents/MEMORY.md`.  
+Public change log: `CHANGELOG.md`.
+
+If older plans or specs conflict with the files above, treat FlowSync, prompts library, admin CMS, Vercel Blob, and AI provider integrations as **retired** unless the user reopens scope.
+
 ## Hard Rules
 
 1. Keep the site static-first. Do not add a backend, API route, runtime storage, or runtime secret unless the user explicitly approves an architecture change.
@@ -51,7 +56,10 @@ src/components/layout/                     Shared navigation and footer
 src/components/motion/                     Motion primitives
 src/data/portfolio.ts                      Bilingual portfolio source of truth
 src/data/types.ts                          Content contracts
+src/content/shared.ts                      Shared EN/TH chrome labels and CTAs
 src/i18n/                                  Language state, helpers, and UI locale files
+docs/agents/MEMORY.md                      Durable agent memory (anti-drift)
+CHANGELOG.md                               Notable repository changes
 next.config.ts                             Security headers and build-only distDir override
 scripts/build.mjs                          Dev-server-safe Next.js build wrapper
 ```

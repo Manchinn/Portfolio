@@ -5,15 +5,13 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, CheckCircle2, ListFilter } from 'lucide-react'
 import { projects } from '@/data/portfolio'
 import type { Language } from '@/data/types'
+import { getSharedChrome } from '@/content/shared'
 import { useTranslation } from '@/i18n/useTranslation'
 
 const copy = {
   en: {
     back: 'Back to selected work',
     proof: 'Sanitized workflow proof',
-    problem: 'Problem',
-    built: 'Built',
-    result: 'Result',
     delivery: 'Delivery signals',
     stack: 'Implementation stack',
     demoEyebrow: 'Interactive proof demo',
@@ -28,14 +26,10 @@ const copy = {
     updated: 'Updated',
     statuses: { submitted: 'Submitted', review: 'In review', approved: 'Approved' },
     contactTitle: 'Need a similar workflow shaped into a maintainable application?',
-    contactAction: 'Create a project brief',
   },
   th: {
     back: 'กลับไปผลงานที่เลือกไว้',
     proof: 'Workflow proof ที่ผ่านการ sanitize',
-    problem: 'ปัญหา',
-    built: 'สิ่งที่สร้าง',
-    result: 'ผลลัพธ์',
     delivery: 'Delivery signals',
     stack: 'Implementation stack',
     demoEyebrow: 'Interactive proof demo',
@@ -50,7 +44,6 @@ const copy = {
     updated: 'อัปเดต',
     statuses: { submitted: 'ส่งแล้ว', review: 'กำลังตรวจ', approved: 'อนุมัติแล้ว' },
     contactTitle: 'ต้องการเปลี่ยน workflow ที่คล้ายกันให้เป็น application ที่ดูแลต่อได้หรือไม่',
-    contactAction: 'สร้าง Project Brief',
   },
 }
 
@@ -86,7 +79,15 @@ export default function ProjectContent({ slug }: { slug: string }) {
 
   if (!project) return null
 
-  const c = copy[lang]
+  const page = copy[lang]
+  const shared = getSharedChrome(lang)
+  const c = {
+    ...page,
+    problem: shared.problem,
+    built: shared.built,
+    result: shared.result,
+    createBrief: shared.createBrief,
+  }
   const records = demoRecords[lang]
   const visibleRecords = filter === 'all' ? records : records.filter((record) => record.status === filter)
   const filters: Array<{ value: DemoFilter; label: string }> = [
@@ -233,7 +234,7 @@ export default function ProjectContent({ slug }: { slug: string }) {
             href="/work-with-me"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[6px] bg-saas-accent px-5 py-3 text-sm font-semibold text-white hover:bg-saas-accent-strong"
           >
-            {c.contactAction}
+            {c.createBrief}
             <ArrowRight className="size-4" />
           </Link>
         </div>

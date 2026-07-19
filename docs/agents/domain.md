@@ -5,9 +5,13 @@ How the engineering skills should consume this repo's domain documentation when 
 ## Before exploring, read these
 
 - **`CONTEXT.md`** at the repo root.
+- **`docs/agents/MEMORY.md`** for retired systems and anti-drift facts.
+- **`PRODUCT.md`**, **`DESIGN.md`**, and **`docs/architecture/OVERVIEW.md`** for the live product.
 - **`docs/adr/`** for ADRs that touch the area about to be changed.
 
-If any of these files don't exist, proceed silently. Don't flag their absence; don't suggest creating them upfront. The producer skill (`/grill-with-docs`) creates them lazily when terms or decisions actually get resolved.
+If ADRs don't exist, proceed silently. Don't flag their absence; don't suggest creating them upfront. The producer skill (`/grill-with-docs`) creates them lazily when terms or decisions actually get resolved.
+
+Ignore historical `docs/superpowers/*` specs that contradict MEMORY/PRODUCT (especially FlowSync, prompts, CMS).
 
 ## File structure
 
@@ -16,9 +20,11 @@ This is a single-context repo:
 ```text
 /
 ├── CONTEXT.md
-├── docs/adr/
-│   ├── 0001-example-decision.md
-│   └── 0002-example-decision.md
+├── PRODUCT.md
+├── DESIGN.md
+├── CHANGELOG.md
+├── docs/agents/MEMORY.md
+├── docs/adr/                    # optional
 └── src/
 ```
 

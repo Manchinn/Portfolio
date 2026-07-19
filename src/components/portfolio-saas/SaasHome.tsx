@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { articles, projects } from '@/data/portfolio'
 import type { Language, Project } from '@/data/types'
+import { getSharedChrome, type SharedChromeCopy } from '@/content/shared'
 import { useTranslation } from '@/i18n/useTranslation'
 import { MotionCard, StaggerContainer } from '@/components/motion/MotionPrimitives'
 import { SaasButton, SaasHeader, SaasSection } from './_shared'
@@ -16,7 +17,6 @@ type LocalCopy = {
   heroTitle: string
   heroBody: string
   primaryCta: string
-  secondaryCta: string
   proofItems: Array<{ label: string; value: string }>
   selectedEyebrow: string
   selectedTitle: string
@@ -26,10 +26,6 @@ type LocalCopy = {
   capabilitiesSubtitle: string
   capabilityCards: Array<{ title: string; statement: string }>
   proofLabel: string
-  problem: string
-  built: string
-  result: string
-  viewProof: string
   articlesEyebrow: string
   articlesTitle: string
   articlesSubtitle: string
@@ -37,8 +33,9 @@ type LocalCopy = {
   contactEyebrow: string
   contactTitle: string
   contactBody: string
-  contactAction: string
 }
+
+type HomeCopy = LocalCopy & Pick<SharedChromeCopy, 'problem' | 'built' | 'result' | 'createBrief' | 'openProof'>
 
 const localCopy: Record<Language, LocalCopy> = {
   en: {
@@ -47,7 +44,6 @@ const localCopy: Record<Language, LocalCopy> = {
     heroBody:
       'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
     primaryCta: 'Start a project',
-    secondaryCta: 'Open proof demo',
     proofItems: [
       { label: 'Static proof routes', value: 'Typed project and article pages' },
       { label: 'Bilingual interface', value: 'One shared EN/TH content contract' },
@@ -80,10 +76,6 @@ const localCopy: Record<Language, LocalCopy> = {
       },
     ],
     proofLabel: 'Proof summary',
-    problem: 'Problem',
-    built: 'Built',
-    result: 'Result',
-    viewProof: 'Open proof demo',
     articlesEyebrow: 'Blog & Insights',
     articlesTitle: 'Writing on frontend and software architecture.',
     articlesSubtitle: 'Technical notes, implementation patterns, and development stories.',
@@ -91,7 +83,6 @@ const localCopy: Record<Language, LocalCopy> = {
     contactEyebrow: 'Project inquiry',
     contactTitle: 'Have a workflow that needs a clearer software path?',
     contactBody: 'Shape the context, desired result, and constraints into a concise brief before starting the conversation.',
-    contactAction: 'Create a project brief',
   },
   th: {
     heroEyebrow: 'Software engineering · Full-stack systems',
@@ -99,7 +90,6 @@ const localCopy: Record<Language, LocalCopy> = {
     heroBody:
       'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
     primaryCta: 'เริ่มคุยโปรเจกต์',
-    secondaryCta: 'เปิด Proof Demo',
     proofItems: [
       { label: 'Static proof routes', value: 'Project และ article pages แบบ typed' },
       { label: 'Bilingual interface', value: 'ใช้ content contract ร่วมกันใน EN/TH' },
@@ -132,10 +122,6 @@ const localCopy: Record<Language, LocalCopy> = {
       },
     ],
     proofLabel: 'สรุปหลักฐาน',
-    problem: 'ปัญหา',
-    built: 'สิ่งที่สร้าง',
-    result: 'ผลลัพธ์',
-    viewProof: 'เปิด Proof Demo',
     articlesEyebrow: 'บทความและสาระ',
     articlesTitle: 'บันทึกเรื่อง Frontend และสถาปัตยกรรมซอฟต์แวร์',
     articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนาซอฟต์แวร์',
@@ -143,14 +129,21 @@ const localCopy: Record<Language, LocalCopy> = {
     contactEyebrow: 'Project inquiry',
     contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',
     contactBody: 'จัดบริบท ผลลัพธ์ที่ต้องการ และข้อจำกัดให้เป็น brief ที่กระชับก่อนเริ่มพูดคุย',
-    contactAction: 'สร้าง Project Brief',
   },
 }
 
 export function SaasHome() {
   const { language } = useTranslation()
   const lang = language as Language
-  const c = localCopy[lang]
+  const shared = getSharedChrome(lang)
+  const c: HomeCopy = {
+    ...localCopy[lang],
+    problem: shared.problem,
+    built: shared.built,
+    result: shared.result,
+    createBrief: shared.createBrief,
+    openProof: shared.openProof,
+  }
   const selectedProjects = projects[lang]
   const proofHref = selectedProjects[0] ? `/work/${selectedProjects[0].slug}#demo` : '/#work'
 
@@ -165,7 +158,7 @@ export function SaasHome() {
   )
 }
 
-function SaasHero({ c, proofHref }: { c: LocalCopy; proofHref: string }) {
+function SaasHero({ c, proofHref }: { c: HomeCopy; proofHref: string }) {
   return (
     <section id="home" className="relative">
       <div className="mx-auto max-w-[1180px] px-4 pt-18 pb-20 sm:px-6 sm:pt-24 sm:pb-24 lg:px-8 lg:pt-28 lg:pb-28">
@@ -187,7 +180,7 @@ function SaasHero({ c, proofHref }: { c: LocalCopy; proofHref: string }) {
                 {c.primaryCta}
               </SaasButton>
               <SaasButton href={proofHref} variant="secondary">
-                {c.secondaryCta}
+                {c.openProof}
               </SaasButton>
             </div>
           </MotionCard>
@@ -207,7 +200,7 @@ function SaasHero({ c, proofHref }: { c: LocalCopy; proofHref: string }) {
   )
 }
 
-function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; projects: Project[] }) {
+function SelectedWork({ c, projects: selectedProjects }: { c: HomeCopy; projects: Project[] }) {
   const [featuredProject, ...supportingProjects] = selectedProjects
 
   return (
@@ -234,7 +227,7 @@ function SelectedWork({ c, projects: selectedProjects }: { c: LocalCopy; project
   )
 }
 
-function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; variant: 'featured' | 'supporting' }) {
+function ProjectCard({ project, c, variant }: { project: Project; c: HomeCopy; variant: 'featured' | 'supporting' }) {
   const isFeatured = variant === 'featured'
   const caseStudyRows = project.caseStudy
     ? [
@@ -288,7 +281,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
           href={`/work/${project.slug}#demo`}
           className="inline-flex items-center gap-2 text-sm font-semibold text-saas-accent-strong hover:text-saas-accent"
         >
-          {c.viewProof}
+          {c.openProof}
           <ArrowRight className="size-4" />
         </Link>
       </div>
@@ -296,7 +289,7 @@ function ProjectCard({ project, c, variant }: { project: Project; c: LocalCopy; 
   )
 }
 
-function CapabilitiesSection({ c }: { c: LocalCopy }) {
+function CapabilitiesSection({ c }: { c: HomeCopy }) {
   return (
     <SaasSection id="stack">
       <SaasHeader
@@ -317,7 +310,7 @@ function CapabilitiesSection({ c }: { c: LocalCopy }) {
   )
 }
 
-function ArticlesSection({ c }: { c: LocalCopy }) {
+function ArticlesSection({ c }: { c: HomeCopy }) {
   const { language } = useTranslation()
   const lang = language as Language
   const langArticles = articles[lang] ?? []
@@ -362,7 +355,7 @@ function ArticlesSection({ c }: { c: LocalCopy }) {
   )
 }
 
-function ContactSection({ c }: { c: LocalCopy }) {
+function ContactSection({ c }: { c: HomeCopy }) {
   return (
     <SaasSection id="contact">
       <div className="grid gap-8 border-y border-saas-line py-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
@@ -374,7 +367,7 @@ function ContactSection({ c }: { c: LocalCopy }) {
           <p className="mt-4 max-w-2xl text-base leading-7 text-saas-muted">{c.contactBody}</p>
         </div>
         <SaasButton href="/work-with-me" icon={<ArrowRight className="size-4" />}>
-          {c.contactAction}
+          {c.createBrief}
         </SaasButton>
       </div>
     </SaasSection>
