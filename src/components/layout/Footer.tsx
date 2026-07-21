@@ -23,7 +23,7 @@ const Footer = () => {
           href={publicContactUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+          className="inline-flex min-h-11 max-w-full items-center text-pretty font-semibold text-portfolio-accent-strong hover:text-portfolio-accent sm:whitespace-nowrap"
         >
           {shared.contactAction}
         </a>

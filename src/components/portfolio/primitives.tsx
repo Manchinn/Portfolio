@@ -133,7 +133,7 @@ export function PortfolioButton({
   external = false,
 }: PortfolioButtonProps) {
   const shape =
-    'inline-flex min-h-11 items-center justify-center gap-2 rounded-portfolio-sm px-5 py-2.5 text-sm font-semibold transition-[transform,box-shadow,background-color] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-portfolio-accent active:translate-x-px active:translate-y-px active:shadow-none'
+    'inline-flex min-h-11 max-w-full items-center justify-center gap-2 rounded-portfolio-sm px-4 py-2.5 text-sm font-semibold transition-[transform,box-shadow,background-color] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-portfolio-accent active:translate-x-px active:translate-y-px active:shadow-none sm:px-5'
   const appearance =
     variant === 'primary'
       ? 'border-2 border-portfolio-ink bg-portfolio-accent text-portfolio-on-accent shadow-portfolio-sm hover:bg-portfolio-accent-strong'
@@ -143,7 +143,7 @@ export function PortfolioButton({
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
-        <span className="min-w-0 whitespace-nowrap">{children}</span>
+        <span className="min-w-0 text-center text-pretty sm:whitespace-nowrap">{children}</span>
         {icon}
       </a>
     )
@@ -151,7 +151,7 @@ export function PortfolioButton({
 
   return (
     <Link href={href} className={classes}>
-      <span className="min-w-0 whitespace-nowrap">{children}</span>
+      <span className="min-w-0 text-center text-pretty sm:whitespace-nowrap">{children}</span>
       {icon}
     </Link>
   )

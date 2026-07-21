@@ -28,9 +28,10 @@ export const sharedChrome: LocalizedData<SharedChromeCopy> = {
     problem: 'ปัญหา',
     built: 'สิ่งที่สร้าง',
     result: 'ผลลัพธ์',
-    contactAction: 'เปิด GitHub inquiry',
-    contactNotice: 'จะเปิด GitHub issue แบบสาธารณะ อย่าใส่ credentials หรือข้อมูลส่วนตัวที่ไม่ควรโพสต์สาธารณะ',
-    viewSelectedWork: 'ดู selected work',
+    contactAction: 'เปิด issue บน GitHub',
+    contactNotice:
+      'จะเปิด GitHub issue แบบสาธารณะ อย่าใส่รหัสผ่าน โทเคน หรือข้อมูลส่วนตัวที่ไม่ควรโพสต์สาธารณะ',
+    viewSelectedWork: 'ดูผลงานที่เลือก',
     portfolioLabel: 'พอร์ตโฟลิโอวิศวกรรมซอฟต์แวร์',
   },
 }

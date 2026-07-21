@@ -84,46 +84,44 @@ export const homeSections: LocalizedData<HomeSectionCopy> = {
       'Share the context, desired result, and constraints in a public GitHub issue. This site does not collect or store a project brief.',
   },
   th: {
+    // Pixel eyebrows stay Latin (Silkscreen lacks Thai glyphs).
     heroEyebrow: 'Software engineering · Full-stack systems',
     heroTitle: 'สร้างซอฟต์แวร์ที่ชัดเจน ดูแลต่อได้ และรองรับ workflow จริง',
     heroBody:
-      'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็น web applications, internal tools และ interfaces ที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
+      'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็นเว็บแอป เครื่องมือภายใน และอินเทอร์เฟซที่พร้อมใช้งานจริงและทีมดูแลต่อได้',
     proofItems: [
-      { label: 'Selected work บนหน้าเดียว', value: 'ปัญหา การสร้าง และผลลัพธ์ในที่เดียว' },
-      { label: 'Bilingual interface', value: 'ใช้ content contract ร่วมกันใน EN/TH' },
-      { label: 'Static articles', value: 'บทความเทคนิคแบบ typed routes' },
+      { label: 'ผลงานบนหน้าเดียว', value: 'ปัญหา การสร้าง และผลลัพธ์ในที่เดียว' },
+      { label: 'อินเทอร์เฟซสองภาษา', value: 'ใช้ content contract ร่วมกัน EN/TH' },
+      { label: 'บทความแบบ static', value: 'เส้นทางบทความเทคนิคแบบ typed' },
     ],
     selectedEyebrow: 'Selected work',
-    selectedTitle: 'งานที่ยืนยันได้ และอ่านเหมือน product proof',
-    selectedSubtitle:
-      'นำเสนองาน application แบบโฟกัส ให้เห็นเรื่องหลักชัดเจน: ปัญหา การพัฒนา และผลลัพธ์',
+    selectedTitle: 'งานที่ยืนยันได้ อ่านง่ายเหมือน product proof',
+    selectedSubtitle: 'โฟกัสงานแอป ให้เห็นเรื่องหลักชัด: ปัญหา การพัฒนา และผลลัพธ์',
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
-    capabilitiesSubtitle: 'สี่ด้านของการพัฒนาซอฟต์แวร์ที่อยู่เบื้องหลัง selected work',
+    capabilitiesSubtitle: 'สี่ด้านของการส่งมอบซอฟต์แวร์ที่อยู่เบื้องหลังผลงานที่เลือก',
     capabilityCards: [
       {
-        title: 'Full-stack Applications',
-        statement:
-          'สร้าง web applications แบบ typed มี data flow, validation และ boundaries ที่ดูแลต่อได้',
+        title: 'แอป Full-stack',
+        statement: 'สร้างเว็บแอปแบบ typed มี data flow, validation และขอบเขตที่ดูแลต่อได้',
       },
       {
-        title: 'Internal Tools & Dashboards',
-        statement: 'ผมสร้าง tools และ admin workflows ที่มี database รองรับและทีมใช้งานได้จริง',
+        title: 'เครื่องมือภายในและแดชบอร์ด',
+        statement: 'สร้าง tools และ admin workflow ที่มี database รองรับและทีมใช้ได้จริง',
       },
       {
-        title: 'Product Interfaces',
-        statement:
-          'สร้าง responsive interface ที่มี clear states, bilingual support และ controls ที่เข้าถึงได้',
+        title: 'อินเทอร์เฟซผลิตภัณฑ์',
+        statement: 'จัดอินเทอร์เฟซ responsive ที่มีสถานะชัด รองรับสองภาษา และควบคุมได้ด้วยคีย์บอร์ด',
       },
       {
-        title: 'Delivery & Operations',
-        statement: 'ทำ build, deployment checks และ operational workflows ให้เรียกซ้ำและตรวจสอบได้',
+        title: 'ส่งมอบและปฏิบัติการ',
+        statement: 'ทำ build, ตรวจ deployment และ workflow ปฏิบัติการให้เรียกซ้ำและตรวจทานได้',
       },
     ],
     proofLabel: 'สรุปเคส',
     articlesEyebrow: 'บทความและสาระ',
     articlesTitle: 'บันทึกเรื่อง Frontend และสถาปัตยกรรมซอฟต์แวร์',
-    articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนาซอฟต์แวร์',
+    articlesSubtitle: 'บันทึกเชิงเทคนิค แนวทาง implementation และเรื่องราวการพัฒนา',
     readArticle: 'อ่านบทความ',
     contactEyebrow: 'Project inquiry',
     contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',

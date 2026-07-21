@@ -27,6 +27,7 @@ Format follows a lightweight Keep a Changelog style.
 - Homepage Hallmark redesign: Split Studio macrostructure (diptych hero + workbench case study + index capabilities/articles); hero-only motion; fewer eyebrows; hard soft-pixel frames reserved for primary proof; nav solid paper (no blur); tokens `portfolio-on-accent` and `portfolio-line-strong`.
 - Article route aligned to Long Document under the same system: diptych header, numbered sections, hard inquiry frame, related reading as index list (not twin cards).
 - Soft-pixel visual skin (level A): warm paper palette, 2px block borders, offset shadows, Silkscreen labels, dot-grid background; body type stays IBM Plex Sans.
+- Mobile Thai label polish: shorter CTAs/proof/capability titles, stack hero buttons on narrow widths, allow label wrap below `sm`, Silkscreen nav tagline stays Latin (glyph coverage).
 - Localized Thai category labels for the project and article records.
 - Hero/contact polish after intake removal: primary CTA points to selected work, inquiry CTAs open public GitHub with notice copy, larger touch targets.
 - Renamed portfolio UI modules and design tokens away from SaaS naming (`portfolio-saas` → `portfolio`, `saas-*` → `portfolio-*`).

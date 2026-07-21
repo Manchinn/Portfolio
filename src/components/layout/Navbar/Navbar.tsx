@@ -57,7 +57,7 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className="inline-flex min-h-11 items-center whitespace-nowrap rounded-portfolio-sm px-2.5 text-sm font-medium text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
+                className="inline-flex min-h-11 items-center rounded-portfolio-sm px-2 text-sm font-medium text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink sm:px-2.5 sm:whitespace-nowrap"
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
               </Link>

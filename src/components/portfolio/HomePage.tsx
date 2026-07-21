@@ -53,15 +53,15 @@ function PortfolioHero({ c }: { c: HomeCopy }) {
             </p>
           </MotionCard>
           <MotionCard>
-            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-              <PortfolioButton href="/#work" icon={<ArrowDown className="size-4" aria-hidden />}>
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <PortfolioButton href="/#work" icon={<ArrowDown className="size-4 shrink-0" aria-hidden />}>
                 {c.viewSelectedWork}
               </PortfolioButton>
               <PortfolioButton
                 href={publicContactUrl}
                 external
                 variant="secondary"
-                icon={<ArrowUpRight className="size-4" aria-hidden />}
+                icon={<ArrowUpRight className="size-4 shrink-0" aria-hidden />}
               >
                 {c.contactAction}
               </PortfolioButton>
@@ -218,13 +218,17 @@ function CapabilitiesSection({ c }: { c: HomeCopy }) {
         {c.capabilityCards.map((card, index) => (
           <li
             key={card.title}
-            className="grid min-w-0 gap-3 py-6 sm:grid-cols-[3.5rem_minmax(0,12rem)_minmax(0,1fr)] sm:items-baseline sm:gap-6 lg:grid-cols-[3.5rem_minmax(0,16rem)_minmax(0,1fr)]"
+            className="grid min-w-0 gap-2 py-6 sm:grid-cols-[3.5rem_minmax(0,12rem)_minmax(0,1fr)] sm:items-baseline sm:gap-6 lg:grid-cols-[3.5rem_minmax(0,16rem)_minmax(0,1fr)]"
           >
             <span className="font-mono text-xs font-semibold tabular-nums text-portfolio-accent">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <h3 className="text-lg font-semibold leading-snug text-portfolio-ink sm:text-xl">{card.title}</h3>
-            <p className="max-w-2xl text-base leading-7 text-portfolio-muted text-pretty">{card.statement}</p>
+            <h3 className="min-w-0 break-words text-lg font-semibold leading-snug text-portfolio-ink sm:text-xl">
+              {card.title}
+            </h3>
+            <p className="min-w-0 max-w-2xl break-words text-base leading-7 text-portfolio-muted text-pretty">
+              {card.statement}
+            </p>
           </li>
         ))}
       </ol>
@@ -263,9 +267,9 @@ function ArticlesSection({ c }: { c: HomeCopy }) {
             </div>
             <Link
               href={`/article/${article.slug}`}
-              className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-portfolio-sm text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+              className="inline-flex min-h-11 w-fit max-w-full items-center gap-2 rounded-portfolio-sm text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent sm:whitespace-nowrap"
             >
-              {c.readArticle}
+              <span className="min-w-0 text-pretty">{c.readArticle}</span>
               <ArrowRight className="size-4 shrink-0" aria-hidden />
             </Link>
           </article>

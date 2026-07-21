@@ -33,10 +33,10 @@ export default function ArticleContent({ slug }: { slug: string }) {
             <div className="min-w-0">
               <Link
                 href="/#articles"
-                className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+                className="inline-flex min-h-11 max-w-full items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent sm:whitespace-nowrap"
               >
                 <ArrowLeft className="size-4 shrink-0" aria-hidden />
-                {c.back}
+                <span className="min-w-0 text-pretty">{c.back}</span>
               </Link>
               <h1 className="mt-8 max-w-[18ch] text-balance break-words text-4xl font-semibold leading-[1.08] text-portfolio-ink sm:text-5xl">
                 {article.title}
@@ -139,9 +139,9 @@ export default function ArticleContent({ slug }: { slug: string }) {
                   </div>
                   <Link
                     href={`/article/${related.slug}`}
-                    className="inline-flex min-h-11 items-center gap-2 whitespace-nowrap text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent"
+                    className="inline-flex min-h-11 w-fit max-w-full items-center gap-2 text-sm font-semibold text-portfolio-accent-strong hover:text-portfolio-accent sm:whitespace-nowrap"
                   >
-                    {c.read}
+                    <span className="min-w-0 text-pretty">{c.read}</span>
                     <ArrowRight className="size-4 shrink-0" aria-hidden />
                   </Link>
                 </article>
