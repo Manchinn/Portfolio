@@ -1,0 +1,24 @@
+[
+  {
+    "date": "2026-07-21",
+    "macrostructure": "Long Document",
+    "theme": "portfolio soft-pixel",
+    "enrichment": "none",
+    "brief": "Article route aligned to locked DESIGN.md system",
+    "nav": "N9 edge-aligned",
+    "footer": "Ft2 inline",
+    "scope": "article",
+    "design_system": "DESIGN.md"
+  },
+  {
+    "date": "2026-07-21",
+    "macrostructure": "Split Studio",
+    "theme": "portfolio soft-pixel",
+    "enrichment": "none",
+    "brief": "Homepage redesign — soft-pixel SE portfolio, static-first EN/TH",
+    "nav": "N9 edge-aligned",
+    "footer": "Ft2 inline",
+    "scope": "homepage",
+    "design_system": "DESIGN.md"
+  }
+]

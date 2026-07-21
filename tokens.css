@@ -1,0 +1,32 @@
+/* Hallmark · design-system: DESIGN.md · portable token export
+ * Source of truth for runtime remains src/app/globals.css @theme (Tailwind v4).
+ * This file mirrors portfolio soft-pixel tokens for reuse outside Next.
+ */
+:root {
+  --color-portfolio-bg: #f4f1e8;
+  --color-portfolio-surface: #fffdf8;
+  --color-portfolio-surface-soft: #ebe6d9;
+  --color-portfolio-ink: #1a1a1a;
+  --color-portfolio-muted: #5c5a52;
+  --color-portfolio-line: #cfc8b8;
+  --color-portfolio-line-strong: #a39c8c;
+  --color-portfolio-accent: #0f766e;
+  --color-portfolio-accent-strong: #0b5f59;
+  --color-portfolio-accent-soft: #d5ebe7;
+  --color-portfolio-on-accent: #f7f4ea;
+
+  --shadow-portfolio-sm: 2px 2px 0 rgba(26, 26, 26, 0.14);
+  --shadow-portfolio-md: 4px 4px 0 rgba(26, 26, 26, 0.18);
+  --shadow-portfolio-focus: 0 0 0 2px var(--color-portfolio-bg), 0 0 0 4px var(--color-portfolio-accent);
+
+  --radius-portfolio-sm: 2px;
+  --radius-portfolio-md: 4px;
+
+  --font-display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-pixel: "Silkscreen", var(--font-mono);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+}

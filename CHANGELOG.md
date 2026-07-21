@@ -19,7 +19,13 @@ Format follows a lightweight Keep a Changelog style.
 - Duplicate GitHub-hosted Impeccable skill tree under `.github/skills/impeccable/`.
 - Thin `.github/copilot-instructions.md` pointer (prefer root `AGENTS.md` / `docs/agents/MEMORY.md`).
 
+### Added
+- Root `tokens.css` portable mirror of soft-pixel tokens; `DESIGN.md` locked Hallmark system + export formats (Tailwind `@theme`, DTCG JSON, shadcn mapping).
+- `.hallmark/log.json` project memory for Hallmark redesign runs.
+
 ### Changed
+- Homepage Hallmark redesign: Split Studio macrostructure (diptych hero + workbench case study + index capabilities/articles); hero-only motion; fewer eyebrows; hard soft-pixel frames reserved for primary proof; nav solid paper (no blur); tokens `portfolio-on-accent` and `portfolio-line-strong`.
+- Article route aligned to Long Document under the same system: diptych header, numbered sections, hard inquiry frame, related reading as index list (not twin cards).
 - Soft-pixel visual skin (level A): warm paper palette, 2px block borders, offset shadows, Silkscreen labels, dot-grid background; body type stays IBM Plex Sans.
 - Localized Thai category labels for the project and article records.
 - Hero/contact polish after intake removal: primary CTA points to selected work, inquiry CTAs open public GitHub with notice copy, larger touch targets.

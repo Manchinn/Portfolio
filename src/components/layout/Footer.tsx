@@ -11,8 +11,8 @@ const Footer = () => {
   const shared = getSharedChrome(language as Language)
 
   return (
-    <footer className="border-t-2 border-portfolio-ink/15 bg-portfolio-surface py-9 font-display">
-      <div className="mx-auto flex max-w-[1180px] flex-col gap-4 px-4 text-sm text-portfolio-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+    <footer className="border-t-2 border-portfolio-ink/20 bg-portfolio-surface py-9 font-display">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-4 px-4 text-sm text-portfolio-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
         <div>
           <p className="font-[family-name:var(--font-pixel)] text-[10px] font-normal uppercase tracking-wide text-portfolio-ink">
             {shared.portfolioLabel}

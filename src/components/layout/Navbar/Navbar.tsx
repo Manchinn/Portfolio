@@ -37,10 +37,10 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className="sticky top-0 z-50 border-b-2 border-portfolio-ink/15 bg-portfolio-bg/95 font-display backdrop-blur-lg">
-      <div className="mx-auto flex h-17 max-w-[1180px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 border-b-2 border-portfolio-ink/20 bg-portfolio-bg font-display">
+      <div className="mx-auto flex h-17 max-w-[1280px] items-center justify-between gap-5 px-4 sm:px-6 lg:px-8">
         <Link href="/#home" className="flex min-h-11 min-w-0 items-center gap-3 text-portfolio-ink" aria-label="Portfolio home">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-portfolio-sm border-2 border-portfolio-ink bg-portfolio-accent text-xs font-bold text-white shadow-portfolio-sm">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-portfolio-sm border-2 border-portfolio-ink bg-portfolio-accent text-xs font-bold text-portfolio-on-accent shadow-portfolio-sm">
             <Code2 size={17} aria-hidden />
           </span>
           <span className="hidden min-w-0 sm:block">
@@ -51,13 +51,13 @@ const Navbar = () => {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-6 lg:flex">
-          <div className="flex items-center gap-1">
+        <div className="hidden items-center gap-5 lg:flex">
+          <div className="flex items-center gap-0.5">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="inline-flex min-h-11 items-center rounded-portfolio-sm px-3 text-sm font-medium text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
+                className="inline-flex min-h-11 items-center whitespace-nowrap rounded-portfolio-sm px-2.5 text-sm font-medium text-portfolio-muted transition-colors hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
               >
                 {t(`nav.${item.label.toLowerCase()}`)}
               </Link>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setIsLangOpen((open) => !open)}
-              className="inline-flex min-h-11 items-center gap-2 rounded-portfolio-sm border-2 border-transparent px-2.5 text-xs font-semibold text-portfolio-muted transition-colors hover:border-portfolio-ink/20 hover:bg-portfolio-surface-soft hover:text-portfolio-ink"
+              className="inline-flex min-h-11 items-center gap-2 rounded-portfolio-sm border-2 border-portfolio-ink/15 bg-portfolio-surface px-2.5 text-xs font-semibold text-portfolio-muted transition-colors hover:border-portfolio-ink/30 hover:text-portfolio-ink"
               aria-expanded={isLangOpen}
               aria-haspopup="listbox"
               aria-label={t('nav.language')}
