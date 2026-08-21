@@ -36,7 +36,7 @@ export type HomeCopy = HomeSectionCopy &
 
 export const homeSections: LocalizedData<HomeSectionCopy> = {
   en: {
-    heroEyebrow: 'Software engineering · Full-stack systems',
+    heroEyebrow: 'Junior full-stack engineer',
     heroTitle: 'I build clear, maintainable software for real workflows.',
     heroBody:
       'I turn rough requirements into typed web applications, internal tools, and production-ready interfaces that teams can understand and maintain.',
@@ -85,7 +85,7 @@ export const homeSections: LocalizedData<HomeSectionCopy> = {
   },
   th: {
     // Pixel eyebrows stay Latin (Silkscreen lacks Thai glyphs).
-    heroEyebrow: 'Software engineering · Full-stack systems',
+    heroEyebrow: 'Junior full-stack engineer',
     heroTitle: 'สร้างซอฟต์แวร์ที่ชัดเจน ดูแลต่อได้ และรองรับ workflow จริง',
     heroBody:
       'เปลี่ยน requirements ที่ยังไม่ชัดให้เป็นเว็บแอป เครื่องมือภายใน และอินเทอร์เฟซที่พร้อมใช้งานจริงและทีมดูแลต่อได้',

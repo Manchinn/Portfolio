@@ -22,7 +22,7 @@ export const sharedChrome: LocalizedData<SharedChromeCopy> = {
     contactAction: 'Open GitHub inquiry',
     contactNotice: 'Opens a public GitHub issue. Do not include private credentials or personal data you would not post publicly.',
     viewSelectedWork: 'View selected work',
-    portfolioLabel: 'Software engineering portfolio',
+    portfolioLabel: 'Junior full-stack engineering portfolio',
   },
   th: {
     problem: 'ปัญหา',
@@ -32,7 +32,7 @@ export const sharedChrome: LocalizedData<SharedChromeCopy> = {
     contactNotice:
       'จะเปิด GitHub issue แบบสาธารณะ อย่าใส่รหัสผ่าน โทเคน หรือข้อมูลส่วนตัวที่ไม่ควรโพสต์สาธารณะ',
     viewSelectedWork: 'ดูผลงานที่เลือก',
-    portfolioLabel: 'พอร์ตโฟลิโอวิศวกรรมซอฟต์แวร์',
+    portfolioLabel: 'พอร์ตโฟลิโอวิศวกรรม full-stack ระดับ junior',
   },
 }
 
