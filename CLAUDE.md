@@ -1,100 +1,75 @@
 # CLAUDE.md
 
-This file provides architecture and workflow guidance for Claude Code when working in this repository.
+This file provides architecture and workflow guidance for coding agents working in this repository.
 
 ## Overview
 
-This is a static-first, anonymous software engineering portfolio built with Next.js 15 App Router, React 19, TypeScript, and Tailwind CSS 4. The public experience presents project proof, technical articles, capabilities, and a local-first inquiry workflow in English and Thai.
+A static-first bilingual (English + Thai) software engineering portfolio built with **Astro 5**, TypeScript, and Tailwind CSS 4. Content lives in **content collections**; language routing uses Astro's built-in i18n (`en` at `/`, `th` at `/th/`). The visual system is **Product Studio** (light theme, single indigo accent, Inter / Noto Sans Thai / JetBrains Mono) — see `DESIGN.md`.
 
-Production is deployed on Vercel at `chinnakrit.dev` and `www.chinnakrit.dev` from the `master` branch.
+Production is deployed on Vercel at `chinnakrit.dev` and `www.chinnakrit.dev` from the `master` branch (`vercel.json` pins the Astro framework).
 
-The current app has no backend, application API, runtime database, CMS, server-side content store, authenticated surface, or required runtime environment variables.
+The app has no backend, application API, runtime database, CMS, server-side content store, authenticated surface, or required runtime environment variables.
 
 ## Architecture
 
 ```text
 src/
-  app/
-    (portfolio)/
-      layout.tsx                   Shared Navbar and Footer shell
-      page.tsx                     Portfolio home
-      article/[slug]/              Static technical article route
-    layout.tsx                     Fonts, metadata, and LanguageProvider
-    globals.css                    Global tokens and component styling
-    sitemap.ts                     Static sitemap
-  components/
-    layout/                        Navbar and Footer
-    motion/                        Motion primitives
-    portfolio/                Main portfolio sections and shared elements
-  data/
-    portfolio.ts                   EN/TH navigation, projects, articles, and contact URL
-    types.ts                       Static content contracts
+  content.config.ts                 Content collection schemas + entrySlug() helper
+  content/
+    projects/{en,th}/               JSON project records (per locale) — currently empty
+    articles/{en,th}/               Markdown articles (per locale) — currently empty
   i18n/
-    LanguageContext.ts
-    LanguageProvider.tsx
-    useTranslation.ts
-    locales/en.json
-    locales/th.json
-scripts/
-  build.mjs                        Dev-server-safe production build wrapper
-  verify.ps1 / verify.sh           Available checks plus required build
-  review.ps1 / review.sh           Diff generation and lightweight security scan
-  deploy-check.ps1 / deploy-check.sh
-next.config.ts                     Global security headers and build-only distDir override
+    ui.ts                           All EN/TH chrome + marketing copy (getUI)
+    utils.ts                        Locale helpers
+  layouts/
+    BaseLayout.astro                HTML shell, metadata, fonts, hreflang
+  pages/
+    index.astro                     English portfolio home (/)
+    th/index.astro                  Thai portfolio home (/th/)
+    404.astro
+  components/
+    home/                           Navbar, Hero, Work, Capabilities, Contact, Footer, HomePage
+    ui/                             Button, SectionLabel, SectionHeading, MobileMenu (React island)
+    motion/Reveal.astro             Hero-only stagger (reduced-motion aware)
+  styles/
+    global.css                      Tailwind v4 @theme tokens + Product Studio recipes
+astro.config.mjs                   site, static output, i18n routing, integrations
+vercel.json                         Vercel Astro framework + build/output
 ```
 
 ## Route and Data Flow
 
-- `/` imports typed content from `src/data/portfolio.ts` and renders `HomePage` inside the shared `(portfolio)` shell.
-- `/article/[slug]` generates static params from English records. Client content selects the matching localized record at render time.
-- Contact CTAs open `publicContactUrl` (public GitHub Issues). There is no in-app brief intake form.
-- `/saas`, `/work/[slug]`, and `/work-with-me` are removed from the product surface.
-- `LanguageProvider` initializes in English, restores `portfolio-language` from `localStorage`, and updates the document language after hydration.
-
-Keep localized project and article slugs synchronized. A slug present only in Thai will not receive a generated route, while a mismatched slug will fail localized lookup.
+- `/` renders the English home; `/th/` renders the Thai home.
+- The `Work` section renders project records from the `projects` collection and shows a graceful empty state while it is empty.
+- Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. There is no in-app brief form.
+- `article/[slug]` routes are not currently generated (articles collection is empty).
 
 ## Configuration
 
-`next.config.ts` applies these global response policies:
-
-- `X-Frame-Options`
-- `X-Content-Type-Options`
-- `Referrer-Policy`
-- `Permissions-Policy`
-- `Content-Security-Policy`
-
-It contains no application redirect rules. The only non-header option is an optional `distDir` supplied through `NEXT_DIST_DIR` for build isolation.
-
-There are no application runtime environment variables. `CI`, `VERCEL`, and `NEXT_DIST_DIR` are build-process controls used by `scripts/build.mjs`, not application configuration or secrets.
+- `astro.config.mjs` sets `output: 'static'`, `site: 'https://www.chinnakrit.dev'`, i18n routing with `prefixDefaultLocale: false`, and integrates React, sitemap, and Tailwind v4.
+- `vercel.json` pins the Vercel framework to `astro` with `npm run build` and `dist` output.
+- No application runtime environment variables.
 
 ## Commands
 
-```powershell
-npm run dev
-npm run build
-npm run start
-powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
-powershell -ExecutionPolicy Bypass -File scripts/review.ps1
-powershell -ExecutionPolicy Bypass -File scripts/deploy-check.ps1 -Env preview
+```sh
+npm run dev        # astro dev — http://localhost:4321
+npm run build      # astro build — the implementation gate
+npx astro check    # TypeScript diagnostics (expect 0 errors)
+npm run preview    # serve the built dist/
 ```
-
-`npm run build` runs `node scripts/build.mjs`. On a developer machine, the wrapper checks ports `3000` through `3003`; when one is active, it uses `.next-build-local` and restores `next-env.d.ts` and `tsconfig.json` after the build. CI and Vercel keep the normal Next.js build path.
-
-Treat `npm run build` as the required completion gate. Use the verification scripts for broader checks and `deploy-check` before release work.
 
 ## Editing Rules
 
-- Keep the architecture static-first unless the user explicitly requests and approves a runtime architecture change.
-- Update both English and Thai user-facing content.
-- Keep `src/data/portfolio.ts` as the portfolio content source of truth.
-- Preserve the route-group shell for portfolio pages.
-- Keep contact external via `publicContactUrl`; do not add form storage without approval.
+- Keep the site static-first; do not add a backend, API route, runtime storage, or runtime secret without explicit approval.
+- Update both English and Thai content when changing user-facing copy or records.
+- Content lives in content collections; chrome/marketing copy lives in `src/i18n/ui.ts`.
+- Keep contact external via `PUBLIC_CONTACT_URL`; do not add form storage without approval.
 - Never publish secrets, private URLs, personal data, or internal operational details.
-- Review user changes before editing and do not overwrite unrelated work.
+- Review user changes before editing; do not overwrite unrelated work.
 
 ## Agent Workflow
 
 - `AGENTS.md` contains the shared repository rules.
-- `.codex/AGENTS.md`, `.codex/config.toml`, and `.codex/agents/*.toml` contain Codex-specific delegation guidance.
-- GitHub Issues for `Manchinn/portfolio` are the project tracker; supporting agent docs live under `docs/agents/`.
+- GitHub Issues are the project tracker; supporting agent docs live under `docs/agents/`.
 - Vercel auto-deploys production from `master`; pushing or changing deployment settings requires explicit user approval.

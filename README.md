@@ -2,7 +2,7 @@
 
 Static-first, software engineering portfolio with bilingual English and Thai content. It presents project proof, technical articles, capabilities, and a privacy-conscious project inquiry workflow.
 
-Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The soft-pixel design tokens come from `DESIGN.md`.
+Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The Product Studio design tokens come from `DESIGN.md`.
 
 ## Stack
 

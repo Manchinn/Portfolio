@@ -1,50 +1,48 @@
 # Product Baseline
 
-> Current as of 2026-07-20. Describes the implemented public product.
+> Current as of 2026-09-02. Describes the implemented public product (Astro + Product Studio).
 
 ## Product
 
-A static-first, bilingual software engineering portfolio. It presents selected full-stack work (problem / built / result on the homepage), implementation-oriented articles, and an external project inquiry handoff—without exposing personal contact details or private operational data.
+A static-first, bilingual (EN/TH) software engineering portfolio. It presents a hero, capabilities, and an external project inquiry handoff, with a **Work section currently empty** (renders "coming soon") until project entries are added to the content collection. No personal contact details or private operational data are exposed.
 
 ## Users
 
 - Hiring managers and technical reviewers evaluating implementation credibility.
 - Founders and collaborators deciding whether to start a software project conversation.
-- English- and Thai-speaking visitors scanning work, capabilities, and technical writing.
+- English- and Thai-speaking visitors scanning capabilities and work.
 
 ## Primary Journey
 
 ```text
 Landing page
-  -> review selected work and capabilities
-  -> open a technical article (optional)
+  -> review capabilities
+  -> (once populated) review selected work
   -> open the public GitHub inquiry link
 ```
 
-Article routes provide a secondary path into the same external inquiry handoff. There is no separate work-detail route, local brief builder, or `/saas` product page.
+There is no separate work-detail route, article route, local brief builder, or `/saas` product page in the current build.
 
 ## Product Purpose
 
-The site positions the work as software engineering and full-stack systems delivery. Success means a visitor can understand what was built, scan public-safe proof on the homepage, and reach the project inquiry handoff without the portfolio storing their brief.
+The site positions the work as software engineering and full-stack systems delivery. Success means a visitor understands the engineering capability, can scan public-safe proof, and reaches the project inquiry handoff without the portfolio storing their brief.
 
 ## Routes in Product
 
 | Route | Role |
 |-------|------|
-| `/` | One-page portfolio (hero, selected work, capabilities, articles, contact) |
-| `/article/[slug]` | Statically generated technical article |
-| `/sitemap.xml` | Static sitemap |
+| `/` | English one-page portfolio (hero, work, capabilities, contact) |
+| `/th/` | Thai one-page portfolio |
+| `/sitemap-index.xml` | Static sitemap |
 
-**Retired (do not restore without explicit product approval):** `/saas`, `/work/[slug]`, `/work-with-me`.
+**Retired (do not restore without explicit product approval):** `/saas`, `/work/[slug]`, `/work-with-me`, and the old Next.js `/article/[slug]`.
 
 ## Current Content Contract
 
-- English and Thai are the only supported languages (client language switch; no locale-prefixed routes).
-- Project and article entities live in `src/data/portfolio.ts` with matching slugs across locales.
-- Shared chrome CTAs/labels: `src/content/shared.ts`.
-- Homepage marketing sections: `src/content/home.ts`.
-- Nav chrome labels: `src/i18n/locales/*.json`.
-- Contact CTAs open `publicContactUrl` (public GitHub Issues). The app does not collect or store inquiry form data.
+- English and Thai are the only supported languages, via Astro i18n routing (`/` and `/th/`).
+- Project and article entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); the `projects` collection is currently empty.
+- Chrome + marketing copy lives in `src/i18n/ui.ts`.
+- Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. The app does not collect or store inquiry form data.
 - Public copy stays anonymized and must not expose credentials, private URLs, personal contact data, or nonpublic infrastructure details.
 
 ## Brand Personality
@@ -53,14 +51,14 @@ Clear, practical, and trustworthy. The voice is implementation-led and composed,
 
 ## Visual Direction
 
-Soft-pixel level A: warm paper palette, 2px block borders, offset shadows, Silkscreen on labels/chrome only, IBM Plex Sans for body. Exact tokens live in `DESIGN.md` and `src/app/globals.css`.
+Product Studio: light background, single indigo accent (`#4f46e5`), Inter / Noto Sans Thai / JetBrains Mono, subtle borders and shadows, rounded cards, generous whitespace. Exact tokens live in `DESIGN.md` and `src/styles/global.css`.
 
 ## Design Principles
 
-1. Show evidence before decoration: lead from the problem, implementation, and result on the homepage.
-2. Keep the path to contact explicit: homepage and shell CTAs reach the public GitHub inquiry URL or `#contact`.
+1. Show evidence before decoration: lead from the problem, implementation, and result.
+2. Keep the path to contact explicit: home and shell CTAs reach the public GitHub inquiry URL or `#contact`.
 3. Keep the public surface safe: this app does not store inquiry form data.
-4. Keep both languages equivalent: changes to projects, articles, navigation, and marketing copy must be checked in EN and TH.
+4. Keep both languages equivalent: changes to copy and records must be checked in EN and TH.
 5. Make technical work scannable: clear hierarchy, restrained motion, short labels, stable responsive layouts.
 
 ## Non-goals

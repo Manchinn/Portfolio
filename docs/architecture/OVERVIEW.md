@@ -1,144 +1,104 @@
 # Portfolio Architecture Overview
 
-> Current as of 2026-07-20. This document describes the Next.js App Router application in this repository.
+> Current as of 2026-09-02. Describes the Astro 5 static portfolio in this repository.
 
 ## System Summary
 
-This repo is a static-first public portfolio built with Next.js 15, React 19, TypeScript, Tailwind CSS 4, and client-side English/Thai language switching. Portfolio content is compiled from typed TypeScript modules; the app has no active API routes, backend service, database, or required runtime environment variables.
+This repo is a static-first bilingual (EN/TH) portfolio built with **Astro 5** (static SSG), TypeScript, Tailwind CSS 4, and a React island for the mobile menu. Content lives in **content collections** (currently empty); language routing uses Astro's built-in i18n. The app has no active API routes, backend service, database, or required runtime environment variables.
 
 ```text
 Browser
   |
   v
-Next.js App Router
+Astro (static build output in /dist)
   |
-  +-- src/app/layout.tsx
-  |     - global metadata and fonts
-  |     - LanguageProvider
-  |
-  +-- src/app/(portfolio)/layout.tsx
-  |     - Navbar
-  |     - route content
-  |     - Footer
-  |
-  +-- src/app/(portfolio)/page.tsx
-  |     - HomePage portfolio composition
-  |
-  +-- src/app/(portfolio)/article/[slug]/page.tsx
-  |     - static article routes from articles.en
-  |     - localized ArticleContent
-  |
-  +-- src/app/sitemap.ts
-        - derives article URLs from portfolio data
+  +-- src/pages/index.astro            English one-page home (/)
+  +-- src/pages/th/index.astro         Thai one-page home (/th/)
+  +-- src/pages/404.astro              404 page
+  |      |
+  |      +-- src/layouts/BaseLayout.astro  (HTML shell, metadata, fonts)
+  |      +-- src/components/home/          (Navbar, Hero, Work, Capabilities, Contact, Footer)
+  |      +-- content collections          (projects, articles — empty)
 ```
 
 ## Current Route Model
 
 | Route | Primary files | Runtime role |
 |-------|---------------|--------------|
-| `/` | `src/app/(portfolio)/page.tsx`, `src/components/portfolio/HomePage.tsx` | Static portfolio landing page with client language selection. |
-| `/article/[slug]` | `src/app/(portfolio)/article/[slug]/page.tsx`, `ArticleContent.tsx` | Pre-rendered article detail. Unknown slugs return 404. |
-| `/sitemap.xml` | `src/app/sitemap.ts` | Metadata route derived from `articles.en` (and fixed home). |
+| `/` | `src/pages/index.astro`, `src/components/home/HomePage.astro` | Static English one-page portfolio. |
+| `/th/` | `src/pages/th/index.astro`, `src/components/home/HomePage.astro` | Static Thai one-page portfolio. |
+| `/sitemap-index.xml` | `@astrojs/sitemap` | Auto-generated from `site` + i18n routes. |
 
-Both dynamic content routes set `dynamicParams = false` and generate params from English entries. English and Thai records therefore need matching canonical slugs.
+Both language pages render the `Work` section from the `projects` collection, which currently shows a graceful empty state.
 
-**Retired routes (not in tree):** `/saas`, `/work/[slug]`, `/work-with-me`.
+**Retired routes (not in tree):** `/saas`, `/work/[slug]`, `/work-with-me`, `/article/[slug]`.
 
 ## Key Architecture Decisions
 
 | Decision | Current choice | Trade-off |
 |----------|----------------|-----------|
-| Rendering model | App Router with statically generated content routes | Fast and deployment-friendly; language preference is applied after client hydration. |
-| Content source | `navItems`, `publicContactUrl`, `projects`, and `articles` in `src/data/portfolio.ts` | No runtime content service; content changes require a rebuild. |
-| Language model | Custom client provider in `src/i18n/*` | Small and controlled; no locale-prefixed routes or server-selected locale. |
-| Shared shell | `(portfolio)` route-group layout | Navbar and Footer stay consistent across home and article routes. |
-| Contact handoff | Public GitHub issue URL (`publicContactUrl`) | No visitor data is stored by this app; the destination is public. |
-| Marketing / chrome copy | `src/content/home.ts` + `src/content/shared.ts` | Typed EN/TH modules; UI components stay presentation-focused. |
-| Styling | Tailwind CSS 4 and soft-pixel `portfolio-*` tokens in `globals.css` | Centralized visual vocabulary (level A soft-pixel). |
+| Rendering model | Static SSG with per-locale pages | Fast, cacheable, SEO-friendly; content changes require a rebuild. |
+| Content source | Content collections (`projects`, `articles`) + `src/i18n/ui.ts` for chrome copy | No runtime content service; the slug is derived from the entry id. |
+| Language model | Astro i18n routing (`en` at `/`, `th` at `/th/`) | Separate URLs per locale give better SEO; the language switch is a link. |
+| Shared shell | `src/components/home/` (Navbar + Footer around the home route) | Consistent header/footer across the home routes. |
+| Contact handoff | Public GitHub issue URL (`PUBLIC_CONTACT_URL`) | No visitor data is stored by this app; the destination is public. |
+| Styling | Tailwind CSS 4 + Product Studio tokens in `src/styles/global.css` | Centralized visual vocabulary (light theme, indigo accent). |
+| Interactive island | `src/components/ui/MobileMenu.tsx` (React, `client:load`) | Mobile menu interactivity without a heavy app shell. |
 
 ## Data Flow
 
 ```text
-Home
-  page.tsx -> HomePage
-    -> useTranslation().language
-    -> getHomeCopy(language) from src/content/home.ts
-    -> projects[language] + articles[language]
-```
-
-```text
-Article detail
-  build -> generateStaticParams() from English canonical slugs
-  request -> server page validates slug and generates metadata
-  client content component -> selects the matching item in articles[language]
-  -> shared chrome via getSharedChrome(language)
+Home (en/th)
+  page.astro -> HomePage
+    -> ui = getUI(lang) from src/i18n/ui.ts
+    -> projects from the collection (empty -> "coming soon")
 ```
 
 ```text
 Contact handoff
-  CTA -> publicContactUrl (GitHub Issues, external)
+  CTA -> PUBLIC_CONTACT_URL (GitHub Issues, external)
 ```
 
 ```text
 Sitemap
-  fixed home URL
-    + articles.en mapped to /article/[slug]
+  @astrojs/sitemap -> site + locale routes (includes hreflang alternates in the HTML head)
 ```
 
 ## Cross-Cutting Concerns
 
 ### Public copy and privacy
 
-Public copy must remain sanitized. Selected work is summarized on the homepage. Contact opens a public GitHub Issues URL and does not store form data in this application.
+Public copy must remain sanitized. Contact opens a public GitHub Issues URL and does not store form data in this application.
 
 ### Language support
 
-English and Thai are active. `LanguageProvider` starts with English, restores `localStorage["portfolio-language"]` after mount, persists changes, and updates `document.documentElement.lang`.
+English and Thai are active via i18n routing. The language switch is a link to the alternate locale (`/` ↔ `/th/`). The `html lang` attribute, canonical, and hreflang alternates are rendered by `BaseLayout`.
 
 ### Security and runtime
 
-`next.config.ts` configures site-wide security headers and an optional build `distDir`. It does not define application redirects. No runtime secrets or application environment variables are required.
+`astro.config.mjs` sets static output and the site URL. `vercel.json` pins the Vercel framework to Astro with `npm run build` and `dist` output. No runtime secrets or application environment variables are required.
 
 ### Verification
 
-`npm run build` calls `scripts/build.mjs`, not `next build` directly. On a local machine, the wrapper detects dev servers on ports 3000-3003 and uses `.next-build-local` through `NEXT_DIST_DIR` so the active `.next` runtime is not overwritten. CI, Vercel, and explicitly configured `NEXT_DIST_DIR` builds use their normal destination.
-
-## Current Gaps
-
-| Issue | Impact |
-|-------|--------|
-| English and Thai slug parity is required but not validated as a cross-locale invariant | A missing or mismatched Thai slug can render empty detail content after language switching. |
-| Sitemap base URL is a source constant | Domain changes still require a code update. |
-| Article detail still owns some page-local chrome beyond `getSharedChrome` | Minor terminology drift risk on article-only strings. |
+`npm run build` (astro build) is the implementation gate; `npx astro check` should report 0 errors.
 
 ## File Map
 
 ```text
 src/
-  app/
-    layout.tsx                         Global metadata, fonts, LanguageProvider
-    globals.css                        Tailwind CSS 4 and design tokens
-    sitemap.ts                         Derived metadata route
-    (portfolio)/
-      layout.tsx                       Shared Navbar/Footer shell
-      page.tsx                         Home route
-      article/[slug]/
-        page.tsx                       Static params, metadata, slug validation
-        ArticleContent.tsx             Localized article rendering
-  components/
-    layout/Navbar/Navbar.tsx           Navigation and language switcher
-    layout/Footer.tsx                  Shared footer
-    motion/MotionPrimitives.tsx        Motion wrappers
-    portfolio/HomePage.tsx             Home composition
-    portfolio/primitives.tsx           Shared home primitives
-  content/
-    shared.ts                          Shared EN/TH chrome labels and CTAs
-    home.ts                            Homepage EN/TH marketing sections
-  data/
-    portfolio.ts                       Navigation, contact URL, projects, articles
-    types.ts                           Shared content contracts
-  i18n/                                EN/TH provider, hook, and locale JSON
-  lib/utils.ts                         Class-name utility
-scripts/build.mjs                      Local-safe Next.js build wrapper
-next.config.ts                         Security headers and optional distDir
+  content.config.ts                Content schemas + entrySlug() helper
+  content/projects/{en,th}/        JSON project records (per locale) — empty
+  content/articles/{en,th}/        Markdown articles (per locale) — empty
+  i18n/ui.ts                       EN/TH chrome + marketing copy (getUI)
+  i18n/utils.ts                    Locale helpers
+  layouts/BaseLayout.astro         HTML shell, metadata, fonts, hreflang
+  pages/index.astro                English home (/)
+  pages/th/index.astro             Thai home (/th/)
+  pages/404.astro                  404 page
+  components/home/                 Navbar, Hero, Work, Capabilities, Contact, Footer, HomePage
+  components/ui/                   Button, SectionLabel, SectionHeading, MobileMenu (React island)
+  components/motion/Reveal.astro   Hero-only stagger (reduced-motion aware)
+  styles/global.css                Tailwind v4 @theme tokens + Product Studio recipes
+astro.config.mjs                   site, static output, i18n routing, integrations
+vercel.json                        Vercel Astro framework + build/output
 ```

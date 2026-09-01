@@ -3,6 +3,20 @@
 All notable changes to this portfolio repository are recorded here.
 Format follows a lightweight Keep a Changelog style.
 
+## [2026-09-02]
+
+### Changed
+- Rebuilt the portfolio from Next.js 15 to **Astro 5** (static SSG) with content collections, built-in i18n routing (`en` at `/`, `th` at `/th/`), and a React island for the mobile menu.
+- Replaced the retired soft-pixel visual system with the **Product Studio** design (light theme, indigo `#4f46e5` accent, Inter + Noto Sans Thai + JetBrains Mono).
+- New positioning / copy in `src/i18n/ui.ts` (full-stack software engineer).
+- Removed old content (`student-logbook` project, the 3 articles) and stale Next.js source/components/scripts.
+- Added `vercel.json` to pin the Vercel build to Astro (the project was previously configured for Next.js).
+- Updated `AGENTS.md`, `DESIGN.md`, `PRODUCT.md`, `CONTEXT.md`, `CLAUDE.md`, and `docs/agents/MEMORY.md` to the Astro/Product Studio baseline.
+
+### Notes for agents
+- The `projects` and `articles` content collections are currently **empty**; the Work section renders a graceful empty state until entries are added.
+- `npm run build` (astro build) and `npx astro check` (0 errors) are the implementation gates.
+
 ## [Unreleased]
 
 ### Added

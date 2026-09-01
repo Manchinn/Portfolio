@@ -1,18 +1,19 @@
-# Agent Memory — Portfolio Frontend
+# Agent Memory — Portfolio
 
 > Durable facts for AI agents. Prefer this file + root SoT docs over chat history or deleted plans.
 
-**Last updated:** 2026-07-20
+**Last updated:** 2026-09-02
 
 ## Current product (authoritative)
 
-- Static-first **software engineering portfolio** (Next.js 15 App Router).
-- Bilingual **EN/TH** client language switch; no locale-prefixed routes.
-- Content entities: `src/data/portfolio.ts` + `src/data/types.ts`.
-- Shared chrome copy: `src/content/shared.ts`.
-- Routes in product: `/`, `/article/[slug]`, `/sitemap.xml`.
-- Contact: external `publicContactUrl` (public GitHub Issues). No in-app intake form.
-- **Removed from product (2026-07-19):** `/saas`, `/work/[slug]`, `/work-with-me`.
+- Static-first bilingual **software engineering portfolio** (Astro 5, static SSG).
+- Bilingual **EN/TH** via Astro i18n routing: `en` at `/`, `th` at `/th/`.
+- Content entities: content collections `src/content/projects/{en,th}/` and `src/content/articles/{en,th}/` — **currently empty**.
+- Chrome + marketing copy: `src/i18n/ui.ts`.
+- Visual system: **Product Studio** (light, indigo `#4f46e5`, Inter + Noto Sans Thai + JetBrains Mono).
+- Routes in product: `/`, `/th/`, `/sitemap-index.xml`.
+- Contact: external `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. No in-app intake form.
+- **Removed from product (2026-09-02):** Next.js App Router, `/article/[slug]`, the soft-pixel system, `student-logbook` + the 3 old articles.
 
 ## Source of truth (read these first)
 
@@ -38,52 +39,40 @@ Do **not** rebuild or assume these are active:
 | Admin panel / CMS / runtime content API | Not in product |
 | Vercel Blob / remote media store | Not in product |
 | AI provider / server-side generation | Not in product |
-| Express backend / Vite SPA architecture | Superseded by Next.js App Router |
+| Next.js App Router / React client language provider | Superseded by Astro 5 + i18n routing |
+| Express backend / Vite SPA architecture | Not in product |
 | Lead capture API / database / auth | Explicit non-goals |
 | `mailto:` personal contact pipeline | Do not introduce |
-| `/saas` compatibility redirect | Removed from tree |
-| `/work/[slug]` project proof routes | Removed; selected work stays on homepage |
+| `/work/[slug]` project proof routes | Removed; selected work stays on the homepage |
 | `/work-with-me` local brief intake | Removed; contact uses public GitHub Issues URL |
-
-## Stale docs (removed from tree)
-
-- `docs/superpowers/**` (plans + specs, including the 2026-05-29 SaaS redesign exploration) was **removed from the working tree** on 2026-07-19. Content remains recoverable from git history only.
-- Do not recreate FlowSync / prompts / multi-demo SaaS specs unless the user reopens product scope.
+| `/article/[slug]` (old Next article route) | Retired until content is re-added |
 
 ## Naming (current)
 
-- UI modules live under `src/components/portfolio/` (`HomePage`, `primitives`).
-- Design tokens use the `portfolio-*` prefix in `globals.css`.
-- Do not reintroduce SaaS product surfaces or the deleted routes above.
+- UI modules live under `src/components/` (`home/`, `ui/`, `motion/`).
+- Design tokens: `--color-bg`, `--color-ink`, `--color-accent`, etc. in `src/styles/global.css`.
+- Do not reintroduce soft-pixel `portfolio-*` tokens or the deleted routes above.
 
 ## Copy ownership (current)
 
 | Content | Owner |
 |---------|--------|
-| Projects, articles, nav hrefs, public GitHub issue URL | `src/data/portfolio.ts` |
-| Shared labels/CTAs (problem/built/result, inquiry, view work) | `src/content/shared.ts` |
-| Homepage marketing sections (hero, capabilities, articles chrome, contact body) | `src/content/home.ts` |
-| Article route chrome (back / related / read) | `src/content/article.ts` |
-| Contact CTA labels / public-issue notice | `src/content/shared.ts` (consumed by home + article + footer) |
-| Nav chrome labels | `src/i18n/locales/*.json` |
+| Entities (projects, articles) | `src/content/projects/`, `src/content/articles/` (content collections) |
+| Chrome + marketing copy (EN/TH) | `src/i18n/ui.ts` |
+| Public contact URL | `src/data/types.ts` (`PUBLIC_CONTACT_URL`) |
+| Design tokens | `src/styles/global.css` |
 
 ## Hard rules (never skip)
 
 1. Static-first: no backend/API/runtime storage without explicit user approval.
 2. Update **EN and TH** together for user-facing copy.
-3. Keep project/article **slugs aligned** across locales (static params from English).
-4. Contact is external-only via `publicContactUrl`; do not add form storage without approval.
-5. Gate implementation with `npm run build`.
+3. Keep article/project **slugs aligned** across locales (derived from entry id via `entrySlug()`); do not declare a `slug` field in content frontmatter.
+4. Contact is external-only via `PUBLIC_CONTACT_URL`; do not add form storage without approval.
+5. Gate implementation with `npm run build` (astro build) and `npx astro check` (0 errors).
 6. No push / no infra changes without explicit user approval.
 
 ## Recent decisions
 
-- **2026-07-20:** Soft-pixel polish B — article surface cards, motion stagger fix, reduced-motion plain elements, nav/footer touch targets and focus ring.
-- **2026-07-20:** Synced `PRODUCT.md` / `CONTEXT.md` / `DESIGN.md` to post–route-cleanup soft-pixel product; moved homepage marketing copy into `src/content/home.ts`.
-- **2026-07-19:** Docs cleanup committed; agent SoT refreshed; completed migration/SaaS plans removed from tree.
-- **2026-07-19:** Design refactor Phase 1 shipped — shared chrome copy in `src/content/shared.ts`.
-- **2026-07-19:** Safe-set cleanup — removed remaining `docs/superpowers/**` and personal interview notes from the repo tree.
-- **2026-07-19:** Renamed `portfolio-saas` → `portfolio`, `SaasHome` → `HomePage`, and design tokens `saas-*` → `portfolio-*`. Later removed `/saas` entirely from the product surface.
-- **2026-07-19:** Removed product routes `/saas`, `/work/[slug]`, and `/work-with-me`. Portfolio is one-page home + article routes + external GitHub inquiry.
-- **2026-07-19:** Cleaned local `.next-build-local` cache; removed stale Vite-era GitHub agent docs and tracked Impeccable artifacts; ignore `.impeccable/` going forward.
-- **2026-07-19:** Removed duplicate `.github/skills/impeccable/**` skill tree from the repo; prefer root SoT docs and optional `.agents/skills` if needed.
+- **2026-09-02:** Rebuilt the portfolio on Astro 5 (static SSG + content collections + i18n routing) and shipped the **Product Studio** design; deployed to `www.chinnakrit.dev`. Old Next.js source and soft-pixel system removed.
+- **2026-09-02:** Added `vercel.json` to pin the Vercel build to Astro (the project was previously configured for Next.js).
+- **2026-09-02:** `projects` and `articles` collections are empty; the Work section shows a graceful empty state until entries are added.
