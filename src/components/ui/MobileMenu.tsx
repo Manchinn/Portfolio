@@ -12,19 +12,19 @@ export default function MobileMenu({ links, alternateHref }: { links: Link[]; al
         aria-label="Menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="grid h-9 w-9 place-items-center border-2 border-portfolio-ink bg-portfolio-surface text-portfolio-ink shadow-portfolio-sm"
+        className="grid h-9 w-9 place-items-center rounded-md border border-line bg-surface text-ink"
       >
         {open ? <X size={18} /> : <Menu size={18} />}
       </button>
       {open && (
-        <div className="absolute top-[64px] right-5 left-5 z-50 border-2 border-portfolio-ink bg-portfolio-surface shadow-portfolio-md">
+        <div className="absolute top-[64px] right-4 left-4 z-50 overflow-hidden rounded-lg border border-line bg-surface shadow-md">
           <ul className="flex flex-col">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-portfolio-line px-4 py-3 text-sm font-medium text-portfolio-ink"
+                  className="block border-b border-line px-4 py-3 text-sm font-medium text-ink"
                 >
                   {link.label}
                 </a>
@@ -34,7 +34,7 @@ export default function MobileMenu({ links, alternateHref }: { links: Link[]; al
               <a
                 href={alternateHref}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-3 text-sm font-medium text-portfolio-accent"
+                className="block px-4 py-3 text-sm font-medium text-accent"
               >
                 {alternateHref === '/th' ? 'ไทย' : 'English'}
               </a>

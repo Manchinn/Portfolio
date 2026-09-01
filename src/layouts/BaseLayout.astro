@@ -14,13 +14,12 @@ interface Props {
 const { lang, title, description, ogType = 'website', canonical } = Astro.props
 const ui = getUI(lang)
 const htmlLang = lang === 'th' ? 'th' : 'en'
-const pageTitle = title ?? `${ui.portfolioLabel} — Chinnakrit`
+const pageTitle = title ?? `${ui.brand} — ${ui.footer}`
 const pageDesc =
   description ??
-  'Selected full-stack application work, implementation notes, and software engineering capabilities.'
+  'Full-stack software engineer building clear, maintainable software from API to interface.'
 const canonicalUrl = canonical ?? Astro.url.href
 
-// hreflang alternates for the same logical path across locales
 const hrefLang = lang === 'en'
   ? [['en', Astro.url.pathname], ['th', `/th${Astro.url.pathname}`]]
   : [['th', Astro.url.pathname], ['en', Astro.url.pathname.replace(/^\/th/, '') || '/']]
@@ -45,12 +44,12 @@ const hrefLang = lang === 'en'
     <meta property="og:url" content={canonicalUrl} />
 
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#f4f1e8" />
+    <meta name="theme-color" content="#fafafa" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

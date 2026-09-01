@@ -6,11 +6,11 @@ interface Props {
 }
 const { href, variant = 'primary', external = false } = Astro.props
 const base =
-  'inline-flex min-h-[44px] items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium border-2 border-portfolio-ink rounded-portfolio-sm shadow-portfolio-sm transition-[transform,box-shadow] hover:-translate-y-px active:translate-y-px active:shadow-none'
+  'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition hover:-translate-y-px active:translate-y-px'
 const variantClass =
   variant === 'primary'
-    ? 'bg-portfolio-accent text-portfolio-on-accent'
-    : 'bg-portfolio-surface text-portfolio-ink'
+    ? 'bg-accent text-on-accent shadow-sm hover:bg-accent-strong'
+    : 'bg-surface text-ink border border-line hover:border-line-strong'
 ---
 
 <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined} class={`${base} ${variantClass}`}>

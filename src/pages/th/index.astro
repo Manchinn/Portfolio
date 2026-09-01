@@ -1,29 +1,15 @@
 ---
-import { getCollection } from 'astro:content'
-import { entrySlug } from '@/content.config'
 import type { Language } from '@/i18n/ui'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import HomePage from '@/components/home/HomePage.astro'
 
+// The projects content collection is defined but empty. The Work section
+// renders a graceful empty state until project entries are added.
+const projectData = [] as { slug: string; title: string; description: string; tech: string[]; category: string }[]
+
 const lang: Language = 'th'
-
-const projects = await getCollection('projects', ({ data }) => data.lang === lang)
-const articles = await getCollection('articles', ({ data }) => data.lang === lang)
-
-const project = projects[0]?.data
-if (!project) {
-  throw new Error('No Thai project entry found. Add src/content/projects/th/*.json')
-}
-
-const articleData = articles.map((entry) => ({
-  slug: entrySlug(entry.id),
-  title: entry.data.title,
-  excerpt: entry.data.excerpt,
-  category: entry.data.category,
-  readTime: entry.data.readTime,
-}))
 ---
 
 <BaseLayout lang={lang}>
-  <HomePage lang={lang} project={project} articles={articleData} />
+  <HomePage lang={lang} projects={projectData} />
 </BaseLayout>

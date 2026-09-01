@@ -1,7 +1,6 @@
 ---
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
-import Button from '@/components/ui/Button.astro'
 import MobileMenu from '@/components/ui/MobileMenu.tsx'
 
 interface Props {
@@ -13,33 +12,37 @@ const base = lang === 'en' ? '' : '/th'
 const links = [
   { href: `${base}/#home`, label: ui.nav.home },
   { href: `${base}/#work`, label: ui.nav.work },
-  { href: `${base}/#stack`, label: ui.nav.stack },
+  { href: `${base}/#capabilities`, label: ui.nav.capabilities },
   { href: `${base}/#contact`, label: ui.nav.contact },
 ]
 const alternateHref = lang === 'en' ? '/th' : '/'
 ---
 
-<header class="sticky top-0 z-50 border-b-2 border-portfolio-ink/15 bg-portfolio-bg">
-  <nav class="mx-auto flex h-[64px] w-full max-w-[1280px] items-center justify-between gap-4 px-5 sm:px-8">
-    <a href={`${base}/#home`} class="flex items-center gap-2.5 text-portfolio-ink" aria-label={ui.brand}>
-      <span class="grid h-8 w-8 place-items-center border-2 border-portfolio-ink bg-portfolio-accent font-mono text-sm font-bold text-portfolio-on-accent shadow-portfolio-sm">
-        C
-      </span>
-      <span class="font-pixel text-sm tracking-[0.08em] uppercase">{ui.brand}</span>
+<header class="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md">
+  <nav class="mx-auto flex h-[64px] w-full max-w-[1200px] items-center justify-between px-5 sm:px-8">
+    <a href={`${base}/#home`} class="flex items-center gap-2.5 font-semibold text-ink" aria-label={ui.brand}>
+      <span class="grid h-8 w-8 place-items-center rounded-md bg-accent text-sm font-bold text-on-accent">C</span>
+      {ui.brand}
     </a>
 
     <ul class="hidden items-center gap-1 md:flex">
       {links.map((link) => (
         <li>
-          <a href={link.href} class="rounded-portfolio-sm px-3 py-2 text-sm font-medium text-portfolio-ink hover:bg-portfolio-surface-soft">
+          <a
+            href={link.href}
+            class="rounded-md px-3 py-2 text-sm font-medium text-muted hover:bg-surface-soft hover:text-ink"
+          >
             {link.label}
           </a>
         </li>
       ))}
-      <li class="ml-2">
-        <Button href={alternateHref} variant="secondary" external={false}>
+      <li class="ml-1">
+        <a
+          href={alternateHref}
+          class="rounded-md border border-line px-3 py-2 text-sm font-medium text-ink transition hover:border-line-strong"
+        >
           {lang === 'en' ? 'ไทย' : 'EN'}
-        </Button>
+        </a>
       </li>
     </ul>
 

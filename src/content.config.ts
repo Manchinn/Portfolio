@@ -1,10 +1,10 @@
 import { defineCollection, z } from 'astro:content'
 
 /**
- * Projects: structured bilingual fact records (JSON per locale).
- * Articles: long-form bilingual prose (Markdown per locale).
- * Slug is NOT declared in the schema — Astro reserves that frontmatter key
- * for content collections. The slug is derived from the entry id (filename).
+ * Projects (JSON per locale) and articles (Markdown per locale).
+ * Both collections are defined and empty — fill them to populate the site.
+ * Slug is NOT declared in the schema (Astro reserves it for content); derive
+ * it from the entry id with entrySlug().
  */
 
 const projects = defineCollection({
@@ -14,14 +14,13 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     tech: z.array(z.string()),
-    date: z.string(),
     category: z.string(),
-    caseStudy: z.object({
-      problem: z.string(),
-      built: z.string(),
-      result: z.string(),
-    }),
-    highlights: z.array(z.string()),
+    // Optional detail fields, used when a work-detail route exists.
+    date: z.string().optional(),
+    highlights: z.array(z.string()).optional(),
+    caseStudy: z
+      .object({ problem: z.string(), built: z.string(), result: z.string() })
+      .optional(),
   }),
 })
 
@@ -38,7 +37,7 @@ const articles = defineCollection({
 
 export const collections = { projects, articles }
 
-/** Derive the locale-agnostic slug from a content entry id (e.g. "en/foo.md" -> "foo"). */
+/** Derive the locale-agnostic slug from a content entry id (e.g. "en/foo.json" -> "foo"). */
 export function entrySlug(id: string): string {
   return id.replace(/^(en|th)\//, '').replace(/\.(md|mdx|json)$/, '')
 }
