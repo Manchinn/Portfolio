@@ -1,0 +1,29 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import { PUBLIC_CONTACT_URL } from '@/data/types'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import Button from '@/components/ui/Button.astro'
+
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const ui = getUI(lang)
+---
+
+<section id="contact" class="mx-auto max-w-[1280px] px-5 py-16 sm:px-8">
+  <div class="hard-frame grid gap-8 bg-portfolio-surface p-6 sm:p-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+    <div>
+      <SectionLabel>{ui.contactEyebrow}</SectionLabel>
+      <h2 class="mt-4 text-2xl font-semibold text-portfolio-ink sm:text-3xl">{ui.contactTitle}</h2>
+      <p class="mt-4 max-w-[52ch] text-portfolio-muted">{ui.contactBody}</p>
+    </div>
+    <div class="flex flex-col items-start gap-4">
+      <Button href={PUBLIC_CONTACT_URL} external={true}>
+        {ui.contactAction}
+      </Button>
+      <p class="text-xs leading-relaxed text-portfolio-muted">{ui.contactNotice}</p>
+    </div>
+  </div>
+</section>

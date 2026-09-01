@@ -1,0 +1,48 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import Button from '@/components/ui/Button.astro'
+import MobileMenu from '@/components/ui/MobileMenu.tsx'
+
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const ui = getUI(lang)
+const base = lang === 'en' ? '' : '/th'
+const links = [
+  { href: `${base}/#home`, label: ui.nav.home },
+  { href: `${base}/#work`, label: ui.nav.work },
+  { href: `${base}/#stack`, label: ui.nav.stack },
+  { href: `${base}/#contact`, label: ui.nav.contact },
+]
+const alternateHref = lang === 'en' ? '/th' : '/'
+---
+
+<header class="sticky top-0 z-50 border-b-2 border-portfolio-ink/15 bg-portfolio-bg">
+  <nav class="mx-auto flex h-[64px] w-full max-w-[1280px] items-center justify-between gap-4 px-5 sm:px-8">
+    <a href={`${base}/#home`} class="flex items-center gap-2.5 text-portfolio-ink" aria-label={ui.brand}>
+      <span class="grid h-8 w-8 place-items-center border-2 border-portfolio-ink bg-portfolio-accent font-mono text-sm font-bold text-portfolio-on-accent shadow-portfolio-sm">
+        C
+      </span>
+      <span class="font-pixel text-sm tracking-[0.08em] uppercase">{ui.brand}</span>
+    </a>
+
+    <ul class="hidden items-center gap-1 md:flex">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class="rounded-portfolio-sm px-3 py-2 text-sm font-medium text-portfolio-ink hover:bg-portfolio-surface-soft">
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="ml-2">
+        <Button href={alternateHref} variant="secondary" external={false}>
+          {lang === 'en' ? 'ไทย' : 'EN'}
+        </Button>
+      </li>
+    </ul>
+
+    <MobileMenu client:load links={links} alternateHref={alternateHref} />
+  </nav>
+</header>

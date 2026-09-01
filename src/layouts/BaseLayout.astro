@@ -1,0 +1,61 @@
+---
+import '@/styles/global.css'
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+
+interface Props {
+  lang: Language
+  title?: string
+  description?: string
+  ogType?: 'website' | 'article'
+  canonical?: string
+}
+
+const { lang, title, description, ogType = 'website', canonical } = Astro.props
+const ui = getUI(lang)
+const htmlLang = lang === 'th' ? 'th' : 'en'
+const pageTitle = title ?? `${ui.portfolioLabel} — Chinnakrit`
+const pageDesc =
+  description ??
+  'Selected full-stack application work, implementation notes, and software engineering capabilities.'
+const canonicalUrl = canonical ?? Astro.url.href
+
+// hreflang alternates for the same logical path across locales
+const hrefLang = lang === 'en'
+  ? [['en', Astro.url.pathname], ['th', `/th${Astro.url.pathname}`]]
+  : [['th', Astro.url.pathname], ['en', Astro.url.pathname.replace(/^\/th/, '') || '/']]
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+
+    <link rel="canonical" href={canonicalUrl} />
+    {hrefLang.map(([h, path]) => (
+      <link rel="alternate" hreflang={h} href={path} />
+    ))}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f4f1e8" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

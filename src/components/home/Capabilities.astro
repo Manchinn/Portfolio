@@ -1,0 +1,30 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import SectionLabel from '@/components/ui/SectionLabel.astro'
+import SectionHeading from '@/components/ui/SectionHeading.astro'
+
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const ui = getUI(lang)
+---
+
+<section id="stack" class="mx-auto max-w-[1280px] px-5 py-16 sm:px-8">
+  <SectionLabel>{ui.capabilitiesEyebrow}</SectionLabel>
+  <SectionHeading as="h2" class="mt-4">
+    {ui.capabilitiesTitle}
+  </SectionHeading>
+  <p class="mt-4 max-w-[60ch] text-portfolio-muted">{ui.capabilitiesSubtitle}</p>
+
+  <ol class="mt-10 divide-y divide-portfolio-line">
+    {ui.capabilityCards.map((card, i) => (
+      <li class="grid gap-4 py-6 sm:grid-cols-[3rem_1fr_1.5fr] sm:items-start">
+        <span class="font-mono text-sm font-semibold text-portfolio-accent">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="text-xl font-semibold text-portfolio-ink">{card.title}</h3>
+        <p class="text-portfolio-muted">{card.statement}</p>
+      </li>
+    ))}
+  </ol>
+</section>

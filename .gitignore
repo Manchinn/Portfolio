@@ -12,6 +12,7 @@ node_modules
 .next-build-local
 dist
 dist-ssr
+.astro
 *.local
 
 # Environment variables

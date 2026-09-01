@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for AI agents working in this Next.js portfolio repository.
+Guidance for AI agents working in this portfolio repository.
 
 ## Repository Scope
 
@@ -14,65 +14,58 @@ The parent folder contains project-level docs. Run git and package commands from
 
 ## Current Product
 
-- Static-first, anonymous software engineering portfolio.
-- Bilingual English and Thai presentation with the selected language remembered in browser storage.
-- `/` renders the one-page portfolio experience from typed local data (selected work, capabilities, articles, contact).
-- `/article/[slug]` is a statically generated article route.
-- Contact CTAs open a public GitHub Issues URL (`publicContactUrl`). The app does not collect or store inquiry form data.
-- The `(portfolio)` route-group layout owns the shared navbar and footer.
+- Static-first Astro portfolio, bilingual English and Thai, soft-pixel design.
+- `/` renders the English one-page portfolio; `/th/` renders the Thai version.
+- `/article/[slug]/` and `/th/article/[slug]/` are statically generated article routes.
+- Contact CTAs open a public GitHub Issues URL (`PUBLIC_CONTACT_URL`) in `src/data/types.ts`. The app does not collect or store inquiry form data.
+- Content lives in Astro **content collections**: projects (`src/content/projects/{en,th}/`) and articles (`src/content/articles/{en,th}/`). All chrome/marketing copy lives in `src/i18n/ui.ts`.
 
-There is no backend, application API, runtime database, CMS, server-side content store, work-detail route, work-with-me intake page, or required runtime environment variable in the current architecture.
+There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable in the current architecture.
 
 ## Hard Rules
 
 1. Keep the site static-first. Do not add a backend, API route, runtime storage, or runtime secret unless the user explicitly approves an architecture change.
-2. Preserve English and Thai parity. Update both locales when changing user-facing content or typed portfolio records.
-3. Treat `src/data/portfolio.ts` as the source of truth for navigation, projects, articles, and the public contact URL.
-4. Keep project and article slugs aligned across locales because static params are generated from English records and localized content is selected in the client.
-5. Keep inquiry handoff external: contact CTAs may open `publicContactUrl` (public GitHub Issues) but must not add an app form submission/storage path without explicit approval.
+2. Preserve English and Thai parity. Update both locales when changing user-facing content or content records.
+3. Treat `src/i18n/ui.ts` as the source of truth for chrome/marketing copy, and the content collections for entity content.
+4. Keep article slugs and filenames aligned across locales; the slug is derived from the entry id.
+5. Keep inquiry handoff external: contact CTAs may open `PUBLIC_CONTACT_URL` (public GitHub Issues) but must not add an app form submission/storage path without explicit approval.
 6. Keep public copy sanitized. Do not expose credentials, private URLs, personal data, or internal operational details.
-7. Use `npm run build` as the required implementation gate. It invokes the repository build wrapper, not `next build` directly.
+7. Use `npm run build` (astro build) as the required implementation gate. `npx astro check` should report 0 errors.
 8. Preserve user changes and keep edits scoped to the requested work.
 9. Do not restore `/saas`, `/work/[slug]`, or `/work-with-me` unless the user explicitly reopens those product surfaces.
 
 ## Architecture Map
 
 ```text
-src/app/layout.tsx                         Root fonts, metadata, and LanguageProvider
-src/app/(portfolio)/layout.tsx             Shared Navbar and Footer shell
-src/app/(portfolio)/page.tsx               Portfolio home (one-page)
-src/app/(portfolio)/article/[slug]/        Static article route
-src/app/sitemap.ts                         Static sitemap entries
-src/components/portfolio/                 Main portfolio experience
-src/components/layout/                     Shared navigation and footer
-src/components/motion/                     Motion primitives
-src/data/portfolio.ts                      Bilingual portfolio source of truth
-src/data/types.ts                          Content contracts
-src/content/shared.ts                      Shared EN/TH chrome labels and CTAs
-src/content/home.ts                        Homepage EN/TH marketing sections
-src/content/article.ts                     Article route EN/TH chrome labels
-src/i18n/                                  Language state, helpers, and UI locale files
-docs/agents/MEMORY.md                      Durable agent memory (anti-drift)
-CHANGELOG.md                               Notable repository changes
-next.config.ts                             Security headers and build-only distDir override
-scripts/build.mjs                          Dev-server-safe Next.js build wrapper
+src/content.config.ts                     Content schemas + entrySlug() helper
+src/content/projects/{en,th}/             JSON project records (per locale)
+src/content/articles/{en,th}/             Markdown articles (per locale)
+src/i18n/ui.ts                            EN/TH chrome + marketing copy (getUI)
+src/i18n/utils.ts                         Locale helpers
+src/layouts/BaseLayout.astro              HTML shell, fonts, metadata, global CSS
+src/layouts/ArticleLayout.astro           Article page shell
+src/pages/index.astro                     English home (default locale)
+src/pages/th/index.astro                  Thai home
+src/pages/article/[slug]/index.astro      English article route
+src/pages/th/article/[slug]/index.astro   Thai article route
+src/pages/404.astro                       404 page
+src/components/home/                      Navbar, Footer, Hero, SelectedWork, Capabilities, ArticlesIndex, Contact
+src/components/ui/                        Button, SectionLabel, SectionHeading, MobileMenu (React island)
+src/components/motion/Reveal.astro        Hero-only stagger (reduced-motion aware)
+src/styles/global.css                     Tailwind v4 @theme tokens + soft-pixel recipes
+astro.config.mjs                          site, static output, i18n routing, integrations
 ```
 
-`next.config.ts` does not define application redirects. It applies security headers globally and honors the build-only `NEXT_DIST_DIR` override used by `scripts/build.mjs`.
+`astro.config.mjs` sets `output: 'static'`, i18n routing with `prefixDefaultLocale: false`, and integrates React, sitemap, and Tailwind v4 via the Vite plugin.
 
 ## Commands and Verification
 
-```powershell
-npm run dev
-npm run build
-powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
-powershell -ExecutionPolicy Bypass -File scripts/review.ps1
-powershell -ExecutionPolicy Bypass -File scripts/deploy-check.ps1 -Env preview
+```sh
+npm run dev        # astro dev — http://localhost:4321
+npm run build      # astro build — the implementation gate
+npx astro check    # TypeScript diagnostics (expect 0 errors)
+npm run preview    # serve the built dist/
 ```
-
-The build wrapper checks local ports `3000` through `3003`. When a dev server is active, it builds into `.next-build-local` and restores Next-generated config files so verification does not disturb the running `.next` instance. CI and Vercel use the normal build directory.
-
-The verification scripts detect available typecheck, lint, and test support, then use the production build as the final gate. The deploy check also inspects git state, tracked environment files, public-copy safety, and obvious secrets.
 
 ## Security Checklist
 
@@ -81,8 +74,7 @@ Before committing public-facing changes:
 - No hardcoded secrets, credentials, private domains, or private network details.
 - No unreviewed personal or operational details in portfolio content.
 - The public-issue warning remains visible in the project inquiry workflow.
-- Security headers remain in `next.config.ts` unless a documented requirement changes them.
-- `git diff` and build output have been reviewed.
+- Rebuild the production output with `npm run build` and review it.
 
 ## External Actions
 

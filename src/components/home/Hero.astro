@@ -1,0 +1,55 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import { PUBLIC_CONTACT_URL } from '@/data/types'
+import Reveal from '@/components/motion/Reveal.astro'
+import Button from '@/components/ui/Button.astro'
+
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const ui = getUI(lang)
+const base = lang === 'en' ? '' : '/th'
+---
+
+<section id="home" class="mx-auto grid max-w-[1280px] gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.1fr_0.9fr] md:items-start md:py-24">
+  <div>
+    <Reveal>
+      <span class="pixel-label font-pixel">{ui.heroEyebrow}</span>
+    </Reveal>
+    <Reveal delay={80}>
+      <h1 class="mt-5 text-4xl font-semibold leading-[1.06] text-portfolio-ink sm:text-6xl lg:text-[4.25rem]">
+        {ui.heroTitle}
+      </h1>
+    </Reveal>
+    <Reveal delay={160}>
+      <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-portfolio-muted">{ui.heroBody}</p>
+    </Reveal>
+    <Reveal delay={240}>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href={`${base}/#work`}>{ui.heroPrimaryCta}</Button>
+        <Button href={PUBLIC_CONTACT_URL} variant="secondary" external={true}>
+          {ui.heroSecondaryCta}
+        </Button>
+      </div>
+    </Reveal>
+  </div>
+
+  <Reveal delay={320}>
+    <div class="hard-frame bg-portfolio-surface p-6 sm:p-8">
+      <span class="pixel-label font-pixel">{ui.proofLabel}</span>
+      <ul class="mt-6 space-y-5">
+        {ui.proofItems.map((item) => (
+          <li class="flex gap-3">
+            <span class="mt-1 h-2 w-2 shrink-0 bg-portfolio-accent" aria-hidden="true" />
+            <div>
+              <p class="font-medium text-portfolio-ink">{item.label}</p>
+              <p class="text-sm text-portfolio-muted">{item.value}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Reveal>
+</section>

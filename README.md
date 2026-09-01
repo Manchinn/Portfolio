@@ -1,53 +1,55 @@
 # Software Engineering Portfolio
 
-Static-first, anonymous software engineering portfolio with bilingual English and Thai content. It presents project proof, technical articles, capabilities, and a privacy-conscious project inquiry workflow.
+Static-first, software engineering portfolio with bilingual English and Thai content. It presents project proof, technical articles, capabilities, and a privacy-conscious project inquiry workflow.
+
+Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The soft-pixel design tokens come from `DESIGN.md`.
 
 ## Stack
 
-- Next.js 15 App Router
-- React 19
+- Astro 5 (static output)
+- Content Collections (projects + articles, per-locale)
+- Built-in i18n routing (`en` default at `/`, `th` at `/th/`)
+- React 19 island (mobile menu) via `@astrojs/react`
+- Tailwind CSS 4 (`@tailwindcss/vite`)
 - TypeScript
-- Tailwind CSS 4
-- Vercel deployment from `master`
+- `@astrojs/sitemap` — deployed on Vercel from `master`
 
 The app has no backend, application API, runtime database, CMS, or required runtime environment variables.
 
 ## Routes
 
-- `/` - portfolio home inside the shared navbar/footer shell
-- `/article/[slug]` - statically generated technical article
-- Contact CTAs open a public GitHub Issues URL
+- `/` — English portfolio home
+- `/th/` — Thai portfolio home
+- `/article/[slug]/` — statically generated English technical article
+- `/th/article/[slug]/` — Thai article
+- Contact CTAs open a public GitHub Issues URL (`src/data/types.ts` → `PUBLIC_CONTACT_URL`)
 
-## Source of Truth
+## Content
 
-- `src/data/portfolio.ts` - EN/TH navigation, projects, articles, and public contact URL
-- `src/data/types.ts` - static content contracts
-- `src/i18n/` - language provider, helpers, and UI locale files
-- `src/app/(portfolio)/` - portfolio routes and shared shell
-- `src/components/portfolio/` - main portfolio experience
-- `next.config.ts` - global security headers and build-only directory override
+- `src/content/projects/{en,th}/` — localized project records (JSON)
+- `src/content/articles/{en,th}/` — localized long-form articles (Markdown)
+- `src/i18n/ui.ts` — all chrome/marketing copy (EN/TH) + `getUI()`
+- `src/content.config.ts` — content schemas + `entrySlug()` (slug derived from entry id, not frontmatter — Astro reserves `slug`)
+- The slug is derived from the entry id (filename); do **not** declare `slug` in the schema/frontmatter.
 
-Keep English and Thai records synchronized, including project and article slugs.
+Keep English and Thai records synchronized, including article slugs and filenames.
 
 ## Local Development
 
-```powershell
+```sh
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:4321`.
 
 ## Verification
 
-```powershell
-npm run build
-powershell -ExecutionPolicy Bypass -File scripts/verify.ps1
-powershell -ExecutionPolicy Bypass -File scripts/review.ps1
-powershell -ExecutionPolicy Bypass -File scripts/deploy-check.ps1 -Env preview
+```sh
+npm run build        # astro build — the completion gate
+npx astro check      # TypeScript diagnostics (0 errors expected)
+npm run preview      # serve dist locally
 ```
-
-`npm run build` uses `scripts/build.mjs`. If a local dev server is running on ports `3000` through `3003`, the wrapper builds into `.next-build-local` so it does not disturb the active `.next` directory. CI and Vercel use the normal build output.
 
 ## Content and Privacy
 

@@ -1,0 +1,13 @@
+---
+interface Props {
+  children?: string
+  as?: 'h1' | 'h2' | 'h3'
+  class?: string
+}
+const { as = 'h2', class: className = '' } = Astro.props
+const Tag = as
+---
+
+<Tag class={`text-3xl font-semibold tracking-tight text-portfolio-ink sm:text-4xl lg:text-[2.5rem] leading-[1.1] ${className}`}>
+  <slot />
+</Tag>

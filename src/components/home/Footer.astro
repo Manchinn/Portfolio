@@ -1,0 +1,27 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const ui = getUI(lang)
+const base = lang === 'en' ? '' : '/th'
+---
+
+<footer class="mt-20 border-t-2 border-portfolio-ink/15 bg-portfolio-surface">
+  <div class="mx-auto flex max-w-[1280px] flex-col items-start justify-between gap-4 px-5 py-8 sm:flex-row sm:items-center sm:px-8">
+    <p class="font-pixel text-xs uppercase tracking-[0.08em] text-portfolio-muted">
+      {ui.portfolioLabel}
+    </p>
+    <div class="flex items-center gap-5 text-sm text-portfolio-muted">
+      <a href={`${base}/#contact`} class="hover:text-portfolio-accent">
+        {ui.nav.contact}
+      </a>
+      <a href={`${base}/#work`} class="hover:text-portfolio-accent">
+        {ui.nav.work}
+      </a>
+    </div>
+  </div>
+</footer>

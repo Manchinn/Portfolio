@@ -45,17 +45,18 @@ There is no `/saas`, `/work/[slug]`, or `/work-with-me` product route.
 
 | Concern | Implemented source |
 |---------|--------------------|
-| Color, radius, shadow, font tokens | `src/app/globals.css` |
-| Fonts and global metadata | `src/app/layout.tsx` |
-| Shared chrome labels and CTAs | `src/content/shared.ts` |
-| Homepage marketing sections | `src/content/home.ts` |
-| Article route chrome | `src/content/article.ts` |
-| Section and button primitives | `src/components/portfolio/primitives.tsx` |
-| Homepage composition | `src/components/portfolio/HomePage.tsx` |
-| Article composition | `src/app/(portfolio)/article/[slug]/ArticleContent.tsx` |
-| Navigation and language controls | `src/components/layout/Navbar/Navbar.tsx` |
-| Contact CTA (external) | `publicContactUrl` + home/article/footer CTAs |
-| Motion behavior | `src/components/motion/MotionPrimitives.tsx` |
+| Color, radius, shadow, font tokens | `src/styles/global.css` |
+| Fonts and global metadata | `src/layouts/BaseLayout.astro` |
+| Shared chrome labels and CTAs | `src/i18n/ui.ts` |
+| Homepage marketing sections | `src/i18n/ui.ts` |
+| Article route chrome | `src/i18n/ui.ts` |
+| Section and button primitives | `src/components/ui/` |
+| Homepage composition | `src/components/home/HomePage.astro` |
+| Article composition | `src/layouts/ArticleLayout.astro` + `src/content/articles/` |
+| Navigation and language controls | `src/components/home/Navbar.astro` + `src/components/ui/MobileMenu.tsx` (React island) |
+| Content records | `src/content/projects/` + `src/content/articles/` |
+| Contact CTA (external) | `PUBLIC_CONTACT_URL` + home/article/footer CTAs |
+| Motion behavior | `src/components/motion/Reveal.astro` |
 
 When this document and source disagree, source is authoritative until both are updated together.
 
@@ -185,7 +186,7 @@ Future Hallmark runs read this document first. Pages share tokens, type, CTA voi
 
 ## 12. Exports
 
-Runtime source of truth: `src/app/globals.css` `@theme`. Portable mirror: root `tokens.css`.
+Runtime source of truth: `src/styles/global.css` `@theme`. Portable mirror: root `tokens.css`.
 
 ### tokens.css
 

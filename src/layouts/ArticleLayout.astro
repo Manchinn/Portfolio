@@ -1,0 +1,95 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import Navbar from '@/components/home/Navbar.astro'
+import Footer from '@/components/home/Footer.astro'
+
+interface Related {
+  slug: string
+  title: string
+  readTime: string
+}
+
+interface Props {
+  lang: Language
+  title: string
+  excerpt: string
+  category: string
+  readTime: string
+  related: Related[]
+}
+const { lang, title, excerpt, category, readTime, related } = Astro.props
+const ui = getUI(lang)
+const backHref = lang === 'en' ? '/#articles' : '/th/#articles'
+const articlePath = (slug: string) => (lang === 'en' ? `/article/${slug}/` : `/th/article/${slug}/`)
+---
+
+<div class="min-h-screen">
+  <Navbar lang={lang} />
+  <article class="mx-auto max-w-[760px] px-5 py-16 sm:px-8">
+    <a href={backHref} class="pixel-label font-pixel hover:text-portfolio-accent-strong">
+      {ui.back}
+    </a>
+
+    <header class="mt-8 grid gap-6 border-b-2 border-portfolio-line pb-8 sm:grid-cols-[2fr_1fr]">
+      <div>
+        <h1 class="text-3xl font-semibold leading-tight text-portfolio-ink sm:text-4xl">{title}</h1>
+        <p class="mt-4 text-portfolio-muted">{excerpt}</p>
+      </div>
+      <div class="sm:text-right">
+        <p class="pixel-label font-pixel">{category}</p>
+        <p class="mt-2 font-mono text-xs text-portfolio-muted">{readTime}</p>
+      </div>
+    </header>
+
+    <div class="article-body mt-10">
+      <slot />
+    </div>
+
+    {related.length > 0 && (
+      <section class="mt-16 border-t-2 border-portfolio-line pt-10">
+        <p class="pixel-label font-pixel">{ui.related}</p>
+        <ol class="mt-6 space-y-4">
+          {related.map((a) => (
+            <li>
+              <a href={articlePath(a.slug)} class="group flex items-center justify-between gap-4 py-1">
+                <span class="font-medium text-portfolio-ink group-hover:text-portfolio-accent">{a.title}</span>
+                <span class="font-mono text-xs text-portfolio-muted">{a.readTime}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+  </article>
+  <Footer lang={lang} />
+</div>
+
+<style is:global>
+  .article-body > * {
+    color: var(--color-portfolio-ink);
+  }
+  .article-body p {
+    margin: 0 0 1.5rem;
+    line-height: 1.75;
+  }
+  .article-body h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-portfolio-ink);
+  }
+  .article-body ul {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .article-body li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+  }
+  .article-body strong {
+    font-weight: 600;
+  }
+</style>

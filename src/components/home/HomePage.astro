@@ -1,0 +1,47 @@
+---
+import type { Language } from '@/i18n/ui'
+import Navbar from '@/components/home/Navbar.astro'
+import Hero from '@/components/home/Hero.astro'
+import SelectedWork from '@/components/home/SelectedWork.astro'
+import Capabilities from '@/components/home/Capabilities.astro'
+import ArticlesIndex from '@/components/home/ArticlesIndex.astro'
+import Contact from '@/components/home/Contact.astro'
+import Footer from '@/components/home/Footer.astro'
+
+interface Project {
+  title: string
+  description: string
+  tech: string[]
+  date: string
+  category: string
+  caseStudy: { problem: string; built: string; result: string }
+  highlights: string[]
+}
+
+interface Article {
+  slug: string
+  title: string
+  excerpt: string
+  category: string
+  readTime: string
+}
+
+interface Props {
+  lang: Language
+  project: Project
+  articles: Article[]
+}
+const { lang, project, articles } = Astro.props
+---
+
+<div class="min-h-screen">
+  <Navbar lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <SelectedWork lang={lang} project={project} />
+    <Capabilities lang={lang} />
+    <ArticlesIndex lang={lang} articles={articles} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</div>

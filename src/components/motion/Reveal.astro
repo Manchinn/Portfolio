@@ -1,0 +1,33 @@
+---
+interface Props {
+  delay?: number
+}
+const { delay = 0 } = Astro.props
+---
+
+<div class="reveal" style={`animation-delay:${delay}ms`}>
+  <slot />
+</div>
+
+<style>
+  .reveal {
+    opacity: 0;
+    animation: reveal 500ms ease-out forwards;
+  }
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

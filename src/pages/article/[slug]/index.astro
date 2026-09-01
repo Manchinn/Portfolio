@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content'
+import { entrySlug } from '@/content.config'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import ArticleLayout from '@/layouts/ArticleLayout.astro'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('articles', ({ data }) => data.lang === 'en')
+  return entries.map((entry) => ({
+    params: { slug: entrySlug(entry.id) },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const lang = 'en'
+const slug = entrySlug(entry.id)
+const { Content } = await entry.render()
+
+const all = await getCollection('articles', ({ data }) => data.lang === 'en')
+const related = all
+  .filter((e) => entrySlug(e.id) !== slug)
+  .slice(0, 2)
+  .map((e) => ({ slug: entrySlug(e.id), title: e.data.title, readTime: e.data.readTime }))
+---
+
+<BaseLayout lang={lang} title={entry.data.title} ogType="article">
+  <ArticleLayout
+    lang={lang}
+    title={entry.data.title}
+    excerpt={entry.data.excerpt}
+    category={entry.data.category}
+    readTime={entry.data.readTime}
+    related={related}
+  >
+    <Content />
+  </ArticleLayout>
+</BaseLayout>

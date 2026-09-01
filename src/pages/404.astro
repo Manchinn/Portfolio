@@ -1,0 +1,21 @@
+---
+import type { Language } from '@/i18n/ui'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Button from '@/components/ui/Button.astro'
+
+const lang: Language = 'en'
+const backHref = '/'
+---
+
+<BaseLayout lang={lang} title="Page not found">
+  <div class="grid min-h-screen place-items-center px-5">
+    <div class="text-center">
+      <p class="pixel-label font-pixel">404</p>
+      <h1 class="mt-6 text-4xl font-semibold text-portfolio-ink">Page not found</h1>
+      <p class="mt-4 text-portfolio-muted">The page you are looking for does not exist.</p>
+      <div class="mt-8">
+        <Button href={backHref}>Back to home</Button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
