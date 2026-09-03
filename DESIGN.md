@@ -21,7 +21,7 @@ A clean, light **Product Studio** look: a single-page software-engineering portf
 | Chrome/marketing copy (EN/TH) | `src/i18n/ui.ts` |
 | Section/label/button primitives | `src/components/ui/` |
 | Homepage composition | `src/components/home/HomePage.astro` |
-| Content records | `src/content/projects/` + `src/content/articles/` (empty) |
+| Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (empty) |
 | Contact CTA (external) | `PUBLIC_CONTACT_URL` |
 | Motion behavior | `src/components/motion/Reveal.astro` |
 
@@ -63,7 +63,7 @@ Thai and English must wrap without clipping at mobile widths. Do not set Thai bo
 - Content width: `max-w-[1200px]`.
 - Section padding: ~16 (px-5/py-16) across breakpoints.
 - Cards: `--color-surface`, `border 1px var(--color-line)`, `border-radius var(--radius-lg)` (16px), `box-shadow var(--shadow-sm)`. Hover lifts with `--shadow-md` + `translateY(-2px)` (`card-hover`).
-- The Work section renders a dashed empty state card until the `projects` collection is populated.
+- The Work section renders each project as a non-navigational card (category eyebrow, title, description, a Problem → Built → Result case-study block, tech chips); a dashed empty-state card appears only when the `projects` collection is empty.
 
 ## 6. Controls
 

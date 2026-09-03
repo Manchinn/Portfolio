@@ -1,0 +1,13 @@
+{
+  "lang": "en",
+  "title": "Chat Automation Gateway",
+  "description": "A bridge between a LINE account and a Discord server that routes approved messages to an automation backend behind fail-closed authorization.",
+  "tech": ["TypeScript", "LINE Messaging API", "Discord API", "REST"],
+  "category": "Messaging · Automation",
+  "date": "2026-07",
+  "caseStudy": {
+    "problem": "I wanted a single service to receive messages from a LINE account and a Discord community and route them to an automation backend — without exposing an open relay anyone could abuse.",
+    "built": "A bridge that ingests webhooks from LINE and Discord, matches each sender against a per-context allowlist, and forwards only approved messages to an automation backend over REST, with health and error reporting.",
+    "result": "Unapproved senders are rejected by default (fail-closed) and the path stays observable, so automation runs for a small approved audience instead of an open public endpoint."
+  }
+}

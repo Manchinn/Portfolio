@@ -7,7 +7,7 @@ This context keeps design and implementation decisions consistent across the hom
 ## Language
 
 **Software Engineering Portfolio**:
-The canonical public product: a bilingual (EN/TH) portfolio focused on full-stack systems delivery. Content is currently a shell (hero, capabilities, contact) with the Work section awaiting project entries.
+The canonical public product: a bilingual (EN/TH) portfolio focused on full-stack systems delivery. Content includes a populated Work section (EN/TH project records) alongside hero, capabilities, and contact.
 _Avoid_: Personal-data-heavy profile, fictional product company, unsupported AI claims.
 
 **Product Studio Visual Baseline**:
@@ -15,7 +15,7 @@ Light theme, near-black ink (`#18181b`), single indigo accent (`#4f46e5`), white
 _Avoid_: Reintroducing the retired soft-pixel system unless explicitly approved.
 
 **Homepage Case Summary**:
-Selected work is intended as in-page problem / built / result proof. The Work section currently renders an empty "coming soon" state because the `projects` collection is empty.
+Selected work is intended as in-page problem / built / result proof. The Work section renders each project as a non-navigational card (a category eyebrow, title, description, a Problem → Built → Result case-study block, and a tech-chip row); a dashed "coming soon" card is shown only when no records exist.
 _Avoid_: Vague claims, private production data, implying demos are live backends.
 
 **Global Portfolio Shell**:

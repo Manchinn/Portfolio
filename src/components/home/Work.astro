@@ -10,6 +10,7 @@ interface Project {
   description: string
   tech: string[]
   category: string
+  caseStudy?: { problem: string; built: string; result: string }
 }
 
 interface Props {
@@ -18,7 +19,9 @@ interface Props {
 }
 const { lang, projects } = Astro.props
 const ui = getUI(lang)
-const base = lang === 'en' ? '' : '/th'
+const labels = ui.workCaseStudy
+// The work-detail route is retired, so each card is a non-navigational proof
+// panel (problem → built → result) scannable in place. No /work/:slug link.
 ---
 
 <section id="work" class="mx-auto max-w-[1200px] px-5 py-16 sm:px-8">
@@ -31,16 +34,32 @@ const base = lang === 'en' ? '' : '/th'
   {projects.length > 0 ? (
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {projects.map((p) => (
-        <a href={`${base}/work/${p.slug}`} class="card card-hover group p-8">
+        <article class="card card-hover group flex flex-col p-8">
           <p class="eyebrow">{p.category}</p>
           <h3 class="mt-3 text-xl font-semibold text-ink group-hover:text-accent">{p.title}</h3>
           <p class="mt-2 text-sm leading-relaxed text-muted">{p.description}</p>
+
+          {p.caseStudy && (
+            <dl class="mt-5 space-y-3 border-t border-line pt-5 text-sm">
+              {[
+                { label: labels.problem, text: p.caseStudy.problem },
+                { label: labels.built, text: p.caseStudy.built },
+                { label: labels.result, text: p.caseStudy.result },
+              ].map((row) => (
+                <div class="grid gap-1">
+                  <dt class="font-mono text-xs uppercase tracking-[0.12em] text-accent">{row.label}</dt>
+                  <dd class="leading-relaxed text-muted">{row.text}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
           <div class="mt-5 flex flex-wrap gap-2">
             {p.tech.map((t) => (
               <span class="rounded-md bg-surface-soft px-2.5 py-1 font-mono text-xs text-muted">{t}</span>
             ))}
           </div>
-        </a>
+        </article>
       ))}
     </div>
   ) : (

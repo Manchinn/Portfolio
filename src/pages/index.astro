@@ -1,13 +1,22 @@
 ---
+import { getCollection } from 'astro:content'
+import { entrySlug } from '@/content.config'
 import type { Language } from '@/i18n/ui'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import HomePage from '@/components/home/HomePage.astro'
 
-// The projects content collection is defined but empty. The Work section
-// renders a graceful empty state until project entries are added.
-const projectData = [] as { slug: string; title: string; description: string; tech: string[]; category: string }[]
-
+// Load the English project records from the projects content collection.
 const lang: Language = 'en'
+const projectData = (
+  await getCollection('projects', ({ id }) => id.startsWith('en/'))
+).map((entry) => ({
+  slug: entrySlug(entry.id),
+  title: entry.data.title,
+  description: entry.data.description,
+  tech: entry.data.tech,
+  category: entry.data.category,
+  caseStudy: entry.data.caseStudy,
+}))
 ---
 
 <BaseLayout lang={lang}>

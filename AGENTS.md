@@ -16,7 +16,7 @@ The parent folder contains project-level docs. Run git and package commands from
 
 - Static-first **Astro 5** portfolio, bilingual English and Thai, **Product Studio** design.
 - `/` renders the English one-page portfolio; `/th/` renders the Thai version.
-- Content lives in Astro content collections: projects (`src/content/projects/{en,th}/`) and articles (`src/content/articles/{en,th}/`) — **both currently empty**. The Work section renders a graceful empty state until entries are added.
+- Content lives in Astro content collections: projects (`src/content/projects/{en,th}/` — populated with EN/TH records) and articles (`src/content/articles/{en,th}/` — empty). The Work section renders each project as a non-navigational card (category, title, description, Problem → Built → Result case-study, tech chips) and falls back to a graceful empty state only if no records exist.
 - All chrome/marketing copy lives in `src/i18n/ui.ts`.
 - Contact CTAs open a public GitHub Issues URL (`PUBLIC_CONTACT_URL`) in `src/data/types.ts`. The app does not collect or store inquiry form data.
 

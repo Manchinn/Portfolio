@@ -4,7 +4,7 @@
 
 ## Product
 
-A static-first, bilingual (EN/TH) software engineering portfolio. It presents a hero, capabilities, and an external project inquiry handoff, with a **Work section currently empty** (renders "coming soon") until project entries are added to the content collection. No personal contact details or private operational data are exposed.
+A static-first, bilingual (EN/TH) software engineering portfolio. It presents a hero, capabilities, an external project inquiry handoff, and a **Work section populated from the projects content collection** (EN/TH records). No personal contact details or private operational data are exposed.
 
 ## Users
 
@@ -40,7 +40,7 @@ The site positions the work as software engineering and full-stack systems deliv
 ## Current Content Contract
 
 - English and Thai are the only supported languages, via Astro i18n routing (`/` and `/th/`).
-- Project and article entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); the `projects` collection is currently empty.
+- Project and article entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); the `projects` collection holds EN/TH records and `articles` is empty.
 - Chrome + marketing copy lives in `src/i18n/ui.ts`.
 - Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. The app does not collect or store inquiry form data.
 - Public copy stays anonymized and must not expose credentials, private URLs, personal contact data, or nonpublic infrastructure details.

@@ -1,0 +1,13 @@
+{
+  "lang": "en",
+  "title": "Subscription SaaS Starter",
+  "description": "A reusable subscription app base — auth, checkout, and webhook-driven billing — configured as one branded paid product.",
+  "tech": ["TypeScript", "Next.js", "Stripe", "LINE"],
+  "category": "SaaS · Billing",
+  "date": "2026-08",
+  "caseStudy": {
+    "problem": "To validate a paid-product idea quickly, I needed a repeatable subscription base — auth, checkout, and billing state — instead of rebuilding payments from scratch every time.",
+    "built": "A forked subscription starter configured for a single product: sign-up and sign-in, a card + local-payment checkout flow, webhook-driven billing state, and provider credentials set outside application code.",
+    "result": "Shortened the path from idea to a testable paid product, with subscription state driven by server-side webhooks rather than ad-hoc client checks."
+  }
+}

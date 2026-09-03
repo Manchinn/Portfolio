@@ -30,6 +30,11 @@ export const UI = {
     workEmptyTitle: 'Selected work coming soon',
     workEmptyBody:
       'This section is where I present real projects with a clear problem → build → result story. It will be filled out next.',
+    workCaseStudy: {
+      problem: 'Problem',
+      built: 'Built',
+      result: 'Result',
+    },
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'What I can build for you.',
@@ -90,6 +95,11 @@ export const UI = {
     workEmptyTitle: 'ผลงานจะถูกเพิ่มเร็วๆ นี้',
     workEmptyBody:
       'ส่วนนี้จะเป็นที่โชว์โปรเจกต์จริงพร้อมเรื่องราวปัญหา → การสร้าง → ผลลัพธ์ที่ชัดเจน จะเติมในขั้นถัดไป',
+    workCaseStudy: {
+      problem: 'ปัญหา',
+      built: 'สิ่งที่สร้าง',
+      result: 'ผลลัพธ์',
+    },
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
