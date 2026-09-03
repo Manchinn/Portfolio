@@ -19,26 +19,26 @@ export default function MobileMenu({ links, alternateHref }: { links: Link[]; al
       {open && (
         <div className="absolute top-[64px] right-4 left-4 z-50 overflow-hidden rounded-lg border border-line bg-surface shadow-md">
           <ul className="flex flex-col">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="block border-b border-line px-4 py-3 text-sm font-medium text-ink"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
+          {links.map((link) => (
+            <li key={link.href}>
               <a
-                href={alternateHref}
+                href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-3 text-sm font-medium text-accent"
+                className="block border-b border-dashed border-line px-4 py-3 font-mono text-xs uppercase tracking-[0.08em] text-ink"
               >
-                {alternateHref === '/th' ? 'ไทย' : 'English'}
+                {link.label}
               </a>
             </li>
+          ))}
+          <li>
+            <a
+              href={alternateHref}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-3 font-mono text-xs uppercase tracking-[0.08em] text-accent"
+            >
+              {alternateHref === '/th' ? 'ไทย' : 'English'}
+            </a>
+          </li>
           </ul>
         </div>
       )}

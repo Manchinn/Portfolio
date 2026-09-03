@@ -1,7 +1,7 @@
-/* Product Studio · design system — light-editorial hybrid
- * light paper field + Klein blue accent (out-of-gamut pop) + acid-yellow spot,
- * editorial serif display. Free fonts only (no Blaze Type). The --u fluid unit
- * replaces fixed breakpoint guessing: 1 --u = 1px on a 1440px artboard.
+/* Portfolio · design system — "machine readout"
+ * pure white field + single cyan-blue (#0071a9) + typewriter mono + dashed
+ * blueprint lines + flat shapes (no cards, no shadows, no grain, no radius).
+ * Reconstructed from the 2026-09-03 reference capture (white/bg + #0071a9).
  * token names: ink / muted / line / accent / surface
  */
 /* source(none) disables v4 automatic detection, which otherwise scans the whole
@@ -10,31 +10,28 @@
 @source '../../src';
 
 @theme {
-  --color-bg: #fafafa;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-surface-soft: #f4f4f5;
-  --color-ink: #18181b;
-  --color-muted: #52525b;
-  --color-line: #e4e4e7;
-  --color-line-strong: #d4d4d8;
-
-  /* Editorial palette — Klein blue primary, acid yellow as a spot only */
-  --color-accent: #0000f2;
-  --color-accent-strong: #0029de;
-  --color-accent-soft: #e9edff;
-  --color-accent-yellow: #edff45;
+  --color-surface-soft: #eef6fa;
+  --color-ink: #0071a9;
+  --color-muted: #2d7ca4;
+  --color-line: #8fc2dc;
+  --color-line-strong: #4da0c7;
+  --color-accent: #0071a9;
+  --color-accent-strong: #005a8a;
+  --color-accent-soft: #eaf4f9;
   --color-on-accent: #ffffff;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow-md: 0 4px 16px rgba(16, 24, 40, 0.08);
+  --shadow-sm: none;
+  --shadow-md: none;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* flat geometry — everything sharp */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 
-  /* Editorial free-font stack (no Blaze Type); Noto Sans/Serif Thai carry Thai */
-  --font-display: 'Instrument Serif', 'Noto Serif Thai', Georgia, serif;
-  --font-sans: 'Archivo', 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  /* typewriter mono everywhere; Noto Sans Thai carries Thai glyphs */
+  --font-sans: 'Courier Prime', 'Noto Sans Thai', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-mono: 'Courier Prime', 'Noto Sans Thai', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -74,11 +71,11 @@ body {
   container-type: inline-size;
   --u: max(calc(100cqw / 1440), var(--u-anchor));
 
-  /* derived editorial scale — same ratios as the design's 1440px frame */
+  /* derived scale — mono/caps reads wider, so a touch smaller than before */
   --hw-gutter: max(calc(110 * var(--u)), 1.25rem);
-  --hw-text-display: max(calc(62 * var(--u)), 2.5rem);
-  --hw-text-h2: max(calc(38 * var(--u)), 1.875rem);
-  --hw-text-body: max(calc(19 * var(--u)), 1rem);
+  --hw-text-display: max(calc(50 * var(--u)), 1.75rem);
+  --hw-text-h2: max(calc(32 * var(--u)), 1.375rem);
+  --hw-text-body: max(calc(18 * var(--u)), 1rem);
 }
 
 /* Mobile re-anchors to a narrow 760px artboard and caps --u instead of
@@ -100,11 +97,11 @@ a:focus-visible,
 [role='option']:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
 }
 
 ::selection {
-  background: var(--color-accent-yellow);
+  background: var(--color-accent-soft);
   color: var(--color-ink);
 }
 
@@ -118,82 +115,89 @@ a:focus-visible,
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-line-strong);
-  border-radius: 999px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
 }
 
-/* ── editorial display type ────────────────────────────────────────────
- * tall serif, single weight (Instrument Serif), tight leading. no hand
- * negative margins needed thanks to balanced wrapping.
+/* ── machine display type ──────────────────────────────────────────────
+ * mono, all-caps, wide tracking — the "system readout" voice for every
+ * heading. Noto Sans Thai (fallback) has no capitals, so Thai headings
+ * keep natural case but inherit the same rhythm.
  */
 .display {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.08;
   text-wrap: balance;
 }
 
-/* ── Product Studio recipes ─────────────────────────────────────────── */
+/* ── flat recipes (no cards/boxes — elements float on the white field) ─ */
 .card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .card-hover {
-  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .card-hover:hover {
-  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
-  border-color: var(--color-line-strong);
-}
-
-/* crisp 4-way box-shadow outline — sharper than a border and it never
- * participates in layout or gets rounded by border-radius. */
-.card-outline {
-  border-color: transparent;
-  box-shadow:
-    1px 0 0 0 var(--color-line-strong),
-    -1px 0 0 0 var(--color-line-strong),
-    0 1px 0 0 var(--color-line-strong),
-    0 -1px 0 0 var(--color-line-strong);
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-accent);
-  font-weight: 500;
+  font-weight: 400;
 }
 
-/* ── subtle risograph grain ────────────────────────────────────────────
- * inline feTurbulence overlaid with color-burn turns a flat SVG into a
- * paper/screen-print texture on a light field (overlay/multiply would just
- * leave a dirty grey). opacity is kept low for readability.
+/* ── duotone figure placeholder ────────────────────────────────────────
+ * stands in for a real project image; swap for an <img> later.
+ * label is rendered in markup (language-aware), not in CSS content.
  */
-.grain {
+.placeholder-fig {
   position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #d8ecf6 0%, #a9d0e7 42%, #5e9ec6 100%);
+  border: 1px dashed var(--color-line-strong);
+  overflow: hidden;
 }
-.grain::after {
-  content: "";
+
+.placeholder-fig::before {
+  content: '';
   position: absolute;
   inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.28) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+.placeholder-fig figcaption {
+  position: relative;
   z-index: 1;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 12rem 12rem;
-  mix-blend-mode: color-burn;
-  opacity: 0.08;
+  max-width: 24ch;
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.6;
+  color: #0a4a6e;
 }
 
 @media (prefers-reduced-motion: reduce) {

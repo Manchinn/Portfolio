@@ -22,6 +22,7 @@ export const UI = {
       { label: 'Static & fast', value: 'Astro SSG' },
       { label: 'Privacy-first', value: 'No form, no tracking' },
     ],
+    heroSystemLabel: 'System',
     // Work (empty until projects are added)
     workEyebrow: 'Selected work',
     workTitle: 'A focused view of the software I build.',
@@ -35,6 +36,7 @@ export const UI = {
       built: 'Built',
       result: 'Result',
     },
+    workFigPlaceholder: 'Fig. — image placeholder · swap in a real figure',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'What I can build for you.',
@@ -88,6 +90,7 @@ export const UI = {
       { label: 'Static และเร็ว', value: 'Astro SSG' },
       { label: 'ความเป็นส่วนตัว', value: 'ไม่มีฟอร์ม ไม่มี tracking' },
     ],
+    heroSystemLabel: 'ระบบ',
     // Work (empty until projects are added)
     workEyebrow: 'Selected work',
     workTitle: 'โฟกัสซอฟต์แวร์ที่ผมสร้าง',
@@ -100,6 +103,7 @@ export const UI = {
       built: 'สิ่งที่สร้าง',
       result: 'ผลลัพธ์',
     },
+    workFigPlaceholder: 'รูปตัวอย่าง — ใส่รูปจริงภายหลัง',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',

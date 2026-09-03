@@ -11,19 +11,21 @@ const { lang } = Astro.props
 const ui = getUI(lang)
 ---
 
-<section id="capabilities" class="w-full px-[var(--hw-gutter)] py-[calc(96*var(--u))]">
+<section id="capabilities" class="w-full border-b border-dashed border-line px-[var(--hw-gutter)] py-[calc(96*var(--u))]">
   <SectionLabel>{ui.capabilitiesEyebrow}</SectionLabel>
   <SectionHeading as="h2" class="mt-4">
     {ui.capabilitiesTitle}
   </SectionHeading>
-  <p class="mt-4 max-w-[60ch] text-muted">{ui.capabilitiesSubtitle}</p>
+  <p class="mt-4 max-w-[60ch] text-[var(--hw-text-body)] text-muted">{ui.capabilitiesSubtitle}</p>
 
-  <div class="mt-10 grid gap-5 sm:grid-cols-2">
+  <div class="mt-6 grid md:grid-cols-2 md:gap-x-[calc(48*var(--u))]">
     {ui.capabilityCards.map((card, i) => (
-      <div class="card card-hover p-[calc(32*var(--u))]">
-        <p class="font-mono text-sm font-medium text-accent">{String(i + 1).padStart(2, '0')}</p>
-        <h3 class="mt-3 text-lg font-semibold text-ink">{card.title}</h3>
-        <p class="mt-2 text-sm leading-relaxed text-muted">{card.statement}</p>
+      <div class="border-t border-dashed border-line py-[calc(32*var(--u))] md:even:border-l md:even:pl-[calc(48*var(--u))]">
+        <span class="font-mono text-xs uppercase tracking-[0.12em] text-accent">
+          Module {String(i + 1).padStart(2, '0')}
+        </span>
+        <h3 class="display mt-3 text-[calc(20*var(--u))] text-ink">{card.title}</h3>
+        <p class="mt-2 text-[var(--hw-text-body)] text-muted">{card.statement}</p>
       </div>
     ))}
   </div>

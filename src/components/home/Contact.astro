@@ -13,17 +13,19 @@ const ui = getUI(lang)
 ---
 
 <section id="contact" class="w-full px-[var(--hw-gutter)] py-[calc(96*var(--u))]">
-  <div class="card grid gap-[calc(32*var(--u))] p-[calc(40*var(--u))] lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-    <div>
-      <SectionLabel>{ui.contactEyebrow}</SectionLabel>
-      <h2 class="display mt-4 text-[calc(30*var(--u))] text-ink">{ui.contactTitle}</h2>
-      <p class="mt-4 max-w-[52ch] leading-relaxed text-muted">{ui.contactBody}</p>
-    </div>
-    <div class="flex flex-col items-start gap-4">
-      <Button href={PUBLIC_CONTACT_URL} external={true}>
-        {ui.contactAction}
-      </Button>
-      <p class="text-xs leading-relaxed text-muted">{ui.contactNotice}</p>
+  <div class="border border-dashed border-line p-[calc(48*var(--u))]">
+    <div class="grid gap-[calc(32*var(--u))] lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+      <div>
+        <SectionLabel>{ui.contactEyebrow}</SectionLabel>
+        <h2 class="display mt-4 text-[calc(26*var(--u))] text-ink">{ui.contactTitle}</h2>
+        <p class="mt-4 max-w-[52ch] text-[var(--hw-text-body)] leading-relaxed text-muted">{ui.contactBody}</p>
+      </div>
+      <div class="flex flex-col items-start gap-4 lg:items-end">
+        <Button href={PUBLIC_CONTACT_URL} external={true}>
+          {ui.contactAction}
+        </Button>
+        <p class="text-xs leading-relaxed text-muted">{ui.contactNotice}</p>
+      </div>
     </div>
   </div>
 </section>

@@ -1,6 +1,6 @@
 # Portfolio Design Context
 
-> Current as of 2026-09-02. Shared vocabulary for the implemented Product Studio portfolio after the Astro rebuild.
+> Current as of 2026-09-03. Shared vocabulary for the implemented Machine Readout portfolio after the Astro rebuild.
 
 This context keeps design and implementation decisions consistent across the homepage, navigation, and external inquiry handoff.
 
@@ -10,12 +10,12 @@ This context keeps design and implementation decisions consistent across the hom
 The canonical public product: a bilingual (EN/TH) portfolio focused on full-stack systems delivery. Content includes a populated Work section (EN/TH project records) alongside hero, capabilities, and contact.
 _Avoid_: Personal-data-heavy profile, fictional product company, unsupported AI claims.
 
-**Product Studio Visual Baseline**:
-Light theme, near-black ink (`#18181b`), single indigo accent (`#4f46e5`), white surfaces, subtle borders/shadows, generous whitespace, Inter body + Noto Sans Thai + JetBrains Mono for code/chips. `DESIGN.md` and `src/styles/global.css` are authoritative for tokens.
-_Avoid_: Reintroducing the retired soft-pixel system unless explicitly approved.
+**Machine Readout Visual Baseline**:
+Pure white field (`#ffffff`), single cyan-blue (`#0071a9`) used as ink, accent, and line colour, typewriter monospace type (Courier Prime + Noto Sans Thai fallback), dashed blueprint separators, and flat radius-0 shapes — no cards, shadows, or grain. `DESIGN.md` and `src/styles/global.css` are authoritative for tokens.
+_Avoid_: Reintroducing the retired soft-pixel or Product Studio systems unless explicitly approved.
 
 **Homepage Case Summary**:
-Selected work is intended as in-page problem / built / result proof. The Work section renders each project as a non-navigational card (a category eyebrow, title, description, a Problem → Built → Result case-study block, and a tech-chip row); a dashed "coming soon" card is shown only when no records exist.
+Selected work is intended as in-page problem / built / result proof. The Work section renders each project as a flat non-navigational row: a duotone figure placeholder, the story (category, title, description, Problem → Built → Result), and a system readout (`REF / TECH / CASE`); a dashed empty-state block appears only when no records exist.
 _Avoid_: Vague claims, private production data, implying demos are live backends.
 
 **Global Portfolio Shell**:

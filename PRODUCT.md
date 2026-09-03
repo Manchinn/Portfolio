@@ -51,7 +51,7 @@ Clear, practical, and trustworthy. The voice is implementation-led and composed,
 
 ## Visual Direction
 
-Product Studio: light background, single indigo accent (`#4f46e5`), Inter / Noto Sans Thai / JetBrains Mono, subtle borders and shadows, rounded cards, generous whitespace. Exact tokens live in `DESIGN.md` and `src/styles/global.css`.
+Machine Readout: pure white field, single cyan-blue accent (`#0071a9`), Courier Prime typewriter mono + Noto Sans Thai, dashed blueprint separators, flat radius-0 shapes. Exact tokens live in `DESIGN.md` and `src/styles/global.css`.
 
 ## Design Principles
 
