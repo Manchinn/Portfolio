@@ -1,8 +1,13 @@
-/* Product Studio · design system for the new portfolio
- * light, clean, single indigo accent · Inter + Noto Sans Thai + JetBrains Mono
- * token names: ink / muted / line / accent / surface — plain, no soft-pixel retro
+/* Product Studio · design system — light-editorial hybrid
+ * light paper field + Klein blue accent (out-of-gamut pop) + acid-yellow spot,
+ * editorial serif display. Free fonts only (no Blaze Type). The --u fluid unit
+ * replaces fixed breakpoint guessing: 1 --u = 1px on a 1440px artboard.
+ * token names: ink / muted / line / accent / surface
  */
-@import 'tailwindcss';
+/* source(none) disables v4 automatic detection, which otherwise scans the whole
+ * repo minus .gitignore and harvests class names out of .agents/ skill docs. */
+@import 'tailwindcss' source(none);
+@source '../../src';
 
 @theme {
   --color-bg: #fafafa;
@@ -12,9 +17,12 @@
   --color-muted: #52525b;
   --color-line: #e4e4e7;
   --color-line-strong: #d4d4d8;
-  --color-accent: #4f46e5;
-  --color-accent-strong: #4338ca;
-  --color-accent-soft: #eef2ff;
+
+  /* Editorial palette — Klein blue primary, acid yellow as a spot only */
+  --color-accent: #0000f2;
+  --color-accent-strong: #0029de;
+  --color-accent-soft: #e9edff;
+  --color-accent-yellow: #edff45;
   --color-on-accent: #ffffff;
 
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
@@ -24,12 +32,16 @@
   --radius-md: 12px;
   --radius-lg: 16px;
 
-  --font-sans: 'Inter', 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Editorial free-font stack (no Blaze Type); Noto Sans/Serif Thai carry Thai */
+  --font-display: 'Instrument Serif', 'Noto Serif Thai', Georgia, serif;
+  --font-sans: 'Archivo', 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Courier Prime', 'Noto Sans Thai', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 :root {
   color-scheme: light;
+  /* floor for the fluid unit so proportions never collapse below this */
+  --u-anchor: 0.0212rem;
 }
 
 * {
@@ -51,6 +63,30 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  /* ── fluid unit (--u) ───────────────────────────────────────────────
+   * 1 --u = 1px on a 1440px artboard, so a size written calc(N * var(--u))
+   * is "N px in the 1440px frame" and scales proportionally at any width.
+   * cqw rather than vw lets any container re-anchor its own proportions.
+   * --u-anchor is the floor (desktop, max) / ceiling (mobile, min) that
+   * keeps type legible once the viewport gets narrow.
+   */
+  container-type: inline-size;
+  --u: max(calc(100cqw / 1440), var(--u-anchor));
+
+  /* derived editorial scale — same ratios as the design's 1440px frame */
+  --hw-gutter: max(calc(110 * var(--u)), 1.25rem);
+  --hw-text-display: max(calc(62 * var(--u)), 2.5rem);
+  --hw-text-h2: max(calc(38 * var(--u)), 1.875rem);
+  --hw-text-body: max(calc(19 * var(--u)), 1rem);
+}
+
+/* Mobile re-anchors to a narrow 760px artboard and caps --u instead of
+ * flooring it, so the phone layout is its own proportion, not a squeeze. */
+@media (width < 48rem) {
+  body {
+    --u: min(calc(100cqw / 760), var(--u-anchor));
+  }
 }
 
 button,
@@ -68,7 +104,7 @@ a:focus-visible,
 }
 
 ::selection {
-  background: var(--color-accent-soft);
+  background: var(--color-accent-yellow);
   color: var(--color-ink);
 }
 
@@ -89,7 +125,19 @@ a:focus-visible,
   background: var(--color-muted);
 }
 
-/* Product Studio recipes */
+/* ── editorial display type ────────────────────────────────────────────
+ * tall serif, single weight (Instrument Serif), tight leading. no hand
+ * negative margins needed thanks to balanced wrapping.
+ */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* ── Product Studio recipes ─────────────────────────────────────────── */
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-line);
@@ -107,6 +155,17 @@ a:focus-visible,
   border-color: var(--color-line-strong);
 }
 
+/* crisp 4-way box-shadow outline — sharper than a border and it never
+ * participates in layout or gets rounded by border-radius. */
+.card-outline {
+  border-color: transparent;
+  box-shadow:
+    1px 0 0 0 var(--color-line-strong),
+    -1px 0 0 0 var(--color-line-strong),
+    0 1px 0 0 var(--color-line-strong),
+    0 -1px 0 0 var(--color-line-strong);
+}
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -114,6 +173,27 @@ a:focus-visible,
   text-transform: uppercase;
   color: var(--color-accent);
   font-weight: 500;
+}
+
+/* ── subtle risograph grain ────────────────────────────────────────────
+ * inline feTurbulence overlaid with color-burn turns a flat SVG into a
+ * paper/screen-print texture on a light field (overlay/multiply would just
+ * leave a dirty grey). opacity is kept low for readability.
+ */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 12rem 12rem;
+  mix-blend-mode: color-burn;
+  opacity: 0.08;
 }
 
 @media (prefers-reduced-motion: reduce) {

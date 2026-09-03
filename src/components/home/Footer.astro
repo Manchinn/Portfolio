@@ -11,7 +11,7 @@ const base = lang === 'en' ? '' : '/th'
 ---
 
 <footer class="border-t border-line bg-surface">
-  <div class="mx-auto flex max-w-[1200px] flex-col items-start justify-between gap-4 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
+  <div class="flex w-full flex-col items-start justify-between gap-4 px-[var(--hw-gutter)] py-[calc(72*var(--u))] sm:flex-row sm:items-center">
     <a href={`${base}/#home`} class="flex items-center gap-2.5 font-semibold text-ink">
       <span class="grid h-7 w-7 place-items-center rounded-md bg-accent text-xs font-bold text-on-accent">C</span>
       {ui.brand}

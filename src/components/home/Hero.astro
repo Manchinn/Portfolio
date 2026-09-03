@@ -13,18 +13,18 @@ const ui = getUI(lang)
 const base = lang === 'en' ? '' : '/th'
 ---
 
-<section id="home" class="mx-auto grid max-w-[1200px] gap-10 px-5 pt-16 pb-12 sm:px-8 md:grid-cols-[1.15fr_0.85fr] md:items-center md:pt-24">
+<section id="home" class="grain relative grid w-full gap-10 px-[var(--hw-gutter)] py-[calc(96*var(--u))] md:grid-cols-[1.15fr_0.85fr] md:items-center">
   <div>
     <Reveal>
       <span class="eyebrow">{ui.heroEyebrow}</span>
     </Reveal>
     <Reveal delay={80}>
-      <h1 class="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+      <h1 class="display mt-5 text-[var(--hw-text-display)] text-ink">
         {ui.heroTitle}
       </h1>
     </Reveal>
     <Reveal delay={160}>
-      <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-muted">{ui.heroBody}</p>
+      <p class="mt-6 max-w-[52ch] text-[var(--hw-text-body)] leading-relaxed text-muted">{ui.heroBody}</p>
     </Reveal>
     <Reveal delay={240}>
       <div class="mt-8 flex flex-wrap gap-3">
@@ -37,7 +37,7 @@ const base = lang === 'en' ? '' : '/th'
   </div>
 
   <Reveal delay={320}>
-    <div class="card p-6 sm:p-8">
+    <div class="card card-outline p-[calc(32*var(--u))]">
       <p class="eyebrow">System</p>
       <ul class="mt-5 space-y-4">
         {ui.heroMeta.map((item) => (
