@@ -2,6 +2,7 @@
 import '@/styles/global.css'
 import type { Language } from '@/i18n/ui'
 import { getUI, META_DESCRIPTION } from '@/i18n/ui'
+import ScrollMotion from '@/components/motion/ScrollMotion.astro'
 
 interface Props {
   lang: Language
@@ -72,5 +73,6 @@ const hrefLang = lang === 'en'
   </head>
   <body>
     <slot />
+    <ScrollMotion />
   </body>
 </html>

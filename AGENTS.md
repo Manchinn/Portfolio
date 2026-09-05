@@ -49,6 +49,7 @@ src/pages/404.astro                       404 page
 src/components/home/                      Navbar, Hero, Work, Capabilities, Footer, HomePage
 src/components/ui/                        Button, SectionLabel, SectionHeading, MobileMenu (React island)
 src/components/motion/Reveal.astro        Hero-only stagger (reduced-motion aware)
+src/components/motion/ScrollMotion.astro Lenis + ScrollTrigger runtime (all routes)
 src/styles/global.css                     Tailwind v4 @theme tokens + Machine Readout recipes
 astro.config.mjs                          site, static output, i18n routing, integrations
 vercel.json                               Vercel Astro framework + build/output

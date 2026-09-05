@@ -100,6 +100,7 @@ src/
   components/home/                 Navbar, Hero, Work, Capabilities, Footer, HomePage
   components/ui/                   Button, SectionLabel, SectionHeading, MobileMenu (React island)
   components/motion/Reveal.astro   Hero-only stagger (reduced-motion aware)
+  components/motion/ScrollMotion.astro  Lenis + ScrollTrigger runtime (all routes)
   styles/global.css                Tailwind v4 @theme tokens + Machine Readout recipes
 astro.config.mjs                   site, static output, i18n routing, integrations
 vercel.json                        Vercel Astro framework + build/output

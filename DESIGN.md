@@ -31,7 +31,7 @@ generic clean-SaaS templates.
 | Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (curated EN/TH notes) |
 | Contact/intake surface | None in the current homepage |
 | OG cards (EN/TH) | `public/og/` + `scripts/og/` (regenerate: `scripts/og/render.sh`) |
-| Motion behavior | `src/components/motion/Reveal.astro` |
+| Motion behavior | `src/components/motion/Reveal.astro` + `ScrollMotion.astro` |
 
 ## 3. Color System
 
@@ -98,9 +98,11 @@ falls back to Noto Sans Thai glyphs.
 
 ## 7. Motion
 
-Hero-only stagger via `Reveal` (CSS `@keyframes`, delay per item). Work and
-capabilities render immediately. `prefers-reduced-motion`
-collapses durations globally.
+`Reveal` handles the Hero stagger (CSS `@keyframes`, delay per item).
+`ScrollMotion` mounts Lenis and GSAP ScrollTrigger from `BaseLayout` so the
+Home and Notes routes share smooth wheel scrolling, hash navigation, and
+reveal groups. `prefers-reduced-motion` skips the runtime and keeps native
+scroll behavior.
 
 ## 8. Refactor Guardrails
 

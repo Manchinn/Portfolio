@@ -31,6 +31,7 @@ src/
     home/                           Navbar, Hero, Work, Capabilities, Footer, HomePage
     ui/                             Button, SectionLabel, SectionHeading, MobileMenu (React island)
     motion/Reveal.astro             Hero-only stagger (reduced-motion aware)
+    motion/ScrollMotion.astro       Lenis + ScrollTrigger runtime (all routes)
   styles/
     global.css                      Tailwind v4 @theme tokens + Machine Readout recipes
 public/

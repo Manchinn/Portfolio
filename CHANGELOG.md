@@ -9,6 +9,9 @@ Format follows a lightweight Keep a Changelog style.
 - Localized static notes/runbook routes at `/notes/` and `/th/notes/`, backed by curated Markdown content collections.
 - First bilingual ZCode runbook covering bounded tasks, review-before-approval, preview verification, and release-sensitive details.
 
+### Changed
+- Applied Lenis and GSAP ScrollTrigger globally through `BaseLayout`; Notes routes now support reveal groups and smooth hash navigation.
+
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
 - Local project-brief intake workflow and public inquiry CTAs from the homepage.

@@ -19,19 +19,19 @@ const notes = (await getCollection('articles', ({ id, data }) => id.startsWith(`
   <div class="flex min-h-screen flex-col">
     <Navbar lang={lang} alternateHref="/notes/" />
     <main class="flex-1">
-      <section class="w-full border-b border-dashed border-line px-[var(--hw-gutter)] py-[calc(88*var(--u))]">
+      <section id="notes" data-reveal-group class="w-full border-b border-dashed border-line px-[var(--hw-gutter)] py-[calc(88*var(--u))]">
         <div class="max-w-[760px]">
-          <SectionLabel>{ui.notesEyebrow}</SectionLabel>
-          <SectionHeading as="h1" class="mt-4">{ui.notesTitle}</SectionHeading>
-          <p class="mt-5 max-w-[60ch] text-[var(--hw-text-body)] leading-relaxed text-muted">{ui.notesSubtitle}</p>
+          <div data-reveal-item><SectionLabel>{ui.notesEyebrow}</SectionLabel></div>
+          <div data-reveal-item><SectionHeading as="h1" class="mt-4">{ui.notesTitle}</SectionHeading></div>
+          <p data-reveal-item class="mt-5 max-w-[60ch] text-[var(--hw-text-body)] leading-relaxed text-muted">{ui.notesSubtitle}</p>
         </div>
       </section>
 
       <section class="w-full px-[var(--hw-gutter)] py-[calc(72*var(--u))]">
         {notes.length > 0 ? (
-          <div class="max-w-[900px] border-t border-dashed border-line">
+          <div data-reveal-group class="max-w-[900px] border-t border-dashed border-line">
             {notes.map((note) => (
-              <article class="border-b border-dashed border-line py-[calc(32*var(--u))]">
+              <article data-reveal-item class="border-b border-dashed border-line py-[calc(32*var(--u))]">
                 <p class="eyebrow">{note.data.category}</p>
                 <h2 class="display mt-3 text-[calc(24*var(--u))] text-ink">
                   <a class="hover:text-accent-strong" href={`/th/notes/${entrySlug(note.id)}/`}>{note.data.title}</a>
@@ -45,9 +45,11 @@ const notes = (await getCollection('articles', ({ id, data }) => id.startsWith(`
             ))}
           </div>
         ) : (
-          <div class="max-w-[900px] border border-dashed border-line p-10 text-center sm:p-14">
-            <h2 class="display text-xl text-ink">{ui.notesEmptyTitle}</h2>
-            <p class="mx-auto mt-3 max-w-[46ch] text-muted">{ui.notesEmptyBody}</p>
+          <div data-reveal-group class="max-w-[900px] border border-dashed border-line p-10 text-center sm:p-14">
+            <div data-reveal-item>
+              <h2 class="display text-xl text-ink">{ui.notesEmptyTitle}</h2>
+              <p class="mx-auto mt-3 max-w-[46ch] text-muted">{ui.notesEmptyBody}</p>
+            </div>
           </div>
         )}
       </section>
