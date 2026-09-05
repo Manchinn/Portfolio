@@ -34,6 +34,7 @@ const alternateHref = lang === 'en' ? '/th' : '/'
         <li>
           <a
             href={link.href}
+            data-nav-target={link.href.split('#')[1]}
             class="font-mono text-xs uppercase tracking-[0.12em] text-muted hover:text-ink"
           >
             {link.label}

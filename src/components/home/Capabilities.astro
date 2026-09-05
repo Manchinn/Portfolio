@@ -12,15 +12,21 @@ const ui = getUI(lang)
 ---
 
 <section id="capabilities" class="w-full border-b border-dashed border-line px-[var(--hw-gutter)] py-[calc(96*var(--u))]">
-  <SectionLabel>{ui.capabilitiesEyebrow}</SectionLabel>
-  <SectionHeading as="h2" class="mt-4">
+  <div data-reveal-group>
+    <div data-reveal-item>
+      <SectionLabel>{ui.capabilitiesEyebrow}</SectionLabel>
+    </div>
+    <div data-reveal-item>
+      <SectionHeading as="h2" class="mt-4">
     {ui.capabilitiesTitle}
-  </SectionHeading>
-  <p class="mt-4 max-w-[60ch] text-[var(--hw-text-body)] text-muted">{ui.capabilitiesSubtitle}</p>
+      </SectionHeading>
+    </div>
+    <p data-reveal-item class="mt-4 max-w-[60ch] text-[var(--hw-text-body)] text-muted">{ui.capabilitiesSubtitle}</p>
+  </div>
 
-  <div class="mt-6 grid md:grid-cols-2 md:gap-x-[calc(48*var(--u))]">
+  <div data-reveal-group class="mt-6 grid md:grid-cols-2 md:gap-x-[calc(48*var(--u))]">
     {ui.capabilityCards.map((card, i) => (
-      <div class="border-t border-dashed border-line py-[calc(32*var(--u))] md:even:border-l md:even:pl-[calc(48*var(--u))]">
+      <div data-reveal-item class="border-t border-dashed border-line py-[calc(32*var(--u))] md:even:border-l md:even:pl-[calc(48*var(--u))]">
         <span class="font-mono text-xs uppercase tracking-[0.12em] text-accent">
           Module {String(i + 1).padStart(2, '0')}
         </span>

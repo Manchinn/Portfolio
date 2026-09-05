@@ -6,6 +6,7 @@ import Work from '@/components/home/Work.astro'
 import Capabilities from '@/components/home/Capabilities.astro'
 import Contact from '@/components/home/Contact.astro'
 import Footer from '@/components/home/Footer.astro'
+import ScrollMotion from '@/components/motion/ScrollMotion.astro'
 
 interface Project {
   slug: string
@@ -33,3 +34,5 @@ const { lang, projects } = Astro.props
   </main>
   <Footer lang={lang} />
 </div>
+
+<ScrollMotion />

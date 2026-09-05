@@ -1,0 +1,73 @@
+<script>
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+  import Lenis from 'lenis'
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+  if (!reduceMotion.matches) {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const lenis = new Lenis({
+      autoRaf: false,
+      smoothWheel: true,
+    })
+
+    const frame = (time: number) => {
+      lenis.raf(time)
+      requestAnimationFrame(frame)
+    }
+
+    lenis.on('scroll', ScrollTrigger.update)
+    requestAnimationFrame(frame)
+
+    document.querySelectorAll<HTMLAnchorElement>('a[href*="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const url = new URL(link.href)
+        if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return
+
+        const target = document.getElementById(url.hash.slice(1))
+        if (!target) return
+
+        event.preventDefault()
+        history.pushState(null, '', url.hash)
+        lenis.scrollTo(target, { offset: -72, duration: 0.8 })
+      })
+    })
+
+    document.querySelectorAll<HTMLElement>('[data-reveal-group]').forEach((group) => {
+      const items = group.querySelectorAll<HTMLElement>('[data-reveal-item]')
+
+      if (!items.length) return
+
+      gsap.from(items, {
+        opacity: 0,
+        y: 12,
+        duration: 0.55,
+        ease: 'power2.out',
+        stagger: 0.08,
+        clearProps: 'transform',
+        scrollTrigger: {
+          trigger: group,
+          start: 'top 84%',
+          once: true,
+        },
+      })
+    })
+
+    document.querySelectorAll<HTMLAnchorElement>('[data-nav-target]').forEach((link) => {
+      const targetId = link.dataset.navTarget
+      const target = targetId ? document.getElementById(targetId) : null
+      if (!target) return
+
+      ScrollTrigger.create({
+        trigger: target,
+        start: 'top 35%',
+        end: 'bottom 35%',
+        toggleClass: { targets: link, className: 'is-active' },
+      })
+    })
+
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
+  }
+</script>

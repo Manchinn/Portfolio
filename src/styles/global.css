@@ -47,7 +47,6 @@
 
 html {
   overflow-x: clip;
-  scroll-behavior: smooth;
   scroll-padding-top: 72px;
 }
 
@@ -150,6 +149,27 @@ a:focus-visible,
 
 .card-hover:hover {
   transform: translateY(-2px);
+}
+
+.project-row {
+  transition: border-color 0.2s ease;
+}
+
+.project-row:hover {
+  border-color: var(--color-line-strong);
+}
+
+.project-mark {
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.project-row:hover .project-mark {
+  transform: translateX(3px) rotate(8deg);
+  color: var(--color-accent-strong);
+}
+
+[data-nav-target].is-active {
+  color: var(--color-ink);
 }
 
 .eyebrow {

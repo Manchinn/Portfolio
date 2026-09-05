@@ -26,16 +26,22 @@ const labels = ui.workCaseStudy
 ---
 
 <section id="work" class="w-full px-[var(--hw-gutter)] py-[calc(96*var(--u))]">
-  <SectionLabel>{ui.workEyebrow}</SectionLabel>
-  <SectionHeading as="h2" class="mt-4">
+  <div data-reveal-group>
+    <div data-reveal-item>
+      <SectionLabel>{ui.workEyebrow}</SectionLabel>
+    </div>
+    <div data-reveal-item>
+      <SectionHeading as="h2" class="mt-4">
     {ui.workTitle}
-  </SectionHeading>
-  <p class="mt-4 max-w-[60ch] text-[var(--hw-text-body)] text-muted">{ui.workSubtitle}</p>
+      </SectionHeading>
+    </div>
+    <p data-reveal-item class="mt-4 max-w-[60ch] text-[var(--hw-text-body)] text-muted">{ui.workSubtitle}</p>
+  </div>
 
   {projects.length > 0 ? (
-    <div class="mt-6">
+    <div data-reveal-group class="mt-6">
       {projects.map((p, i) => (
-        <article class="grid gap-[calc(24*var(--u))] border-b border-dashed border-line py-[calc(40*var(--u))] last:border-b-0 md:grid-cols-[0.8fr_1.35fr_0.85fr] md:items-start md:gap-[calc(40*var(--u))]">
+        <article data-reveal-item class="project-row grid gap-[calc(24*var(--u))] border-b border-dashed border-line py-[calc(40*var(--u))] last:border-b-0 md:grid-cols-[0.8fr_1.35fr_0.85fr] md:items-start md:gap-[calc(40*var(--u))]">
           {/* figure placeholder — swap for a real image later */}
           <figure class="placeholder-fig">
             <figcaption>{ui.workFigPlaceholder}</figcaption>
@@ -82,20 +88,20 @@ const labels = ui.workCaseStudy
             </dl>
 
             {i % 3 === 0 && (
-              <svg viewBox="0 0 32 32" class="mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <svg viewBox="0 0 32 32" class="project-mark mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <circle cx="16" cy="16" r="12" />
                 <ellipse cx="16" cy="16" rx="12" ry="5" />
                 <path d="M4 16h24" />
               </svg>
             )}
             {i % 3 === 1 && (
-              <svg viewBox="0 0 32 32" class="mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <svg viewBox="0 0 32 32" class="project-mark mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path d="M16 2 30 16 16 30 2 16Z" />
                 <path d="M16 8 24 16 16 24 8 16Z" />
               </svg>
             )}
             {i % 3 === 2 && (
-              <svg viewBox="0 0 32 32" class="mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <svg viewBox="0 0 32 32" class="project-mark mt-4 text-accent" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path d="M4 22c3-8 7-8 10 0s7 8 10 0" />
                 <path d="M4 10c3-4 7-4 10 0s7 4 10 0" />
               </svg>
