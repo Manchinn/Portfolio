@@ -144,3 +144,9 @@ export const UI = {
 export function getUI(language: Language) {
   return UI[language]
 }
+
+/** Fallback <meta name="description"> per locale (used by BaseLayout). */
+export const META_DESCRIPTION: Record<Language, string> = {
+  en: 'Full-stack software engineer building clear, maintainable software from API to interface.',
+  th: 'วิศวกรซอฟต์แวร์ full-stack สร้างซอฟต์แวร์ชัดเจน ดูแลต่อได้ ตั้งแต่ API จนถึงอินเทอร์เฟซ',
+}

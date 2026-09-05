@@ -1,0 +1,72 @@
+<!doctype html>
+<!-- OG card template (EN) — rendered to public/og/og-en.png at 1200x630 via CDP screenshot. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: #ffffff;
+        color: #0071a9;
+        font-family: "Courier Prime", monospace;
+        padding: 74px 76px;
+        position: relative;
+      }
+      .frame {
+        position: absolute; inset: 28px;
+        border: 2px dashed #8fc2dc;
+        pointer-events: none;
+      }
+      .cross {
+        position: absolute; width: 18px; height: 18px; pointer-events: none;
+      }
+      .cross::before, .cross::after {
+        content: ""; position: absolute; background: #4da0c7;
+      }
+      .cross::before { left: 8px; top: 0; width: 2px; height: 18px; }
+      .cross::after { left: 0; top: 8px; width: 18px; height: 2px; }
+      .cross.tl { left: 19px; top: 19px; }
+      .cross.tr { right: 19px; top: 19px; }
+      .cross.bl { left: 19px; bottom: 19px; }
+      .cross.br { right: 19px; bottom: 19px; }
+      .toprow {
+        display: flex; justify-content: space-between; align-items: baseline;
+      }
+      .brand { font-weight: 700; font-size: 26px; letter-spacing: 0.04em; }
+      .domain { font-size: 20px; color: #2d7ca4; letter-spacing: 0.06em; }
+      .eyebrow {
+        margin-top: 72px;
+        font-size: 22px; color: #2d7ca4; letter-spacing: 0.18em;
+      }
+      h1 {
+        margin-top: 26px;
+        font-weight: 700; font-size: 55px; line-height: 1.32;
+        letter-spacing: -0.01em; max-width: 1050px;
+      }
+      .meta {
+        position: absolute; left: 76px; right: 76px; bottom: 66px;
+        border-top: 2px dashed #8fc2dc; padding-top: 22px;
+        font-size: 20px; color: #2d7ca4; letter-spacing: 0.1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame"></div>
+    <div class="cross tl"></div><div class="cross tr"></div>
+    <div class="cross bl"></div><div class="cross br"></div>
+    <div class="toprow">
+      <span class="brand">CHINNAKRIT</span>
+      <span class="domain">CHINNAKRIT.DEV</span>
+    </div>
+    <div class="eyebrow">FULL-STACK SOFTWARE ENGINEER</div>
+    <h1>I build full-stack software that ships.</h1>
+    <div class="meta">ASTRO SSG &nbsp;&middot;&nbsp; BILINGUAL EN/TH &nbsp;&middot;&nbsp; NO TRACKING &nbsp;&middot;&nbsp; NO FORM</div>
+  </body>
+</html>

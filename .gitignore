@@ -40,3 +40,6 @@ tsconfig.tsbuildinfo
 
 # Impeccable local design/critique artifacts
 .impeccable/
+
+# Lighthouse local reports (reproducible artifacts)
+lighthouse-reports/

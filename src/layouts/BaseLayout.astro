@@ -1,7 +1,7 @@
 ---
 import '@/styles/global.css'
 import type { Language } from '@/i18n/ui'
-import { getUI } from '@/i18n/ui'
+import { getUI, META_DESCRIPTION } from '@/i18n/ui'
 
 interface Props {
   lang: Language
@@ -14,15 +14,22 @@ interface Props {
 const { lang, title, description, ogType = 'website', canonical } = Astro.props
 const ui = getUI(lang)
 const htmlLang = lang === 'th' ? 'th' : 'en'
+const SITE = Astro.site ?? new URL('https://www.chinnakrit.dev')
 const pageTitle = title ?? `${ui.brand} — ${ui.footer}`
-const pageDesc =
-  description ??
-  'Full-stack software engineer building clear, maintainable software from API to interface.'
+const pageDesc = description ?? META_DESCRIPTION[lang]
 const canonicalUrl = canonical ?? Astro.url.href
+const ogImage = new URL(`/og/og-${htmlLang}.png`, SITE)
+const ogSiteName = 'chinnakrit.dev'
+const ogLocale = lang === 'th' ? 'th_TH' : 'en_US'
+const ogAlt =
+  lang === 'th'
+    ? 'การ์ดแนะนำตัว: วิศวกรซอฟต์แวร์ full-stack — สร้างซอฟต์แวร์ full-stack ที่ใช้งานได้จริง'
+    : 'Intro card: full-stack software engineer — I build full-stack software that ships.'
 
+const origin = SITE.origin
 const hrefLang = lang === 'en'
-  ? [['en', Astro.url.pathname], ['th', `/th${Astro.url.pathname}`]]
-  : [['th', Astro.url.pathname], ['en', Astro.url.pathname.replace(/^\/th/, '') || '/']]
+  ? [['en', `${origin}${Astro.url.pathname}`], ['th', `${origin}/th${Astro.url.pathname}`]]
+  : [['th', `${origin}${Astro.url.pathname}`], ['en', `${origin}${Astro.url.pathname.replace(/^\/th/, '') || '/'}`]]
 ---
 
 <!doctype html>
@@ -42,16 +49,22 @@ const hrefLang = lang === 'en'
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={ogSiteName} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
 
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#fafafa" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
