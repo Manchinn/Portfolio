@@ -2,15 +2,16 @@
 
 > Durable facts for AI agents. Prefer this file + root SoT docs over chat history or deleted plans.
 
-**Last updated:** 2026-09-02
+**Last updated:** 2026-09-05
 
 ## Current product (authoritative)
 
 - Static-first bilingual **software engineering portfolio** (Astro 5, static SSG).
 - Bilingual **EN/TH** via Astro i18n routing: `en` at `/`, `th` at `/th/`.
-- Content entities: content collections `src/content/projects/{en,th}/` and `src/content/articles/{en,th}/` — **currently empty**.
-- Chrome + marketing copy: `src/i18n/ui.ts`.
-- Visual system: **Product Studio** (light, indigo `#4f46e5`, Inter + Noto Sans Thai + JetBrains Mono).
+- Content entities: content collections `src/content/projects/{en,th}/` (**populated**, EN/TH) and `src/content/articles/{en,th}/` (**currently empty**).
+- Chrome + marketing copy: `src/i18n/ui.ts` (+ per-locale `META_DESCRIPTION`).
+- Visual system: **Machine Readout** (white field, single cyan-blue `#0071a9`, Courier Prime + Noto Sans Thai, self-hosted woff2 in `public/fonts/` — no Google Fonts request).
+- Meta/SEO: full OG + Twitter meta, absolute canonical/hreflang, per-locale static OG cards `public/og/og-{en,th}.png` (regenerate: `scripts/og/render.sh`).
 - Routes in product: `/`, `/th/`, `/sitemap-index.xml`.
 - Contact: external `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. No in-app intake form.
 - **Removed from product (2026-09-02):** Next.js App Router, `/article/[slug]`, the soft-pixel system, `student-logbook` + the 3 old articles.
@@ -73,6 +74,7 @@ Do **not** rebuild or assume these are active:
 
 ## Recent decisions
 
+- **2026-09-05:** Added per-locale OG cards + full OG/Twitter meta; self-hosted all fonts (Google Fonts removed). Lighthouse perf 92→99 EN, 91→99 TH; a11y/BP/SEO 100.
 - **2026-09-02:** Rebuilt the portfolio on Astro 5 (static SSG + content collections + i18n routing) and shipped the **Product Studio** design; deployed to `www.chinnakrit.dev`. Old Next.js source and soft-pixel system removed.
 - **2026-09-02:** Added `vercel.json` to pin the Vercel build to Astro (the project was previously configured for Next.js).
 - **2026-09-02:** `projects` and `articles` collections are empty; the Work section shows a graceful empty state until entries are added.
