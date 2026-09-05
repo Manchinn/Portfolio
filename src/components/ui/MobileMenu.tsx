@@ -3,7 +3,15 @@ import { Menu, X } from 'lucide-react'
 
 type Link = { href: string; label: ReactNode }
 
-export default function MobileMenu({ links, alternateHref }: { links: Link[]; alternateHref: string }) {
+export default function MobileMenu({
+  links,
+  alternateHref,
+  alternateLabel,
+}: {
+  links: Link[]
+  alternateHref: string
+  alternateLabel: string
+}) {
   const [open, setOpen] = useState(false)
   return (
     <div className="md:hidden">
@@ -36,7 +44,7 @@ export default function MobileMenu({ links, alternateHref }: { links: Link[]; al
               onClick={() => setOpen(false)}
               className="block px-4 py-3 font-mono text-xs uppercase tracking-[0.08em] text-accent"
             >
-              {alternateHref === '/th' ? 'ไทย' : 'English'}
+              {alternateLabel}
             </a>
           </li>
           </ul>

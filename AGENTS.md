@@ -16,7 +16,7 @@ The parent folder contains project-level docs. Run git and package commands from
 
 - Static-first **Astro 5** portfolio, bilingual English and Thai, **Machine Readout** design (white field, single cyan-blue `#0071a9`, typewriter mono, dashed blueprint lines, flat).
 - `/` renders the English one-page portfolio; `/th/` renders the Thai version.
-- Content lives in Astro content collections: projects (`src/content/projects/{en,th}/` — populated with EN/TH records) and articles (`src/content/articles/{en,th}/` — empty). The Work section renders each project as a flat non-navigational row (duotone figure placeholder, category/title/description, Problem → Built → Result case-study, and a system readout `REF / TECH / CASE`) and falls back to a graceful empty state only if no records exist.
+- Content lives in Astro content collections: projects (`src/content/projects/{en,th}/` — populated with EN/TH records) and public notes/runbooks (`src/content/articles/{en,th}/` — curated Markdown in EN/TH). The Work section renders each project as a flat non-navigational row (duotone figure placeholder, category/title/description, Problem → Built → Result case-study, and a system readout `REF / TECH / CASE`) and falls back to a graceful empty state only if no records exist.
 - All chrome/marketing copy lives in `src/i18n/ui.ts`.
 - Contact CTAs open a public GitHub Issues URL (`PUBLIC_CONTACT_URL`) in `src/data/types.ts`. The app does not collect or store inquiry form data.
 
@@ -39,7 +39,7 @@ There is no backend, application API, runtime database, CMS, server-side content
 ```text
 src/content.config.ts                     Content schemas + entrySlug() helper
 src/content/projects/{en,th}/             JSON project records (per locale) — EN/TH populated
-src/content/articles/{en,th}/             Markdown articles (per locale) — empty
+src/content/articles/{en,th}/             Markdown notes/runbooks (per locale) — curated public content
 src/i18n/ui.ts                            EN/TH chrome + marketing copy (getUI)
 src/i18n/utils.ts                         Locale helpers
 src/layouts/BaseLayout.astro              HTML shell, fonts, metadata, global CSS

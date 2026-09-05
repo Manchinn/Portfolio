@@ -17,7 +17,7 @@ src/
   content.config.ts                 Content collection schemas + entrySlug() helper
   content/
     projects/{en,th}/               JSON project records (per locale) — populated
-    articles/{en,th}/               Markdown articles (per locale) — currently empty
+    articles/{en,th}/               Markdown notes/runbooks (per locale) — curated public content
   i18n/
     ui.ts                           All EN/TH chrome + marketing copy (getUI)
     utils.ts                        Locale helpers
@@ -48,7 +48,7 @@ vercel.json                         Vercel Astro framework + build/output
 - `/` renders the English home; `/th/` renders the Thai home.
 - The `Work` section renders project records from the `projects` collection and shows a graceful empty state while it is empty.
 - Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. There is no in-app brief form.
-- `article/[slug]` routes are not currently generated (articles collection is empty).
+- `/notes/` and `/th/notes/` list curated notes; localized `/notes/[slug]/` detail routes are generated from the articles collection.
 
 ## Configuration
 

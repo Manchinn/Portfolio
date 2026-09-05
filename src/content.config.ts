@@ -2,7 +2,8 @@ import { defineCollection, z } from 'astro:content'
 
 /**
  * Projects (JSON per locale) and articles (Markdown per locale).
- * Both collections are defined and empty — fill them to populate the site.
+ * Public articles are curated from private working notes before they enter
+ * this repository; the build never reads the local Obsidian vault.
  * Slug is NOT declared in the schema (Astro reserves it for content); derive
  * it from the entry id with entrySlug().
  */
@@ -32,6 +33,10 @@ const articles = defineCollection({
     excerpt: z.string(),
     category: z.string(),
     readTime: z.string(),
+    publishedAt: z.string(),
+    updatedAt: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
   }),
 })
 

@@ -40,7 +40,7 @@ The site positions the work as software engineering and full-stack systems deliv
 ## Current Content Contract
 
 - English and Thai are the only supported languages, via Astro i18n routing (`/` and `/th/`).
-- Project and article entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); the `projects` collection holds EN/TH records and `articles` is empty.
+- Project and note entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); both collections hold mirrored EN/TH records, and notes are curated from private working material before publication.
 - Chrome + marketing copy lives in `src/i18n/ui.ts`.
 - Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. The app does not collect or store inquiry form data.
 - Public copy stays anonymized and must not expose credentials, private URLs, personal contact data, or nonpublic infrastructure details.

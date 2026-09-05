@@ -28,7 +28,7 @@ generic clean-SaaS templates.
 | Chrome/marketing copy (EN/TH) | `src/i18n/ui.ts` |
 | Section/label/button primitives | `src/components/ui/` |
 | Homepage composition | `src/components/home/HomePage.astro` |
-| Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (empty) |
+| Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (curated EN/TH notes) |
 | Contact CTA (external) | `PUBLIC_CONTACT_URL` |
 | OG cards (EN/TH) | `public/og/` + `scripts/og/` (regenerate: `scripts/og/render.sh`) |
 | Motion behavior | `src/components/motion/Reveal.astro` |

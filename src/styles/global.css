@@ -181,6 +181,96 @@ a:focus-visible,
   font-weight: 400;
 }
 
+/* Long-form notes keep the same readout rhythm while giving Markdown a
+ * predictable hierarchy for headings, lists, quotes, and code samples. */
+.prose-readout {
+  color: var(--color-muted);
+  font-size: var(--hw-text-body);
+  line-height: 1.75;
+}
+
+.prose-readout h2,
+.prose-readout h3 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.prose-readout h2 {
+  font-size: 1.35rem;
+}
+
+.prose-readout h3 {
+  font-size: 1.1rem;
+}
+
+.prose-readout p,
+.prose-readout ul,
+.prose-readout ol,
+.prose-readout blockquote,
+.prose-readout pre {
+  margin-top: 1rem;
+}
+
+.prose-readout ul,
+.prose-readout ol {
+  padding-left: 1.5rem;
+}
+
+.prose-readout ul {
+  list-style: square;
+}
+
+.prose-readout ol {
+  list-style: decimal;
+}
+
+.prose-readout li + li {
+  margin-top: 0.45rem;
+}
+
+.prose-readout strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.prose-readout a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose-readout blockquote {
+  border-left: 2px solid var(--color-line-strong);
+  padding-left: 1rem;
+}
+
+.prose-readout code {
+  background: var(--color-accent-soft);
+  padding: 0.12em 0.3em;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.prose-readout pre {
+  overflow-x: auto;
+  border: 1px dashed var(--color-line-strong);
+  background: var(--color-surface-soft);
+  padding: 1rem;
+}
+
+.prose-readout pre code {
+  padding: 0;
+  background: transparent;
+}
+
 /* ── duotone figure placeholder ────────────────────────────────────────
  * stands in for a real project image; swap for an <img> later.
  * label is rendered in markup (language-aware), not in CSS content.

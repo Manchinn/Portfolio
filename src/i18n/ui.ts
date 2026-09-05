@@ -3,13 +3,13 @@ export type Language = 'en' | 'th'
 /**
  * All user-facing chrome/marketing copy in one module so the Astro i18n
  * routing can pull the right locale. Entity content (projects, articles)
- * will live in content collections — currently empty, to be filled.
+ * lives in content collections; this module owns the surrounding chrome.
  */
 export const UI = {
   en: {
     brand: 'Chinnakrit',
     // Navigation
-    nav: { home: 'Home', work: 'Work', capabilities: 'Capabilities', contact: 'Contact' },
+    nav: { home: 'Home', work: 'Work', notes: 'Notes', capabilities: 'Capabilities', contact: 'Contact' },
     // Hero
     heroEyebrow: 'Full-stack software engineer',
     heroTitle: 'I build full-stack software that ships.',
@@ -23,7 +23,7 @@ export const UI = {
       { label: 'Privacy-first', value: 'No form, no tracking' },
     ],
     heroSystemLabel: 'System',
-    // Work (empty until projects are added)
+    // Work (with a fallback for an empty collection)
     workEyebrow: 'Selected work',
     workTitle: 'A focused view of the software I build.',
     workSubtitle:
@@ -37,6 +37,17 @@ export const UI = {
       result: 'Result',
     },
     workFigPlaceholder: 'Fig. — image placeholder · swap in a real figure',
+    // Notes / runbooks
+    notesEyebrow: 'Notes & runbooks',
+    notesTitle: 'Field notes from building and operating software.',
+    notesSubtitle:
+      'Practical records of tools, workflows, and decisions. Each note is curated from working material before it is published.',
+    notesEmptyTitle: 'Notes are being prepared',
+    notesEmptyBody: 'Public runbooks and technical notes will appear here as they are reviewed and edited.',
+    notesBack: 'Back to notes',
+    notesPublished: 'Published',
+    notesUpdated: 'Updated',
+    notesReadTime: 'Read',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'What I can build for you.',
@@ -77,7 +88,7 @@ export const UI = {
   th: {
     brand: 'ชินกฤต',
     // Navigation
-    nav: { home: 'หน้าแรก', work: 'ผลงาน', capabilities: 'ความสามารถ', contact: 'ติดต่อ' },
+    nav: { home: 'หน้าแรก', work: 'ผลงาน', notes: 'บันทึก', capabilities: 'ความสามารถ', contact: 'ติดต่อ' },
     // Hero
     heroEyebrow: 'Full-stack software engineer',
     heroTitle: 'สร้างซอฟต์แวร์ full-stack ที่ใช้งานได้จริง',
@@ -91,7 +102,7 @@ export const UI = {
       { label: 'ความเป็นส่วนตัว', value: 'ไม่มีฟอร์ม ไม่มี tracking' },
     ],
     heroSystemLabel: 'ระบบ',
-    // Work (empty until projects are added)
+    // Work (with a fallback for an empty collection)
     workEyebrow: 'Selected work',
     workTitle: 'โฟกัสซอฟต์แวร์ที่ผมสร้าง',
     workSubtitle: 'แต่ละโปรเจกต์นำเสนอแบบ product proof: ปัญหา สิ่งที่สร้าง และผลลัพธ์',
@@ -104,6 +115,17 @@ export const UI = {
       result: 'ผลลัพธ์',
     },
     workFigPlaceholder: 'รูปตัวอย่าง — ใส่รูปจริงภายหลัง',
+    // Notes / runbooks
+    notesEyebrow: 'บันทึกและ runbook',
+    notesTitle: 'บันทึกจากการสร้างและดูแลซอฟต์แวร์จริง',
+    notesSubtitle:
+      'บันทึกการใช้งานเครื่องมือ workflow และการตัดสินใจ โดยคัดกรองจากโน้ตทำงานก่อนเผยแพร่',
+    notesEmptyTitle: 'กำลังเตรียมบันทึก',
+    notesEmptyBody: 'runbook และบันทึกเทคนิคที่ผ่านการตรวจทานจะทยอยเผยแพร่ที่นี่',
+    notesBack: 'กลับไปหน้าบันทึก',
+    notesPublished: 'เผยแพร่',
+    notesUpdated: 'อัปเดต',
+    notesReadTime: 'อ่าน',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',

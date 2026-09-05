@@ -20,12 +20,15 @@ The app has no backend, application API, runtime database, CMS, or required runt
 
 - `/` — English portfolio home
 - `/th/` — Thai portfolio home
+- `/notes/` — English notes and runbook index
+- `/th/notes/` — Thai notes and runbook index
+- `/notes/[slug]/` and `/th/notes/[slug]/` — localized static note pages
 - Contact CTAs open a public GitHub Issues URL (`src/data/types.ts` → `PUBLIC_CONTACT_URL`)
 
 ## Content
 
 - `src/content/projects/{en,th}/` — localized project records (JSON)
-- `src/content/articles/{en,th}/` — localized long-form articles (Markdown)
+- `src/content/articles/{en,th}/` — localized notes/runbooks (Markdown, curated before publication)
 - `src/i18n/ui.ts` — all chrome/marketing copy (EN/TH) + `getUI()` + per-locale `META_DESCRIPTION`
 - `src/content.config.ts` — content schemas + `entrySlug()` (slug derived from entry id, not frontmatter — Astro reserves `slug`)
 - The slug is derived from the entry id (filename); do **not** declare `slug` in the schema/frontmatter.

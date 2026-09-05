@@ -1,9 +1,4 @@
 ---
-interface Props {
-  children?: string
-  as?: 'h1' | 'h2' | 'h3'
-  class?: string
-}
 const { as = 'h2', class: className = '' } = Astro.props
 const Tag = as
 ---

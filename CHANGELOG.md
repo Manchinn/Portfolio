@@ -5,6 +5,10 @@ Format follows a lightweight Keep a Changelog style.
 
 ## [Unreleased]
 
+### Added
+- Localized static notes/runbook routes at `/notes/` and `/th/notes/`, backed by curated Markdown content collections.
+- First bilingual ZCode runbook covering bounded tasks, review-before-approval, preview verification, and release-sensitive details.
+
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
 - Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
