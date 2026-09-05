@@ -9,9 +9,10 @@ interface Props {
   description?: string
   ogType?: 'website' | 'article'
   canonical?: string
+  noindex?: boolean
 }
 
-const { lang, title, description, ogType = 'website', canonical } = Astro.props
+const { lang, title, description, ogType = 'website', canonical, noindex = false } = Astro.props
 const ui = getUI(lang)
 const htmlLang = lang === 'th' ? 'th' : 'en'
 const SITE = Astro.site ?? new URL('https://www.chinnakrit.dev')
@@ -40,8 +41,10 @@ const hrefLang = lang === 'en'
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
 
-    <link rel="canonical" href={canonicalUrl} />
-    {hrefLang.map(([h, path]) => (
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    {!noindex && hrefLang.map(([h, path]) => (
       <link rel="alternate" hreflang={h} href={path} />
     ))}
 
