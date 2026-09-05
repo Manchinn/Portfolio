@@ -2,7 +2,7 @@
 
 Static-first, software engineering portfolio with bilingual English and Thai content. It presents project proof, technical articles, capabilities, and a privacy-conscious project inquiry workflow.
 
-Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The Product Studio design tokens come from `DESIGN.md`.
+Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The Machine Readout design tokens come from `DESIGN.md`.
 
 ## Stack
 
@@ -20,19 +20,23 @@ The app has no backend, application API, runtime database, CMS, or required runt
 
 - `/` — English portfolio home
 - `/th/` — Thai portfolio home
-- `/article/[slug]/` — statically generated English technical article
-- `/th/article/[slug]/` — Thai article
 - Contact CTAs open a public GitHub Issues URL (`src/data/types.ts` → `PUBLIC_CONTACT_URL`)
 
 ## Content
 
 - `src/content/projects/{en,th}/` — localized project records (JSON)
 - `src/content/articles/{en,th}/` — localized long-form articles (Markdown)
-- `src/i18n/ui.ts` — all chrome/marketing copy (EN/TH) + `getUI()`
+- `src/i18n/ui.ts` — all chrome/marketing copy (EN/TH) + `getUI()` + per-locale `META_DESCRIPTION`
 - `src/content.config.ts` — content schemas + `entrySlug()` (slug derived from entry id, not frontmatter — Astro reserves `slug`)
 - The slug is derived from the entry id (filename); do **not** declare `slug` in the schema/frontmatter.
 
 Keep English and Thai records synchronized, including article slugs and filenames.
+
+## SEO and Fonts
+
+- Static OG cards per locale: `public/og/og-{en,th}.png` (1200x630), referenced from `BaseLayout.astro` with full Open Graph + Twitter meta and absolute canonical/hreflang.
+- Fonts are fully self-hosted (`public/fonts/` — Courier Prime + Noto Sans Thai woff2 with unicode-range subsets). No Google Fonts request; regenerate with `python scripts/fetch-fonts.py`.
+- OG cards regenerate via `scripts/og/render.sh` (isolated Edge headless profile).
 
 ## Local Development
 

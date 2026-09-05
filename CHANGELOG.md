@@ -3,6 +3,25 @@
 All notable changes to this portfolio repository are recorded here.
 Format follows a lightweight Keep a Changelog style.
 
+## [Unreleased]
+
+### Removed
+- Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
+- Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
+- Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
+- Personal interview prep note that was never part of the product.
+
+## [2026-09-05]
+
+### Added
+- Static Open Graph cards per locale: `public/og/og-{en,th}.png` (1200x630, Machine Readout style), rendered via `scripts/og/render.sh` (isolated Edge headless — correct Thai shaping).
+- Full OG + Twitter meta and absolute canonical/hreflang in `BaseLayout.astro`; per-locale default description (`META_DESCRIPTION` in `src/i18n/ui.ts`).
+- Self-hosted fonts: Courier Prime + Noto Sans Thai woff2 subsets (`public/fonts/`) with unicode-range `fonts.css`; regeneration script `scripts/fetch-fonts.py`.
+
+### Changed
+- Dropped all Google Fonts requests (render-blocking third-party). Lighthouse performance 92→99 (EN), 91→99 (TH); FCP 2.4–2.6s → 1.1–1.5s; accessibility/best-practices/SEO stay 100.
+- Docs synced to the Machine Readout baseline (CLAUDE.md, README, PRODUCT, DESIGN); README no longer lists article routes.
+
 ## [2026-09-02]
 
 ### Changed
@@ -17,21 +36,17 @@ Format follows a lightweight Keep a Changelog style.
 - The `projects` and `articles` content collections are currently **empty**; the Work section renders a graceful empty state until entries are added.
 - `npm run build` (astro build) and `npx astro check` (0 errors) are the implementation gates.
 
-## [Unreleased]
+## [Superseded — Hallmark / soft-pixel era, before the 2026-09-02 Astro rebuild]
 
-### Added
-- `src/content/home.ts` homepage EN/TH marketing sections (hero, capabilities, articles chrome, contact body).
-- `src/content/article.ts` article route chrome (back, related, read labels).
+Historical entries from the retired Hallmark/soft-pixel system; kept verbatim for reference.
 
 ### Removed
-- Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
-- Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
-- Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
-- Personal interview prep note that was never part of the product.
 - Stale agent docs: Vite-era `.github/copilot-instructions.md` and `.github/task-instructions.md` (replaced with a thin Next.js pointer).
 - Tracked Impeccable critique/design artifacts under `.impeccable/`.
 - Duplicate GitHub-hosted Impeccable skill tree under `.github/skills/impeccable/`.
 - Thin `.github/copilot-instructions.md` pointer (prefer root `AGENTS.md` / `docs/agents/MEMORY.md`).
+- Completed Next.js migration and SaaS landing scaffolding under `docs/superpowers/plans` and matching design specs.
+- Stale optical-retail demo handoff document.
 
 ### Added
 - Root `tokens.css` portable mirror of soft-pixel tokens; `DESIGN.md` locked Hallmark system + export formats (Tailwind `@theme`, DTCG JSON, shadcn mapping).
@@ -48,6 +63,11 @@ Format follows a lightweight Keep a Changelog style.
 - `HomePage` consumes `getHomeCopy()` instead of component-local marketing strings.
 - Synced `PRODUCT.md`, `CONTEXT.md`, and `DESIGN.md` to the current one-page + article + external inquiry product and soft-pixel baseline.
 - Soft-pixel polish B: article inquiry band and related cards match home primitives; homepage stagger starts from hidden; reduced-motion uses plain elements; larger nav/footer touch targets; Escape closes menus; stronger focus ring on interactive controls.
+- Refreshed root and architecture docs to the static-first Next.js 15 portfolio baseline.
+
+### Notes for agents
+- Treat FlowSync, prompts library, admin CMS, Vercel Blob, and AI provider integrations as **retired** unless the user explicitly reopens product scope.
+- `/saas`, `/work/[slug]`, and `/work-with-me` are removed from the product surface.
 
 ## [2026-07-19]
 
@@ -58,15 +78,3 @@ Format follows a lightweight Keep a Changelog style.
 
 ### Changed
 - Home, project proof, and footer now consume shared chrome copy instead of duplicating the same strings.
-
-
-### Changed
-- Refreshed root and architecture docs to the static-first Next.js 15 portfolio baseline.
-
-### Removed
-- Completed Next.js migration and SaaS landing scaffolding under `docs/superpowers/plans` and matching design specs.
-- Stale optical-retail demo handoff document.
-
-### Notes for agents
-- Treat FlowSync, prompts library, admin CMS, Vercel Blob, and AI provider integrations as **retired** unless the user explicitly reopens product scope.
-- `/saas`, `/work/[slug]`, and `/work-with-me` are removed from the product surface.

@@ -1,7 +1,7 @@
 ---
 name: Machine Readout Portfolio
 description: Machine Readout design baseline (EN/TH, static Astro, white field + single cyan-blue + typewriter mono).
-currentAsOf: "2026-09-03"
+currentAsOf: "2026-09-05"
 ---
 
 # Design Baseline: Machine Readout Portfolio
@@ -24,12 +24,13 @@ generic clean-SaaS templates.
 | Concern | Implemented source |
 |---------|--------------------|
 | Color, radius, shadow, font tokens | `src/styles/global.css` (`@theme`; mirror at root `tokens.css`) |
-| Fonts and global metadata | `src/layouts/BaseLayout.astro` |
+| Fonts and global metadata | `src/layouts/BaseLayout.astro` (self-hosted woff2 in `public/fonts/` + `fonts.css`) |
 | Chrome/marketing copy (EN/TH) | `src/i18n/ui.ts` |
 | Section/label/button primitives | `src/components/ui/` |
 | Homepage composition | `src/components/home/HomePage.astro` |
 | Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (empty) |
 | Contact CTA (external) | `PUBLIC_CONTACT_URL` |
+| OG cards (EN/TH) | `public/og/` + `scripts/og/` (regenerate: `scripts/og/render.sh`) |
 | Motion behavior | `src/components/motion/Reveal.astro` |
 
 ## 3. Color System
@@ -56,6 +57,9 @@ a pure white field. No secondary accent, no gradients, no neon.
 - **Typeface:** Courier Prime (typewriter mono) for Latin glyphs; Noto Sans
   Thai (fallback) carries Thai glyphs. The body default (`--font-sans`) is the
   same mono stack — the whole page speaks the "machine readout" voice.
+- **Serving:** both families are self-hosted as woff2 subsets
+  (`public/fonts/`, `unicode-range` in `fonts.css`). The site makes no Google
+  Fonts request; regenerate via `python scripts/fetch-fonts.py`.
 - `.display`: mono, weight 400, uppercase, letter-spacing ~0.06em,
   line-height ~1.08 — hero + section headings. Thai headings keep natural
   case (Noto Sans Thai has no capitals) but inherit the same rhythm.

@@ -1,6 +1,6 @@
 # Product Baseline
 
-> Current as of 2026-09-02. Describes the implemented public product (Astro + Product Studio).
+> Current as of 2026-09-05. Describes the implemented public product (Astro + Machine Readout).
 
 ## Product
 

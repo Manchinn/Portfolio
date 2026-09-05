@@ -4,7 +4,7 @@ This file provides architecture and workflow guidance for coding agents working 
 
 ## Overview
 
-A static-first bilingual (English + Thai) software engineering portfolio built with **Astro 5**, TypeScript, and Tailwind CSS 4. Content lives in **content collections**; language routing uses Astro's built-in i18n (`en` at `/`, `th` at `/th/`). The visual system is **Product Studio** (light theme, single indigo accent, Inter / Noto Sans Thai / JetBrains Mono) — see `DESIGN.md`.
+A static-first bilingual (English + Thai) software engineering portfolio built with **Astro 5**, TypeScript, and Tailwind CSS 4. Content lives in **content collections**; language routing uses Astro's built-in i18n (`en` at `/`, `th` at `/th/`). The visual system is **Machine Readout** (white field, single cyan-blue `#0071a9`, Courier Prime / Noto Sans Thai, self-hosted woff2) — see `DESIGN.md`.
 
 Production is deployed on Vercel at `chinnakrit.dev` and `www.chinnakrit.dev` from the `master` branch (`vercel.json` pins the Astro framework).
 
@@ -16,13 +16,13 @@ The app has no backend, application API, runtime database, CMS, server-side cont
 src/
   content.config.ts                 Content collection schemas + entrySlug() helper
   content/
-    projects/{en,th}/               JSON project records (per locale) — currently empty
+    projects/{en,th}/               JSON project records (per locale) — populated
     articles/{en,th}/               Markdown articles (per locale) — currently empty
   i18n/
     ui.ts                           All EN/TH chrome + marketing copy (getUI)
     utils.ts                        Locale helpers
   layouts/
-    BaseLayout.astro                HTML shell, metadata, fonts, hreflang
+    BaseLayout.astro                HTML shell, metadata, OG/Twitter meta, hreflang, self-hosted fonts
   pages/
     index.astro                     English portfolio home (/)
     th/index.astro                  Thai portfolio home (/th/)
@@ -32,7 +32,13 @@ src/
     ui/                             Button, SectionLabel, SectionHeading, MobileMenu (React island)
     motion/Reveal.astro             Hero-only stagger (reduced-motion aware)
   styles/
-    global.css                      Tailwind v4 @theme tokens + Product Studio recipes
+    global.css                      Tailwind v4 @theme tokens + Machine Readout recipes
+public/
+  fonts/                            Self-hosted woff2 (Courier Prime, Noto Sans Thai) + fonts.css
+  og/                               Static OG cards per locale (og-en.png, og-th.png, 1200x630)
+scripts/
+  og/                               OG card templates + render.sh (isolated Edge headless)
+  fetch-fonts.py                    Downloads woff2 subsets + generates fonts.css
 astro.config.mjs                   site, static output, i18n routing, integrations
 vercel.json                         Vercel Astro framework + build/output
 ```
