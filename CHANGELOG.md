@@ -11,7 +11,7 @@ Format follows a lightweight Keep a Changelog style.
 
 ### Removed
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
-- Local project-brief intake workflow; inquiry CTAs now open the public GitHub Issues URL.
+- Local project-brief intake workflow and public inquiry CTAs from the homepage.
 - Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
 - Personal interview prep note that was never part of the product.
 

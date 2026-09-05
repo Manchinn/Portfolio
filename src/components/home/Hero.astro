@@ -1,7 +1,6 @@
 ---
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
-import { PUBLIC_CONTACT_URL } from '@/data/types'
 import Reveal from '@/components/motion/Reveal.astro'
 import Button from '@/components/ui/Button.astro'
 
@@ -29,10 +28,7 @@ const base = lang === 'en' ? '' : '/th'
       </Reveal>
       <Reveal delay={240}>
         <div class="mt-8 flex flex-wrap gap-3">
-          <Button href={`${base}/#work`}>{ui.heroPrimaryCta}</Button>
-          <Button href={PUBLIC_CONTACT_URL} variant="secondary" external={true}>
-            {ui.heroSecondaryCta}
-          </Button>
+          <Button href={`${base}/notes/`}>{ui.heroPrimaryCta}</Button>
         </div>
       </Reveal>
     </div>

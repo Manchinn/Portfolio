@@ -28,7 +28,7 @@ src/
     th/index.astro                  Thai portfolio home (/th/)
     404.astro
   components/
-    home/                           Navbar, Hero, Work, Capabilities, Contact, Footer, HomePage
+    home/                           Navbar, Hero, Work, Capabilities, Footer, HomePage
     ui/                             Button, SectionLabel, SectionHeading, MobileMenu (React island)
     motion/Reveal.astro             Hero-only stagger (reduced-motion aware)
   styles/
@@ -47,7 +47,6 @@ vercel.json                         Vercel Astro framework + build/output
 
 - `/` renders the English home; `/th/` renders the Thai home.
 - The `Work` section renders project records from the `projects` collection and shows a graceful empty state while it is empty.
-- Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. There is no in-app brief form.
 - `/notes/` and `/th/notes/` list curated notes; localized `/notes/[slug]/` detail routes are generated from the articles collection.
 
 ## Configuration
@@ -70,7 +69,7 @@ npm run preview    # serve the built dist/
 - Keep the site static-first; do not add a backend, API route, runtime storage, or runtime secret without explicit approval.
 - Update both English and Thai content when changing user-facing copy or records.
 - Content lives in content collections; chrome/marketing copy lives in `src/i18n/ui.ts`.
-- Keep contact external via `PUBLIC_CONTACT_URL`; do not add form storage without approval.
+- Do not add a contact, lead-capture, or project-intake path without explicit product approval.
 - Never publish secrets, private URLs, personal data, or internal operational details.
 - Review user changes before editing; do not overwrite unrelated work.
 

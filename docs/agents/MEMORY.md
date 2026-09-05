@@ -13,7 +13,7 @@
 - Visual system: **Machine Readout** (white field, single cyan-blue `#0071a9`, Courier Prime + Noto Sans Thai, self-hosted woff2 in `public/fonts/` — no Google Fonts request).
 - Meta/SEO: full OG + Twitter meta, absolute canonical/hreflang, per-locale static OG cards `public/og/og-{en,th}.png` (regenerate: `scripts/og/render.sh`).
 - Routes in product: `/`, `/th/`, `/notes/`, `/th/notes/`, localized note detail routes, and `/sitemap-index.xml`.
-- Contact: external `PUBLIC_CONTACT_URL` (public GitHub Issues) from `src/data/types.ts`. No in-app intake form.
+- Contact/intake: no contact flow is exposed in the current homepage.
 - **Removed from product (2026-09-02):** Next.js App Router, `/article/[slug]`, the soft-pixel system, `student-logbook` + the 3 old articles.
 
 ## Source of truth (read these first)
@@ -45,7 +45,7 @@ Do **not** rebuild or assume these are active:
 | Lead capture API / database / auth | Explicit non-goals |
 | `mailto:` personal contact pipeline | Do not introduce |
 | `/work/[slug]` project proof routes | Removed; selected work stays on the homepage |
-| `/work-with-me` local brief intake | Removed; contact uses public GitHub Issues URL |
+| `/work-with-me` local brief intake | Removed; no contact/intake flow is currently exposed |
 | `/article/[slug]` (old Next article route) | Retired until content is re-added |
 
 ## Naming (current)
@@ -60,7 +60,6 @@ Do **not** rebuild or assume these are active:
 |---------|--------|
 | Entities (projects, articles) | `src/content/projects/`, `src/content/articles/` (content collections) |
 | Chrome + marketing copy (EN/TH) | `src/i18n/ui.ts` |
-| Public contact URL | `src/data/types.ts` (`PUBLIC_CONTACT_URL`) |
 | Design tokens | `src/styles/global.css` |
 
 ## Hard rules (never skip)
@@ -68,7 +67,7 @@ Do **not** rebuild or assume these are active:
 1. Static-first: no backend/API/runtime storage without explicit user approval.
 2. Update **EN and TH** together for user-facing copy.
 3. Keep article/project **slugs aligned** across locales (derived from entry id via `entrySlug()`); do not declare a `slug` field in content frontmatter.
-4. Contact is external-only via `PUBLIC_CONTACT_URL`; do not add form storage without approval.
+4. Do not add a contact, lead-capture, or project-intake path without explicit product approval.
 5. Gate implementation with `npm run build` (astro build) and `npx astro check` (0 errors).
 6. No push / no infra changes without explicit user approval.
 

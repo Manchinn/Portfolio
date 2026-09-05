@@ -1,6 +1,6 @@
 # Software Engineering Portfolio
 
-Static-first, software engineering portfolio with bilingual English and Thai content. It presents project proof, technical articles, capabilities, and a privacy-conscious project inquiry workflow.
+Static-first personal site with bilingual English and Thai notes, runbooks, and project records. It presents curated content and capabilities without a contact or project-intake workflow.
 
 Built with **Astro** — static SSG, content collections, built-in i18n routing, and a React island for the mobile menu. The Machine Readout design tokens come from `DESIGN.md`.
 
@@ -23,7 +23,6 @@ The app has no backend, application API, runtime database, CMS, or required runt
 - `/notes/` — English notes and runbook index
 - `/th/notes/` — Thai notes and runbook index
 - `/notes/[slug]/` and `/th/notes/[slug]/` — localized static note pages
-- Contact CTAs open a public GitHub Issues URL (`src/data/types.ts` → `PUBLIC_CONTACT_URL`)
 
 ## Content
 
@@ -62,5 +61,5 @@ npm run preview      # serve dist locally
 
 - Keep English and Thai user-facing content in sync.
 - Keep public copy free of credentials, private URLs, personal data, and internal operational details.
-- Contact CTAs open a public GitHub Issues URL. This app does not collect or store inquiry form data.
+- No contact or project-intake flow is exposed. Keep published content free of credentials, private URLs, personal data, and internal operational details.
 - Use `npm run build` as the required completion gate for implementation changes.

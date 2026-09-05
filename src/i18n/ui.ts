@@ -9,14 +9,13 @@ export const UI = {
   en: {
     brand: 'Chinnakrit',
     // Navigation
-    nav: { home: 'Home', work: 'Work', notes: 'Notes', capabilities: 'Capabilities', contact: 'Contact' },
+    nav: { home: 'Home', work: 'Work', notes: 'Notes', capabilities: 'Capabilities' },
     // Hero
-    heroEyebrow: 'Full-stack software engineer',
-    heroTitle: 'I build full-stack software that ships.',
+    heroEyebrow: 'Notes & runbooks',
+    heroTitle: 'A public record of what I am learning.',
     heroBody:
-      'From typed APIs to polished interfaces — I take rough requirements to production-ready software that teams understand and can maintain.',
-    heroPrimaryCta: 'View selected work',
-    heroSecondaryCta: 'Start a project',
+      'Practical notes on tools, workflows, and experiments, added as they are reviewed.',
+    heroPrimaryCta: 'Read notes',
     heroMeta: [
       { label: 'Bilingual', value: 'EN / TH content' },
       { label: 'Static & fast', value: 'Astro SSG' },
@@ -24,13 +23,13 @@ export const UI = {
     ],
     heroSystemLabel: 'System',
     // Work (with a fallback for an empty collection)
-    workEyebrow: 'Selected work',
-    workTitle: 'A focused view of the software I build.',
+    workEyebrow: 'Projects',
+    workTitle: 'A record of projects and experiments.',
     workSubtitle:
-      'Each project is told as product proof: the problem, what I built, and the result.',
-    workEmptyTitle: 'Selected work coming soon',
+      'Each entry captures the context, implementation, and outcome as it is documented.',
+    workEmptyTitle: 'Projects coming soon',
     workEmptyBody:
-      'This section is where I present real projects with a clear problem → build → result story. It will be filled out next.',
+      'This section will collect projects and experiments with notes on what I learned.',
     workCaseStudy: {
       problem: 'Problem',
       built: 'Built',
@@ -39,7 +38,7 @@ export const UI = {
     workFigPlaceholder: 'Fig. — image placeholder · swap in a real figure',
     // Notes / runbooks
     notesEyebrow: 'Notes & runbooks',
-    notesTitle: 'Field notes from building and operating software.',
+    notesTitle: 'Field notes from tools, workflows, and experiments.',
     notesSubtitle:
       'Practical records of tools, workflows, and decisions. Each note is curated from working material before it is published.',
     notesEmptyTitle: 'Notes are being prepared',
@@ -50,52 +49,43 @@ export const UI = {
     notesReadTime: 'Read',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
-    capabilitiesTitle: 'What I can build for you.',
-    capabilitiesSubtitle: 'Four delivery areas behind the work.',
+    capabilitiesTitle: 'Areas I am exploring.',
+    capabilitiesSubtitle: 'Tools and patterns documented in the notes.',
     capabilityCards: [
       {
-        title: 'Full-stack Applications',
+        title: 'Web application patterns',
         statement:
-          'Typed web applications with clear data flows, validation, and maintainable boundaries — from database to UI.',
+          'Notes on typed web applications, clear data flows, validation, and maintainable boundaries.',
       },
       {
-        title: 'Backend & APIs',
+        title: 'Backend and API patterns',
         statement:
-          'Express/Node services, REST APIs, auth, multi-tenant scoping, realtime, and integrations.',
+          'Notes on Express/Node services, REST APIs, auth, and integrations.',
       },
       {
-        title: 'Frontend & Product UI',
+        title: 'Frontend and UI patterns',
         statement:
-          'Responsive interfaces with clear states, bilingual support, and accessible controls.',
+          'Notes on responsive interfaces, bilingual support, and accessible controls.',
       },
       {
-        title: 'Delivery & Operations',
+        title: 'Delivery and operations',
         statement:
-          'Repeatable builds, CI, deployment checks, and operational workflows a team can review.',
+          'Notes on repeatable builds, CI, deployment checks, and operational workflows.',
       },
     ],
-    // Contact
-    contactEyebrow: 'Project inquiry',
-    contactTitle: 'Have a workflow that needs a clearer software path?',
-    contactBody:
-      'Share the context, desired result, and constraints in a public GitHub issue. This site does not collect or store a project brief.',
-    contactAction: 'Open GitHub inquiry',
-    contactNotice:
-      'Opens a public GitHub issue. Do not include private credentials or personal data you would not post publicly.',
     // Footer
-    footer: 'Full-stack software engineer',
+    footer: 'Notes & runbooks',
   },
   th: {
     brand: 'ชินกฤต',
     // Navigation
-    nav: { home: 'หน้าแรก', work: 'ผลงาน', notes: 'บันทึก', capabilities: 'ความสามารถ', contact: 'ติดต่อ' },
+    nav: { home: 'หน้าแรก', work: 'ผลงาน', notes: 'บันทึก', capabilities: 'ความสามารถ' },
     // Hero
-    heroEyebrow: 'Full-stack software engineer',
-    heroTitle: 'สร้างซอฟต์แวร์ full-stack ที่ใช้งานได้จริง',
+    heroEyebrow: 'บันทึกและ runbook',
+    heroTitle: 'บันทึกสิ่งที่กำลังเรียนรู้',
     heroBody:
-      'ตั้งแต่ API ที่มี type ชัดไปจนถึงอินเทอร์เฟซที่เสร็จสมบูรณ์ — ปรับ requirements ที่คลุมเครือให้กลายเป็นซอฟต์แวร์พร้อมใช้งานที่ทีมดูแลต่อได้',
-    heroPrimaryCta: 'ดูผลงาน',
-    heroSecondaryCta: 'เริ่มโปรเจกต์',
+      'บันทึกการใช้งานเครื่องมือ workflow และการทดลอง โดยจะทยอยเผยแพร่เมื่อผ่านการตรวจทาน',
+    heroPrimaryCta: 'อ่านบันทึก',
     heroMeta: [
       { label: 'สองภาษา', value: 'เนื้อหา EN / TH' },
       { label: 'Static และเร็ว', value: 'Astro SSG' },
@@ -103,12 +93,12 @@ export const UI = {
     ],
     heroSystemLabel: 'ระบบ',
     // Work (with a fallback for an empty collection)
-    workEyebrow: 'Selected work',
-    workTitle: 'โฟกัสซอฟต์แวร์ที่ผมสร้าง',
-    workSubtitle: 'แต่ละโปรเจกต์นำเสนอแบบ product proof: ปัญหา สิ่งที่สร้าง และผลลัพธ์',
+    workEyebrow: 'โปรเจกต์',
+    workTitle: 'บันทึกโปรเจกต์และการทดลอง',
+    workSubtitle: 'แต่ละรายการบันทึกบริบท วิธีทำ และผลลัพธ์เท่าที่พร้อมเผยแพร่',
     workEmptyTitle: 'ผลงานจะถูกเพิ่มเร็วๆ นี้',
     workEmptyBody:
-      'ส่วนนี้จะเป็นที่โชว์โปรเจกต์จริงพร้อมเรื่องราวปัญหา → การสร้าง → ผลลัพธ์ที่ชัดเจน จะเติมในขั้นถัดไป',
+      'ส่วนนี้จะรวบรวมโปรเจกต์และการทดลองพร้อมบทเรียนที่บันทึกไว้',
     workCaseStudy: {
       problem: 'ปัญหา',
       built: 'สิ่งที่สร้าง',
@@ -117,7 +107,7 @@ export const UI = {
     workFigPlaceholder: 'รูปตัวอย่าง — ใส่รูปจริงภายหลัง',
     // Notes / runbooks
     notesEyebrow: 'บันทึกและ runbook',
-    notesTitle: 'บันทึกจากการสร้างและดูแลซอฟต์แวร์จริง',
+    notesTitle: 'บันทึกจากเครื่องมือ workflow และการทดลอง',
     notesSubtitle:
       'บันทึกการใช้งานเครื่องมือ workflow และการตัดสินใจ โดยคัดกรองจากโน้ตทำงานก่อนเผยแพร่',
     notesEmptyTitle: 'กำลังเตรียมบันทึก',
@@ -128,38 +118,30 @@ export const UI = {
     notesReadTime: 'อ่าน',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
-    capabilitiesTitle: 'สิ่งที่ผมสร้างให้คุณได้',
-    capabilitiesSubtitle: 'สี่ด้านของการส่งมอบที่อยู่เบื้องหลังงาน',
+    capabilitiesTitle: 'หัวข้อที่กำลังศึกษา',
+    capabilitiesSubtitle: 'เครื่องมือและแนวคิดที่กำลังบันทึกไว้ใน notes',
     capabilityCards: [
       {
-        title: 'แอป Full-stack',
+        title: 'รูปแบบเว็บแอป',
         statement:
-          'เว็บแอปแบบ typed มี data flow, validation และขอบเขตที่ดูแลต่อได้ — ตั้งแต่ database ถึง UI',
+          'บันทึกเรื่องเว็บแอปแบบ typed, data flow, validation และขอบเขตของโค้ด',
       },
       {
-        title: 'Backend และ API',
+        title: 'รูปแบบ Backend และ API',
         statement:
-          'บริการ Node/Express, REST API, auth, multi-tenant scoping, realtime และ integrations',
+          'บันทึกเรื่องบริการ Node/Express, REST API, auth และ integrations',
       },
       {
-        title: 'Frontend และ Product UI',
-        statement: 'อินเทอร์เฟซ responsive ที่มีสถานะชัด รองรับสองภาษา และควบคุมได้ด้วยคีย์บอร์ด',
+        title: 'รูปแบบ Frontend และ UI',
+        statement: 'บันทึกเรื่องอินเทอร์เฟซ responsive การรองรับสองภาษา และการเข้าถึง',
       },
       {
-        title: 'ส่งมอบและปฏิบัติการ',
-        statement: 'build, CI, ตรวจ deployment และ workflow ปฏิบัติการที่ทีมตรวจทานได้',
+        title: 'การส่งมอบและปฏิบัติการ',
+        statement: 'บันทึกเรื่อง build, CI, การตรวจ deployment และ workflow ปฏิบัติการ',
       },
     ],
-    // Contact
-    contactEyebrow: 'Project inquiry',
-    contactTitle: 'มี workflow ที่ต้องการเส้นทางพัฒนาซอฟต์แวร์ให้ชัดขึ้นหรือไม่',
-    contactBody:
-      'แชร์บริบท ผลลัพธ์ที่ต้องการ และข้อจำกัดผ่าน GitHub issue แบบสาธารณะ เว็บนี้ไม่เก็บหรือบันทึก project brief',
-    contactAction: 'เปิด issue บน GitHub',
-    contactNotice:
-      'จะเปิด GitHub issue แบบสาธารณะ อย่าใส่รหัสผ่าน โทเคน หรือข้อมูลส่วนตัวที่ไม่ควรโพสต์สาธารณะ',
     // Footer
-    footer: 'วิศวกรซอฟต์แวร์ full-stack',
+    footer: 'บันทึกและ runbook',
   },
 } as const
 
@@ -169,6 +151,6 @@ export function getUI(language: Language) {
 
 /** Fallback <meta name="description"> per locale (used by BaseLayout). */
 export const META_DESCRIPTION: Record<Language, string> = {
-  en: 'Full-stack software engineer building clear, maintainable software from API to interface.',
-  th: 'วิศวกรซอฟต์แวร์ full-stack สร้างซอฟต์แวร์ชัดเจน ดูแลต่อได้ ตั้งแต่ API จนถึงอินเทอร์เฟซ',
+  en: 'Notes, runbooks, and experiments by Chinnakrit.',
+  th: 'บันทึก runbook และการทดลองของชินกฤต',
 }

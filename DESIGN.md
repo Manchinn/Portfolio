@@ -29,7 +29,7 @@ generic clean-SaaS templates.
 | Section/label/button primitives | `src/components/ui/` |
 | Homepage composition | `src/components/home/HomePage.astro` |
 | Content records | `src/content/projects/` (EN/TH populated) + `src/content/articles/` (curated EN/TH notes) |
-| Contact CTA (external) | `PUBLIC_CONTACT_URL` |
+| Contact/intake surface | None in the current homepage |
 | OG cards (EN/TH) | `public/og/` + `scripts/og/` (regenerate: `scripts/og/render.sh`) |
 | Motion behavior | `src/components/motion/Reveal.astro` |
 
@@ -98,8 +98,8 @@ falls back to Noto Sans Thai glyphs.
 
 ## 7. Motion
 
-Hero-only stagger via `Reveal` (CSS `@keyframes`, delay per item). Work,
-capabilities, and contact render immediately. `prefers-reduced-motion`
+Hero-only stagger via `Reveal` (CSS `@keyframes`, delay per item). Work and
+capabilities render immediately. `prefers-reduced-motion`
 collapses durations globally.
 
 ## 8. Refactor Guardrails

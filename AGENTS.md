@@ -18,7 +18,7 @@ The parent folder contains project-level docs. Run git and package commands from
 - `/` renders the English one-page portfolio; `/th/` renders the Thai version.
 - Content lives in Astro content collections: projects (`src/content/projects/{en,th}/` — populated with EN/TH records) and public notes/runbooks (`src/content/articles/{en,th}/` — curated Markdown in EN/TH). The Work section renders each project as a flat non-navigational row (duotone figure placeholder, category/title/description, Problem → Built → Result case-study, and a system readout `REF / TECH / CASE`) and falls back to a graceful empty state only if no records exist.
 - All chrome/marketing copy lives in `src/i18n/ui.ts`.
-- Contact CTAs open a public GitHub Issues URL (`PUBLIC_CONTACT_URL`) in `src/data/types.ts`. The app does not collect or store inquiry form data.
+- No contact or project-intake flow is currently exposed. Do not add one without explicit product approval.
 
 There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable.
 
@@ -28,7 +28,7 @@ There is no backend, application API, runtime database, CMS, server-side content
 2. Preserve English and Thai parity. Update both locales when changing user-facing content or content records.
 3. Treat content collections (`src/content/`) as the source of truth for entity content, and `src/i18n/ui.ts` for chrome/marketing copy.
 4. Keep article/project slugs and filenames aligned across locales; the slug is derived from the entry id via `entrySlug()` — do **not** declare a `slug` field in content frontmatter (Astro reserves it).
-5. Keep inquiry handoff external: contact CTAs may open `PUBLIC_CONTACT_URL` (public GitHub Issues) but must not add an app form submission/storage path without explicit approval.
+5. Do not add a contact, lead-capture, or project-intake path without explicit product approval.
 6. Keep public copy sanitized. Do not expose credentials, private URLs, personal data, or internal operational details.
 7. Use `npm run build` (astro build) as the required implementation gate; `npx astro check` should report 0 errors.
 8. Preserve user changes and keep edits scoped to the requested work.
@@ -46,7 +46,7 @@ src/layouts/BaseLayout.astro              HTML shell, fonts, metadata, global CS
 src/pages/index.astro                     English home (default locale)
 src/pages/th/index.astro                  Thai home
 src/pages/404.astro                       404 page
-src/components/home/                      Navbar, Hero, Work, Capabilities, Contact, Footer, HomePage
+src/components/home/                      Navbar, Hero, Work, Capabilities, Footer, HomePage
 src/components/ui/                        Button, SectionLabel, SectionHeading, MobileMenu (React island)
 src/components/motion/Reveal.astro        Hero-only stagger (reduced-motion aware)
 src/styles/global.css                     Tailwind v4 @theme tokens + Machine Readout recipes
@@ -71,7 +71,7 @@ Before committing public-facing changes:
 
 - No hardcoded secrets, credentials, private domains, or private network details.
 - No unreviewed personal or operational details in portfolio content.
-- The public-issue warning remains visible in the project inquiry workflow.
+- Public copy must remain limited to reviewed notes and project details.
 - Rebuild the production output with `npm run build` and review it.
 
 ## External Actions

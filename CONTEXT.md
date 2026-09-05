@@ -2,12 +2,12 @@
 
 > Current as of 2026-09-03. Shared vocabulary for the implemented Machine Readout portfolio after the Astro rebuild.
 
-This context keeps design and implementation decisions consistent across the homepage, navigation, and external inquiry handoff.
+This context keeps design and implementation decisions consistent across the homepage, navigation, and notes archive.
 
 ## Language
 
-**Software Engineering Portfolio**:
-The canonical public product: a bilingual (EN/TH) portfolio focused on full-stack systems delivery. Content includes a populated Work section (EN/TH project records) alongside hero, capabilities, and contact.
+**Notes and Project Archive**:
+The canonical public product: a bilingual (EN/TH) site focused on curated notes, runbooks, experiments, and project records. Content includes a populated Work section (EN/TH project records) alongside the notes-first hero and capabilities.
 _Avoid_: Personal-data-heavy profile, fictional product company, unsupported AI claims.
 
 **Machine Readout Visual Baseline**:
@@ -26,20 +26,19 @@ _Avoid_: Per-route navigation identity, duplicated global shell.
 Astro i18n: `en` renders at `/` (default, no prefix), `th` at `/th/`. Content collection entries are stored per locale (`projects/{en,th}`, `articles/{en,th}`) and the slug is derived from the entry id via `entrySlug()`.
 _Avoid_: Declaring a `slug` field in content frontmatter (Astro reserves it); locale-dependent slugs without canonical mapping.
 
-**External Inquiry Handoff**:
-Contact CTAs open `PUBLIC_CONTACT_URL` (public GitHub Issues). The portfolio does not host a local brief builder or store form data.
-_Avoid_: Backend lead capture, in-app form storage, `mailto:` assumptions.
+**Contact Surface**:
+The current homepage does not expose a contact or project-intake flow.
+_Avoid_: Adding lead capture, in-app form storage, or `mailto:` assumptions without explicit product approval.
 
 **Content Ownership**:
 | Concern | Owner |
 |---------|--------|
 | Projects, articles (entities) | `src/content/projects/`, `src/content/articles/` (content collections) |
 | Chrome + marketing copy (EN/TH) | `src/i18n/ui.ts` |
-| Public contact URL | `src/data/types.ts` (`PUBLIC_CONTACT_URL`) |
 | Design tokens | `src/styles/global.css` |
 
 **Portfolio Journey Navigation**:
-Home, Work, Capabilities, and Contact. Work, Capabilities, and Contact target homepage sections (`/#work`, `/#capabilities`, `/#contact`).
+Home, Work, Notes, and Capabilities. Work and Capabilities target homepage sections, while Notes links to the localized notes index.
 _Avoid_: Timeline nav without a timeline section, restored `/work-with-me` without product approval.
 
 **Retired Routes**:

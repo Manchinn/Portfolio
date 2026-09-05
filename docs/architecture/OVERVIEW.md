@@ -19,7 +19,7 @@ Astro (static build output in /dist)
   +-- src/pages/404.astro              404 page
   |      |
   |      +-- src/layouts/BaseLayout.astro  (HTML shell, metadata, fonts)
-  |      +-- src/components/home/          (Navbar, Hero, Work, Capabilities, Contact, Footer)
+  |      +-- src/components/home/          (Navbar, Hero, Work, Capabilities, Footer)
   |      +-- content collections          (projects + localized notes)
 ```
 
@@ -45,7 +45,7 @@ Both language home pages render the `Work` section from the `projects` collectio
 | Content source | Content collections (`projects`, `articles`) + `src/i18n/ui.ts` for chrome copy | No runtime content service; notes are curated into the repo and the slug is derived from the entry id. |
 | Language model | Astro i18n routing (`en` at `/`, `th` at `/th/`) | Separate URLs per locale give better SEO; the language switch is a link. |
 | Shared shell | `src/components/home/` (Navbar + Footer around the home route) | Consistent header/footer across the home routes. |
-| Contact handoff | Public GitHub issue URL (`PUBLIC_CONTACT_URL`) | No visitor data is stored by this app; the destination is public. |
+| Contact/intake surface | None in the current homepage | Project conversations are outside the current product scope. |
 | Styling | Tailwind CSS 4 + Machine Readout tokens in `src/styles/global.css` | Centralized visual vocabulary (white field, cyan-blue accent). |
 | Interactive island | `src/components/ui/MobileMenu.tsx` (React, `client:load`) | Mobile menu interactivity without a heavy app shell. |
 
@@ -62,11 +62,6 @@ Notes (en/th)
 ```
 
 ```text
-Contact handoff
-  CTA -> PUBLIC_CONTACT_URL (GitHub Issues, external)
-```
-
-```text
 Sitemap
   @astrojs/sitemap -> site + locale routes (includes notes and hreflang alternates)
 ```
@@ -75,7 +70,7 @@ Sitemap
 
 ### Public copy and privacy
 
-Public copy must remain sanitized. Contact opens a public GitHub Issues URL and does not store form data in this application.
+Public copy must remain sanitized. The current homepage does not expose contact or project-intake functionality.
 
 ### Language support
 
@@ -102,7 +97,7 @@ src/
   pages/index.astro                English home (/)
   pages/th/index.astro             Thai home (/th/)
   pages/404.astro                  404 page
-  components/home/                 Navbar, Hero, Work, Capabilities, Contact, Footer, HomePage
+  components/home/                 Navbar, Hero, Work, Capabilities, Footer, HomePage
   components/ui/                   Button, SectionLabel, SectionHeading, MobileMenu (React island)
   components/motion/Reveal.astro   Hero-only stagger (reduced-motion aware)
   styles/global.css                Tailwind v4 @theme tokens + Machine Readout recipes
