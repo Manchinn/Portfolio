@@ -27,7 +27,7 @@ const projectData = projects.map((entry) => ({
 }))
 ---
 
-<MainGridLayout lang={lang} banner={lang === 'th' ? '/og/og-th.png' : '/og/og-en.png'} title={ui.brand} description={ui.heroBody}>
+<MainGridLayout lang={lang} bannerEnabled={false} banner={lang === 'th' ? '/og/og-th.png' : '/og/og-en.png'} title={ui.brand} description={ui.heroBody}>
   <section class="card-base onload-animation mb-4 px-6 py-8 md:px-9 md:py-10">
     <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{ui.heroEyebrow}</p>
     <h1 class="mb-4 text-3xl font-bold leading-tight text-90 md:text-5xl">{ui.heroTitle}</h1>

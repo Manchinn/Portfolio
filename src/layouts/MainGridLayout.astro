@@ -18,6 +18,7 @@ import Layout from "./Layout.astro";
 interface Props {
 	title?: string;
 	banner?: string;
+	bannerEnabled?: boolean;
 	description?: string;
 	lang?: string;
 	setOGTypeArticle?: boolean;
@@ -27,6 +28,7 @@ interface Props {
 const {
 	title,
 	banner,
+	bannerEnabled = siteConfig.banner.enable,
 	description,
 	lang,
 	setOGTypeArticle,
@@ -35,15 +37,14 @@ const {
 const locale = lang === 'th' ? 'th' : 'en';
 const bannerSrc = banner || siteConfig.banner.src;
 const hasBannerCredit =
-	siteConfig.banner.enable && siteConfig.banner.credit.enable;
+	bannerEnabled && siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
-
-const mainPanelTop = siteConfig.banner.enable
+const mainPanelTop = bannerEnabled
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
 	: "5.5rem";
 ---
 
-<Layout title={title} banner={banner} description={description} lang={locale} setOGTypeArticle={setOGTypeArticle}>
+<Layout title={title} banner={banner} bannerEnabled={bannerEnabled} description={description} lang={locale} setOGTypeArticle={setOGTypeArticle}>
 
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
@@ -54,7 +55,7 @@ const mainPanelTop = siteConfig.banner.enable
 </div>
 
 <!-- Banner -->
-{siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
+{bannerEnabled && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700"]}
                   src={bannerSrc} position={siteConfig.banner.position}
     >
@@ -109,7 +110,7 @@ const mainPanelTop = siteConfig.banner.enable
     <div class="relative max-w-[var(--page-width)] mx-auto">
         <!-- TOC component -->
         {siteConfig.toc.enable && <div id="toc-wrapper" class:list={["hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center",
-            {"toc-hide": siteConfig.banner.enable}]}
+            {"toc-hide": bannerEnabled || headings.length === 0}]}
         >
             <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar">
                 <div id="toc" class="w-full h-full transition-swup-fade ">

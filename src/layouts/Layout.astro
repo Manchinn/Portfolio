@@ -10,15 +10,23 @@ import {
 interface Props {
   title?: string
   banner?: string
+  bannerEnabled?: boolean
   description?: string
   lang?: string
   setOGTypeArticle?: boolean
 }
 
-const { title, banner: _banner, description, lang = 'en', setOGTypeArticle = false } = Astro.props
+const {
+  title,
+  banner: _banner,
+  bannerEnabled = siteConfig.banner.enable,
+  description,
+  lang = 'en',
+  setOGTypeArticle = false,
+} = Astro.props
 const normalizedPath = Astro.url.pathname.replace(/\/+$/, '') || '/'
 const isHomePage = normalizedPath === '/' || normalizedPath === '/th'
-const bodyClass = `min-h-screen transition${siteConfig.banner.enable ? ' enable-banner' : ''}${isHomePage ? ' is-home' : ''}`
+const bodyClass = `min-h-screen transition${bannerEnabled ? ' enable-banner' : ''}${isHomePage ? ' is-home' : ''}`
 const bannerOffsetByPosition = {
   top: `${BANNER_HEIGHT_EXTEND}vh`,
   center: `${BANNER_HEIGHT_EXTEND / 2}vh`,
