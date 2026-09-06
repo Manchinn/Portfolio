@@ -1,5 +1,5 @@
 /* Portfolio · design system — "machine readout"
- * pure white field + single cyan-blue (#0071a9) + typewriter mono + dashed
+ * pure white field + single cyan-blue (#0071a9) + readable sans + dashed
  * blueprint lines + flat shapes (no cards, no shadows, no grain, no radius).
  * Reconstructed from the 2026-09-03 reference capture (white/bg + #0071a9).
  * token names: ink / muted / line / accent / surface
@@ -15,8 +15,9 @@
   --color-bg: #ffffff;
   --color-surface: #ffffff;
   --color-surface-soft: #eef6fa;
-  --color-ink: #0071a9;
-  --color-muted: #2d7ca4;
+  /* Dark ink carries reading text; cyan stays reserved for accents. */
+  --color-ink: #123b4d;
+  --color-muted: #3f6473;
   --color-line: #8fc2dc;
   --color-line-strong: #4da0c7;
   --color-accent: #0071a9;
@@ -32,8 +33,8 @@
   --radius-md: 0px;
   --radius-lg: 0px;
 
-  /* typewriter mono everywhere; Noto Sans Thai carries Thai glyphs */
-  --font-sans: 'Courier Prime', 'Noto Sans Thai', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Use mono for labels/readouts only; body and headings stay readable. */
+  --font-sans: ui-sans-serif, 'Noto Sans Thai', system-ui, sans-serif;
   --font-mono: 'Courier Prime', 'Noto Sans Thai', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -124,15 +125,14 @@ a:focus-visible,
 }
 
 /* ── machine display type ──────────────────────────────────────────────
- * mono, all-caps, wide tracking — the "system readout" voice for every
- * heading. Noto Sans Thai (fallback) has no capitals, so Thai headings
- * keep natural case but inherit the same rhythm.
+ * Sans headings retain the all-caps system voice without making every line
+ * read like a typewriter label. Noto Sans Thai keeps Thai glyph coverage.
  */
 .display {
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   line-height: 1.08;
   text-wrap: balance;
 }
@@ -401,6 +401,8 @@ details[open] .notes-toc-summary > span:last-child {
 }
 
 :root.dark {
+  --color-ink: #c4edf9;
+  --color-muted: #a9c9d5;
   --page-bg: oklch(0.16 0.014 var(--hue));
   --card-bg: oklch(0.23 0.015 var(--hue));
   --btn-content: oklch(0.75 0.1 var(--hue));
@@ -430,7 +432,7 @@ html.dark { color-scheme: dark; }
 body {
   background: var(--page-bg);
   color: var(--deep-text);
-  font-family: Roboto, 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
   --page-width: 75rem;
 }
 
