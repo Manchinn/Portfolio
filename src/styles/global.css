@@ -363,6 +363,8 @@ details[open] .notes-toc-summary > span:last-child {
 /* Fuwari theme tokens and component recipes. These are kept in the portfolio
  * stylesheet so the upstream layout remains usable without a second CSS build. */
 :root {
+  --color-ink: oklch(0.24 0.02 var(--hue));
+  --color-muted: oklch(0.42 0.025 var(--hue));
   --hue: 200;
   --radius-large: 1rem;
   --content-delay: 150ms;
@@ -456,12 +458,12 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--color-ink);
 }
 
 .btn-plain:hover { color: var(--primary); background: var(--btn-plain-bg-hover); }
 .btn-plain:active { background: var(--btn-plain-bg-active); transform: scale(0.96); }
-.dark .btn-plain { color: rgba(255, 255, 255, 0.75); }
+.dark .btn-plain { color: var(--color-ink); }
 
 .btn-card {
   display: inline-flex;
