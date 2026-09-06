@@ -41,9 +41,9 @@ const labels = ui.workCaseStudy
   {projects.length > 0 ? (
     <div data-reveal-group class="mt-6">
       {projects.map((p, i) => (
-        <article data-reveal-item class="project-row grid gap-[calc(24*var(--u))] border-b border-dashed border-line py-[calc(40*var(--u))] last:border-b-0 md:grid-cols-[0.8fr_1.35fr_0.85fr] md:items-start md:gap-[calc(40*var(--u))]">
+        <article data-reveal-item class="project-row grid gap-[calc(20*var(--u))] border-b border-dashed border-line py-[calc(24*var(--u))] last:border-b-0 md:grid-cols-[0.75fr_1.45fr_0.8fr] md:items-start md:gap-[calc(32*var(--u))] md:py-[calc(28*var(--u))]">
           {/* figure placeholder — swap for a real image later */}
-          <figure class="placeholder-fig">
+          <figure class="placeholder-fig md:aspect-[5/3]">
             <figcaption>{ui.workFigPlaceholder}</figcaption>
           </figure>
 
@@ -53,7 +53,7 @@ const labels = ui.workCaseStudy
             <p class="mt-3 text-[var(--hw-text-body)] leading-relaxed text-muted">{p.description}</p>
 
             {p.caseStudy && (
-              <dl class="mt-5 space-y-3 border-t border-dashed border-line pt-4">
+              <dl class="mt-4 grid gap-3 border-t border-dashed border-line pt-4 md:grid-cols-3 md:gap-4">
                 <div>
                   <dt class="font-mono text-xs uppercase tracking-[0.12em] text-accent">{labels.problem}</dt>
                   <dd class="mt-1 text-[var(--hw-text-body)] leading-relaxed text-muted">{p.caseStudy.problem}</dd>
