@@ -11,9 +11,10 @@ interface Props {
   ogType?: 'website' | 'article'
   canonical?: string
   noindex?: boolean
+  bodyClass?: string
 }
 
-const { lang, title, description, ogType = 'website', canonical, noindex = false } = Astro.props
+const { lang, title, description, ogType = 'website', canonical, noindex = false, bodyClass } = Astro.props
 const ui = getUI(lang)
 const htmlLang = lang === 'th' ? 'th' : 'en'
 const SITE = Astro.site ?? new URL('https://www.chinnakrit.dev')
@@ -71,7 +72,7 @@ const hrefLang = lang === 'en'
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
-  <body>
+  <body class={bodyClass}>
     <slot />
     <ScrollMotion />
   </body>

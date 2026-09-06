@@ -1,0 +1,80 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import { entrySlug } from '@/content.config'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import PostCard from '@/components/PostCard.astro'
+import Work from '@/components/home/Work.astro'
+import Capabilities from '@/components/home/Capabilities.astro'
+
+interface Props {
+  lang: Language
+  projects: CollectionEntry<'projects'>[]
+  notes: CollectionEntry<'articles'>[]
+}
+
+const { lang, projects, notes } = Astro.props
+const ui = getUI(lang)
+const base = lang === 'th' ? '/th' : ''
+const projectData = projects.map((entry) => ({
+  slug: entrySlug(entry.id),
+  title: entry.data.title,
+  description: entry.data.description,
+  tech: entry.data.tech,
+  category: entry.data.category,
+  caseStudy: entry.data.caseStudy,
+}))
+---
+
+<MainGridLayout lang={lang} banner={lang === 'th' ? '/og/og-th.png' : '/og/og-en.png'} title={ui.brand} description={ui.heroBody}>
+  <section class="card-base onload-animation mb-4 px-6 py-8 md:px-9 md:py-10">
+    <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{ui.heroEyebrow}</p>
+    <h1 class="mb-4 text-3xl font-bold leading-tight text-90 md:text-5xl">{ui.heroTitle}</h1>
+    <p class="max-w-[60ch] text-lg leading-relaxed text-75">{ui.heroBody}</p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <a class="btn-regular h-11 rounded-lg px-5 font-bold" href={`${base}/notes/`}>{ui.heroPrimaryCta}</a>
+      <a class="btn-plain h-11 rounded-lg px-5 font-bold" href={`${base}/#work`}>{ui.nav.work}</a>
+    </div>
+  </section>
+
+  <section id="notes" class="mb-4">
+    <div class="mb-4 flex items-end justify-between gap-4 px-2">
+      <div>
+        <p class="text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{ui.notesEyebrow}</p>
+        <h2 class="mt-2 text-2xl font-bold text-90 md:text-3xl">{ui.notesTitle}</h2>
+      </div>
+      <a class="link hidden shrink-0 text-sm font-medium md:block" href={`${base}/notes/`}>{ui.notesBack}</a>
+    </div>
+    {notes.length > 0 ? (
+      <div class="flex flex-col gap-4">
+        {notes.slice(0, 3).map((note) => (
+          <PostCard
+            entry={note}
+            title={note.data.title}
+            tags={note.data.tags}
+            category={note.data.category}
+            published={new Date(note.data.publishedAt)}
+            updated={note.data.updatedAt ? new Date(note.data.updatedAt) : undefined}
+            url={`${base}/notes/${entrySlug(note.id)}/`}
+            image=""
+            description={note.data.excerpt}
+            draft={note.data.draft}
+            lang={lang}
+            style=""
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="card-base p-8 text-center text-75">{ui.notesEmptyBody}</div>
+    )}
+  </section>
+
+  <div class="card-base mb-4 overflow-hidden">
+    <Work lang={lang} projects={projectData} />
+  </div>
+
+  <div class="card-base overflow-hidden">
+    <Capabilities lang={lang} />
+  </div>
+</MainGridLayout>

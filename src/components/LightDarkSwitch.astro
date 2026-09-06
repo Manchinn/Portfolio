@@ -1,0 +1,22 @@
+<div class="relative z-50" role="menu">
+  <button aria-label="Light/Dark Mode" class="relative btn-plain scale-animation rounded-lg h-11 w-11 active:scale-90" id="scheme-switch" type="button">
+    <span aria-hidden="true" class="theme-icon theme-icon-light">☼</span>
+    <span aria-hidden="true" class="theme-icon theme-icon-dark">◐</span>
+    <span aria-hidden="true" class="theme-icon theme-icon-auto">◌</span>
+  </button>
+</div>
+
+<style>
+  .theme-icon { position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.1rem; }
+  .theme-icon-dark, .theme-icon-auto { opacity: 0; }
+  :global(html.dark) .theme-icon-light { opacity: 0; }
+  :global(html.dark) .theme-icon-dark { opacity: 1; }
+</style>
+
+<script>
+  const button = document.getElementById('scheme-switch')
+  button?.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark')
+    localStorage.setItem('theme', dark ? 'dark' : 'light')
+  })
+</script>

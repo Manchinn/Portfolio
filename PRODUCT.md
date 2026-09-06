@@ -1,10 +1,10 @@
 # Product Baseline
 
-> Current as of 2026-09-05. Describes the implemented public product (Astro + Machine Readout).
+> Current as of 2026-09-07. Describes the implemented public product (Astro + Fuwari).
 
 ## Product
 
-A static-first, bilingual (EN/TH) personal site for curated notes, runbooks, and project records. It presents a notes-first hero, capabilities, and a **Work section populated from the projects content collection** (EN/TH records). No contact or project-intake flow is currently exposed.
+A static-first, bilingual (EN/TH) personal site for curated notes, runbooks, and project records. Every public route uses the real Fuwari Astro template shell: banner, navbar, profile sidebar, categories/tags, post cards, TOC, theme controls, and back-to-top. Portfolio-specific hero, Work, and Capabilities content is adapted into that shell. No contact or project-intake flow is currently exposed.
 
 ## Users
 
@@ -20,7 +20,7 @@ Landing page
   -> review selected work and capabilities as they are published
 ```
 
-There is no separate work-detail route, article route, local brief builder, or `/saas` product page in the current build.
+There is no separate work-detail route, article route, local brief builder, or `/saas` product page in the current build. Notes use the Fuwari post-card and Markdown detail surfaces.
 
 ## Product Purpose
 
@@ -32,6 +32,10 @@ The site records learning, experiments, and reviewed project details in a public
 |-------|------|
 | `/` | English one-page home (notes-first hero, work, capabilities) |
 | `/th/` | Thai one-page portfolio |
+| `/notes/` | English notes and runbook index |
+| `/th/notes/` | Thai notes and runbook index |
+| `/notes/[slug]/` | English static note detail |
+| `/th/notes/[slug]/` | Thai static note detail |
 | `/sitemap-index.xml` | Static sitemap |
 
 **Retired (do not restore without explicit product approval):** `/saas`, `/work/[slug]`, `/work-with-me`, and the old Next.js `/article/[slug]`.
@@ -50,15 +54,16 @@ Clear, practical, and trustworthy. The voice is implementation-led and composed,
 
 ## Visual Direction
 
-Machine Readout: pure white field, single cyan-blue accent (`#0071a9`), Courier Prime typewriter mono + Noto Sans Thai, dashed blueprint separators, flat radius-0 shapes. Exact tokens live in `DESIGN.md` and `src/styles/global.css`.
+Fuwari theme: responsive banner and main grid, rounded content surfaces, profile/sidebar widgets, hue-driven light/dark colors, post cards, and article TOC. The portfolio's existing cyan/blue readout artwork remains in the localized OG banner cards and section content. Exact tokens and layout rules live in `DESIGN.md`, `src/config.ts`, `src/layouts/`, and `src/styles/global.css`.
 
 ## Design Principles
 
 1. Show evidence before decoration: lead from reviewed notes and concrete project details.
 2. Keep notes discoverable: home and shell CTAs reach the localized notes index.
-3. Keep the public surface safe: publish only reviewed, sanitized content.
-4. Keep both languages equivalent: changes to copy and records must be checked in EN and TH.
-5. Make technical work scannable: clear hierarchy, restrained motion, short labels, stable responsive layouts.
+3. Use one shared Fuwari shell across home, archive, and detail routes.
+4. Keep the public surface safe: publish only reviewed, sanitized content.
+5. Keep both languages equivalent: changes to copy and records must be checked in EN and TH.
+6. Make technical work scannable: clear hierarchy, restrained motion, short labels, stable responsive layouts.
 
 ## Non-goals
 

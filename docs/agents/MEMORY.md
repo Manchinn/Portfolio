@@ -2,7 +2,7 @@
 
 > Durable facts for AI agents. Prefer this file + root SoT docs over chat history or deleted plans.
 
-**Last updated:** 2026-09-06
+**Last updated:** 2026-09-07
 
 ## Current product (authoritative)
 
@@ -10,10 +10,12 @@
 - Bilingual **EN/TH** via Astro i18n routing: `en` at `/`, `th` at `/th/`.
 - Content entities: content collections `src/content/projects/{en,th}/` (**populated**, EN/TH) and `src/content/articles/{en,th}/` (**curated notes/runbooks**, EN/TH).
 - Chrome + marketing copy: `src/i18n/ui.ts` (+ per-locale `META_DESCRIPTION`).
-- Visual system: **Machine Readout** (white field, single cyan-blue `#0071a9`, Courier Prime + Noto Sans Thai, self-hosted woff2 in `public/fonts/` — no Google Fonts request).
+- Shared visual/runtime shell: the real **Fuwari** template adapted in `src/layouts/` and `src/components/` (banner, navbar, profile/sidebar widgets, post cards, TOC, theme controls, dark mode, back-to-top).
+- Portfolio artwork: localized cyan/blue readout OG cards in `public/og/og-{en,th}.png`; fonts remain self-hosted in `public/fonts/` with no Google Fonts request.
 - Meta/SEO: full OG + Twitter meta, absolute canonical/hreflang, per-locale static OG cards `public/og/og-{en,th}.png` (regenerate: `scripts/og/render.sh`).
 - Routes in product: `/`, `/th/`, `/notes/`, `/th/notes/`, localized note detail routes, and `/sitemap-index.xml`.
 - Contact/intake: no contact flow is exposed in the current homepage.
+- Upstream attribution: `LICENSE-FUWARI` contains the Fuwari MIT notice.
 - **Removed from product (2026-09-02):** Next.js App Router, `/article/[slug]`, the soft-pixel system, `student-logbook` + the 3 old articles.
 
 ## Source of truth (read these first)
@@ -50,9 +52,9 @@ Do **not** rebuild or assume these are active:
 
 ## Naming (current)
 
-- UI modules live under `src/components/` (`home/`, `ui/`, `motion/`).
-- Design tokens: `--color-bg`, `--color-ink`, `--color-accent`, etc. in `src/styles/global.css`.
-- Do not reintroduce soft-pixel `portfolio-*` tokens or the deleted routes above.
+- Fuwari shell modules live under `src/layouts/` and `src/components/` (`Navbar.astro`, `Footer.astro`, `widget/`, `control/`, `PostCard.astro`). Portfolio sections remain under `src/components/home/` and are composed by `PortfolioHome.astro`.
+- Fuwari theme tokens: `--hue`, `--primary`, `--page-bg`, `--card-bg`, `--btn-*`, and `--toc-*` in `src/styles/global.css`.
+- Keep every public page inside `MainGridLayout.astro`; do not create a second shell or reintroduce the deleted routes above.
 
 ## Copy ownership (current)
 
@@ -73,8 +75,9 @@ Do **not** rebuild or assume these are active:
 
 ## Recent decisions
 
+- **2026-09-07:** Migrated the public portfolio shell to the real Fuwari template, preserving the static EN/TH content collections and note routes; added Fuwari attribution in `LICENSE-FUWARI`.
 - **2026-09-06:** Added localized static notes/runbook routes and the first bilingual ZCode runbook, sourced from curated public content rather than the private vault.
 - **2026-09-05:** Added per-locale OG cards + full OG/Twitter meta; self-hosted all fonts (Google Fonts removed). Lighthouse perf 92→99 EN, 91→99 TH; a11y/BP/SEO 100.
-- **2026-09-02:** Rebuilt the portfolio on Astro 5 (static SSG + content collections + i18n routing) and shipped the **Machine Readout** design; deployed to `www.chinnakrit.dev`. Old Next.js source and soft-pixel system removed.
+- **2026-09-02:** Rebuilt the portfolio on Astro 5 (static SSG + content collections + i18n routing) with the initial Machine Readout baseline; that baseline was superseded by the Fuwari shell migration on 2026-09-07. Old Next.js source and soft-pixel system removed.
 - **2026-09-02:** Added `vercel.json` to pin the Vercel build to Astro (the project was previously configured for Next.js).
 - **2026-09-02:** `projects` collection was populated with mirrored EN/TH records; the Work section falls back gracefully only if the collection is empty.

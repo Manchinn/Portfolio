@@ -4,10 +4,9 @@ import type { CollectionEntry } from 'astro:content'
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
 import { entrySlug } from '@/content.config'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import Navbar from '@/components/home/Navbar.astro'
-import Footer from '@/components/home/Footer.astro'
-import Button from '@/components/ui/Button.astro'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import PostMeta from '@/components/PostMeta.astro'
+import Markdown from '@/components/misc/Markdown.astro'
 
 export async function getStaticPaths() {
   const notes = await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft)
@@ -18,53 +17,27 @@ type Props = { note: CollectionEntry<'articles'> }
 const { note } = Astro.props
 const lang: Language = 'en'
 const ui = getUI(lang)
-const { Content } = await render(note)
-const canonical = new URL(`/notes/${entrySlug(note.id)}/`, Astro.site ?? 'https://www.chinnakrit.dev').href
+const { Content, headings } = await render(note)
 ---
 
-<BaseLayout
-  lang={lang}
-  title={`${note.data.title} — ${ui.brand}`}
-  description={note.data.excerpt}
-  ogType="article"
-  canonical={canonical}
->
-  <div class="flex min-h-screen flex-col">
-    <Navbar lang={lang} alternateHref={`/th/notes/${entrySlug(note.id)}/`} />
-    <main class="flex-1">
-      <article data-reveal-group class="w-full px-[var(--hw-gutter)] py-[calc(72*var(--u))]">
-        <header data-reveal-item class="max-w-[820px] border-b border-dashed border-line pb-[calc(40*var(--u))]">
-          <p class="eyebrow">{note.data.category}</p>
-          <h1 class="display mt-4 text-[var(--hw-text-display)] text-ink">{note.data.title}</h1>
-          <p class="mt-5 max-w-[66ch] text-[var(--hw-text-body)] leading-relaxed text-muted">{note.data.excerpt}</p>
-          <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs uppercase tracking-[0.1em] text-muted">
-            <span>{ui.notesPublished}: {note.data.publishedAt}</span>
-            {note.data.updatedAt && <span>{ui.notesUpdated}: {note.data.updatedAt}</span>}
-            <span>{ui.notesReadTime}: {note.data.readTime}</span>
-          </div>
-        </header>
-
-        <div data-reveal-item class="prose-readout mt-[calc(48*var(--u))] max-w-[760px]">
-          <Content />
-        </div>
-
-        <div data-reveal-item class="mt-[calc(56*var(--u))]">
-          <Button href="/notes/" variant="secondary">{ui.notesBack}</Button>
-        </div>
-      </article>
-    </main>
-    <Footer lang={lang} />
-  </div>
-</BaseLayout>
-
-<script is:inline type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: note.data.title,
-  description: note.data.excerpt,
-  datePublished: note.data.publishedAt,
-  dateModified: note.data.updatedAt ?? note.data.publishedAt,
-  inLanguage: 'en',
-  mainEntityOfPage: canonical,
-  author: { '@type': 'Person', name: 'Chinnakrit' },
-})} />
+<MainGridLayout lang={lang} title={note.data.title} description={note.data.excerpt} setOGTypeArticle headings={headings}>
+  <article id="post-container" class="card-base px-6 py-7 md:px-9 md:py-9">
+    <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{note.data.category}</p>
+    <h1 data-pagefind-body data-pagefind-meta="title" class="mb-4 text-3xl font-bold leading-tight text-90 md:text-5xl">{note.data.title}</h1>
+    <PostMeta
+      class="mb-6"
+      published={new Date(note.data.publishedAt)}
+      updated={note.data.updatedAt ? new Date(note.data.updatedAt) : undefined}
+      tags={note.data.tags}
+      category={note.data.category}
+      lang={lang}
+    />
+    <div class="mb-7 border-b border-dashed border-[var(--line-divider)]"></div>
+    <Markdown class="markdown-content">
+      <Content />
+    </Markdown>
+    <div class="mt-8 border-t border-dashed border-[var(--line-divider)] pt-5">
+      <a class="link text-sm font-medium" href="/notes/">{ui.notesBack}</a>
+    </div>
+  </article>
+</MainGridLayout>

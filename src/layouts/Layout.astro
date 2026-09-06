@@ -1,0 +1,74 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import { siteConfig } from '../config'
+import {
+  BANNER_HEIGHT,
+  BANNER_HEIGHT_EXTEND,
+  BANNER_HEIGHT_HOME,
+} from '../constants/constants'
+
+interface Props {
+  title?: string
+  banner?: string
+  description?: string
+  lang?: string
+  setOGTypeArticle?: boolean
+}
+
+const { title, banner: _banner, description, lang = 'en', setOGTypeArticle = false } = Astro.props
+const normalizedPath = Astro.url.pathname.replace(/\/+$/, '') || '/'
+const isHomePage = normalizedPath === '/' || normalizedPath === '/th'
+const bodyClass = `min-h-screen transition${siteConfig.banner.enable ? ' enable-banner' : ''}${isHomePage ? ' is-home' : ''}`
+const bannerOffsetByPosition = {
+  top: `${BANNER_HEIGHT_EXTEND}vh`,
+  center: `${BANNER_HEIGHT_EXTEND / 2}vh`,
+  bottom: '0',
+} as const
+const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'center']
+---
+
+<BaseLayout
+  lang={lang === 'th' ? 'th' : 'en'}
+  title={title}
+  description={description}
+  ogType={setOGTypeArticle ? 'article' : 'website'}
+  bodyClass={bodyClass}
+>
+  <slot />
+</BaseLayout>
+
+<style is:global define:vars={{
+  bannerOffset,
+  bannerHeight: `${BANNER_HEIGHT}vh`,
+  bannerHeightHome: `${BANNER_HEIGHT_HOME}vh`,
+}}>
+  .enable-banner #banner-wrapper {
+    height: var(--bannerHeightHome);
+  }
+
+  .enable-banner.is-home #banner-wrapper {
+    transform: translateY(var(--banner-height-extend, 30vh));
+  }
+
+  .enable-banner #banner {
+    height: var(--bannerHeightHome);
+    transform: translateY(var(--bannerOffset));
+  }
+
+  .enable-banner.is-home #banner {
+    transform: translateY(0);
+  }
+
+  .enable-banner.is-home #main-grid {
+    transform: translateY(var(--banner-height-extend, 30vh));
+  }
+
+  .enable-banner #top-row {
+    height: calc(var(--bannerHeightHome) - 4.5rem);
+  }
+
+  .navbar-hidden {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+</style>

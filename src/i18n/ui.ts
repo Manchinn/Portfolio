@@ -46,6 +46,7 @@ export const UI = {
     notesPublished: 'Published',
     notesUpdated: 'Updated',
     notesReadTime: 'Read',
+    notesContents: 'Contents',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'Areas I am exploring.',
@@ -114,6 +115,7 @@ export const UI = {
     notesPublished: 'เผยแพร่',
     notesUpdated: 'อัปเดต',
     notesReadTime: 'อ่าน',
+    notesContents: 'เนื้อหา',
     // Capabilities
     capabilitiesEyebrow: 'Capabilities',
     capabilitiesTitle: 'หัวข้อที่กำลังศึกษา',

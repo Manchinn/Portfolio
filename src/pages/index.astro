@@ -1,24 +1,12 @@
 ---
 import { getCollection } from 'astro:content'
-import { entrySlug } from '@/content.config'
 import type { Language } from '@/i18n/ui'
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import HomePage from '@/components/home/HomePage.astro'
+import PortfolioHome from '@/components/PortfolioHome.astro'
 
-// Load the English project records from the projects content collection.
 const lang: Language = 'en'
-const projectData = (
-  await getCollection('projects', ({ id }) => id.startsWith('en/'))
-).map((entry) => ({
-  slug: entrySlug(entry.id),
-  title: entry.data.title,
-  description: entry.data.description,
-  tech: entry.data.tech,
-  category: entry.data.category,
-  caseStudy: entry.data.caseStudy,
-}))
+const projects = await getCollection('projects', ({ id }) => id.startsWith('en/'))
+const notes = (await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft))
+  .sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
 ---
 
-<BaseLayout lang={lang}>
-  <HomePage lang={lang} projects={projectData} />
-</BaseLayout>
+<PortfolioHome lang={lang} projects={projects} notes={notes} />

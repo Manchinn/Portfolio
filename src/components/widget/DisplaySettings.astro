@@ -1,0 +1,28 @@
+<div id="display-setting" class="float-panel float-panel-closed absolute right-4 w-80 px-4 py-4">
+  <div class="mb-3 flex items-center justify-between gap-2">
+    <div class="font-bold text-lg text-90">Theme Color</div>
+    <output id="hue-value" class="rounded-md bg-[var(--btn-regular-bg)] px-2 py-1 text-sm font-bold text-[var(--btn-content)]">200</output>
+  </div>
+  <input id="hue-slider" aria-label="Theme Color" type="range" min="0" max="360" step="5" value="200" class="h-6 w-full cursor-pointer" />
+</div>
+
+<style>
+  #hue-slider { appearance: none; background: linear-gradient(to right, oklch(0.8 0.1 0), oklch(0.8 0.1 60), oklch(0.8 0.1 120), oklch(0.8 0.1 180), oklch(0.8 0.1 240), oklch(0.8 0.1 300), oklch(0.8 0.1 360)); }
+  #hue-slider::-webkit-slider-thumb { appearance: none; width: 0.5rem; height: 1rem; background: white; border: 0; }
+  #hue-slider::-moz-range-thumb { width: 0.5rem; height: 1rem; background: white; border: 0; }
+</style>
+
+<script>
+  const slider = document.getElementById('hue-slider') as HTMLInputElement | null
+  const output = document.getElementById('hue-value')
+  const stored = localStorage.getItem('hue')
+  if (slider && stored) slider.value = stored
+  const updateHue = () => {
+    if (!slider) return
+    document.documentElement.style.setProperty('--hue', slider.value)
+    localStorage.setItem('hue', slider.value)
+    if (output) output.textContent = slider.value
+  }
+  updateHue()
+  slider?.addEventListener('input', updateHue)
+</script>

@@ -6,13 +6,19 @@ Format follows a lightweight Keep a Changelog style.
 ## [Unreleased]
 
 ### Added
+- Real Fuwari template shell across home, notes archive, and localized note detail routes: banner, navbar, profile/sidebar widgets, categories/tags, post cards, TOC, theme controls, dark mode, and back-to-top.
+- Fuwari configuration adapter in `src/config.ts`, `src/layouts/`, and the shared components under `src/components/`.
+- `LICENSE-FUWARI` preserving the upstream Fuwari MIT attribution.
 - Localized static notes/runbook routes at `/notes/` and `/th/notes/`, backed by curated Markdown content collections.
 - First bilingual ZCode runbook covering bounded tasks, review-before-approval, preview verification, and release-sensitive details.
 
 ### Changed
+- Adapted the portfolio hero, Work, Capabilities, and content collections to render inside the Fuwari grid while preserving EN/TH parity.
+- Added scroll-aware Fuwari banner, navbar, TOC, and back-to-top behavior; theme and hue controls persist locally in the browser.
 - Applied Lenis and GSAP ScrollTrigger globally through `BaseLayout`; Notes routes now support reveal groups and smooth hash navigation.
 
 ### Removed
+- Removed the temporary upstream clone and unused Fuwari adapter leftovers after migration.
 - Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
 - Local project-brief intake workflow and public inquiry CTAs from the homepage.
 - Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).

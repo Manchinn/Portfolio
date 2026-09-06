@@ -4,7 +4,7 @@ This file provides architecture and workflow guidance for coding agents working 
 
 ## Overview
 
-A static-first bilingual (English + Thai) software engineering portfolio built with **Astro 5**, TypeScript, and Tailwind CSS 4. Content lives in **content collections**; language routing uses Astro's built-in i18n (`en` at `/`, `th` at `/th/`). The visual system is **Machine Readout** (white field, single cyan-blue `#0071a9`, Courier Prime / Noto Sans Thai, self-hosted woff2) — see `DESIGN.md`.
+A static-first bilingual (English + Thai) software engineering portfolio built with **Astro 5**, TypeScript, and Tailwind CSS 4. Content lives in **content collections**; language routing uses Astro's built-in i18n (`en` at `/`, `th` at `/th/`). Every public route uses the real **Fuwari** template shell, adapted for the portfolio's content and localized OG cards — see `DESIGN.md`.
 
 Production is deployed on Vercel at `chinnakrit.dev` and `www.chinnakrit.dev` from the `master` branch (`vercel.json` pins the Astro framework).
 
@@ -23,17 +23,24 @@ src/
     utils.ts                        Locale helpers
   layouts/
     BaseLayout.astro                HTML shell, metadata, OG/Twitter meta, hreflang, self-hosted fonts
+    Layout.astro                    Fuwari body state and banner geometry
+    MainGridLayout.astro            Shared Fuwari navbar/banner/sidebar/grid/footer/TOC
   pages/
     index.astro                     English portfolio home (/)
     th/index.astro                  Thai portfolio home (/th/)
     404.astro
   components/
-    home/                           Navbar, Hero, Work, Capabilities, Footer, HomePage
-    ui/                             Button, SectionLabel, SectionHeading, MobileMenu (React island)
+    Navbar.astro                    Fuwari navbar, search, theme, and menu controls
+    Footer.astro                    Fuwari footer and attribution
+    widget/                         Profile, categories, tags, TOC, display settings
+    PostCard.astro                  Fuwari-style note card
+    PortfolioHome.astro             Portfolio composition inside the Fuwari shell
+    home/                           Hero, Work, Capabilities sections
+    ui/                             Remaining portfolio primitives and legacy helpers
     motion/Reveal.astro             Hero-only stagger (reduced-motion aware)
     motion/ScrollMotion.astro       Lenis + ScrollTrigger runtime (all routes)
   styles/
-    global.css                      Tailwind v4 @theme tokens + Machine Readout recipes
+    global.css                      Tailwind v4 @theme tokens + Fuwari theme recipes
 public/
   fonts/                            Self-hosted woff2 (Courier Prime, Noto Sans Thai) + fonts.css
   og/                               Static OG cards per locale (og-en.png, og-th.png, 1200x630)

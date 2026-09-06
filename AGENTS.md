@@ -14,10 +14,11 @@ The parent folder contains project-level docs. Run git and package commands from
 
 ## Current Product
 
-- Static-first **Astro 5** portfolio, bilingual English and Thai, **Machine Readout** design (white field, single cyan-blue `#0071a9`, typewriter mono, dashed blueprint lines, flat).
+- Static-first **Astro 5** portfolio, bilingual English and Thai, using the real **Fuwari** template shell (banner, navbar, profile/sidebar widgets, post cards, TOC, theme controls, dark mode, and back-to-top).
 - `/` renders the English one-page portfolio; `/th/` renders the Thai version.
 - Content lives in Astro content collections: projects (`src/content/projects/{en,th}/` — populated with EN/TH records) and public notes/runbooks (`src/content/articles/{en,th}/` — curated Markdown in EN/TH). The Work section renders each project as a flat non-navigational row (duotone figure placeholder, category/title/description, Problem → Built → Result case-study, and a system readout `REF / TECH / CASE`) and falls back to a graceful empty state only if no records exist.
-- All chrome/marketing copy lives in `src/i18n/ui.ts`.
+- Portfolio-specific hero, Work, and Capabilities content is adapted into the Fuwari shell by `src/components/PortfolioHome.astro`.
+- All chrome/marketing copy lives in `src/i18n/ui.ts`; Fuwari site/profile/navigation settings live in `src/config.ts`.
 - No contact or project-intake flow is currently exposed. Do not add one without explicit product approval.
 
 There is no backend, application API, runtime database, CMS, server-side content store, or required runtime environment variable.
@@ -43,14 +44,21 @@ src/content/articles/{en,th}/             Markdown notes/runbooks (per locale) �
 src/i18n/ui.ts                            EN/TH chrome + marketing copy (getUI)
 src/i18n/utils.ts                         Locale helpers
 src/layouts/BaseLayout.astro              HTML shell, fonts, metadata, global CSS
+src/layouts/Layout.astro                  Fuwari body state and banner geometry
+src/layouts/MainGridLayout.astro          Shared Fuwari navbar/banner/sidebar/grid/footer/TOC
 src/pages/index.astro                     English home (default locale)
 src/pages/th/index.astro                  Thai home
 src/pages/404.astro                       404 page
-src/components/home/                      Navbar, Hero, Work, Capabilities, Footer, HomePage
-src/components/ui/                        Button, SectionLabel, SectionHeading, MobileMenu (React island)
+src/components/Navbar.astro               Fuwari navbar, search, theme, and menu controls
+src/components/Footer.astro               Fuwari footer and attribution
+src/components/widget/                    Profile, categories, tags, TOC, display settings
+src/components/PostCard.astro             Fuwari-style note card
+src/components/PortfolioHome.astro        Portfolio content composition
+src/components/home/                      Hero, Work, Capabilities sections
+src/components/ui/                        Remaining portfolio primitives and unused legacy helpers
 src/components/motion/Reveal.astro        Hero-only stagger (reduced-motion aware)
 src/components/motion/ScrollMotion.astro Lenis + ScrollTrigger runtime (all routes)
-src/styles/global.css                     Tailwind v4 @theme tokens + Machine Readout recipes
+src/styles/global.css                     Tailwind v4 @theme tokens + Fuwari theme recipes
 astro.config.mjs                          site, static output, i18n routing, integrations
 vercel.json                               Vercel Astro framework + build/output
 ```

@@ -7,7 +7,9 @@
 /* source(none) disables v4 automatic detection, which otherwise scans the whole
  * repo minus .gitignore and harvests class names out of .agents/ skill docs. */
 @import 'tailwindcss' source(none);
+@plugin '@tailwindcss/typography';
 @source '../../src';
+@import './markdown.css';
 
 @theme {
   --color-bg: #ffffff;
@@ -271,6 +273,39 @@ a:focus-visible,
   background: transparent;
 }
 
+.notes-toc-link {
+  border-left: 1px solid transparent;
+  padding-left: 0.55rem;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.notes-toc-link:hover,
+.notes-toc-link[aria-current='location'] {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.notes-toc-summary {
+  list-style: none;
+}
+
+.notes-toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.notes-toc-summary > span:last-child {
+  display: block;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+details[open] .notes-toc-summary > span:last-child {
+  transform: rotate(45deg);
+}
+
 /* ── duotone figure placeholder ────────────────────────────────────────
  * stands in for a real project image; swap for an <img> later.
  * label is rendered in markup (language-aware), not in CSS content.
@@ -323,4 +358,191 @@ a:focus-visible,
     scroll-behavior: auto !important;
     transition-duration: 1ms !important;
   }
+}
+
+/* Fuwari theme tokens and component recipes. These are kept in the portfolio
+ * stylesheet so the upstream layout remains usable without a second CSS build. */
+:root {
+  --hue: 200;
+  --radius-large: 1rem;
+  --content-delay: 150ms;
+  --primary: oklch(0.58 0.14 var(--hue));
+  --page-bg: oklch(0.95 0.01 var(--hue));
+  --card-bg: #ffffff;
+  --btn-content: oklch(0.48 0.12 var(--hue));
+  --btn-regular-bg: oklch(0.95 0.025 var(--hue));
+  --btn-regular-bg-hover: oklch(0.9 0.05 var(--hue));
+  --btn-regular-bg-active: oklch(0.85 0.08 var(--hue));
+  --btn-plain-bg-hover: oklch(0.92 0.025 var(--hue));
+  --btn-plain-bg-active: oklch(0.86 0.05 var(--hue));
+  --btn-card-bg-hover: oklch(0.98 0.005 var(--hue));
+  --btn-card-bg-active: oklch(0.9 0.03 var(--hue));
+  --enter-btn-bg: var(--btn-regular-bg);
+  --enter-btn-bg-hover: var(--btn-regular-bg-hover);
+  --enter-btn-bg-active: var(--btn-regular-bg-active);
+  --deep-text: oklch(0.25 0.02 var(--hue));
+  --title-active: oklch(0.55 0.1 var(--hue));
+  --line-divider: rgba(0, 0, 0, 0.08);
+  --line-color: rgba(0, 0, 0, 0.1);
+  --meta-divider: rgba(0, 0, 0, 0.2);
+  --inline-code-bg: var(--btn-regular-bg);
+  --inline-code-color: var(--btn-content);
+  --selection-bg: oklch(0.9 0.05 var(--hue));
+  --codeblock-bg: oklch(0.17 0.015 var(--hue));
+  --codeblock-topbar-bg: oklch(0.3 0.02 var(--hue));
+  --float-panel-bg: #ffffff;
+  --link-underline: oklch(0.78 0.08 var(--hue));
+  --link-hover: oklch(0.6 0.12 var(--hue));
+  --link-active: oklch(0.5 0.14 var(--hue));
+  --toc-badge-bg: var(--btn-regular-bg);
+  --toc-btn-hover: oklch(0.92 0.015 var(--hue));
+  --toc-btn-active: oklch(0.86 0.03 var(--hue));
+  --toc-width: calc((100vw - var(--page-width)) / 2 - 1rem);
+}
+
+:root.dark {
+  --page-bg: oklch(0.16 0.014 var(--hue));
+  --card-bg: oklch(0.23 0.015 var(--hue));
+  --btn-content: oklch(0.75 0.1 var(--hue));
+  --btn-regular-bg: oklch(0.33 0.035 var(--hue));
+  --btn-regular-bg-hover: oklch(0.38 0.04 var(--hue));
+  --btn-regular-bg-active: oklch(0.43 0.045 var(--hue));
+  --btn-plain-bg-hover: oklch(0.3 0.035 var(--hue));
+  --btn-plain-bg-active: oklch(0.27 0.025 var(--hue));
+  --btn-card-bg-hover: oklch(0.3 0.03 var(--hue));
+  --btn-card-bg-active: oklch(0.35 0.035 var(--hue));
+  --line-divider: rgba(255, 255, 255, 0.08);
+  --line-color: rgba(255, 255, 255, 0.1);
+  --meta-divider: rgba(255, 255, 255, 0.2);
+  --float-panel-bg: oklch(0.19 0.015 var(--hue));
+  --selection-bg: oklch(0.4 0.08 var(--hue));
+  --toc-btn-hover: oklch(0.22 0.02 var(--hue));
+  --toc-btn-active: oklch(0.25 0.02 var(--hue));
+}
+
+html {
+  background: var(--page-bg);
+  color-scheme: light;
+}
+
+html.dark { color-scheme: dark; }
+
+body {
+  background: var(--page-bg);
+  color: var(--deep-text);
+  font-family: Roboto, 'Noto Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  --page-width: 75rem;
+}
+
+.card-base {
+  overflow: hidden;
+  border-radius: var(--radius-large);
+  background: var(--card-bg);
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.card-shadow { filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.005)); }
+
+.btn-plain,
+.btn-card,
+.btn-regular {
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.btn-plain {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.btn-plain:hover { color: var(--primary); background: var(--btn-plain-bg-hover); }
+.btn-plain:active { background: var(--btn-plain-bg-active); transform: scale(0.96); }
+.dark .btn-plain { color: rgba(255, 255, 255, 0.75); }
+
+.btn-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+}
+
+.btn-card:hover { background: var(--btn-card-bg-hover); }
+.btn-card:active { background: var(--btn-card-bg-active); transform: scale(0.97); }
+
+.btn-regular {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn-regular-bg);
+  color: var(--btn-content);
+}
+
+.btn-regular:hover { background: var(--btn-regular-bg-hover); }
+.btn-regular:active { background: var(--btn-regular-bg-active); transform: scale(0.97); }
+
+.float-panel {
+  overflow: hidden;
+  border-radius: var(--radius-large);
+  background: var(--float-panel-bg);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.float-panel-closed { pointer-events: none; opacity: 0; transform: translateY(-0.25rem); }
+.link { text-decoration: none; }
+.link:hover { color: var(--primary); }
+.link-lg { text-decoration: none; }
+.text-90 { color: rgba(0, 0, 0, 0.9); }
+.text-75 { color: rgba(0, 0, 0, 0.75); }
+.text-50 { color: rgba(0, 0, 0, 0.5); }
+.text-30 { color: rgba(0, 0, 0, 0.3); }
+.dark .text-90 { color: rgba(255, 255, 255, 0.9); }
+.dark .text-75 { color: rgba(255, 255, 255, 0.75); }
+.dark .text-50 { color: rgba(255, 255, 255, 0.5); }
+.dark .text-30 { color: rgba(255, 255, 255, 0.3); }
+
+.meta-icon {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  border-radius: 0.375rem;
+  background: var(--btn-regular-bg);
+  color: var(--btn-content);
+}
+
+.onload-animation {
+  opacity: 0;
+  animation: fade-in-up 300ms ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+.toc-hide,
+.toc-not-ready {
+  pointer-events: none;
+  opacity: 0;
+}
+
+#toc-inner-wrapper {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 2rem, black calc(100% - 2rem), transparent 100%);
+}
+
+.navbar-hidden {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onload-animation { animation: none; opacity: 1; }
 }
