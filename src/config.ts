@@ -34,7 +34,7 @@ export const siteConfig: SiteConfig = {
 export const navBarConfig: NavBarConfig = {
   links: [
     { name: 'Home', url: '/' },
-    { name: 'Notes', url: '/notes/' },
+    { name: 'Notes', url: '/posts/' },
     { name: 'Work', url: '/#work' },
     { name: 'Thai', url: '/th/' },
   ],

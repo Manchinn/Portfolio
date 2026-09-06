@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content'
+import type { Language } from '@/i18n/ui'
+import { filterSlug } from '@/utils/url-utils'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import PostsIndex from '@/components/PostsIndex.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft)
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags.map((tag) => tag.trim())).filter(Boolean))]
+  return tags.map((tag) => ({ params: { slug: filterSlug(tag) }, props: { tag, posts: posts.filter((post) => post.data.tags.some((item) => item.trim() === tag)).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt)) } }))
+}
+const { tag, posts } = Astro.props
+const lang: Language = 'en'
+---
+<MainGridLayout lang={lang} bannerEnabled={false} title={`${tag} posts - Chinnakrit`}>
+  <PostsIndex lang={lang} posts={posts} title={`#${tag}`} subtitle={`Posts tagged ${tag}.`} basePath={`/posts/tag/${filterSlug(tag)}/`} />
+</MainGridLayout>

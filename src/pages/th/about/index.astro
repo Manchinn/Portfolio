@@ -1,0 +1,18 @@
+---
+import type { Language } from '@/i18n/ui'
+import { getUI } from '@/i18n/ui'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+const lang: Language = 'th'
+const ui = getUI(lang)
+---
+<MainGridLayout lang={lang} bannerEnabled={false} title={`เกี่ยวกับ - ${ui.brand}`} description="เกี่ยวกับชินกฤต ผู้บันทึกเครื่องมือ workflow และการทดลอง">
+  <article class="card-base px-6 py-8 md:px-9 md:py-10">
+    <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{ui.nav.about}</p>
+    <h1 class="text-3xl font-bold leading-tight text-90 md:text-5xl">บันทึกสาธารณะของวิธีที่ผมสร้างสิ่งต่างๆ</h1>
+    <div class="mt-6 space-y-5 text-lg leading-relaxed text-75">
+      <p>ผมคือชินกฤต เว็บไซต์นี้รวบรวมบันทึก runbook และโปรเจกต์จากระบบที่ผมสร้างและศึกษา</p>
+      <p>แต่ละโพสต์ผ่านการตรวจทานก่อนเผยแพร่ เพื่อให้เห็นการตัดสินใจ ข้อจำกัด และผลลัพธ์ได้ชัดเจน</p>
+      <p>เว็บไซต์นี้รองรับสองภาษา ใช้สถาปัตยกรรมแบบ static-first และตั้งใจให้มีขนาดเล็ก เนื้อหาสาธารณะจึงเน้นงานที่ทำซ้ำได้และบทเรียนที่นำไปใช้ต่อได้</p>
+    </div>
+  </article>
+</MainGridLayout>

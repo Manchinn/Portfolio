@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content'
+import type { Language } from '@/i18n/ui'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import PostsIndex from '@/components/PostsIndex.astro'
+const lang: Language = 'th'
+const posts = (await getCollection('articles', ({ id, data }) => id.startsWith('th/') && !data.draft)).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
+---
+<MainGridLayout lang={lang} bannerEnabled={false} title="คลังโพสต์ - ชินกฤต" description="คลังโพสต์และ runbook ของชินกฤต">
+  <PostsIndex lang={lang} posts={posts} title="คลังโพสต์" subtitle="โพสต์ที่เผยแพร่ทั้งหมด เรียงจากใหม่ไปเก่า" basePath="/th/archive/" />
+</MainGridLayout>

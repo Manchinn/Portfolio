@@ -33,7 +33,7 @@ const projectData = projects.map((entry) => ({
     <h1 class="mb-4 text-3xl font-bold leading-tight text-90 md:text-5xl">{ui.heroTitle}</h1>
     <p class="max-w-[60ch] text-lg leading-relaxed text-75">{ui.heroBody}</p>
     <div class="mt-7 flex flex-wrap gap-3">
-      <a class="btn-regular h-11 rounded-lg px-5 font-bold" href={`${base}/notes/`}>{ui.heroPrimaryCta}</a>
+      <a class="btn-regular h-11 rounded-lg px-5 font-bold" href={`${base}/posts/`}>{ui.heroPrimaryCta}</a>
       <a class="btn-plain h-11 rounded-lg px-5 font-bold" href={`${base}/#work`}>{ui.nav.work}</a>
     </div>
   </section>
@@ -44,7 +44,7 @@ const projectData = projects.map((entry) => ({
         <p class="text-sm font-medium uppercase tracking-[0.18em] text-[var(--primary)]">{ui.notesEyebrow}</p>
         <h2 class="mt-2 text-2xl font-bold text-90 md:text-3xl">{ui.notesTitle}</h2>
       </div>
-      <a class="link hidden shrink-0 text-sm font-medium md:block" href={`${base}/notes/`}>{ui.notesBack}</a>
+      <a class="link hidden shrink-0 text-sm font-medium md:block" href={`${base}/posts/`}>{ui.notesBack}</a>
     </div>
     {notes.length > 0 ? (
       <div class="flex flex-col gap-4">
@@ -56,7 +56,7 @@ const projectData = projects.map((entry) => ({
             category={note.data.category}
             published={new Date(note.data.publishedAt)}
             updated={note.data.updatedAt ? new Date(note.data.updatedAt) : undefined}
-            url={`${base}/notes/${entrySlug(note.id)}/`}
+            url={`${base}/posts/${entrySlug(note.id)}/`}
             image=""
             description={note.data.excerpt}
             draft={note.data.draft}

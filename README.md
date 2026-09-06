@@ -19,9 +19,9 @@ The app has no backend, application API, runtime database, CMS, or required runt
 
 - `/` — English Fuwari portfolio home
 - `/th/` — Thai Fuwari portfolio home
-- `/notes/` — English notes and runbook index
-- `/th/notes/` — Thai notes and runbook index
-- `/notes/[slug]/` and `/th/notes/[slug]/` — localized static note pages
+- `/posts/` — English notes and runbook index
+- `/th/posts/` — Thai notes and runbook index
+- `/posts/[slug]/` and `/th/posts/[slug]/` — localized static note pages
 
 ## Architecture
 

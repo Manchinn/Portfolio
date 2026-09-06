@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content'
+import type { Language } from '@/i18n/ui'
+import { filterSlug } from '@/utils/url-utils'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import PostsIndex from '@/components/PostsIndex.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', ({ id, data }) => id.startsWith('th/') && !data.draft)
+  const categories = [...new Set(posts.map((post) => post.data.category.trim()).filter(Boolean))]
+  return categories.map((category) => ({ params: { slug: filterSlug(category) }, props: { category, posts: posts.filter((post) => post.data.category.trim() === category).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt)) } }))
+}
+const { category, posts } = Astro.props
+const lang: Language = 'th'
+---
+<MainGridLayout lang={lang} bannerEnabled={false} title={`${category} - ชินกฤต`}>
+  <PostsIndex lang={lang} posts={posts} title={category} subtitle={`โพสต์ในหมวด ${category}`} basePath={`/th/posts/category/${filterSlug(category)}/`} />
+</MainGridLayout>

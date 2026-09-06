@@ -17,16 +17,20 @@ export function url(path: string) {
 }
 
 export function getPostUrlBySlug(slug: string, lang: Language = 'en') {
-  return url(`${localeBase(lang)}/notes/${slug}/`)
+  return url(`${localeBase(lang)}/posts/${slug}/`)
 }
 
 export function getTagUrl(tag: string, lang: Language = 'en') {
-  return url(`${localeBase(lang)}/notes/?tag=${encodeURIComponent(tag.trim())}`)
+  return url(`${localeBase(lang)}/posts/tag/${filterSlug(tag)}/`)
 }
 
 export function getCategoryUrl(category: string | null, lang: Language = 'en') {
-  if (!category || category.trim() === '') return url(`${localeBase(lang)}/notes/`)
-  return url(`${localeBase(lang)}/notes/?category=${encodeURIComponent(category.trim())}`)
+  if (!category || category.trim() === '') return url(`${localeBase(lang)}/posts/`)
+  return url(`${localeBase(lang)}/posts/category/${filterSlug(category)}/`)
+}
+
+export function filterSlug(value: string): string {
+  return value.trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '')
 }
 
 export function getDir(path: string): string {

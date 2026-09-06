@@ -9,7 +9,7 @@ export const UI = {
   en: {
     brand: 'Chinnakrit',
     // Navigation
-    nav: { home: 'Home', work: 'Work', notes: 'Notes', capabilities: 'Capabilities' },
+    nav: { home: 'Home', work: 'Work', notes: 'Posts', about: 'About', archive: 'Archive', capabilities: 'Capabilities' },
     // Hero
     heroEyebrow: 'Notes & runbooks',
     heroTitle: 'A public record of what I am learning.',
@@ -79,7 +79,7 @@ export const UI = {
   th: {
     brand: 'ชินกฤต',
     // Navigation
-    nav: { home: 'หน้าแรก', work: 'ผลงาน', notes: 'บันทึก', capabilities: 'ความสามารถ' },
+    nav: { home: 'หน้าแรก', work: 'ผลงาน', notes: 'โพสต์', about: 'เกี่ยวกับ', archive: 'คลัง', capabilities: 'ความสามารถ' },
     // Hero
     heroEyebrow: 'บันทึกและ runbook',
     heroTitle: 'บันทึกสิ่งที่กำลังเรียนรู้',
