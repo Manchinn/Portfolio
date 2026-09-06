@@ -18,5 +18,7 @@
   button?.addEventListener('click', () => {
     const dark = document.documentElement.classList.toggle('dark')
     localStorage.setItem('theme', dark ? 'dark' : 'light')
+    button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
+    button.setAttribute('aria-pressed', String(dark))
   })
 </script>

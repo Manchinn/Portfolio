@@ -69,6 +69,15 @@ const hrefLang = lang === 'en'
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#fafafa" />
 
+    <!-- Apply the saved theme before the page paints; light is the safe default. -->
+    <script is:inline>
+      (() => {
+        const theme = localStorage.getItem('theme')
+        if (theme === 'dark') document.documentElement.classList.add('dark')
+        else document.documentElement.classList.remove('dark')
+      })()
+    </script>
+
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>

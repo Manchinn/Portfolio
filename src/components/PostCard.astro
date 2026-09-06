@@ -70,7 +70,7 @@ const minutes = Number(remarkPluginFrontmatter.minutes) || Number.parseInt(Strin
         </div>
 
         <!-- word count and read time  -->
-        <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
+        <div class="text-sm text-muted flex gap-4 transition">
             <div>
                 {wordCount > 0 && <>{wordCount} {" " + i18n(wordCount === 1 ? I18nKey.wordCount : I18nKey.wordsCount, lang)}</>}
             </div>

@@ -3,7 +3,9 @@ export const PAGE_SIZE = 8;
 export const LIGHT_MODE = "light",
 	DARK_MODE = "dark",
 	AUTO_MODE = "auto";
-export const DEFAULT_THEME = AUTO_MODE;
+// Keep the first visit predictable and aligned with the document's light
+// color-scheme. Users can still switch to dark mode and that choice is saved.
+export const DEFAULT_THEME = LIGHT_MODE;
 
 // Banner height unit: vh
 export const BANNER_HEIGHT = 35;
