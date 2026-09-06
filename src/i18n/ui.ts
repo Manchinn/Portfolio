@@ -19,7 +19,6 @@ export const UI = {
     heroMeta: [
       { label: 'Bilingual', value: 'EN / TH content' },
       { label: 'Static & fast', value: 'Astro SSG' },
-      { label: 'Privacy-first', value: 'No form, no tracking' },
     ],
     heroSystemLabel: 'System',
     // Work (with a fallback for an empty collection)
@@ -89,7 +88,6 @@ export const UI = {
     heroMeta: [
       { label: 'สองภาษา', value: 'เนื้อหา EN / TH' },
       { label: 'Static และเร็ว', value: 'Astro SSG' },
-      { label: 'ความเป็นส่วนตัว', value: 'ไม่มีฟอร์ม ไม่มี tracking' },
     ],
     heroSystemLabel: 'ระบบ',
     // Work (with a fallback for an empty collection)

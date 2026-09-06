@@ -1,12 +1,12 @@
 {
   "lang": "en",
   "title": "Bilingual Portfolio",
-  "description": "A static-first, privacy-first software-engineering portfolio — English and Thai — with no backend, no analytics, and no form that stores a visitor brief.",
+  "description": "A static-first software-engineering portfolio in English and Thai, built around documented projects, notes, and runbooks.",
   "tech": ["Astro", "TypeScript", "Tailwind CSS", "React", "Vercel"],
   "category": "Web · Product",
   "date": "2026-09",
   "caseStudy": {
-    "problem": "I needed a public portfolio that could present real software work in two languages, without a backend, tracking script, or contact form that captures visitor data.",
+    "problem": "I needed a public portfolio that could present real software work in two languages with a clear place for projects, notes, and runbooks.",
     "built": "An Astro 5 static site with i18n routing at `/` and `/th/`, and typed content collections that keep project records separate from chrome copy.",
     "result": "Deploys as a fully static site. Visitors can scan the documented projects and capabilities; bilingual parity is enforced by shared schemas and mirrored per-locale records."
   }
