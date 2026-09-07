@@ -6,6 +6,10 @@ Format follows a lightweight Keep a Changelog style.
 ## [Unreleased]
 
 ### Added
+- Supabase content backend: build-time CMS loader (`src/lib/cms.ts`) reads published content with a local-collections fallback; bilingual publish rule enforced in the database.
+- Owner-only `/admin` SPA: Supabase Auth login, contact-submissions inbox, and projects/articles editing with EN/TH translations and status transitions (authorization via RLS reading `app_metadata.role`).
+- Minimal public contact intake: `submit-contact` Edge Function (origin allowlist, honeypot, rate limit) writing to `contact_submissions` under RLS.
+- Automatic production rebuilds: deploy-hook triggers (`20260907090000`) call the Vercel `cms-publish` hook whenever content is published/unpublished or live content is edited; the hook URL lives only in the Supabase Vault.
 - Real Fuwari template shell across home, notes archive, and localized note detail routes: banner, navbar, profile/sidebar widgets, categories/tags, post cards, TOC, theme controls, dark mode, and back-to-top.
 - Fuwari configuration adapter in `src/config.ts`, `src/layouts/`, and the shared components under `src/components/`.
 - `LICENSE-FUWARI` preserving the upstream Fuwari MIT attribution.

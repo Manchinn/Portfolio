@@ -1,6 +1,6 @@
 # Supabase Backend Plan
 
-> Status: Phase 1 implementation in progress. The public site remains an Astro 5 static build while the Supabase schema and import path are verified.
+> Status: Phases 1–3 are live (schema + import, admin SPA + contact Edge Function, build-time CMS loader with fallback) plus automatic Vercel rebuilds via deploy-hook triggers. Remaining: deploy-hook hardening (retry/audit), backups, RLS negative-test suite in CI.
 
 ## Goal
 

@@ -8,7 +8,7 @@ A static-first bilingual (English + Thai) software engineering portfolio built w
 
 Production is deployed on Vercel at `chinnakrit.dev` and `www.chinnakrit.dev` from the `master` branch (`vercel.json` pins the Astro framework).
 
-The app has no backend, application API, runtime database, CMS, server-side content store, authenticated surface, or required runtime environment variables.
+The public site remains static-first: published content is read from **Supabase Postgres** at build time (publishable/anon key only; RLS restricts anonymous reads to `published` rows) with a fallback to local content collections when the database is unreachable. Editing happens in the authenticated `/admin` SPA (Supabase Auth + RLS) and the public contact form posts to the `submit-contact` Edge Function. No service-role secret lives in the repo or the bundle, and no runtime environment variables are required.
 
 ## Architecture
 
@@ -29,6 +29,10 @@ src/
     index.astro                     English portfolio home (/)
     th/index.astro                  Thai portfolio home (/th/)
     404.astro
+    admin/index.astro               Owner-only admin SPA (Supabase Auth + RLS)
+  lib/
+    supabase.ts                     Publishable-key Supabase clients (browser + build)
+    cms.ts                          Build-time CMS loader (Supabase → local fallback)
   components/
     Navbar.astro                    Fuwari navbar, search, theme, and menu controls
     Footer.astro                    Fuwari footer and attribution
@@ -47,6 +51,11 @@ public/
 scripts/
   og/                               OG card templates + render.sh (isolated Edge headless)
   fetch-fonts.py                    Downloads woff2 subsets + generates fonts.css
+scripts/supabase/
+  import-content.mjs                One-shot importer: Astro collections → Supabase (parity-checked)
+supabase/
+  migrations/                       Content schema, contact_submissions, deploy-hook triggers
+  functions/submit-contact/         Edge Function: contact intake (origin allowlist, honeypot, rate limit)
 astro.config.mjs                   site, static output, i18n routing, integrations
 vercel.json                         Vercel Astro framework + build/output
 ```
@@ -56,12 +65,16 @@ vercel.json                         Vercel Astro framework + build/output
 - `/` renders the English home; `/th/` renders the Thai home.
 - The `Work` section renders project records from the `projects` collection and shows a graceful empty state while it is empty.
 - `/notes/` and `/th/notes/` list curated notes; localized `/notes/[slug]/` detail routes are generated from the articles collection.
+- `/admin/` is the owner-only SPA: contact-submissions inbox plus projects/articles editing (translations and status transitions). Authorization is enforced server-side by RLS functions `is_editor()`/`is_owner()` reading `auth.jwt() -> 'app_metadata' ->> 'role'`.
+- The contact form posts to the `submit-contact` Edge Function; submissions land in `contact_submissions` (anon can insert `status='new'` only; editors read/update; owner deletes).
+- Publishing requires both EN and TH translations (database-enforced); publish/archive actions are owner-only.
+- Publishing/unpublishing or editing live content fires deploy-hook triggers (`supabase/migrations/20260907090000_deploy_hook_trigger.sql`) that rebuild Vercel, so production updates within ~1 minute. The hook URL lives only in the Supabase Vault (`vercel_deploy_hook_url`).
 
 ## Configuration
 
 - `astro.config.mjs` sets `output: 'static'`, `site: 'https://www.chinnakrit.dev'`, i18n routing with `prefixDefaultLocale: false`, and integrates React, sitemap, and Tailwind v4.
 - `vercel.json` pins the Vercel framework to `astro` with `npm run build` and `dist` output.
-- No application runtime environment variables.
+- No application runtime environment variables. The Supabase publishable key is hardcoded in `src/lib/supabase.ts` by design (public by nature; RLS is the guard).
 
 ## Commands
 
@@ -74,10 +87,10 @@ npm run preview    # serve the built dist/
 
 ## Editing Rules
 
-- Keep the site static-first; do not add a backend, API route, runtime storage, or runtime secret without explicit approval.
+- Keep the public site static-first; do not convert it to SSR and do not add runtime secrets or a new runtime data store without explicit approval.
 - Update both English and Thai content when changing user-facing copy or records.
 - Content lives in content collections; chrome/marketing copy lives in `src/i18n/ui.ts`.
-- Do not add a contact, lead-capture, or project-intake path without explicit product approval.
+- The existing contact intake is minimal by design: no analytics, no visitor profiles, no tracking. Do not expand it without explicit product approval.
 - Never publish secrets, private URLs, personal data, or internal operational details.
 - Review user changes before editing; do not overwrite unrelated work.
 
@@ -86,3 +99,4 @@ npm run preview    # serve the built dist/
 - `AGENTS.md` contains the shared repository rules.
 - GitHub Issues are the project tracker; supporting agent docs live under `docs/agents/`.
 - Vercel auto-deploys production from `master`; pushing or changing deployment settings requires explicit user approval.
+- Production is served by the single Vercel project `portfolio` (the duplicate `frontend` project was deleted 2026-09-07); its `cms-publish` deploy hook is what the Supabase triggers call.

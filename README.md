@@ -1,19 +1,19 @@
 # Chinnakrit Portfolio
 
-Static-first personal site with bilingual English and Thai notes, runbooks, and project records. Every public route uses the real [Fuwari](https://github.com/saicaca/fuwari) Astro template shell, adapted for the portfolio's content collections and EN/TH routing. There is no contact or project-intake workflow.
+Static-first personal site with bilingual English and Thai notes, runbooks, and project records. Every public route uses the real [Fuwari](https://github.com/saicaca/fuwari) Astro template shell, adapted for the portfolio's content collections and EN/TH routing. A minimal contact form exists (Supabase Edge Function + owner-only inbox); there is no analytics or visitor tracking.
 
 ## Stack
 
 - Astro 5 (static output)
 - Fuwari layout pattern: banner, navbar, profile sidebar, categories/tags, post cards, TOC, dark mode, hue control, and back-to-top
-- Astro content collections (projects + articles, per locale)
+- Astro content collections (projects + articles, per locale) with a Supabase-backed CMS: published content is read at build time, edited via the owner-only `/admin` SPA, and published changes rebuild the site automatically
 - Built-in i18n routing (`en` at `/`, `th` at `/th/`)
 - Tailwind CSS 4 (`@tailwindcss/vite`)
 - Astro Svelte integration for the search control
 - TypeScript and `astro-icon`
 - `@astrojs/sitemap` — deployed on Vercel from `master`
 
-The app has no backend, application API, runtime database, CMS, or required runtime environment variables.
+The public site is fully static. Supabase supplies build-time content reads (publishable key only; RLS-guarded), the `/admin` editor (Supabase Auth + RLS), and the contact intake Edge Function — no service-role secret ships with the site, and no runtime environment variables are required.
 
 ## Routes
 
