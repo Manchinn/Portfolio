@@ -13,13 +13,21 @@
       smoothWheel: true,
     })
 
+    const banner = document.getElementById('banner')
+    const updateScrollEffects = ({ scroll }: { scroll: number }) => {
+      if (banner) banner.style.setProperty('--parallax-y', window.innerWidth >= 768 ? `${Math.min(scroll * 0.08, 36)}px` : '0px')
+    }
+
     let frameId = 0
     const frame = (time: number) => {
       lenis.raf(time)
       frameId = requestAnimationFrame(frame)
     }
 
-    lenis.on('scroll', ScrollTrigger.update)
+    lenis.on('scroll', (event) => {
+      ScrollTrigger.update()
+      updateScrollEffects(event)
+    })
     frameId = requestAnimationFrame(frame)
 
     const getHashTarget = (url: URL) => {

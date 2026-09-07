@@ -84,7 +84,10 @@ body {
  * flooring it, so the phone layout is its own proportion, not a squeeze. */
 @media (width < 48rem) {
   body {
-    --u: min(calc(100cqw / 760), var(--u-anchor));
+    /* Re-anchor to the 760px mobile artboard and cap at the desktop unit.
+     * Using --u-anchor here would collapse every scaled spacing value to
+     * ~0.34px on phones, making the layout visibly smaller than Fuwari. */
+    --u: min(calc(100cqw / 760), 1px);
   }
 }
 
@@ -438,6 +441,7 @@ body {
   font-family: var(--font-sans);
   --page-width: 75rem;
 }
+
 
 .card-base {
   overflow: hidden;

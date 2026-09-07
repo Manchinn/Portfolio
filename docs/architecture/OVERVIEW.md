@@ -38,6 +38,8 @@ Astro (static build output in /dist)
 |-------|---------------|--------------|
 | `/` | `src/pages/index.astro`, `src/components/PortfolioHome.astro` | Static English Fuwari portfolio home. |
 | `/th/` | `src/pages/th/index.astro`, `src/components/PortfolioHome.astro` | Static Thai Fuwari portfolio home. |
+| `/work/`, `/th/work/` | `src/pages/work/index.astro`, `src/pages/th/work/index.astro` | Static project archive using the shared Fuwari shell. |
+| `/work/[slug]`, `/th/work/[slug]` | `src/pages/work/[slug].astro`, `src/pages/th/work/[slug].astro` | Localized static project detail routes. |
 | `/notes/` | `src/pages/notes/index.astro` | English notes/runbook archive. |
 | `/th/notes/` | `src/pages/th/notes/index.astro` | Thai notes/runbook archive. |
 | `/notes/[slug]/` | `src/pages/notes/[slug].astro` | Generated English note detail. |
@@ -48,7 +50,7 @@ All public routes render through `MainGridLayout.astro`. Home pages insert the
 portfolio hero, Work, and Capabilities sections; archive and detail pages use
 the same Fuwari navbar, banner, sidebar, footer, and theme controls.
 
-**Retired routes (not in tree):** `/saas`, `/work/[slug]`, `/work-with-me`,
+**Retired routes (not in tree):** `/saas`, `/work-with-me`,
 `/article/[slug]`.
 
 ## Key Architecture Decisions

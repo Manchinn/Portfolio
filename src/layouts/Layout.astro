@@ -60,7 +60,7 @@ const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'cente
 
   .enable-banner #banner {
     height: var(--bannerHeightHome);
-    transform: translateY(var(--bannerOffset));
+    transform: translateY(calc(var(--bannerOffset) + var(--parallax-y, 0px)));
   }
 
   .enable-banner.is-home #banner {

@@ -35,6 +35,7 @@ export const UI = {
       result: 'Result',
     },
     workFigPlaceholder: 'Fig. — image placeholder · swap in a real figure',
+    workBack: 'Back to work',
     // Notes / runbooks
     notesEyebrow: 'Notes & runbooks',
     notesTitle: 'Field notes from tools, workflows, and experiments.',
@@ -104,6 +105,7 @@ export const UI = {
       result: 'ผลลัพธ์',
     },
     workFigPlaceholder: 'รูปตัวอย่าง — ใส่รูปจริงภายหลัง',
+    workBack: 'กลับไปหน้า Work',
     // Notes / runbooks
     notesEyebrow: 'บันทึกและ runbook',
     notesTitle: 'บันทึกจากเครื่องมือ workflow และการทดลอง',
