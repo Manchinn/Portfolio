@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content'
+import { loadArticles } from '@/lib/cms'
 import type { Language } from '@/i18n/ui'
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
 import PostsIndex from '@/components/PostsIndex.astro'
 
 export async function getStaticPaths() {
   const PAGE_SIZE = 10
-  const posts = (await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft)).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
+  const posts = (await loadArticles('en')).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
   const lastPage = Math.max(1, Math.ceil(posts.length / PAGE_SIZE))
   return Array.from({ length: Math.max(0, lastPage - 1) }, (_, index) => {
     const currentPage = index + 2

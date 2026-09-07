@@ -1,6 +1,8 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { loadArticles } from '@/lib/cms'
+import { render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
+import { marked } from 'marked'
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
 import { entrySlug } from '@/content.config'
@@ -9,7 +11,7 @@ import PostMeta from '@/components/PostMeta.astro'
 import Markdown from '@/components/misc/Markdown.astro'
 
 export async function getStaticPaths() {
-  const notes = await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft)
+  const notes = await loadArticles('en')
   return notes.map((note) => ({ params: { slug: entrySlug(note.id) }, props: { note } }))
 }
 
@@ -17,7 +19,21 @@ type Props = { note: CollectionEntry<'articles'> }
 const { note } = Astro.props
 const lang: Language = 'en'
 const ui = getUI(lang)
-const { Content, headings } = await render(note)
+
+// DB-backed entries carry raw markdown in `body` (astro:content's compiled
+// Content component is unavailable for them) — local entries keep using the
+// content pipeline. `headings` only drives the TOC for local entries.
+const isDbEntry = typeof (note as { body?: unknown }).body === 'string'
+let html = ''
+let headings: { depth: number; slug: string; text: string }[] = []
+let Content: Awaited<ReturnType<typeof render>>['Content'] | null = null
+if (isDbEntry) {
+  html = await marked.parse((note as { body: string }).body)
+} else {
+  const rendered = await render(note)
+  headings = rendered.headings ?? []
+  Content = rendered.Content
+}
 ---
 
 <MainGridLayout lang={lang} bannerEnabled={false} title={note.data.title} description={note.data.excerpt} setOGTypeArticle headings={headings}>
@@ -34,7 +50,8 @@ const { Content, headings } = await render(note)
     />
     <div class="mb-7 border-b border-dashed border-[var(--line-divider)]"></div>
     <Markdown class="markdown-content">
-      <Content />
+      {isDbEntry && <Fragment set:html={html} />}
+      {!isDbEntry && Content && <Content />}
     </Markdown>
     <div class="mt-8 border-t border-dashed border-[var(--line-divider)] pt-5">
       <a class="link text-sm font-medium" href="/posts/">{ui.notesBack}</a>

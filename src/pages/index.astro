@@ -1,11 +1,11 @@
 ---
-import { getCollection } from 'astro:content'
+import { loadArticles, loadProjects } from '@/lib/cms'
 import type { Language } from '@/i18n/ui'
 import PortfolioHome from '@/components/PortfolioHome.astro'
 
 const lang: Language = 'en'
-const projects = await getCollection('projects', ({ id }) => id.startsWith('en/'))
-const notes = (await getCollection('articles', ({ id, data }) => id.startsWith('en/') && !data.draft))
+const projects = await loadProjects('en')
+const notes = (await loadArticles('en'))
   .sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt))
 ---
 

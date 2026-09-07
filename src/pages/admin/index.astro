@@ -1,0 +1,256 @@
+---
+// Owner-only admin SPA. Static page + client-side Supabase — all
+// authorization happens server-side via RLS (is_editor/is_owner read the
+// authenticated user's app_metadata.role). This page ships no secrets:
+// it uses the publishable key only.
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin — Chinnakrit</title>
+    <style is:inline>
+      :root { color-scheme: light dark; --line: rgba(128,128,128,.35); }
+      body { font-family: ui-monospace, 'Courier Prime', monospace; margin: 2rem auto; padding: 0 1rem; max-width: 980px; }
+      h1 { font-size: 1.1rem; letter-spacing: .08em; text-transform: uppercase; }
+      section, .card { border: 1px dashed var(--line); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+      table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+      th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+      input, textarea, select { font: inherit; padding: .35rem .5rem; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: inherit; width: 100%; box-sizing: border-box; }
+      button { font: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: .35rem .8rem; background: transparent; color: inherit; }
+      button.primary { border-color: currentColor; font-weight: 700; }
+      .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+      .muted { opacity: .65; font-size: .8rem; }
+      .hidden { display: none; }
+      .err { color: #c0392b; }
+      .ok { color: #1e8e3e; }
+    </style>
+  </head>
+  <body>
+    <h1>Admin — content &amp; inbox</h1>
+    <p class="muted" id="session-info"></p>
+
+    <!-- ============ LOGIN ============ -->
+    <section id="view-login">
+      <h2 style="font-size:.95rem">Sign in</h2>
+      <form id="login-form" class="row" style="margin-top:.75rem">
+        <input type="email" id="login-email" placeholder="email" required autocomplete="username" style="max-width:280px" />
+        <input type="password" id="login-password" placeholder="password" required autocomplete="current-password" style="max-width:200px" />
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+      <p id="login-msg" class="muted" style="margin-top:.5rem"></p>
+    </section>
+
+    <!-- ============ APP ============ -->
+    <div id="view-app" class="hidden">
+      <div class="row" style="margin-bottom:1rem">
+        <button data-tab="submissions" class="primary" type="button">Submissions</button>
+        <button data-tab="projects" type="button">Projects</button>
+        <button data-tab="articles" type="button">Articles</button>
+        <span style="flex:1"></span>
+        <button id="btn-signout" type="button">Sign out</button>
+      </div>
+
+      <!-- Submissions -->
+      <div id="tab-submissions">
+        <div class="row">
+          <select id="sub-filter" style="max-width:160px">
+            <option value="">all</option>
+            <option value="new">new</option>
+            <option value="in_progress">in_progress</option>
+            <option value="resolved">resolved</option>
+            <option value="spam">spam</option>
+          </select>
+          <button id="sub-reload" type="button">Reload</button>
+        </div>
+        <table style="margin-top:.75rem">
+          <thead><tr><th>When</th><th>From</th><th>Message</th><th>Status</th><th></th></tr></thead>
+          <tbody id="sub-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Projects / Articles -->
+      <div id="tab-projects" class="hidden"></div>
+      <div id="tab-articles" class="hidden"></div>
+    </div>
+
+    <p id="global-msg" class="muted"></p>
+
+    <script>
+      import { createBrowserClient } from '@/lib/supabase'
+      import type { SupabaseClient } from '@supabase/supabase-js'
+
+      const supabase: SupabaseClient = createBrowserClient()
+      const $ = (id: string): HTMLElement => document.getElementById(id)!
+      const msg = (text: string | null | undefined, cls = ''): void => {
+        $('global-msg').textContent = text ?? ''
+        $('global-msg').className = `muted ${cls}`
+      }
+      function escapeHtml(v: unknown): string {
+        return String(v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c)
+      }
+
+      /* ---------- auth ---------- */
+      function toggle(loggedIn: boolean, email = ''): void {
+        $('view-login').classList.toggle('hidden', loggedIn)
+        $('view-app').classList.toggle('hidden', !loggedIn)
+        $('session-info').textContent = loggedIn ? `signed in as ${email}` : ''
+        if (loggedIn) void reloadSubmissions()
+      }
+      async function refreshSession(): Promise<void> {
+        const { data } = await supabase.auth.getSession()
+        const session = data.session
+        toggle(session != null, session?.user?.email ?? '')
+      }
+      ;($('login-form') as HTMLFormElement).addEventListener('submit', async (e: Event) => {
+        e.preventDefault()
+        const loginMsg = $('login-msg')
+        loginMsg.textContent = ''
+        loginMsg.className = 'muted'
+        const { error } = await supabase.auth.signInWithPassword({
+          email: ($('login-email') as HTMLInputElement).value.trim(),
+          password: ($('login-password') as HTMLInputElement).value,
+        })
+        if (error) {
+          loginMsg.textContent = error.message
+          loginMsg.className = 'err'
+          return
+        }
+        await refreshSession()
+      })
+      $('btn-signout').addEventListener('click', async () => {
+        await supabase.auth.signOut()
+        toggle(false)
+      })
+
+      /* ---------- tabs ---------- */
+      ;(document.querySelectorAll('[data-tab]') as NodeListOf<HTMLButtonElement>).forEach((btn) =>
+        btn.addEventListener('click', () => {
+          ;(document.querySelectorAll('[data-tab]') as NodeListOf<HTMLButtonElement>).forEach((b) =>
+            b.classList.toggle('primary', b === btn)
+          )
+          for (const id of ['submissions', 'projects', 'articles']) {
+            $(`tab-${id}`).classList.toggle('hidden', id !== btn.dataset.tab)
+          }
+          if (btn.dataset.tab === 'projects' || btn.dataset.tab === 'articles') void renderContent(btn.dataset.tab)
+        })
+      )
+
+      /* ---------- submissions ---------- */
+      $('sub-reload').addEventListener('click', () => void reloadSubmissions())
+      $('sub-filter').addEventListener('change', () => void reloadSubmissions())
+      async function reloadSubmissions(): Promise<void> {
+        let q = supabase.from('contact_submissions').select('*').order('created_at', { ascending: false }).limit(100)
+        const filter = ($('sub-filter') as HTMLSelectElement).value
+        if (filter) q = q.eq('status', filter)
+        const { data, error } = await q
+        if (error) return void msg(error.message, 'err')
+        const body = $('sub-body') as HTMLElement
+        body.innerHTML = ''
+        for (const s of data ?? []) {
+          const tr = document.createElement('tr')
+          tr.innerHTML = `
+            <td>${new Date(s.created_at).toLocaleString()}</td>
+            <td>${escapeHtml(s.name)}<br><span class="muted">${escapeHtml(s.email)}${s.company ? ' · ' + escapeHtml(s.company) : ''}${s.budget ? ' · ' + escapeHtml(s.budget) : ''}</span><br><span class="muted">${escapeHtml(s.locale)}</span></td>
+            <td style="max-width:340px">${escapeHtml(s.message)}</td>
+            <td>
+              <select data-id="${s.id}" class="sub-status">
+                ${['new', 'in_progress', 'resolved', 'spam'].map((v) => `<option ${v === s.status ? 'selected' : ''}>${v}</option>`).join('')}
+              </select>
+            </td>
+            <td><button type="button" data-del="${s.id}" class="sub-del">del</button></td>`
+          body.appendChild(tr)
+        }
+        ;(document.querySelectorAll('.sub-status') as NodeListOf<HTMLSelectElement>).forEach((sel) =>
+          sel.addEventListener('change', async () => {
+            const { error } = await supabase
+              .from('contact_submissions')
+              .update({ status: sel.value })
+              .eq('id', sel.dataset.id ?? '')
+            msg(error ? error.message : 'status updated', error ? 'err' : 'ok')
+          })
+        )
+        ;(document.querySelectorAll('.sub-del') as NodeListOf<HTMLButtonElement>).forEach((btn) =>
+          btn.addEventListener('click', async () => {
+            if (!confirm('Delete this submission?')) return
+            const { error } = await supabase.from('contact_submissions').delete().eq('id', btn.dataset.del ?? '')
+            msg(error ? error.message : 'deleted', error ? 'err' : 'ok')
+            void reloadSubmissions()
+          })
+        )
+      }
+
+      /* ---------- content (projects / articles) ---------- */
+      async function renderContent(kind: 'projects' | 'articles'): Promise<void> {
+        const host = $(`tab-${kind}`)
+        host.innerHTML = '<p class="muted">loading…</p>'
+        const ttable = kind === 'projects' ? 'project_translations' : 'article_translations'
+        const fk = kind === 'projects' ? 'project_id' : 'article_id'
+        const { data, error } = await supabase
+          .from(kind)
+          .select(`*, ${ttable}(*)`)
+          .order('updated_at', { ascending: false })
+        if (error) {
+          host.innerHTML = `<p class="err">${escapeHtml(error.message)}</p>`
+          return
+        }
+        host.innerHTML = ''
+        for (const row of data ?? []) {
+          const card = document.createElement('section')
+          card.className = 'card'
+          const dateLabel = kind === 'projects' ? (row.project_date ?? '') : (row.published_at?.slice(0, 10) ?? '')
+          card.innerHTML = `<div class="row"><strong>${escapeHtml(row.slug)}</strong>
+            <span class="muted">${escapeHtml(dateLabel)}</span>
+            <select class="st">
+              ${['draft', 'review', 'published', 'archived'].map((v) => `<option ${v === row.status ? 'selected' : ''}>${v}</option>`).join('')}
+            </select>
+            <span style="flex:1"></span><span class="muted">updated ${new Date(row.updated_at).toLocaleString()}</span></div>`
+          const fields: Array<[string, string]> =
+            kind === 'projects'
+              ? [['title', 'Title'], ['description', 'Description'], ['category', 'Category'], ['problem', 'Problem'], ['built', 'Built'], ['result', 'Result']]
+              : [['title', 'Title'], ['description', 'Description']]
+          for (const t of row[ttable] ?? []) {
+            const form = document.createElement('form')
+            form.className = 'tr-form'
+            form.style.marginTop = '.5rem'
+            form.innerHTML = `
+              <div class="row"><span class="muted">${escapeHtml(t.locale)}</span><span style="flex:1"></span>
+                <button type="submit">save</button></div>
+              ${fields.map(([k, label]) => `<label class="row" style="margin-top:.3rem"><span class="muted" style="width:90px">${label}</span>
+                <input name="${k}" value="${escapeHtml(t[k] ?? '')}"/></label>`).join('')}
+              ${kind === 'articles' ? `<label class="row" style="margin-top:.3rem"><span class="muted" style="width:90px">Body</span>
+                <textarea name="body_markdown" rows="6">${escapeHtml(t.body_markdown ?? '')}</textarea></label>` : ''}`
+            form.addEventListener('submit', async (e: Event) => {
+              e.preventDefault()
+              const fd = new FormData(form)
+              const patch: Record<string, unknown> = { locale: t.locale }
+              for (const [k] of fields) patch[k] = fd.get(k)
+              if (kind === 'articles') patch.body_markdown = fd.get('body_markdown')
+              const { error: updateError } = await supabase
+                .from(ttable)
+                .update(patch)
+                .eq(fk, row.id)
+                .eq('locale', t.locale)
+              msg(updateError ? updateError.message : `${row.slug}/${t.locale} saved`, updateError ? 'err' : 'ok')
+            })
+            card.appendChild(form)
+          }
+          const statusSel = card.querySelector('.st') as HTMLSelectElement
+          statusSel.addEventListener('change', async () => {
+            const { error: statusError } = await supabase
+              .from(kind)
+              .update({ status: statusSel.value })
+              .eq('id', row.id)
+            msg(statusError ? statusError.message : `${row.slug} → ${statusSel.value}`, statusError ? 'err' : 'ok')
+          })
+          host.appendChild(card)
+        }
+        if ((data ?? []).length === 0) host.innerHTML = '<p class="muted">no rows</p>'
+      }
+
+      void refreshSession()
+    </script>
+  </body>
+</html>

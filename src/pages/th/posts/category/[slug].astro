@@ -1,12 +1,12 @@
 ---
-import { getCollection } from 'astro:content'
+import { loadArticles } from '@/lib/cms'
 import type { Language } from '@/i18n/ui'
 import { filterSlug } from '@/utils/url-utils'
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
 import PostsIndex from '@/components/PostsIndex.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('articles', ({ id, data }) => id.startsWith('th/') && !data.draft)
+  const posts = await loadArticles('th')
   const categories = [...new Set(posts.map((post) => post.data.category.trim()).filter(Boolean))]
   return categories.map((category) => ({ params: { slug: filterSlug(category) }, props: { category, posts: posts.filter((post) => post.data.category.trim() === category).sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt)) } }))
 }

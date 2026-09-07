@@ -1,0 +1,10 @@
+---
+import { loadProjects } from '@/lib/cms'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import Work from '@/components/home/Work.astro'
+import { entrySlug } from '@/content.config'
+const projects = (await loadProjects('en')).map((entry) => ({ slug: entrySlug(entry.id), ...entry.data }))
+---
+<MainGridLayout lang="en" bannerEnabled={false} title="Work - Chinnakrit" description="Selected systems and project case studies by Chinnakrit.">
+  <div class="card-base overflow-hidden"><Work lang="en" projects={projects} /></div>
+</MainGridLayout>

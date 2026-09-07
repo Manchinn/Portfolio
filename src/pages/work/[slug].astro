@@ -1,0 +1,19 @@
+---
+import { loadProjects } from '@/lib/cms'
+import { entrySlug } from '@/content.config'
+import MainGridLayout from '@/layouts/MainGridLayout.astro'
+export async function getStaticPaths() {
+  const projects = await loadProjects('en')
+  return projects.map((project) => ({ params: { slug: entrySlug(project.id) }, props: { project } }))
+}
+const { project } = Astro.props
+---
+<MainGridLayout lang="en" bannerEnabled={false} title={`${project.data.title} - Work`} description={project.data.description}>
+  <article class="card-base px-6 py-7 md:px-9 md:py-9">
+    <p class="eyebrow">{project.data.category}</p>
+    <h1 class="display mt-3 text-3xl text-ink md:text-5xl">{project.data.title}</h1>
+    <p class="mt-5 text-lg leading-relaxed text-muted">{project.data.description}</p>
+    {project.data.caseStudy && <dl class="mt-8 grid gap-5 border-t border-dashed border-line pt-6 md:grid-cols-3">{Object.entries(project.data.caseStudy).map(([key, value]) => <div><dt class="eyebrow text-accent">{key}</dt><dd class="mt-2 text-muted">{value}</dd></div>)}</dl>}
+    <a class="link mt-8 inline-block" href="/work/">Back to work</a>
+  </article>
+</MainGridLayout>
