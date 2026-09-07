@@ -13,17 +13,18 @@ Format follows a lightweight Keep a Changelog style.
 - Real Fuwari template shell across home, notes archive, and localized note detail routes: banner, navbar, profile/sidebar widgets, categories/tags, post cards, TOC, theme controls, dark mode, and back-to-top.
 - Fuwari configuration adapter in `src/config.ts`, `src/layouts/`, and the shared components under `src/components/`.
 - `LICENSE-FUWARI` preserving the upstream Fuwari MIT attribution.
-- Localized static notes/runbook routes at `/notes/` and `/th/notes/`, backed by curated Markdown content collections.
+- Localized static notes/runbook routes at `/posts/` and `/th/posts/`, backed by curated Markdown content collections.
 - First bilingual ZCode runbook covering bounded tasks, review-before-approval, preview verification, and release-sensitive details.
 
 ### Changed
-- Adapted the portfolio hero, Work, Capabilities, and content collections to render inside the Fuwari grid while preserving EN/TH parity.
+- Restored `/work/` + `/th/work/` index and `/work/[slug]/` + `/th/work/[slug]/` detail routes in the shared Fuwari shell (Fuwari-style index cards, Problem → Built → Result detail, banner parallax); text-contrast and locale fixes from QA.
+- Bound the Tailwind `dark:` variant to the site theme toggle (`.dark` on `<html>`), not the OS `prefers-color-scheme`.
 - Added scroll-aware Fuwari banner, navbar, TOC, and back-to-top behavior; theme and hue controls persist locally in the browser.
 - Applied Lenis and GSAP ScrollTrigger globally through `BaseLayout`; Notes routes now support reveal groups and smooth hash navigation.
 
 ### Removed
 - Removed the temporary upstream clone and unused Fuwari adapter leftovers after migration.
-- Product routes `/saas`, `/work/[slug]` (including student-logbook proof page), and `/work-with-me`.
+- Product routes `/saas` (including student-logbook proof page) and `/work-with-me`.
 - Local project-brief intake workflow and public inquiry CTAs from the homepage.
 - Remaining `docs/superpowers/**` historical specs/plans from the working tree (recoverable via git history).
 - Personal interview prep note that was never part of the product.

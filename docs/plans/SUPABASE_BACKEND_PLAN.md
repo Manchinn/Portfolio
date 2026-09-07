@@ -84,7 +84,7 @@ If the first build integration runs in CI with a server-only key, keep that key 
 3. Move the record to `review` for a content check.
 4. An owner publishes it. The publish transaction sets `published_at` and `updated_at`.
 5. Supabase sends a webhook or the admin calls a Vercel/GitHub deploy hook.
-6. The Astro build fetches published records, generates `/notes/`, `/th/notes/`, and the project pages, then deploys the static output.
+6. The Astro build fetches published records, generates `/posts/`, `/th/posts/`, `/work/`, `/th/work/`, and the detail pages, then deploys the static output.
 7. A failed build leaves the previous deployment live and reports the failure to the owner.
 
 The public site should not depend on a live Supabase request after deployment. A database outage must not take down already-published pages.

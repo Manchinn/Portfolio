@@ -9,7 +9,7 @@ Static-first personal site with bilingual English and Thai notes, runbooks, and 
 - Astro content collections (projects + articles, per locale) with a Supabase-backed CMS: published content is read at build time, edited via the owner-only `/admin` SPA, and published changes rebuild the site automatically
 - Built-in i18n routing (`en` at `/`, `th` at `/th/`)
 - Tailwind CSS 4 (`@tailwindcss/vite`)
-- Astro Svelte integration for the search control
+- Astro Svelte + React islands (search control, theme/menu controls)
 - TypeScript and `astro-icon`
 - `@astrojs/sitemap` — deployed on Vercel from `master`
 
@@ -22,6 +22,11 @@ The public site is fully static. Supabase supplies build-time content reads (pub
 - `/posts/` — English notes and runbook index
 - `/th/posts/` — Thai notes and runbook index
 - `/posts/[slug]/` and `/th/posts/[slug]/` — localized static note pages
+- `/work/` and `/th/work/` — localized project index (Fuwari style)
+- `/work/[slug]/` and `/th/work/[slug]/` — localized static project detail pages
+- `/about/` and `/th/about/` — localized about pages
+- `/archive/` and `/th/archive/` — localized archive pages
+- `/admin/` — owner-only SPA (content editing + submissions inbox, `noindex`)
 
 ## Architecture
 
@@ -67,4 +72,4 @@ npm run preview      # serve dist locally
 
 - Keep English and Thai user-facing content in sync.
 - Keep public copy free of credentials, private URLs, personal data, and internal operational details.
-- Do not add a contact, lead-capture, or project-intake path without explicit product approval.
+- The minimal contact form + `/admin` inbox already exist by design; do not expand them into analytics, visitor profiles, or tracking — and do not add another contact, lead-capture, or project-intake path without explicit product approval.

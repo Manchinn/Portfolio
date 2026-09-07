@@ -15,7 +15,7 @@ The real Fuwari template supplies the shared banner, navbar, profile sidebar, ca
 _Avoid_: Creating a second page shell or reintroducing the retired soft-pixel/Product Studio systems unless explicitly approved.
 
 **Homepage Case Summary**:
-Selected work is intended as in-page problem / built / result proof. The Work section renders each project as a flat non-navigational row: a duotone figure placeholder, the story (category, title, description, Problem → Built → Result), and a system readout (`REF / TECH / CASE`); a dashed empty-state block appears only when no records exist.
+Selected work appears twice: as an in-page problem / built / result proof on the home route, and as a Fuwari-style archive with localized index + detail routes (`/work/`, `/th/work/`, `/work/[slug]/`, `/th/work/[slug]/`).
 _Avoid_: Vague claims, private production data, implying demos are live backends.
 
 **Global Portfolio Shell**:
@@ -27,20 +27,21 @@ Astro i18n: `en` renders at `/` (default, no prefix), `th` at `/th/`. Content co
 _Avoid_: Declaring a `slug` field in content frontmatter (Astro reserves it); locale-dependent slugs without canonical mapping.
 
 **Contact Surface**:
-The current homepage does not expose a contact or project-intake flow.
-_Avoid_: Adding lead capture, in-app form storage, or `mailto:` assumptions without explicit product approval.
+The homepage exposes one minimal contact form (`src/components/home/Contact.astro` → `submit-contact` Edge Function → `contact_submissions` → `/admin` inbox).
+_Avoid_: Expanding it into lead capture, analytics, visitor profiles, tracking, or `mailto:` assumptions without explicit product approval.
 
 **Content Ownership**:
 | Concern | Owner |
 |---------|--------|
-| Projects, articles (entities) | `src/content/projects/`, `src/content/articles/` (content collections) |
+| Projects, articles (entities) | `src/content/projects/`, `src/content/articles/` (content collections; published rows also readable from Supabase at build time via `src/lib/cms.ts`) |
 | Chrome + marketing copy (EN/TH) | `src/i18n/ui.ts` |
 | Design tokens | `src/styles/global.css` |
+| Published content backend | Supabase Postgres (RLS-guarded, publishable key only) + deploy-hook auto-rebuild; `/admin` SPA for editing, `submit-contact` Edge Function for the inbox |
 
 **Portfolio Journey Navigation**:
-Home, Work, Notes, and Capabilities. Work and Capabilities target homepage sections, while Notes links to the localized notes index. Fuwari archive/detail controls remain available on note routes.
+Home, Work, Notes, Capabilities, and Contact. Work targets `/work/` (plus homepage section), Notes links to the localized `/posts/` index, Capabilities and Contact target homepage sections. Fuwari archive/detail controls remain available on post and work routes.
 _Avoid_: Timeline nav without a timeline section, restored `/work-with-me` without product approval.
 
 **Retired Routes**:
-`/saas`, `/work/[slug]`, and `/work-with-me` were removed from the product surface. The old Next.js article route is also retired for now.
+`/saas` and `/work-with-me` were removed from the product surface. The old Next.js article route is also retired for now. (`/work/` + `/work/[slug]/` and their `/th/` counterparts are active again — do not remove them.)
 _Avoid_: Rebuilding them from memory or historical docs without explicit user request.

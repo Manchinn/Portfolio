@@ -4,7 +4,7 @@
 
 ## Product
 
-A static-first, bilingual (EN/TH) personal site for curated notes, runbooks, and project records. Every public route uses the real Fuwari Astro template shell: banner, navbar, profile sidebar, categories/tags, post cards, TOC, theme controls, and back-to-top. Portfolio-specific hero, Work, and Capabilities content is adapted into that shell. No contact or project-intake flow is currently exposed.
+A static-first, bilingual (EN/TH) personal site for curated notes, runbooks, and project records. Every public route uses the real Fuwari Astro template shell: banner, navbar, profile sidebar, categories/tags, post cards, TOC, theme controls, and back-to-top. Portfolio-specific hero, Work, and Capabilities content is adapted into that shell. Published content is read from Supabase Postgres at build time (edited via the owner-only `/admin` SPA, auto-rebuild on publish); a minimal contact form posts to the `submit-contact` Edge Function with an owner-only inbox. No analytics or visitor tracking.
 
 ## Users
 
@@ -17,10 +17,11 @@ A static-first, bilingual (EN/TH) personal site for curated notes, runbooks, and
 ```text
 Landing page
   -> read notes and runbooks
-  -> review selected work and capabilities as they are published
+  -> review selected work (index + detail) and capabilities as they are published
+  -> contact via the minimal form (owner-only inbox)
 ```
 
-There is no separate work-detail route, article route, local brief builder, or `/saas` product page in the current build. Notes use the Fuwari post-card and Markdown detail surfaces.
+There is no separate local brief builder or `/saas` product page in the current build. Notes use the Fuwari post-card and Markdown detail surfaces; work uses a Fuwari-style index plus localized detail routes.
 
 ## Product Purpose
 
@@ -30,22 +31,30 @@ The site records learning, experiments, and reviewed project details in a public
 
 | Route | Role |
 |-------|------|
-| `/` | English one-page home (notes-first hero, work, capabilities) |
+| `/` | English one-page home (notes-first hero, work, capabilities, contact) |
 | `/th/` | Thai one-page portfolio |
-| `/notes/` | English notes and runbook index |
-| `/th/notes/` | Thai notes and runbook index |
-| `/notes/[slug]/` | English static note detail |
-| `/th/notes/[slug]/` | Thai static note detail |
+| `/posts/` | English notes and runbook index |
+| `/th/posts/` | Thai notes and runbook index |
+| `/posts/[slug]/` | English static note detail |
+| `/th/posts/[slug]/` | Thai static note detail |
+| `/work/` | English project index (Fuwari style) |
+| `/th/work/` | Thai project index |
+| `/work/[slug]/` | English static project detail |
+| `/th/work/[slug]/` | Thai static project detail |
+| `/about/`, `/th/about/` | Localized about pages |
+| `/archive/`, `/th/archive/` | Localized archive pages |
+| `/admin/` | Owner-only SPA (content editing + submissions inbox, `noindex`) |
 | `/sitemap-index.xml` | Static sitemap |
 
-**Retired (do not restore without explicit product approval):** `/saas`, `/work/[slug]`, `/work-with-me`, and the old Next.js `/article/[slug]`.
+**Retired (do not restore without explicit product approval):** `/saas`, `/work-with-me`, and the old Next.js `/article/[slug]`.
 
 ## Current Content Contract
 
 - English and Thai are the only supported languages, via Astro i18n routing (`/` and `/th/`).
 - Project and note entities live in content collections (`src/content/projects/{en,th}/`, `src/content/articles/{en,th}/`); both collections hold mirrored EN/TH records, and notes are curated from private working material before publication.
+- At build time, published content is read from Supabase Postgres (`src/lib/cms.ts`, publishable key only, RLS-guarded) with a fallback to local collections; editing happens in `/admin`, and publish/unpublish auto-rebuilds production via the deploy-hook trigger.
 - Chrome + marketing copy lives in `src/i18n/ui.ts`.
-- No contact or project-intake flow is exposed in the current build.
+- The only contact path is the minimal form (`submit-contact` Edge Function → `contact_submissions` → `/admin` inbox). Do not expand it into analytics, visitor profiles, or tracking without explicit product approval.
 - Public copy stays anonymized and must not expose credentials, private URLs, personal contact data, or nonpublic infrastructure details.
 
 ## Brand Personality
@@ -67,9 +76,9 @@ Fuwari theme: responsive banner and main grid, rounded content surfaces, profile
 
 ## Non-goals
 
-- No admin panel, CMS, runtime portfolio API, database, analytics write, or server-side lead storage.
-- No `/saas`, `/work/[slug]`, or `/work-with-me` product surfaces unless explicitly restored.
-- No contact, lead-capture, or project-intake path unless product scope reopens it.
+- No runtime portfolio API, analytics write, or server-side lead storage beyond the existing minimal contact intake.
+- No `/saas` or `/work-with-me` product surfaces unless explicitly restored.
+- No new contact, lead-capture, or project-intake path beyond the existing minimal form unless product scope reopens it.
 - No generic AI product claims that are not demonstrated by the current public work.
 - No private contact details or operational internals in source-controlled public copy.
 

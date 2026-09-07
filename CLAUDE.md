@@ -63,8 +63,8 @@ vercel.json                         Vercel Astro framework + build/output
 ## Route and Data Flow
 
 - `/` renders the English home; `/th/` renders the Thai home.
-- The `Work` section renders project records from the `projects` collection and shows a graceful empty state while it is empty.
-- `/notes/` and `/th/notes/` list curated notes; localized `/notes/[slug]/` detail routes are generated from the articles collection.
+- The `Work` section renders populated project records from the `projects` collection; `/work/` + `/th/work/` index and `/work/[slug]/` + `/th/work/[slug]/` detail routes share the Fuwari shell.
+- `/posts/` and `/th/posts/` list curated notes; localized `/posts/[slug]/` detail routes are generated from the articles collection.
 - `/admin/` is the owner-only SPA: contact-submissions inbox plus projects/articles editing (translations and status transitions). Authorization is enforced server-side by RLS functions `is_editor()`/`is_owner()` reading `auth.jwt() -> 'app_metadata' ->> 'role'`.
 - The contact form posts to the `submit-contact` Edge Function; submissions land in `contact_submissions` (anon can insert `status='new'` only; editors read/update; owner deletes).
 - Publishing requires both EN and TH translations (database-enforced); publish/archive actions are owner-only.
@@ -72,7 +72,7 @@ vercel.json                         Vercel Astro framework + build/output
 
 ## Configuration
 
-- `astro.config.mjs` sets `output: 'static'`, `site: 'https://www.chinnakrit.dev'`, i18n routing with `prefixDefaultLocale: false`, and integrates React, sitemap, and Tailwind v4.
+- `astro.config.mjs` sets `output: 'static'`, `site: 'https://www.chinnakrit.dev'`, i18n routing with `prefixDefaultLocale: false`, and integrates React, Svelte, sitemap, and Tailwind v4.
 - `vercel.json` pins the Vercel framework to `astro` with `npm run build` and `dist` output.
 - No application runtime environment variables. The Supabase publishable key is hardcoded in `src/lib/supabase.ts` by design (public by nature; RLS is the guard).
 

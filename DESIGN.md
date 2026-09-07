@@ -76,8 +76,10 @@ voice used by the portfolio identity.
   Fuwari shell.
 - `PostCard.astro` is the shared archive/home note card and includes title,
   metadata, tags, excerpt, word count, and reading time.
-- `Work.astro` keeps the portfolio-specific Problem -> Built -> Result case
+- `Work.astro` keeps the homepage portfolio-specific Problem -> Built -> Result case
   study and `REF / TECH / CASE` readout for each project record.
+- The work index/detail routes (`/work/`, `/th/work/`, `/work/[slug]/`, `/th/work/[slug]/`) share the same Fuwari shell (navbar/banner/sidebar/footer/TOC/theme); the index uses Fuwari-style cards and the detail keeps the Problem → Built → Result case-study inside that shell.
+- The `dark:` Tailwind variant is bound to the site theme toggle (`.dark` on `<html>`), not the OS `prefers-color-scheme`; the banner has a scroll parallax treatment via `ScrollMotion.astro`.
 - `Markdown.astro` and `markdown.css` provide the note detail reading surface.
 - English and Thai entries use matching ids/slugs and are filtered at build
   time so drafts never become public pages.
@@ -102,11 +104,12 @@ mobile widths for text fit and horizontal overflow.
 ## 8. Guardrails
 
 - Preserve EN/TH parity for user-facing copy and content records.
-- Keep the site static-first; no backend, runtime storage, or runtime secret.
+- Keep the public site static-first: no SSR, no runtime secrets, no new runtime data store. The approved exceptions are the Supabase build-time content reads (publishable key only, RLS-guarded), the owner-only `/admin` SPA, the `submit-contact` Edge Function, and the deploy-hook auto-rebuild — do not expand beyond these without explicit approval.
 - Do not publish credentials, private URLs, personal contact data, or internal
   operational details.
 - Keep every public route inside `MainGridLayout.astro` so the Fuwari shell is
   consistent.
-- Do not restore `/saas`, `/work/[slug]`, `/work-with-me`, or the old
-  `/article/[slug]` route without explicit product approval.
+- Do not restore `/saas`, `/work-with-me`, or the old
+  `/article/[slug]` route without explicit product approval. (`/work/` and
+  `/work/[slug]/` plus their `/th/` counterparts are active by design.)
 - Keep the Fuwari MIT attribution in `LICENSE-FUWARI`.
