@@ -1,6 +1,10 @@
 @reference 'tailwindcss';
 
 .custom-md {
+    /* Match the site's reading ink (prose default is a mid-gray that reads
+       washed out in light mode); --color-ink flips correctly in dark mode. */
+    color: var(--color-ink);
+
     h1 {
         @apply text-3xl;
     }

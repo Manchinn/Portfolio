@@ -409,6 +409,9 @@ details[open] .notes-toc-summary > span:last-child {
 :root.dark {
   --color-ink: #c4edf9;
   --color-muted: #a9c9d5;
+  /* Light-mode --primary (#00919b) is only 4.4:1 on dark cards (fails AA for
+     normal text) — brighten it here so links/eyebrows/chips stay readable. */
+  --primary: oklch(0.78 0.11 var(--hue));
   --page-bg: oklch(0.16 0.014 var(--hue));
   --card-bg: oklch(0.23 0.015 var(--hue));
   --btn-content: oklch(0.75 0.1 var(--hue));

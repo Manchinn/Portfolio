@@ -35,7 +35,7 @@ const caseStudy = project.data.caseStudy
       <div class="space-y-6">
         {([['problem', caseStudy.problem], ['built', caseStudy.built], ['result', caseStudy.result]] as const).map(([key, value]) => value && (
           <section>
-            <h2 class="eyebrow text-accent">{ui.workCaseStudy[key]}</h2>
+            <h2 class="eyebrow !text-[var(--primary)]">{ui.workCaseStudy[key]}</h2>
             <Markdown class="mt-2 text-muted">{value}</Markdown>
           </section>
         ))}
