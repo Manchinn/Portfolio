@@ -6,8 +6,6 @@ import { entrySlug } from '@/content.config'
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
 import PostCard from '@/components/PostCard.astro'
 import Work from '@/components/home/Work.astro'
-import Capabilities from '@/components/home/Capabilities.astro'
-import Contact from '@/components/home/Contact.astro'
 
 interface Props {
   lang: Language
@@ -74,10 +72,4 @@ const projectData = projects.map((entry) => ({
   <div class="mb-4 overflow-hidden">
     <Work lang={lang} projects={projectData} />
   </div>
-
-  <div class="overflow-hidden">
-    <Capabilities lang={lang} />
-  </div>
-
-  <Contact lang={lang} />
 </MainGridLayout>

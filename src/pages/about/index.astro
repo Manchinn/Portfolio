@@ -2,6 +2,7 @@
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import Capabilities from '@/components/home/Capabilities.astro'
 const lang: Language = 'en'
 const ui = getUI(lang)
 ---
@@ -15,4 +16,7 @@ const ui = getUI(lang)
       <p>The site is bilingual, static-first, and intentionally small. The public record stays focused on reproducible work and lessons learned.</p>
     </div>
   </article>
+  <div class="mt-4">
+    <Capabilities lang={lang} />
+  </div>
 </MainGridLayout>

@@ -2,6 +2,7 @@
 import type { Language } from '@/i18n/ui'
 import { getUI } from '@/i18n/ui'
 import MainGridLayout from '@/layouts/MainGridLayout.astro'
+import Capabilities from '@/components/home/Capabilities.astro'
 const lang: Language = 'th'
 const ui = getUI(lang)
 ---
@@ -15,4 +16,7 @@ const ui = getUI(lang)
       <p>เว็บไซต์นี้รองรับสองภาษา ใช้สถาปัตยกรรมแบบ static-first และตั้งใจให้มีขนาดเล็ก เนื้อหาสาธารณะจึงเน้นงานที่ทำซ้ำได้และบทเรียนที่นำไปใช้ต่อได้</p>
     </div>
   </article>
+  <div class="mt-4">
+    <Capabilities lang={lang} />
+  </div>
 </MainGridLayout>
