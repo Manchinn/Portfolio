@@ -79,7 +79,14 @@
         @apply absolute top-1/2 left-1/2 transition -translate-x-1/2 -translate-y-1/2 w-4 h-4 fill-white pointer-events-none;
     }
     .copy-btn .copy-icon {
-        @apply opacity-100 fill-white dark:fill-white/75;
+        @apply opacity-100 fill-white;
+    }
+
+    /* Plain-CSS dark rule: markdown.css compiles in a separate Tailwind
+       context (@reference) that cannot see the parent's @custom-variant, so
+       `dark:` utilities here would follow the OS instead of the site theme. */
+    .dark & .copy-icon {
+        fill: rgb(255 255 255 / 0.75);
     }
     .copy-btn.success .copy-icon {
         @apply opacity-0 fill-[var(--deep-text)]

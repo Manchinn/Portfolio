@@ -11,6 +11,13 @@
 @source '../../src';
 @import './markdown.css';
 
+/* The theme toggle sets a .dark class on <html> (Fuwari behavior). Without
+ * this, Tailwind's `dark:` utilities follow the OS preference instead, so a
+ * dark-OS + light-site combination rendered inverted prose text on white
+ * cards (near-invisible headings). This binds every `dark:` utility to the
+ * same class the toggle controls. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-bg: #ffffff;
   --color-surface: #ffffff;
