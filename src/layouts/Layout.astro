@@ -8,12 +8,13 @@ import {
 } from '../constants/constants'
 
 interface Props {
-  title?: string
-  banner?: string
-  bannerEnabled?: boolean
-  description?: string
-  lang?: string
-  setOGTypeArticle?: boolean
+  title?: string;
+  banner?: string;
+  bannerEnabled?: boolean;
+  description?: string;
+  lang?: string;
+  setOGTypeArticle?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   description,
   lang = 'en',
   setOGTypeArticle = false,
+  noindex = false,
 } = Astro.props
 const normalizedPath = Astro.url.pathname.replace(/\/+$/, '') || '/'
 const isHomePage = normalizedPath === '/' || normalizedPath === '/th'
@@ -41,6 +43,7 @@ const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'cente
   description={description}
   ogType={setOGTypeArticle ? 'article' : 'website'}
   bodyClass={bodyClass}
+  noindex={noindex}
 >
   <slot />
 </BaseLayout>
